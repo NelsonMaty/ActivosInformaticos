@@ -8,12 +8,15 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <link rel="stylesheet" href="styles/login.css"
+    <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="styles/win.css">
+    <link rel="stylesheet" href="styles/admin.scss">
   </head>
   <body ng-app="activosInformaticosApp">
     <!--[if lte IE 8]>
@@ -23,8 +26,8 @@
     <!-- Add your site or application content here -->
     
 
-    <div class="container">
-    <div ng-view=""></div>
+    <!--div class="container"-->
+    <div ng-view="" style="height: 100%;"> 
     </div>
      
 
@@ -35,6 +38,8 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -43,6 +48,8 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/win.js"></script>
+        <!--script src="scripts/controllers/admin.js"></script-->
 
         <!-- endbuild -->
 </body>

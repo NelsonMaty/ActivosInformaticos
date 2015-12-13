@@ -12,6 +12,7 @@ angular
   .module('activosInformaticosApp', [
     'ngAnimate',
     'ngResource',
+    'ngMaterial',
     'ngRoute'
   ])
   .config(function ($routeProvider) {
@@ -20,6 +21,16 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
         controllerAs: 'login'
+      })
+      /*.when('/admin', {
+        templateUrl: 'views/admin.html',
+        controller: 'AppCtrl', 
+        controllerAs: 'admin'
+      })*/
+      .when('/win', {
+        templateUrl: 'views/win.html',
+        controller: 'AppController',
+        controllerAs: 'win'
       })
       .when('/main', {
         templateUrl: 'views/main.html',
