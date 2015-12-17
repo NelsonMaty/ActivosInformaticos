@@ -7,7 +7,7 @@ angular.module('activosInformaticosApp')
     	//$mdSidenav(menuId).toggle();
     };
     
-    $scope.activeTab;
+    /*$scope.activeTab;
 
     $scope.makeShift=function(e){
     	this.activeTab=e;
@@ -17,7 +17,7 @@ angular.module('activosInformaticosApp')
     	if(f==this.activeTab){
       		return true
     	}
-  	}
+  	}*/
   });
 
   /*.controller('shift_tabs', function($scope){

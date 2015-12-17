@@ -3,17 +3,38 @@
 <div layout="column" style=" height: 100%;">
   <md-toolbar layout="row"-->
     <div class="md-toolbar-tools">
-      <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
+      <!--md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
+        
         <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg">
         </md-icon>
+      </md-button-->
+      <md-button class="md-icon-button" aria-label="Menu">
+          <md-icon md-font-set="material-icons">menu</md-icon>
       </md-button>
-      <h1>Angular Material: &nbsp; Starter CodePen </h1>
+
+      <h1>Activos Informaticos &nbsp; </h1>
+      <!--div class="main-wrapper">
+          
+          <i class="material-icons">settings</i>
+          <i class="material-icons">search</i>
+          <i class="material-icons">add</i>
+      </div-->
+
+      
+      <span flex=""></span>
+      <md-button class="md-icon-button" aria-label="Busqueda">
+        <md-icon md-font-set="material-icons">search</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" aria-label="Opciones">
+        <md-icon md-font-set="material-icons">settings</md-icon>
+      </md-button>
+
     </div>
   </md-toolbar>
   <div layout="row" flex>
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
-      <md-button class="md-accent">Button 1</md-button>
-      <md-button class="md-accent">Button 2</md-button>
+      <md-button class="md-accent">Mis activos</md-button>
+      <md-button class="md-accent">Compartidos</md-button>
     </md-sidenav>
     <div layout="column" flex id="content">
       <md-content layout="column" flex class="md-padding">
@@ -22,7 +43,7 @@
 
         <!--div class='outer' ng-app='tabs'>
           <div class='tabs' ng-controller='shift_tabs as shift'-->
-        <div class='tab-buttons' ng-init='makeShift(1)'>
+        <!--div class='tab-buttons' ng-init='makeShift(1)'>
           <button ng-click='makeShift(1)' ng-class='{active:isActive(1)}'>Tab 1</button>
           <button ng-click='makeShift(2)' ng-class='{active:isActive(2)}'>Tab 2</button>
           <button ng-click='makeShift(3)' ng-class='{active:isActive(3)}'>Tab 3</button>
@@ -31,12 +52,39 @@
           <div ng-show='isActive(1)'>Content 1</div>
           <div ng-show='isActive(2)'>Content 2</div>
           <div ng-show='isActive(3)'>Content 3</div>
-        </div>
+        </div-->
           <!--/div-->
         <!--/div-->
 
+        
+          <md-content>
+            <md-tabs md-dynamic-height="" md-border-bottom="">
+              <md-tab label="Todos">
+                <md-content class="md-padding">
+                  <h1 class="md-display-2">Todos los activos</h1>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+                </md-content>
+              </md-tab>
+              <md-tab label="Relaciones">
+                <md-content class="md-padding">
+                  <h1 class="md-display-2">Relaciones</h1>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+                  <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+                  <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                </md-content>
+              </md-tab>
+              <md-tab label="Mapa">
+                <md-content class="md-padding">
+                  <h1 class="md-display-2">Mapa</h1>
+                  <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                </md-content>
+              </md-tab>
+            </md-tabs>
+          </md-content>
+        </div>
+
       </md-content>
-    </div>
+    
   </div>
   <!-- Angular Material Dependencies -->
 
