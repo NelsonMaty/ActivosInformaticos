@@ -6,17 +6,13 @@
         <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg">
         </md-icon>
       </md-button-->
+      
+
+      <h1>Activos Informaticos &nbsp; </h1>
       <md-button class="md-icon-button" aria-label="Menu">
           <md-icon md-font-set="material-icons">menu</md-icon>
       </md-button>
-
-      <h1>Activos Informaticos &nbsp; </h1>
-      <!--div class="main-wrapper">
-          
-          <i class="material-icons">settings</i>
-          <i class="material-icons">search</i>
-          <i class="material-icons">add</i>
-      </div-->
+      
 
       
       <span flex=""></span>
@@ -57,36 +53,34 @@
   </md-toolbar>
   <div layout="row" flex>
     <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
-      <md-button class="md-accent">Mis activos</md-button>
-      <md-button class="md-accent">Compartidos</md-button>
+      <md-button class="md-accent">Usuarios</md-button>
+      <md-button class="md-accent">Grupos</md-button>
+      <md-button class="md-accent">Activos</md-button>
+
     </md-sidenav>
+
     <div layout="column" flex id="content">
       <md-content layout="column" flex class="md-padding">
         <!--This Starter Application consists of a Toolbar, SideNav (with two buttons), and Content area.
         <p>Acá van las pestañas! </p-->
 
-        <!--div class='outer' ng-app='tabs'>
-          <div class='tabs' ng-controller='shift_tabs as shift'-->
-        <!--div class='tab-buttons' ng-init='makeShift(1)'>
-          <button ng-click='makeShift(1)' ng-class='{active:isActive(1)}'>Tab 1</button>
-          <button ng-click='makeShift(2)' ng-class='{active:isActive(2)}'>Tab 2</button>
-          <button ng-click='makeShift(3)' ng-class='{active:isActive(3)}'>Tab 3</button>
-        </div>
-        <div class='tab-content'>
-          <div ng-show='isActive(1)'>Content 1</div>
-          <div ng-show='isActive(2)'>Content 2</div>
-          <div ng-show='isActive(3)'>Content 3</div>
-        </div-->
-          <!--/div-->
-        <!--/div-->
-
         
           <md-content>
             <md-tabs md-dynamic-height="" md-border-bottom="">
-              <md-tab label="Todos">
+              <md-tab label="Usuarios">
                 <md-content class="md-padding">
-                  <h1 class="md-display-2">Todos los activos</h1>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+                  <h1 class="md-display-2">Usuarios</h1>
+                  
+                  <md-list ng-controller="ListCtrl" ng-cloak>
+                    <md-subheader class="md-no-sticky">Lista de usuarios</md-subheader>
+                    <md-list-item ng-repeat="person in people" ng-click="goToPerson(person.name, $event)">
+                      <img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" />
+                      <p>{{ person.name }}</p>
+                      <md-icon md-svg-icon="communication:messenger" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}"></md-icon>
+                    </md-list-item>
+                  </md-list>
+
+
                 </md-content>
               </md-tab>
               <md-tab label="Relaciones">
