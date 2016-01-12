@@ -27,30 +27,23 @@
       </md-button>
 
       <md-menu>
-        <md-button class="md-icon-button" aria-label="Opciones" ng-click="ctrl.openMenu($mdOpenMenu, $event)">
+        <md-button class="md-icon-button" aria-label="Opciones" ng-click="openMenu($mdOpenMenu, $event)">
           <md-icon md-menu-origin="" md-font-set="material-icons">settings</md-icon>
         </md-button>
      
-        <md-menu-content width="4">
+        <md-menu-content width="2">
           <md-menu-item>
-            <md-button ng-click="ctrl.redial($event)">
-              <md-icon md-svg-icon="call:dialpad" md-menu-align-target=""></md-icon>
-              Redial
+            <md-button >
+              <md-icon md-font-set="material-icons" md-menu-align-target="">redial</md-icon>
             </md-button>
           </md-menu-item>
           <md-menu-item>
-            <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
-              <md-icon md-svg-icon="call:voicemail"></md-icon>
+            <md-button disabled="disabled" >
+              <md-icon md-font-set="material-icons">voicemail</md-icon>
               Check voicemail
             </md-button>
           </md-menu-item>
-          <md-menu-divider></md-menu-divider>
-          <md-menu-item>
-            <md-button ng-click="ctrl.toggleNotifications()">
-              <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
-              {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
-            </md-button>
-          </md-menu-item>
+          
         </md-menu-content>  
 
         

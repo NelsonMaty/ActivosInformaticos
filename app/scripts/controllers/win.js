@@ -1,24 +1,24 @@
 
 angular.module('activosInformaticosApp')
-  .controller('AppController', function ($scope) {
+  .controller('AppController', function ($scope, $mdDialog) {
     //var vm = this;
     
     $scope.toggleSidenav = function(menuId) {
     	//$mdSidenav(menuId).toggle();
     };
     
+    $scope.openMenu = function($mdOpenMenu, ev) {
+      originatorEv = ev;
+      $mdOpenMenu(ev);
+    };
 
-    z
+    
   });
 
 
-  .config(function($mdIconProvider) {
-    $mdIconProvider
-      .iconSet("call", 'img/icons/sets/communication-icons.svg', 24)
-      .iconSet("social", 'img/icons/sets/social-icons.svg', 24);
-  })
   
-  .controller('BasicDemoCtrl', function DemoCtrl($mdDialog) {
+  
+  /*.controller('BasicDemoCtrl', function DemoCtrl($mdDialog) {
     var originatorEv;
 
     this.openMenu = function($mdOpenMenu, ev) {
@@ -48,29 +48,4 @@ angular.module('activosInformaticosApp')
     this.checkVoicemail = function() {
       // This never happens.
     };
-  });
-
-  /*.controller('shift_tabs', function($scope){
-	$scope.activeTab;
-	$scope.makeShift=function(e){
-    	this.activeTab=e;
-  	}
-    $scope.isActive=function(f){
-    	if(f==this.activeTab){
-      		return true
-    	}
-  	}
   });*/
-
-
-/*
-var app = angular.module('activosInformaticosApp', ['ngMaterial']);
-
-app.controller('AppController', function($mdSidenav) {
-  var vm = this;
-
-  vm.toggleSidenav = function(menuId) {
-    $mdSidenav(menuId).toggle();
-  };
-
-});*/
