@@ -1,0 +1,42 @@
+.menudemoBasicUsage .md-menu-demo {
+  padding: 24px; }
+.menudemoBasicUsage .menu-demo-container {
+  min-height: 200px; }
+
+.md-toolbar-tools h1 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+}
+
+md-sidenav.md-locked-open {
+  width: 150px !important;
+  min-width: 150px !important;
+  max-width: 150px !important;
+}
+
+.tab-buttons{
+  overflow:auto;
+}
+.tab-buttons button{
+  background:#363f45;
+  color:#feb41c;
+  border:none;
+  padding:10px 20px;
+  font:700 15px 'segoe ui',sans-serif;
+  text-transform:uppercase;
+  cursor:pointer;
+  -webkit-transition:all 300ms ease-in;
+  -moz-transition:all 300ms ease-in;
+  transition:all 300ms ease-in;
+}
+.tab-buttons button.active{
+  color:#5e7c88;
+  background:#feb41c;
+}
+.tab-content>div{
+  padding:20px;
+  background:#5e7c88;
+  font:400 16px 'segoe ui',sans-serif;
+  color:#fff;
+}

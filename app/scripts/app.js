@@ -22,11 +22,11 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
-      /*.when('/admin', {
+      .when('/admin', {
         templateUrl: 'views/admin.html',
         controller: 'AppCtrl', 
         controllerAs: 'admin'
-      })*/
+      })
       .when('/win', {
         templateUrl: 'views/win.html',
         controller: 'AppController',
