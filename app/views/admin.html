@@ -49,6 +49,8 @@
 
         
       </md-menu-->
+
+
     </div>
   </md-toolbar>
   <div layout="row" flex>
@@ -101,10 +103,12 @@
           </md-content>
 
           <ul mfb-menu menu-state="myVar" position="br" effect="slidein" active-icon="ion-close" resting-icon="ion-plus" toggling-method="click" >
-            <a mfb-button mfb-button-close icon="ion-android-mail" label="Nuevo email" ng-click="showAddMail($event)" >  </a>
-            <a mfb-button mfb-button-close icon="ion-android-call" label="Nuevo teléfono" ng-click="showAddPhone($event)" >  </a>
-            <a mfb-button mfb-button-close icon="ion-ios-location" label="Nuevo domicilio" ng-click="showAddAddress($event)" >  </a>
+            <a mfb-button mfb-button-close icon="ion-android-list" label="Nuevo tipo de activo" ng-click="showAddAddress($event)" >  </a>
+            <a mfb-button mfb-button-close icon="ion-ios-people" label="Nuevo grupo" ng-click="showAddPhone($event)" >  </a>
+            <a mfb-button mfb-button-close icon="ion-ios-personadd" label="Nuevo usuario" ng-click="showAddUser($event)" >  </a>
           </ul>
+
+          {{status}}
 
         </div>
         

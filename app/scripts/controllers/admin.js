@@ -1,76 +1,47 @@
 
 angular.module('activosInformaticosApp')
-  .controller('AppCtrl', function ($scope) {
+  .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia) {
     //var vm = this;
     
     $scope.toggleSidenav = function(menuId) {
       //$mdSidenav(menuId).toggle();
     };
+
+    $scope.showAddUser = function(ev) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: '../../views/user.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false,
+        fullscreen: useFullScreen
+      })
+      .then(function(answer) {
+        $scope.status = 'Hiciste click en "' + answer + '".';
+      }, function() {
+        $scope.status = 'Hiciste click en cancel.';
+      });
+      $scope.$watch(function() {
+        return $mdMedia('xs') || $mdMedia('sm');
+      }, function(wantsFullScreen) {
+        $scope.customFullscreen = (wantsFullScreen === true);
+      });
+    };
     
-
+    function DialogController($scope, $mdDialog) {
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+      };
+    }
     
-  });
+});
 
 
-  /*.config(function($mdIconProvider) {
-    $mdIconProvider
-      .iconSet("call", 'img/icons/sets/communication-icons.svg', 24)
-      .iconSet("social", 'img/icons/sets/social-icons.svg', 24);
-  })*/
-  
-  /*.controller('BasicDemoCtrl', function DemoCtrl($mdDialog) {
-    var originatorEv;
-
-    this.openMenu = function($mdOpenMenu, ev) {
-      originatorEv = ev;
-      $mdOpenMenu(ev);
-    };
-
-    this.notificationsEnabled = true;
-    this.toggleNotifications = function() {
-      this.notificationsEnabled = !this.notificationsEnabled;
-    };
-
-    this.redial = function() {
-      $mdDialog.show(
-        $mdDialog.alert()
-          .targetEvent(originatorEv)
-          .clickOutsideToClose(true)
-          .parent('body')
-          .title('Suddenly, a redial')
-          .content('You just called a friend; who told you the most amazing story. Have a cookie!')
-          .ok('That was easy')
-      );
-
-      originatorEv = null;
-    };
-
-    this.checkVoicemail = function() {
-      // This never happens.
-    };
-  });*/
-
-  /*.controller('shift_tabs', function($scope){
-  $scope.activeTab;
-  $scope.makeShift=function(e){
-      this.activeTab=e;
-    }
-    $scope.isActive=function(f){
-      if(f==this.activeTab){
-          return true
-      }
-    }
-  });*/
-
-
-/*
-var app = angular.module('activosInformaticosApp', ['ngMaterial']);
-
-app.controller('AppController', function($mdSidenav) {
-  var vm = this;
-
-  vm.toggleSidenav = function(menuId) {
-    $mdSidenav(menuId).toggle();
-  };
-
-});*/
+ 
