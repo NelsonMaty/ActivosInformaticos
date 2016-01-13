@@ -13,7 +13,8 @@ angular
     'ngAnimate',
     'ngResource',
     'ngMaterial',
-    'ngRoute'
+    'ngRoute',
+    'ng-mfb'
   ])
   .config(function ($routeProvider) {
     $routeProvider
