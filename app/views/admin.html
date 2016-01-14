@@ -70,22 +70,20 @@
           <md-content>
             <md-tabs md-dynamic-height="" md-border-bottom="">
               <md-tab label="Usuarios">
-                <md-content class="md-padding">
-                 
+                <md-content class="md-padding">   
                   <h1 class="md-display-2">Usuarios</h1>
-                  
-                  <!--md-list ng-controller="ListCtrl" ng-cloak>
-                    <md-subheader class="md-no-sticky">Lista de usuarios</md-subheader>
+                  <md-list ng-controller="AppCtrl" ng-cloak>
+                    <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
                     <md-list-item ng-repeat="person in people" ng-click="goToPerson(person.name, $event)">
-                      <img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" />
+                      <md-icon md-font-set="material-icons">portrait</md-icon>
+                      <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
                       <p>{{ person.name }}</p>
-                      <md-icon md-svg-icon="communication:messenger" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}"></md-icon>
+                      <md-icon md-font-set="material-icons" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}">edit</md-icon>
                     </md-list-item>
-                  </md-list-->
-
-
+                  </md-list>
                 </md-content>
               </md-tab>
+              
               <md-tab label="Relaciones">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Relaciones</h1>

@@ -7,6 +7,34 @@ angular.module('activosInformaticosApp')
       //$mdSidenav(menuId).toggle();
     };
 
+    $scope.goToPerson = function(person, event) {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .title('Navigating')
+            .content('Inspect ' + person)
+            .ariaLabel('Person inspect demo')
+            .ok('Neat!')
+            .targetEvent(event)
+        );
+    };
+
+    $scope.doSecondaryAction = function(event) {
+      $mdDialog.show(
+        $mdDialog.alert()
+          .title('Secondary Action')
+          .content('Secondary actions can be used for one click actions')
+          .ariaLabel('Secondary click demo')
+          .ok('Neat!')
+          .targetEvent(event)
+      );
+    };
+
+    $scope.people = [
+        { name: 'Janet Perkins', newMessage: true },
+        { name: 'Mary Johnson', newMessage: false },
+        { name: 'Peter Carlsson', newMessage: false }
+      ];
+
     $scope.showAddUser = function(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
