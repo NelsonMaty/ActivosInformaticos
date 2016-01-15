@@ -18,16 +18,59 @@ angular.module('activosInformaticosApp')
         );
     };
 
-    $scope.doSecondaryAction = function(event) {
-      $mdDialog.show(
+    $scope.doEditar = function(person, ev) {
+      /*$mdDialog.show(
         $mdDialog.alert()
           .title('Secondary Action')
           .content('Secondary actions can be used for one click actions')
           .ariaLabel('Secondary click demo')
           .ok('Neat!')
           .targetEvent(event)
-      );
+      );*/
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: '../../views/edit_user.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false,
+        fullscreen: useFullScreen
+      })
+      .then(function(answer) {
+        $scope.status = 'Hiciste click en "' + answer + '".';
+      }, function() {
+        $scope.status = 'Hiciste click en cancel.';
+      });
+      $scope.$watch(function() {
+        return $mdMedia('xs') || $mdMedia('sm');
+      }, function(wantsFullScreen) {
+        $scope.customFullscreen = (wantsFullScreen === true);
+      });
     };
+
+    $scope.doBorrar = function(person, ev) {
+    /*  $mdDialog.show(
+        $mdDialog.alert()
+          .title('Borrado')
+          .content('Borrado de usuario ' + person)
+          .ariaLabel('third button')
+          .ok('Neat!')
+          .targetEvent(event)
+      );*/
+      var confirm = $mdDialog.confirm()
+          .title('¿Está seguro que desea borrar este usuario?')
+          //.textContent('All of the banks have agreed to forgive you your debts.')
+          .ariaLabel('Borrado de usuario')
+          .targetEvent(ev)
+          .ok('Aceptar')
+          .cancel('Cancelar');
+      $mdDialog.show(confirm).then(function() {
+        $scope.status = 'El usuario fue borrado';
+      }, function() {
+        $scope.status = 'No se realizaron cambios';
+      });
+  };
+    
 
     $scope.people = [
         { name: 'Janet Perkins', newMessage: true },
@@ -67,6 +110,7 @@ angular.module('activosInformaticosApp')
       $scope.answer = function(answer) {
         $mdDialog.hide(answer);
       };
+      
     }
     
 });
