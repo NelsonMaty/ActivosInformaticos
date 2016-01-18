@@ -46,6 +46,34 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+
+  .factory('dataFactory', ['$http',function($http){
+      //var urlGeoObjectWS= 'http://nodejs-nodo1-dev.psi.unc.edu.ar:3005/';
+      //var urlKunturWS = 'backend/';//'http://nodejs-nodo1-dev.psi.unc.edu.ar:3006/'
+      //var urlKunturWS = 'http://172.16.248.229:8080/'
+    var urlWS = 'http://localhost:8080/v1/'
+    var dataFactory = {};
+
+      //var lastResourceCreated = '';
+      //var lastItemDeleted = {};
+
+    dataFactory.getUsers = function(callback){
+        //var pageSize = 30;
+        //if(page)
+        //    var offset = page * pageSize;
+        //  else
+        //    var offset = 0;
+      //console.log("jola");  
+      $http.get(urlWS + 'users')
+        .then(function(response){
+          //console.log(response);
+          callback(response.data);
+        },function(err){
+          console.log(err);
+      });
+    };
+    return dataFactory;
+  }]);
 
   

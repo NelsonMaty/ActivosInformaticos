@@ -74,7 +74,7 @@
                   <h1 class="md-display-2">Usuarios</h1>
                   <md-list ng-controller="AppCtrl" ng-cloak>
                     <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
-                    <md-list-item ng-repeat="person in people" ng-click="goToPerson(person.name, $event)">
+                    <md-list-item ng-repeat="person in people" ng-click="goToPerson(person, $event)">
                       <md-icon md-font-set="material-icons">account_circle</md-icon>
                       <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
                       <p>{{ person.name }}</p>

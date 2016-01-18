@@ -1,6 +1,7 @@
 
+
 angular.module('activosInformaticosApp')
-  .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia) {
+  .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia, dataFactory) {
     //var vm = this;
     
     $scope.toggleSidenav = function(menuId) {
@@ -11,7 +12,8 @@ angular.module('activosInformaticosApp')
         $mdDialog.show(
           $mdDialog.alert()
             .title('Navigating')
-            .content('Inspect ' + person)
+            //.content('Inspect ' + person)
+            .content('Comentario ' + person.comment)
             .ariaLabel('Person inspect demo')
             .ok('Neat!')
             .targetEvent(event)
@@ -69,14 +71,18 @@ angular.module('activosInformaticosApp')
       }, function() {
         $scope.status = 'No se realizaron cambios';
       });
-  };
+    };
     
+    dataFactory.getUsers( function (response) {
+      $scope.people = response;
 
-    $scope.people = [
+    });
+
+    /*$scope.people = [
         { name: 'Janet Perkins', newMessage: true },
         { name: 'Mary Johnson', newMessage: false },
         { name: 'Peter Carlsson', newMessage: false }
-      ];
+      ];*/
 
     $scope.showAddUser = function(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
