@@ -1,0 +1,44 @@
+<md-dialog aria-label="Editar Usuario" ng-cloak>
+  <form ng-controller="AppCtrl">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edición de usuario</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    
+    <md-content class="autoScroll">
+      <md-input-container class="md-icon-float md-block">
+        <!-- Use floating label instead of placeholder -->
+        <label>Name</label>
+        <md-icon md-font-set="material-icons" class="name">person</md-icon>
+        <input ng-model="user.name" type="text" placeholder={{person.name}}>
+      </md-input-container>
+      <md-input-container md-no-float class="md-block">
+          <md-icon md-font-set="material-icons">phone</md-icon>
+          <input ng-model="user.phone" type="text" placeholder="Phone Number">
+      </md-input-container>
+      <md-input-container class="md-block">
+          <!-- Use floating placeholder instead of label -->
+          <md-icon md-font-set="material-icons" class="email">email</md-icon>
+          <input ng-model="user.email" type="email" placeholder="Email (required)" ng-required="true">
+      </md-input-container>
+    </md-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer('Aceptar')">
+        Aceptar
+      </md-button>
+      <md-button ng-click="answer('Cancelar')" style="margin-right:20px;">
+        Cancelar
+      </md-button>
+      <md-button class="md-icon-button" ng-click="doBorrar()">
+          <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

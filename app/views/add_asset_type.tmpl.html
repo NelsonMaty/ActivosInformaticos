@@ -1,0 +1,42 @@
+<md-dialog aria-label="Nuevo tipo de activo" ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Nuevo Tipo de Activo</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    
+    <md-content class="autoScroll">
+      <md-input-container class="md-icon-float md-block">
+        <!-- Use floating label instead of placeholder -->
+        <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
+        <input ng-model="AssetType.name" type="text" placeholder="Nombre de tipo">
+      </md-input-container>
+      <md-content layout="column">
+        <md-input-container class="md-block" >
+            <md-icon md-font-set="material-icons" >list</md-icon>
+            <input ng-model="AssetType.atribs" type="text" placeholder="Atributos" aria-label="lista atributos">
+        </md-input-container>
+        <md-input-container class="md-block">
+            <!-- Use floating placeholder instead of label -->
+            <md-icon md-font-set="material-icons" class="email" >settings_input_component</md-icon>
+            <input ng-model="AssetType.atribstype" type="text" placeholder="Tipo de atributos" ng-required="true" aria-label="tipo de atributos">
+        </md-input-container>
+      </md-content>
+    </md-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer('Aceptar')">
+        Aceptar
+      </md-button>
+      <md-button ng-click="answer('Cancelar')" style="margin-right:20px;">
+        Cancelar
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
