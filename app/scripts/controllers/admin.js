@@ -99,6 +99,28 @@ angular.module('activosInformaticosApp')
         $scope.customFullscreen = (wantsFullScreen === true);
       });
     };
+
+    $scope.showAddAssetType = function(ev) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: '../../views/add_asset_type.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false,
+        fullscreen: useFullScreen
+      })
+      .then(function(answer) {
+        $scope.status = 'Hiciste click en "' + answer + '".';
+      }, function() {
+        $scope.status = 'Hiciste click en cancel.';
+      });
+      $scope.$watch(function() {
+        return $mdMedia('xs') || $mdMedia('sm');
+      }, function(wantsFullScreen) {
+        $scope.customFullscreen = (wantsFullScreen === true);
+      });
+    };
     
     function DialogController($scope, $mdDialog) {
       $scope.hide = function() {

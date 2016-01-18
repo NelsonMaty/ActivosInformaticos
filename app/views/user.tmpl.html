@@ -13,9 +13,9 @@
     <md-content class="autoScroll">
       <md-input-container class="md-icon-float md-block">
         <!-- Use floating label instead of placeholder -->
-        <label>Name</label>
+        <!--label>Name</label-->
         <md-icon md-font-set="material-icons" class="name">person</md-icon>
-        <input ng-model="user.name" type="text">
+        <input ng-model="user.name" type="text" placeholder="Nombre">
       </md-input-container>
       <md-input-container md-no-float class="md-block">
           <md-icon md-font-set="material-icons">phone</md-icon>
@@ -30,11 +30,11 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer('Cancelar')">
-        Cancelar
-      </md-button>
-      <md-button ng-click="answer('Aceptar')" style="margin-right:20px;">
+      <md-button ng-click="answer('Aceptar')">
         Aceptar
+      </md-button>
+      <md-button ng-click="answer('Cancelar')" style="margin-right:20px;">
+        Cancelar
       </md-button>
     </md-dialog-actions>
   </form>
