@@ -75,8 +75,8 @@ angular
     };
 
     dataFactory.createUser = function(user){ 
-      console.log(user); 
-      return $http.post(urlWS + 'users', user)
+      console.log(user.comment); 
+      /*return $http.post(urlWS + 'users', user)
         
         .success(function (data, status, headers) {
           //console.log(data);
@@ -86,21 +86,25 @@ angular
         })
         .error(function (error) {
           console.log(error);       
-      });
+      });*/
+
+      $http({
+          method:"post",
+          url:urlWS + 'users',
+          data:{
+            "name": user.name,
+            "comment": user.comment
+          }
+        })
+          .success(function(data){
+          })
+          .error(function(err){
+            console.log(err);
+          });
           
     };
 
-    /*dataFactory.createUniversity = function(callback, university){
-            return $http.post(urlKunturWS + 'universities', university)
-              .success(function (data, status, headers) {
-                var headers = headers();
-                var aux = headers['location'].split("/");
-                callback(aux[aux.length-1]); //returned id
-              })
-              .error(function (error) {
-                console.error(error);
-              })
-          };*/
+    
 
     return dataFactory;
   }]);
