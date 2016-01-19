@@ -14,26 +14,26 @@
       <md-input-container class="md-icon-float md-block">
         <!-- Use floating label instead of placeholder -->
         <!--label>Name</label-->
-        <md-icon md-font-set="material-icons" class="name">person</md-icon>
-        <input ng-model="user.name" type="text" placeholder="Nombre">
+        <md-icon md-font-set="material-icons" class="email">email</md-icon>
+        <input ng-model="user.name" type="email" placeholder="Email (required)" ng-required="true">
       </md-input-container>
-      <md-input-container md-no-float class="md-block">
+      <!--md-input-container md-no-float class="md-block">
           <md-icon md-font-set="material-icons">phone</md-icon>
           <input ng-model="user.phone" type="text" placeholder="Phone Number">
-      </md-input-container>
+      </md-input-container-->
       <md-input-container class="md-block">
           <!-- Use floating placeholder instead of label -->
-          <md-icon md-font-set="material-icons" class="email">email</md-icon>
-          <input ng-model="user.email" type="email" placeholder="Email (required)" ng-required="true">
+          <md-icon md-font-set="material-icons" class="comentario">comment</md-icon>
+          <input ng-model="user.comment" type="text" placeholder="Comentarios">
       </md-input-container>
     </md-content>
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer('Aceptar')">
+      <md-button ng-click="answer('Aceptar', user)">
         Aceptar
       </md-button>
-      <md-button ng-click="answer('Cancelar')" style="margin-right:20px;">
+      <md-button ng-click="answer('Cancelar', user)" style="margin-right:20px;">
         Cancelar
       </md-button>
     </md-dialog-actions>
