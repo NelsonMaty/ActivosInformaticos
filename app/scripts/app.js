@@ -75,32 +75,48 @@ angular
     };
 
     dataFactory.createUser = function(user){ 
-      console.log(user.comment); 
+      console.log(user); 
       /*return $http.post(urlWS + 'users', user)
         
         .success(function (data, status, headers) {
           //console.log(data);
-          var headers = headers();
+          //var headers = headers();
           //var aux = headers
-          callback();
+          //callback();
+          alert("El usuario fué creado con éxito");
         })
         .error(function (error) {
           console.log(error);       
-      });*/
+      }); */
 
       $http({
-          method:"post",
-          url:urlWS + 'users',
-          data:{
-            "name": user.name,
-            "comment": user.comment
-          }
+        method:"post",
+        url:urlWS + 'users',
+        data: {
+            "user":user.name,
+            "comment":user.comment
+        },
+        /*body: {
+          "name": "user.name",
+          "comment": "user.comment"
+        },*/
+        headers: {
+          'Content-Type':'application/json',
+        }
+        //params: {user},
+        //data: JSON.stringify(user),
+          // {"name": user.name,
+          //"comment": user.comment
+          //user:user }
+          
+      })
+        .success(function(data){
+            alert("El usuario fue creado con éxito");
         })
-          .success(function(data){
-          })
-          .error(function(err){
+        .error(function(err){
             console.log(err);
-          });
+            alert("no se pudo agregar a la base de datos");
+        });
           
     };
 
