@@ -16,7 +16,7 @@ angular
     'ngRoute',
     'ng-mfb'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $httpProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/login.html',
@@ -46,7 +46,14 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
+      $httpProvider.defaults.headers.common = {};
+      $httpProvider.defaults.headers.post = {};
+      $httpProvider.defaults.headers.put = {};
+      $httpProvider.defaults.headers.patch = {};
   })
+
+
 
   .factory('dataFactory', ['$http',function($http){
       //var urlGeoObjectWS= 'http://nodejs-nodo1-dev.psi.unc.edu.ar:3005/';
@@ -74,8 +81,18 @@ angular
       });
     };
 
-    dataFactory.createUser = function(user){ 
+    dataFactory.createUser = function(callback,user){ 
       console.log(user); 
+      
+      /*var res = $http.post('http://172.16.248.194:3006/gonza', user);
+      res.success(function(data, status, headers, config) {
+        $scope.message = data;
+      });
+      res.error(function(data, status, headers, config) {
+        alert( "failure message: " + JSON.stringify({data: data}));
+      });*/ 
+
+
       /*return $http.post(urlWS + 'users', user)
         
         .success(function (data, status, headers) {
@@ -95,14 +112,14 @@ angular
         data: {
             "user":user.name,
             "comment":user.comment
-        },
+        }
         /*body: {
           "name": "user.name",
           "comment": "user.comment"
         },*/
-        headers: {
-          'Content-Type':'application/json',
-        }
+        //headers: {
+        //  'Content-Type':'application/json',
+        //}
         //params: {user},
         //data: JSON.stringify(user),
           // {"name": user.name,
@@ -111,14 +128,17 @@ angular
           
       })
         .success(function(data){
-            alert("El usuario fue creado con éxito");
-        })
+          alert("El usuario fue creado con éxito");
+          callback();
+      })
         .error(function(err){
             console.log(err);
             alert("no se pudo agregar a la base de datos");
-        });
+      });
           
     };
+
+
 
     
 

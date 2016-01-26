@@ -81,6 +81,7 @@ angular.module('activosInformaticosApp')
         fullscreen: useFullScreen
       })
       .then(function(answer) {
+
       /*  $scope.status = 'Hiciste click en "' + answer + '".';
       }, function() {
         $scope.status = 'Hiciste click en cancel.';*/
@@ -129,7 +130,15 @@ angular.module('activosInformaticosApp')
         //console.log(user);
 
         if ( answer == 'Aceptar') {
-          dataFactory.createUser(user);
+          dataFactory.createUser( function (){
+            /*dataFactory.getUsers( function (response) {
+              $scope.people = response;
+              console.log(response);
+            });*/
+            
+            location.reload();       
+          }, user);
+        
         }
       };
     }
