@@ -1,3 +1,11 @@
+md-input-container.md-icon-float {
+  margin-top: 0px;
+}
+
+md-input-container.md-icon-float.md-input-focused, md-input-container.md-icon-float.md-input-has-value {
+  margin-top: 0px;
+}
+
 .menudemoBasicUsage .md-menu-demo {
   padding: 24px; }
 .menudemoBasicUsage .menu-demo-container {
