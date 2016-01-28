@@ -79,7 +79,7 @@
                       <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
                       <p>{{ person.name }}</p>
                       
-                      <md-icon md-font-set="material-icons" ng-click="doEditar(person.name, $event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}">edit</md-icon>
+                      <md-icon md-font-set="material-icons" ng-click="doEditar(person, $event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}">edit</md-icon>
                       <md-divider ng-if="!$last"></md-divider>
                     </md-list-item>
                   </md-list>

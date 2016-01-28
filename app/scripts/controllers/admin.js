@@ -1,11 +1,8 @@
 
 
 angular.module('activosInformaticosApp')
-  .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia, dataFactory) {
-    //var vm = this;
+  .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia, $mdToast, dataFactory) {
     
-    
-
     $scope.toggleSidenav = function(menuId) {
       //$mdSidenav(menuId).toggle();
     };
@@ -25,6 +22,9 @@ angular.module('activosInformaticosApp')
     $scope.doEditar = function(person, ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         $mdDialog.show({
+          locals: {
+            person: person
+          },
           controller: DialogController,
           templateUrl: '../../views/edit_user.tmpl.html',
           parent: angular.element(document.body),
@@ -64,15 +64,14 @@ angular.module('activosInformaticosApp')
 
     });
 
-    /*$scope.people = [
-        { name: 'Janet Perkins', newMessage: true },
-        { name: 'Mary Johnson', newMessage: false },
-        { name: 'Peter Carlsson', newMessage: false }
-      ];*/
+    
 
     $scope.showAddUser = function(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
+        locals: {
+          person: {} 
+        },
         controller: DialogController,
         templateUrl: '../../views/user.tmpl.html',
         parent: angular.element(document.body),
@@ -117,7 +116,10 @@ angular.module('activosInformaticosApp')
       });
     };
     
-    function DialogController($scope, $mdDialog) {
+    function DialogController(person, $scope, $mdDialog, $mdToast) {
+      //console.log(person);
+      $scope.update_person = $.extend({},person);
+
       $scope.hide = function() {
         $mdDialog.hide();
       };
@@ -131,13 +133,10 @@ angular.module('activosInformaticosApp')
 
         if ( answer == 'Aceptar') {
           dataFactory.createUser( function (){
-            /*dataFactory.getUsers( function (response) {
-              $scope.people = response;
-              console.log(response);
-            });*/
+            
             
             location.reload();       
-          }, user);
+          }, user, $mdDialog, $mdToast);
         
         }
       };

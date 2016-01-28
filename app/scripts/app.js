@@ -47,10 +47,10 @@ angular
         redirectTo: '/'
       });
 
-      $httpProvider.defaults.headers.common = {};
+      /*$httpProvider.defaults.headers.common = {};
       $httpProvider.defaults.headers.post = {};
       $httpProvider.defaults.headers.put = {};
-      $httpProvider.defaults.headers.patch = {};
+      $httpProvider.defaults.headers.patch = {};*/
   })
 
 
@@ -62,16 +62,8 @@ angular
     var urlWS = 'http://localhost:8080/v1/'
     var dataFactory = {};
 
-      //var lastResourceCreated = '';
-      //var lastItemDeleted = {};
-
     dataFactory.getUsers = function(callback){
-        //var pageSize = 30;
-        //if(page)
-        //    var offset = page * pageSize;
-        //  else
-        //    var offset = 0;
-      //console.log("jola");  
+       
       $http.get(urlWS + 'users')
         .then(function(response){
           //console.log(response);
@@ -81,30 +73,8 @@ angular
       });
     };
 
-    dataFactory.createUser = function(callback,user){ 
+    dataFactory.createUser = function(callback,user,$mdDialog,$mdToast){ 
       console.log(user); 
-      
-      /*var res = $http.post('http://172.16.248.194:3006/gonza', user);
-      res.success(function(data, status, headers, config) {
-        $scope.message = data;
-      });
-      res.error(function(data, status, headers, config) {
-        alert( "failure message: " + JSON.stringify({data: data}));
-      });*/ 
-
-
-      /*return $http.post(urlWS + 'users', user)
-        
-        .success(function (data, status, headers) {
-          //console.log(data);
-          //var headers = headers();
-          //var aux = headers
-          //callback();
-          alert("El usuario fué creado con éxito");
-        })
-        .error(function (error) {
-          console.log(error);       
-      }); */
 
       $http({
         method:"post",
@@ -113,34 +83,31 @@ angular
             "user":user.name,
             "comment":user.comment
         }
-        /*body: {
-          "name": "user.name",
-          "comment": "user.comment"
-        },*/
-        //headers: {
-        //  'Content-Type':'application/json',
-        //}
-        //params: {user},
-        //data: JSON.stringify(user),
-          // {"name": user.name,
-          //"comment": user.comment
-          //user:user }
           
       })
         .success(function(data){
-          alert("El usuario fue creado con éxito");
+          //alert("El usuario fue creado con éxito");
+          mdToast.show(
+            $mdToast.simple()
+              .content('Se ha agregado el usuario' + user.name + 'a la base de datos')
+              .position('top right')
+              .hideDelay(3000)
+          );
+          
           callback();
       })
         .error(function(err){
-            console.log(err);
-            alert("no se pudo agregar a la base de datos");
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo agregar el usuario a la base de datos')
+              .position('top right')
+              .hideDelay(3000)
+          );
       });
           
     };
-
-
-
-    
 
     return dataFactory;
   }]);
