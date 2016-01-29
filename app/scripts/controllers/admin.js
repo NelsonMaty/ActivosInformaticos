@@ -23,7 +23,8 @@ angular.module('activosInformaticosApp')
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         $mdDialog.show({
           locals: {
-            person: person
+            person: person,
+            borrar: $scope.doBorrar
           },
           controller: DialogController,
           templateUrl: '../../views/edit_user.tmpl.html',
@@ -70,7 +71,8 @@ angular.module('activosInformaticosApp')
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
         locals: {
-          person: {} 
+          person: {},
+          borrar: $scope.doBorrar
         },
         controller: DialogController,
         templateUrl: '../../views/user.tmpl.html',
@@ -116,9 +118,10 @@ angular.module('activosInformaticosApp')
       });
     };
     
-    function DialogController(person, $scope, $mdDialog, $mdToast) {
+    function DialogController(person, borrar, $scope, $mdDialog, $mdToast) {
       //console.log(person);
       $scope.update_person = $.extend({},person);
+      $scope.borrar = borrar;
 
       $scope.hide = function() {
         $mdDialog.hide();
