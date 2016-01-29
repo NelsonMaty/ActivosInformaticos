@@ -10,24 +10,36 @@
       </div>
     </md-toolbar>
     
-    <md-content class="autoScroll">
-      <md-input-container class="md-icon-float md-block">
-        <!-- Use floating label instead of placeholder -->
-        <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
-        <input ng-model="AssetType.name" type="text" placeholder="Nombre de tipo">
-      </md-input-container>
-      <md-content layout="column">
-        <md-input-container class="md-block" >
-            <md-icon md-font-set="material-icons" >list</md-icon>
-            <input ng-model="AssetType.atribs" type="text" placeholder="Atributos" aria-label="lista atributos">
+    <div layout="column" style="margin-right: 20px; margin-left: 20px;">
+      <md-content class="autoScroll" >
+        <md-input-container class="md-icon-float md-block">
+          <!-- Use floating label instead of placeholder -->
+          <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
+          <input ng-model="AssetType.name" type="text" placeholder="Nombre de tipo">
         </md-input-container>
-        <md-input-container class="md-block">
-            <!-- Use floating placeholder instead of label -->
-            <md-icon md-font-set="material-icons" class="email" >settings_input_component</md-icon>
-            <input ng-model="AssetType.atribstype" type="text" placeholder="Tipo de atributos" ng-required="true" aria-label="tipo de atributos">
-        </md-input-container>
+        <md-divider ng-if="!$last"></md-divider>
       </md-content>
-    </md-content>
+      <md-content layout-gt-sm="row" ng-repeat="d in radioData">
+          <md-input-container class="md-icon-float md-block" >
+              <!--md-icon md-font-set="material-icons" >list</md-icon-->
+              <md-icon md-font-set="material-icons" class="attributes" >settings_input_component</md-icon>
+              <input ng-model="AssetType.atribs" type="text" placeholder="Atributos" aria-label="lista atributos">
+          </md-input-container>
+          <md-input-container class="md-select md-block">
+              <!-- Use floating placeholder instead of label -->
+            <label>Tipo</label>
+            <!--md-icon md-font-set="material-icons" class="email" >settings_input_component</md-icon-->
+            <md-select ng-model="tipo">
+              <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
+                {{tipo}}
+              </md-option>
+            </md-select>
+              <!--md-icon md-font-set="material-icons" class="email" >settings_input_component</md-icon-->
+              <!--input ng-model="AssetType.atribstype" type="text" placeholder="Tipo de atributos" ng-required="true" aria-label="tipo de atributos"-->
+          </md-input-container>
+      </md-content>
+      <!--/md-content-->
+    </div>
 
     <md-dialog-actions layout="row">
       <span flex></span>

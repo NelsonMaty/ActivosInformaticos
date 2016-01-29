@@ -72,7 +72,7 @@ angular.module('activosInformaticosApp')
       $mdDialog.show({
         locals: {
           person: {},
-          borrar: $scope.doBorrar
+          borrar: {},
         },
         controller: DialogController,
         templateUrl: '../../views/user.tmpl.html',
@@ -99,6 +99,10 @@ angular.module('activosInformaticosApp')
     $scope.showAddAssetType = function(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
+        locals: {
+          person: {},
+          borrar: {},
+        },
         controller: DialogController,
         templateUrl: '../../views/add_asset_type.tmpl.html',
         parent: angular.element(document.body),
@@ -119,9 +123,18 @@ angular.module('activosInformaticosApp')
     };
     
     function DialogController(person, borrar, $scope, $mdDialog, $mdToast) {
-      //console.log(person);
+      
+
       $scope.update_person = $.extend({},person);
       $scope.borrar = borrar;
+
+      $scope.tipos = [
+        "String",
+        "Boolean",
+        "Integer",
+        "Float",
+        "Date"
+      ];
 
       $scope.hide = function() {
         $mdDialog.hide();
