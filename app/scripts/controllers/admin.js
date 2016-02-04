@@ -163,6 +163,15 @@ angular.module('activosInformaticosApp')
             //location.reload();       
           }, user, $mdDialog, $mdToast);
         
+        } else
+        {
+          if (  answer == 'Editar') {
+            dataFactory.editUser( function (){
+            
+            
+            //location.reload();       
+            }, user, $mdDialog, $mdToast);
+          }
         }
       };
     }

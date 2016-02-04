@@ -21,14 +21,14 @@
       </md-content>
       <md-content layout-gt-sm="row" ng-repeat="d in radioData">
           <md-input-container class="md-icon-float md-block" >
-              <!--md-icon md-font-set="material-icons" >list</md-icon-->
+              
               <md-icon md-font-set="material-icons" class="attributes" >settings_input_component</md-icon>
               <input ng-model="AssetType.atribs" type="text" placeholder="Atributos" aria-label="lista atributos">
           </md-input-container>
           <md-input-container class="md-select md-block">
-              <!-- Use floating placeholder instead of label -->
+              
             <label>Tipo</label>
-            <!--md-icon md-font-set="material-icons" class="email" >settings_input_component</md-icon-->
+            
             <md-select ng-model="tipo">
               <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
                 {{tipo}}
