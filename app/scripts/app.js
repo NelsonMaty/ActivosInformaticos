@@ -90,7 +90,7 @@ angular
           //alert("El usuario fue creado con éxito");
           $mdToast.show(
             $mdToast.simple()
-              .content('Se ha agregado el usuario' + user.name + 'a la base de datos')
+              .content('Se ha agregado el usuario ' + user.name + ' a la base de datos')
               .position('top right')
               .hideDelay(3000)
           );
@@ -168,7 +168,7 @@ angular
               .hideDelay(3000)
           );
           
-          //callback();
+          callback();
       })
         .error(function(err){
           console.log(err);

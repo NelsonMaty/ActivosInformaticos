@@ -19,7 +19,7 @@ angular.module('activosInformaticosApp')
         );
     };
 
-    $scope.doEditar = function(person, ev) {
+    $scope.doEditar = function(person, ev, $index) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         $mdDialog.show({
           locals: {
@@ -33,10 +33,13 @@ angular.module('activosInformaticosApp')
           clickOutsideToClose:false,
           fullscreen: useFullScreen
         })
-          .then(function(answer) {
-            $scope.status = 'Hiciste click en "' + answer + '".';
+          .then(function(user) {
+            //$scope.status = 'Hiciste click en "' + answer + '".';
+            if (user) {
+              $scope.people[$index] = user;
+            }
           }, function() {
-            $scope.status = 'Hiciste click en cancel.';
+            //$scope.status = 'Hiciste click en cancel.';
           });
         $scope.$watch(function() {
           return $mdMedia('xs') || $mdMedia('sm');
@@ -84,8 +87,16 @@ angular.module('activosInformaticosApp')
         clickOutsideToClose:false,
         fullscreen: useFullScreen
       })
-      .then(function(answer) {
-
+      .then(function(user) {
+        //console.log(user);
+        if (user) {
+          //console.log($scope.people.length);
+          
+          $scope.$apply(function(user) {
+            $scope.people.push(user);
+          });
+          //console.log($scope.people.length);
+        }
       /*  $scope.status = 'Hiciste click en "' + answer + '".';
       }, function() {
         $scope.status = 'Hiciste click en cancel.';*/
@@ -152,13 +163,14 @@ angular.module('activosInformaticosApp')
         $mdDialog.cancel();
       };
       $scope.answer = function(answer, user) {
-        $mdDialog.hide(answer);
+        //$mdDialog.hide();
 
         //console.log(user);
 
         if ( answer == 'Aceptar') {
           dataFactory.createUser( function (){
-            
+            $mdDialog.hide(user);
+            //$scope.people.push(user);
             
             //location.reload();       
           }, user, $mdDialog, $mdToast);
@@ -167,12 +179,16 @@ angular.module('activosInformaticosApp')
         {
           if (  answer == 'Editar') {
             dataFactory.editUser( function (){
-            
+              $mdDialog.hide(user);
             
             //location.reload();       
             }, user, $mdDialog, $mdToast);
           }
+          else {
+            $mdDialog.hide(null);
+          }
         }
+
       };
     }
     
