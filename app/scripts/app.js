@@ -59,7 +59,8 @@ angular
       //var urlGeoObjectWS= 'http://nodejs-nodo1-dev.psi.unc.edu.ar:3005/';
       //var urlKunturWS = 'backend/';//'http://nodejs-nodo1-dev.psi.unc.edu.ar:3006/'
       //var urlKunturWS = 'http://172.16.248.229:8080/'
-    var urlWS = 'http://localhost:8080/v1/'
+    //var urlWS = 'http://localhost:8080/v1/'
+    var urlWS = 'http://localhost:10010/'
     var dataFactory = {};
 
     dataFactory.getUsers = function(callback){
@@ -80,14 +81,14 @@ angular
         method:"post",
         url:urlWS + 'users',
         data: {
-            "user":user.name,
+            "name":user.name,
             "comment":user.comment
         }
           
       })
         .success(function(data){
           //alert("El usuario fue creado con éxito");
-          mdToast.show(
+          $mdToast.show(
             $mdToast.simple()
               .content('Se ha agregado el usuario' + user.name + 'a la base de datos')
               .position('top right')
@@ -102,6 +103,42 @@ angular
           $mdToast.show(
             $mdToast.simple()
               .content('No se pudo agregar el usuario a la base de datos')
+              .position('top right')
+              .hideDelay(3000)
+          );
+      });
+          
+    };
+
+    dataFactory.deleteUser = function(person,$mdDialog,$mdToast){ 
+      console.log(person); 
+
+      $http({
+        method:"delete",
+        url:urlWS + 'users/' + person._id,
+        /*data: {
+            "name":user.name,
+            "comment":user.comment
+        }*/
+          
+      })
+        .success(function(data){
+          //alert("El usuario fue creado con éxito");
+          $mdToast.show(
+            $mdToast.simple()
+              .content('Se ha eliminado el usuario' + person.name + ' de la base de datos')
+              .position('top right')
+              .hideDelay(3000)
+          );
+          
+          //callback();
+      })
+        .error(function(err){
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo borrar el usuario de la base de datos')
               .position('top right')
               .hideDelay(3000)
           );

@@ -46,6 +46,7 @@ angular.module('activosInformaticosApp')
     };
 
     $scope.doBorrar = function(person, ev) {
+      //console.log(person);
       var confirm = $mdDialog.confirm()
           .title('¿Está seguro que desea borrar este usuario?')
           //.textContent('All of the banks have agreed to forgive you your debts.')
@@ -53,11 +54,13 @@ angular.module('activosInformaticosApp')
           .targetEvent(ev)
           .ok('Aceptar')
           .cancel('Cancelar');
-      $mdDialog.show(confirm).then(function() {
-        $scope.status = 'El usuario fue borrado';
-      }, function() {
-        $scope.status = 'No se realizaron cambios';
-      });
+      $mdDialog.show(confirm)
+        .then(function() {
+          dataFactory.deleteUser(person,$mdDialog,$mdToast);
+          //$scope.status = 'El usuario fue borrado';
+        }, function() {
+          $scope.status = 'No se realizaron cambios';
+        });
     };
     
     dataFactory.getUsers( function (response) {
@@ -125,6 +128,7 @@ angular.module('activosInformaticosApp')
     function DialogController(person, borrar, $scope, $mdDialog, $mdToast) {
       
 
+      //console.log(person);
       $scope.update_person = $.extend({},person);
       $scope.borrar = borrar;
 
@@ -135,6 +139,11 @@ angular.module('activosInformaticosApp')
         "Float",
         "Date"
       ];
+
+      $scope.callDel = function () {
+        //console.log(person);
+        borrar(person);
+      }
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -151,7 +160,7 @@ angular.module('activosInformaticosApp')
           dataFactory.createUser( function (){
             
             
-            location.reload();       
+            //location.reload();       
           }, user, $mdDialog, $mdToast);
         
         }
