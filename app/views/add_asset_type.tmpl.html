@@ -19,7 +19,9 @@
         </md-input-container>
         <!--md-divider ng-if="!$last"></md-divider-->
       </md-content>
-      <md-content layout-gt-sm="row" >
+      <md-content layout-gt-sm="row" ng-repeat="d in radioData">
+          {{ d.label}}
+
           <md-input-container class="md-icon-float md-block" >
               
               <md-icon md-font-set="material-icons" class="attributes" >settings_input_component</md-icon>
@@ -34,11 +36,17 @@
                 {{tipo}}
               </md-option>
             </md-select>
-              <!--md-icon md-font-set="material-icons" class="email" >settings_input_component</md-icon-->
-              <!--input ng-model="AssetType.atribstype" type="text" placeholder="Tipo de atributos" ng-required="true" aria-label="tipo de atributos"-->
+              
           </md-input-container>
       </md-content>
-      <!--/md-content-->
+      <md-content layout-gt-sm="row">
+        <md-button class="md-icon-button" aria-label="Añadir columna" ng-click="addItem()"> 
+          <md-icon md-font-set="material-icons">add</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="Quitar columna" ng-click="removeItem()"> 
+          <md-icon md-font-set="material-icons">remove</md-icon>
+        </md-button>
+      </md-content>
     </div>
 
     <md-dialog-actions layout="row">
