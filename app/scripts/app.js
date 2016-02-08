@@ -168,7 +168,7 @@ angular
               .hideDelay(3000)
           );
           
-          callback();
+          //callback();
       })
         .error(function(err){
           console.log(err);

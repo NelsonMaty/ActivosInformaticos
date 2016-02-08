@@ -156,8 +156,9 @@ angular.module('activosInformaticosApp')
       ];
 
       $scope.addItem = function() {
-            var r = Math.ceil(Math.random() * 1000);
-            $scope.radioData.push({ label: r, value: r });
+            //var r = Math.ceil(Math.random() * 1000);
+            var n = $scope.radioData.length;
+            $scope.radioData.push({ label: n+1, value: n+1 });
           };
 
       $scope.removeItem = function() {
