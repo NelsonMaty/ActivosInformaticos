@@ -151,18 +151,18 @@ angular.module('activosInformaticosApp')
         "Date"
       ];
 
-      $scope.radioData = [
-        { label: '1', value: 1 }
+      $scope.properties = [
+        { label: '1', name:'', type:''  }
       ];
 
       $scope.addItem = function() {
             //var r = Math.ceil(Math.random() * 1000);
-            var n = $scope.radioData.length;
-            $scope.radioData.push({ label: n+1, value: n+1 });
+            var n = $scope.properties.length;
+            $scope.properties.push({ label: n+1, name:'', type:'' });
           };
 
       $scope.removeItem = function() {
-            $scope.radioData.pop();
+            $scope.properties.pop();
           };
 
       $scope.callDel = function () {
@@ -189,17 +189,28 @@ angular.module('activosInformaticosApp')
             //location.reload();       
           }, user, $mdDialog, $mdToast);
         
-        } else
-        {
+        } else {
           if (  answer == 'Editar') {
             dataFactory.editUser( function (){
               $mdDialog.hide(user);
             
             //location.reload();       
             }, user, $mdDialog, $mdToast);
-          }
-          else {
-            $mdDialog.hide(null);
+          } else {
+            if (  answer == 'TipoActivo') {
+              var atributos = $scope.properties;
+              dataFactory.createAssetType( function (){
+                
+              //console.log(user);
+              //console.log($scope.properties);
+                $mdDialog.hide(user);
+              
+              //location.reload();       
+              }, user, atributos, $mdDialog, $mdToast);
+            }
+            else {
+              $mdDialog.hide(null);
+            }
           }
         }
 
