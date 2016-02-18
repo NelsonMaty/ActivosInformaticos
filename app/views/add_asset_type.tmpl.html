@@ -23,30 +23,33 @@
           <!--{{ d.label}}-->
 
           <md-input-container class="md-icon-float md-block" >
-              
               <md-icon md-font-set="material-icons" class="attributes" >settings_input_component</md-icon>
               <input ng-model="d.name" type="text" placeholder="Atributos" aria-label="lista atributos">
           </md-input-container>
+
           <md-input-container class="md-select md-block">
-              
             <label>Tipo</label>
-            
             <md-select ng-model="d.type">
               <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
                 {{tipo}}
               </md-option>
-            </md-select>
-              
+            </md-select>    
           </md-input-container>
+          
+          <md-content layout-gt-sm="row" >
+            <md-button  aria-label="Quitar columna" ng-click="removeItem($index)"> 
+              <md-icon md-font-set="material-icons">remove</md-icon>
+            </md-button>
+          </md-content>
+
+          <md-content layout-gt-sm="row" ng-if="$last">
+            <md-button  aria-label="Añadir columna" ng-click="addItem()"> 
+              <md-icon md-font-set="material-icons">add</md-icon>
+            </md-button>
+          </md-content>
+
       </md-content>
-      <md-content layout-gt-sm="row">
-        <md-button class="md-icon-button" aria-label="Añadir columna" ng-click="addItem()"> 
-          <md-icon md-font-set="material-icons">add</md-icon>
-        </md-button>
-        <md-button class="md-icon-button" aria-label="Quitar columna" ng-click="removeItem()"> 
-          <md-icon md-font-set="material-icons">remove</md-icon>
-        </md-button>
-      </md-content>
+      
     </div>
 
     <md-dialog-actions layout="row">

@@ -17,6 +17,51 @@ angular.module('activosInformaticosApp')
       $location.path( path );
     }
 
+    dataFactory.getAssetTypes( function (response) {
+      $scope.assettypes = response;
+
+    });
+
+    $scope.showAddAsset = function(ev) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      $mdDialog.show({
+        locals: {
+          //erson: {},
+          //borrar: {},
+        },
+        controller: DialogCtrl,
+        templateUrl: '../../views/add_asset.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false,
+        fullscreen: useFullScreen
+      })
+      .then(function() {
+        //console.log(user);
+        if (user) {
+          //console.log($scope.people.length);
+          
+          $scope.$apply(function() {
+            //$scope.people.push(user);
+          });
+          //console.log($scope.people.length);
+        }
+      /*  $scope.status = 'Hiciste click en "' + answer + '".';
+      }, function() {
+        $scope.status = 'Hiciste click en cancel.';*/
+        //console.log(answer);
+        
+      });
+      $scope.$watch(function() {
+        return $mdMedia('xs') || $mdMedia('sm');
+      }, function(wantsFullScreen) {
+        $scope.customFullscreen = (wantsFullScreen === true);
+      });
+    };
+
+    function DialogCtrl(assettypes, $scope, $mdDialog, $mdToast) {
+
+    };
     
   });
 

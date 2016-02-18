@@ -161,8 +161,9 @@ angular.module('activosInformaticosApp')
             $scope.properties.push({ label: n+1, name:'', type:'' });
           };
 
-      $scope.removeItem = function() {
-            $scope.properties.pop();
+      $scope.removeItem = function(index) {
+            //$scope.properties.pop($index);
+            $scope.properties.splice(index,1);
           };
 
       $scope.callDel = function () {
