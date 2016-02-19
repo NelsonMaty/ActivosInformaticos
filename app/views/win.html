@@ -85,7 +85,18 @@
               <md-tab label="Todos">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Todos los activos</h1>
-                  
+                    <md-list ng-controller="AppCtrl" ng-cloak>
+                      <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
+                      <md-list-item ng-repeat="types in assettypes" ng-click="goToType(types, $event)">
+                        
+                        <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
+                        <p>{{ types.name }}</p>
+                        
+                        <md-divider ng-if="!$last"></md-divider>
+                      </md-list-item>
+                    </md-list>
+
+                    
                 </md-content>
               </md-tab>
               <md-tab label="Relaciones">

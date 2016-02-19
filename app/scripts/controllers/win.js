@@ -1,6 +1,6 @@
 
 angular.module('activosInformaticosApp')
-  .controller('AppController', function ($scope, $mdDialog, $location) {
+  .controller('AppController', function ($scope, $mdDialog, $location, $mdMedia, $mdToast, dataFactory) {
     //var vm = this;
     
     $scope.toggleSidenav = function(menuId) {

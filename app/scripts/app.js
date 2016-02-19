@@ -74,7 +74,7 @@ angular
       });
     };
 
-    dataFactory.getAssetType = function(callback){
+    dataFactory.getAssetTypes = function(callback){
        
       $http.get(urlWS + 'assetTypes')
         .then(function(response){
