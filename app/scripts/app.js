@@ -74,6 +74,17 @@ angular
       });
     };
 
+    dataFactory.getAssetType = function(callback){
+       
+      $http.get(urlWS + 'assetTypes')
+        .then(function(response){
+          //console.log(response);
+          callback(response.data);
+        },function(err){
+          console.log(err);
+      });
+    };
+
     dataFactory.createUser = function(callback,user,$mdDialog,$mdToast){ 
       console.log(user); 
 
