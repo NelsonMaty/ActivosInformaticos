@@ -26,7 +26,7 @@ angular.module('activosInformaticosApp')
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
         locals: {
-          //erson: {},
+          assettypes: $scope.assettypes
           //borrar: {},
         },
         controller: DialogCtrl,
@@ -60,7 +60,15 @@ angular.module('activosInformaticosApp')
     };
 
     function DialogCtrl(assettypes, $scope, $mdDialog, $mdToast) {
+      $scope.assettypes = assettypes;
 
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      
     };
     
   });
