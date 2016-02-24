@@ -27,8 +27,8 @@ md-input-container.md-icon-float.md-input-focused, md-input-container.md-icon-fl
 
 md-sidenav.md-locked-open {
   width: 150px !important;
-  min-width: 150px !important;
-  max-width: 150px !important;
+  min-width: 30% !important;
+  
 }
 
 .tab-buttons{
