@@ -2,7 +2,7 @@
 
 angular.module('activosInformaticosApp')
   .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia, $mdToast, dataFactory) {
-    
+    $scope.people=[];
     $scope.toggleSidenav = function(menuId) {
       //$mdSidenav(menuId).toggle();
     };
@@ -21,10 +21,12 @@ angular.module('activosInformaticosApp')
 
     $scope.doEditar = function(person, ev, $index) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+        console.log($index);
         $mdDialog.show({
           locals: {
             person: person,
-            borrar: $scope.doBorrar
+            borrar: $scope.doBorrar,
+            indice: $index
           },
           controller: DialogController,
           templateUrl: '../../views/edit_user.tmpl.html',
@@ -41,14 +43,14 @@ angular.module('activosInformaticosApp')
           }, function() {
             //$scope.status = 'Hiciste click en cancel.';
           });
-        $scope.$watch(function() {
+        /*$scope.$watch(function() {
           return $mdMedia('xs') || $mdMedia('sm');
         }, function(wantsFullScreen) {
           $scope.customFullscreen = (wantsFullScreen === true);
-      });
+      });*/
     };
 
-    $scope.doBorrar = function(person, ev) {
+    $scope.doBorrar = function(person, ev, indice) {
       //console.log(person);
       var confirm = $mdDialog.confirm()
           .title('¿Está seguro que desea borrar este usuario?')
@@ -60,6 +62,7 @@ angular.module('activosInformaticosApp')
       $mdDialog.show(confirm)
         .then(function() {
           dataFactory.deleteUser(person,$mdDialog,$mdToast);
+          $scope.people.splice(indice,1);
           //$scope.status = 'El usuario fue borrado';
         }, function() {
           $scope.status = 'No se realizaron cambios';
@@ -88,13 +91,14 @@ angular.module('activosInformaticosApp')
         fullscreen: useFullScreen
       })
       .then(function(user) {
-        //console.log(user);
+        
         if (user) {
           //console.log($scope.people.length);
           
-          $scope.$apply(function(user) {
+          //$scope.$$phase || $scope.$apply(function(user) {
+            
             $scope.people.push(user);
-          });
+          //});
           //console.log($scope.people.length);
         }
       /*  $scope.status = 'Hiciste click en "' + answer + '".';
@@ -103,11 +107,12 @@ angular.module('activosInformaticosApp')
         //console.log(answer);
         
       });
-      $scope.$watch(function() {
+      
+      /*scope.$watch(function() {
         return $mdMedia('xs') || $mdMedia('sm');
       }, function(wantsFullScreen) {
         $scope.customFullscreen = (wantsFullScreen === true);
-      });
+      });*/
     };
 
     $scope.showAddAssetType = function(ev) {
@@ -136,12 +141,13 @@ angular.module('activosInformaticosApp')
       });
     };
     
-    function DialogController(person, borrar, $scope, $mdDialog, $mdToast) {
+    function DialogController(person, borrar,indice, $scope, $mdDialog, $mdToast) {
       
 
       //console.log(person);
       $scope.update_person = $.extend({},person);
       $scope.borrar = borrar;
+      $scope.indice = indice;
 
       $scope.tipos = [
         "String",
@@ -166,9 +172,10 @@ angular.module('activosInformaticosApp')
             $scope.properties.splice(index,1);
           };
 
-      $scope.callDel = function () {
-        //console.log(person);
-        borrar(person);
+      $scope.callDel = function (indice) {
+        console.log(indice);
+        ev = {};
+        borrar(person,ev,indice);
       }
 
       $scope.hide = function() {
