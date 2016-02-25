@@ -52,15 +52,12 @@ angular.module('activosInformaticosApp')
         //console.log(answer);
         
       });
-      $scope.$watch(function() {
-        return $mdMedia('xs') || $mdMedia('sm');
-      }, function(wantsFullScreen) {
-        $scope.customFullscreen = (wantsFullScreen === true);
-      });
+      
     };
 
     function DialogCtrl(assettypes, $scope, $mdDialog, $mdToast) {
       $scope.assettypes = assettypes;
+      $scope.sel_type = {};
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -69,6 +66,10 @@ angular.module('activosInformaticosApp')
         $mdDialog.cancel();
       };
       
+      $scope.goToType = function(type, $event) {
+        $scope.sel_type = type;
+      }
+
     };
     
   });

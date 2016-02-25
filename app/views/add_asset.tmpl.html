@@ -19,10 +19,10 @@
         </md-input-container>
         <md-list ng-cloak>
           <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
-          <md-list-item ng-repeat="types in assettypes | filter:buscado" ng-click="goToType(types, $event)">
+          <md-list-item ng-repeat="type in assettypes | filter:buscado" ng-click="goToType(type, $event)">
             
             <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
-            <p>{{ types.name }}</p>
+            <p>{{ type.name }}</p>
             
             <md-divider ng-if="!$last"></md-divider>
           </md-list-item>
@@ -34,13 +34,14 @@
               <md-tabs md-dynamic-height="" md-border-bottom="">
                 <md-tab label="Descripción">
                   <md-content class="md-padding">
-                    <h1 class="md-display-2">Descripción</h1>  
+                    <h1 class="md-display-2">Descripción</h1>
+                    {{sel_type.comment}}  
                   </md-content>
                 </md-tab>
                 <md-tab label="Atributos">
                   <md-content class="md-padding">
                     <h1 class="md-display-2">Atributos</h1>
-                   
+                    {{sel_type.properties}}
                   </md-content>
                 </md-tab>
                 <md-tab label="Ciclo de vida">
