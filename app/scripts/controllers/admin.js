@@ -21,7 +21,7 @@ angular.module('activosInformaticosApp')
 
     $scope.doEditar = function(person, ev, $index) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-        console.log($index);
+        //console.log($index);
         $mdDialog.show({
           locals: {
             person: person,
@@ -177,7 +177,7 @@ angular.module('activosInformaticosApp')
           };
 
       $scope.callDel = function (indice) {
-        console.log(indice);
+        //console.log(indice);
         ev = {};
         borrar(person,ev,indice);
       }

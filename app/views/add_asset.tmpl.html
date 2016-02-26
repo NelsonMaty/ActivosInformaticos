@@ -35,13 +35,17 @@
                 <md-tab label="Descripción">
                   <md-content class="md-padding">
                     <h1 class="md-display-2">Descripción</h1>
-                    {{sel_type.comment}}  
+                    
+                      {{sel_type.comment}}  
+                    
                   </md-content>
                 </md-tab>
                 <md-tab label="Atributos">
                   <md-content class="md-padding">
                     <h1 class="md-display-2">Atributos</h1>
-                    {{sel_type.properties}}
+                    <md-list-item ng-repeat="attributes in sel_type.properties">
+                      <p> Atributo: {{attributes.name}} - Tipo: {{attributes.type}} </p>
+                    </md-list-item>
                   </md-content>
                 </md-tab>
                 <md-tab label="Ciclo de vida">
