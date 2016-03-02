@@ -14,6 +14,7 @@ angular
     'ngResource',
     'ngMaterial',
     'ngRoute',
+    'formly',
     'ng-mfb'
   ])
   .config(function ($routeProvider, $httpProvider) {

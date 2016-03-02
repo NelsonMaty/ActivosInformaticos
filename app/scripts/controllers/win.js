@@ -68,7 +68,11 @@ angular.module('activosInformaticosApp')
       
       $scope.goToType = function(type, $event) {
         $scope.sel_type = type;
-      }
+      };
+
+      $scope.formly = function() {
+
+      };
 
     };
     
