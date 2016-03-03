@@ -30,6 +30,8 @@ module.exports = function(config) {
       'bower_components/angular-aria/angular-aria.js',
       'bower_components/angular-material/angular-material.js',
       'bower_components/ng-material-floating-button/src/mfb-directive.js',
+      'bower_components/api-check/dist/api-check.js',
+      'bower_components/angular-formly/dist/formly.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

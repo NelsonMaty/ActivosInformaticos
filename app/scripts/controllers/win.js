@@ -70,9 +70,46 @@ angular.module('activosInformaticosApp')
         $scope.sel_type = type;
       };
 
-      $scope.formly = function() {
+      $scope.goFormly = function(sel_type) {
+        fields = [
+              {
+                key: 'nombre',
+                type: 'input',
+                templateOptions: {
+                  label: 'Nombre',
+                  placeholder: 'sel_type.name'
+                }
+              },
+              {
+                key: 'assetType.comment',
+                type: 'textarea',
+                templateOptions: {
+                  label: 'Some sweet story',
+                  placeholder: 'It allows you to build and maintain your forms with the ease of JavaScript :-)',
+                  description: ''
+                }
+              },  
+              
+              {
+                key: 'custom',
+                type: 'custom',
+                templateOptions: {
+                  label: 'Custom inlined',
+                }
+              },
+              {
+                key: 'exampleDirective',
+                template: '<div example-directive></div>',
+                templateOptions: {
+                  label: 'Example Directive',
+                }
+              }
+            ];
 
-      };
+            
+          };
+
+          
 
     };
     
