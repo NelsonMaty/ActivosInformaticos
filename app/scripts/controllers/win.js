@@ -38,14 +38,14 @@ angular.module('activosInformaticosApp')
       })
       .then(function() {
         //console.log(user);
-        if (user) {
+        //if (user) {
           //console.log($scope.people.length);
           
-          $scope.$apply(function() {
+          //$scope.$apply(function() {
             //$scope.people.push(user);
-          });
+          //});
           //console.log($scope.people.length);
-        }
+        //}
       /*  $scope.status = 'Hiciste click en "' + answer + '".';
       }, function() {
         $scope.status = 'Hiciste click en cancel.';*/
@@ -68,46 +68,49 @@ angular.module('activosInformaticosApp')
       
       $scope.goToType = function(type, $event) {
         $scope.sel_type = type;
+        console.log(type);
       };
 
       $scope.goFormly = function(sel_type) {
+        $scope.hide();
         fields = [
               {
-                key: 'nombre',
+                key: 'name',
                 type: 'input',
                 templateOptions: {
                   label: 'Nombre',
-                  placeholder: 'sel_type.name'
+                  placeholder: sel_type.name
                 }
               },
               {
-                key: 'assetType.comment',
+                key: 'comment',
                 type: 'textarea',
                 templateOptions: {
-                  label: 'Some sweet story',
-                  placeholder: 'It allows you to build and maintain your forms with the ease of JavaScript :-)',
-                  description: ''
+                  label: 'Descripcion',
+                  placeholder: ''
                 }
-              },  
-              
-              {
-                key: 'custom',
-                type: 'custom',
-                templateOptions: {
-                  label: 'Custom inlined',
-                }
-              },
-              {
-                key: 'exampleDirective',
-                template: '<div example-directive></div>',
-                templateOptions: {
-                  label: 'Example Directive',
-                }
-              }
-            ];
+              }  
+              //Aca se cierra el array de objetos para formly
+        ];
 
-            
-          };
+        //funciion para agregar dinamicamente los atributos al array fields
+        atributos = sel_type.properties;
+
+        for (var i=0; i<sel_type.properties.length;i++) {
+          //console.log(atributos[i].name);
+          aux = {
+            key: atributos[i].name,
+            type: 'input',
+            templateOptions: {
+              label: atributos[i].name,
+              placeholder: ''
+            }
+          }
+          fields.push(aux);
+          //console.log(aux);
+        }
+        console.log(fields);    
+      };
 
           
 
