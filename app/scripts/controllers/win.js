@@ -38,18 +38,29 @@ angular.module('activosInformaticosApp')
       })
       .then(function() {
         //console.log(user);
-        //if (user) {
-          //console.log($scope.people.length);
+        $scope.showFormly(ev);
+        
+      });
+      
+    };
+
+    $scope.showFormly = function(ev) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      $mdDialog.show({
+        locals: {
+          assettypes: {}
           
-          //$scope.$apply(function() {
-            //$scope.people.push(user);
-          //});
-          //console.log($scope.people.length);
-        //}
-      /*  $scope.status = 'Hiciste click en "' + answer + '".';
-      }, function() {
-        $scope.status = 'Hiciste click en cancel.';*/
-        //console.log(answer);
+        },
+        controller: DialogCtrl,
+        templateUrl: '../../views/formly.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false,
+        fullscreen: useFullScreen
+      })
+      .then(function() {
+        //console.log(user);
+        
         
       });
       
@@ -58,6 +69,8 @@ angular.module('activosInformaticosApp')
     function DialogCtrl(assettypes, $scope, $mdDialog, $mdToast) {
       $scope.assettypes = assettypes;
       $scope.sel_type = {};
+      $scope.formly_fields = {};
+      $scope.asset = {};
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -71,8 +84,9 @@ angular.module('activosInformaticosApp')
         console.log(type);
       };
 
-      $scope.goFormly = function(sel_type) {
+      $scope.doFormly = function(sel_type) {
         $scope.hide();
+        asset = {};
         fields = [
               {
                 key: 'name',
@@ -109,7 +123,8 @@ angular.module('activosInformaticosApp')
           fields.push(aux);
           //console.log(aux);
         }
-        console.log(fields);    
+        $scope.formly_fields = fields;
+        console.log($scope.formly_fields);    
       };
 
           
