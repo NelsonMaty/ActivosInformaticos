@@ -26,8 +26,9 @@ angular.module('activosInformaticosApp')
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
         locals: {
-          assettypes: $scope.assettypes
-          //borrar: {},
+          assettypes: $scope.assettypes,
+          showformly: $scope.showFormly,
+          fields: {}
         },
         controller: DialogCtrl,
         templateUrl: '../../views/add_asset.tmpl.html',
@@ -38,18 +39,20 @@ angular.module('activosInformaticosApp')
       })
       .then(function() {
         //console.log(user);
-        $scope.showFormly(ev);
+        //$scope.showFormly(ev);
         
       });
       
     };
 
-    $scope.showFormly = function(ev) {
+    $scope.showFormly = function(ev,formly_fields) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      //console.log(formly_fields);
       $mdDialog.show({
         locals: {
-          assettypes: {}
-          
+          assettypes: {},
+          showformly: {},
+          fields: formly_fields
         },
         controller: DialogCtrl,
         templateUrl: '../../views/formly.tmpl.html',
@@ -66,11 +69,13 @@ angular.module('activosInformaticosApp')
       
     };
 
-    function DialogCtrl(assettypes, $scope, $mdDialog, $mdToast) {
+    function DialogCtrl(assettypes, showformly, fields, $scope, $mdDialog, $mdToast) {
       $scope.assettypes = assettypes;
+      $scope.showFormly = showformly;
       $scope.sel_type = {};
-      $scope.formly_fields = {};
+      $scope.formly_fields = fields;
       $scope.asset = {};
+
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -124,7 +129,9 @@ angular.module('activosInformaticosApp')
           //console.log(aux);
         }
         $scope.formly_fields = fields;
-        console.log($scope.formly_fields);    
+        console.log($scope.formly_fields);
+        ev = {};
+        $scope.showFormly(ev,$scope.formly_fields);    
       };
 
           
