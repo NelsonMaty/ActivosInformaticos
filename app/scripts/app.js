@@ -15,8 +15,7 @@ angular
     'ngMaterial',
     'ngRoute',
     'formly',
-    
-    'formlyMaterial',
+    'formlyMaterialTemplate',
     'ng-mfb'
   ])
   .config(function ($routeProvider, $httpProvider) {
@@ -28,7 +27,7 @@ angular
       })
       .when('/admin', {
         templateUrl: 'views/admin.html',
-        controller: 'AppCtrl', 
+        controller: 'AppCtrl',
         controllerAs: 'admin'
       })
       .when('/win', {
@@ -67,7 +66,7 @@ angular
     var dataFactory = {};
 
     dataFactory.getUsers = function(callback){
-       
+
       $http.get(urlWS + 'users')
         .then(function(response){
           //console.log(response);
@@ -78,7 +77,7 @@ angular
     };
 
     dataFactory.getAssetTypes = function(callback){
-       
+
       $http.get(urlWS + 'assetTypes')
         .then(function(response){
           //console.log(response);
@@ -88,8 +87,8 @@ angular
       });
     };
 
-    dataFactory.createUser = function(callback,user,$mdDialog,$mdToast){ 
-      console.log(user); 
+    dataFactory.createUser = function(callback,user,$mdDialog,$mdToast){
+      console.log(user);
 
       $http({
         method:"post",
@@ -98,7 +97,7 @@ angular
             "name":user.name,
             "comment":user.comment
         }
-          
+
       })
         .success(function(data){
           //alert("El usuario fue creado con éxito");
@@ -108,7 +107,7 @@ angular
               .position('top right')
               .hideDelay(3000)
           );
-          
+
           callback();
       })
         .error(function(err){
@@ -121,12 +120,12 @@ angular
               .hideDelay(3000)
           );
       });
-          
+
     };
 
-    dataFactory.createAssetType = function(callback,user,atributos,$mdDialog,$mdToast){ 
+    dataFactory.createAssetType = function(callback,user,atributos,$mdDialog,$mdToast){
       console.log(user);
-      console.log(atributos); 
+      console.log(atributos);
 
       $http({
         method:"post",
@@ -136,7 +135,7 @@ angular
             "comment":user.comment,
             "properties": atributos
         }
-          
+
       })
         .success(function(data){
           //alert("El usuario fue creado con éxito");
@@ -146,7 +145,7 @@ angular
               .position('top right')
               .hideDelay(3000)
           );
-          
+
           callback();
       })
         .error(function(err){
@@ -159,11 +158,11 @@ angular
               .hideDelay(3000)
           );
       });
-          
+
     };
 
-    dataFactory.editUser = function(callback,user,$mdDialog,$mdToast){ 
-      console.log(user); 
+    dataFactory.editUser = function(callback,user,$mdDialog,$mdToast){
+      console.log(user);
 
       $http({
         method:"put",
@@ -172,7 +171,7 @@ angular
             //"name":user.name,
             "comment":user.comment
         }
-          
+
       })
         .success(function(data){
           //alert("El usuario fue creado con éxito");
@@ -182,7 +181,7 @@ angular
               .position('top right')
               .hideDelay(3000)
           );
-          
+
           callback();
       })
         .error(function(err){
@@ -195,11 +194,11 @@ angular
               .hideDelay(3000)
           );
       });
-          
+
     };
 
-    dataFactory.deleteUser = function(person,$mdDialog,$mdToast){ 
-      //console.log(person); 
+    dataFactory.deleteUser = function(person,$mdDialog,$mdToast){
+      //console.log(person);
 
       $http({
         method:"delete",
@@ -208,7 +207,7 @@ angular
             "name":user.name,
             "comment":user.comment
         }*/
-          
+
       })
         .success(function(data){
           //alert("El usuario fue creado con éxito");
@@ -219,7 +218,7 @@ angular
               .position('top right')
               .hideDelay(3000)
           );
-          
+
           //callback();
       })
         .error(function(err){
@@ -232,10 +231,8 @@ angular
               .hideDelay(3000)
           );
       });
-          
+
     };
 
     return dataFactory;
   }]);
-
-  
