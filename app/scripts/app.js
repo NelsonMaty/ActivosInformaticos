@@ -234,5 +234,41 @@ angular
 
     };
 
+    dataFactory.createAsset = function(callback,asset,$mdDialog,$mdToast){
+      console.log(asset);
+
+      $http({
+        method:"post",
+        url:urlWS + 'assets',
+        data: {
+            "name":asset.name,
+            "comment":asset.comment
+        }
+
+      })
+        .success(function(data){
+          //alert("El usuario fue creado con éxito");
+          $mdToast.show(
+            $mdToast.simple()
+              .content('Se ha creado el activo ' + asset.name )
+              .position('top right')
+              .hideDelay(3000)
+          );
+
+          callback();
+      })
+        .error(function(err){
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo crear el activo')
+              .position('top right')
+              .hideDelay(3000)
+          );
+      });
+
+    };
+
     return dataFactory;
   }]);

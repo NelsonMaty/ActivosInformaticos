@@ -1,7 +1,18 @@
 <md-dialog aria-label="Nuevo Activo" ng-cloak style="width: 800px; height: 600px;">
+	<md-toolbar layout="row">
+	  <div class="md-toolbar-tools">
+	    
+	    <h1>Alta de Activo &nbsp; </h1>
+	    
+	  </div>
+	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
+	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+	  </md-button>
+	</md-toolbar>
 	<formly-form model="asset" fields="formly_fields" >
 		
 		<md-button ng-click="">Crear</md-button>
 		
 	</formly-form>
+
 </md-dialog>

@@ -129,7 +129,7 @@ angular.module('activosInformaticosApp')
           //console.log(aux);
         }
         $scope.formly_fields = fields;
-        console.log($scope.formly_fields);
+        //console.log($scope.formly_fields);
         ev = {};
         $scope.showFormly(ev,$scope.formly_fields);    
       };

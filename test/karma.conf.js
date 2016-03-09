@@ -33,6 +33,10 @@ module.exports = function(config) {
       'bower_components/ng-material-floating-button/src/mfb-directive.js',
       'bower_components/api-check/dist/api-check.js',
       'bower_components/angular-formly/dist/formly.js',
+      'bower_components/ng-img-crop/compile/minified/ng-img-crop.js',
+      'bower_components/webcam/dist/webcam.min.js',
+      'bower_components/ng-file-upload/ng-file-upload.js',
+      'bower_components/formlyMaterialTemplate/index.all.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
