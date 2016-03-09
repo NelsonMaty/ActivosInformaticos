@@ -87,42 +87,6 @@ angular
       });
     };
 
-    dataFactory.createUser = function(callback,user,$mdDialog,$mdToast){
-      console.log(user);
-
-      $http({
-        method:"post",
-        url:urlWS + 'users',
-        data: {
-            "name":user.name,
-            "comment":user.comment
-        }
-
-      })
-        .success(function(data){
-          //alert("El usuario fue creado con éxito");
-          $mdToast.show(
-            $mdToast.simple()
-              .content('Se ha agregado el usuario ' + user.name + ' a la base de datos')
-              .position('top right')
-              .hideDelay(3000)
-          );
-
-          callback();
-      })
-        .error(function(err){
-          console.log(err);
-
-          $mdToast.show(
-            $mdToast.simple()
-              .content('No se pudo agregar el usuario a la base de datos')
-              .position('top right')
-              .hideDelay(3000)
-          );
-      });
-
-    };
-
     dataFactory.createAssetType = function(callback,user,atributos,$mdDialog,$mdToast){
       console.log(user);
       console.log(atributos);
@@ -154,6 +118,42 @@ angular
           $mdToast.show(
             $mdToast.simple()
               .content('No se pudo agregar el tipo de activo a la base de datos')
+              .position('top right')
+              .hideDelay(3000)
+          );
+      });
+
+    };
+
+    dataFactory.createUser = function(callback,user,$mdDialog,$mdToast){
+      console.log(user);
+
+      $http({
+        method:"post",
+        url:urlWS + 'users',
+        data: {
+            "name":user.name,
+            "comment":user.comment
+        }
+
+      })
+        .success(function(data){
+          //alert("El usuario fue creado con éxito");
+          $mdToast.show(
+            $mdToast.simple()
+              .content('Se ha agregado el usuario ' + user.name + ' a la base de datos')
+              .position('top right')
+              .hideDelay(3000)
+          );
+
+          callback();
+      })
+        .error(function(err){
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo agregar el usuario a la base de datos')
               .position('top right')
               .hideDelay(3000)
           );
@@ -236,13 +236,12 @@ angular
 
     dataFactory.createAsset = function(callback,asset,$mdDialog,$mdToast){
       console.log(asset);
-
+      //asset.typeId = 
       $http({
         method:"post",
         url:urlWS + 'assets',
         data: {
-            "name":asset.name,
-            "comment":asset.comment
+            asset
         }
 
       })

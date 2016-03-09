@@ -76,6 +76,13 @@ angular.module('activosInformaticosApp')
       $scope.formly_fields = fields;
       $scope.asset = {};
 
+      $scope.newAsset = function(asset) {
+        dataFactory.createAsset(function (){
+          console.log($scope.sel_type.id);
+          $mdDialog.hide(user);
+              
+        }, asset, $mdDialog, $mdToast);
+      }
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -91,7 +98,7 @@ angular.module('activosInformaticosApp')
 
       $scope.doFormly = function(sel_type) {
         $scope.hide();
-        asset = {};
+        //$scope.asset = {};
         fields = [
               {
                 key: 'name',
