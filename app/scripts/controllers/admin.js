@@ -2,7 +2,14 @@
 
 angular.module('activosInformaticosApp')
   .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia, $mdToast, dataFactory) {
+    
     $scope.people=[];
+    
+    dataFactory.getUsers( function (response) {
+      $scope.people = response;
+
+    });
+
     $scope.toggleSidenav = function(menuId) {
       //$mdSidenav(menuId).toggle();
     };
@@ -28,7 +35,7 @@ angular.module('activosInformaticosApp')
             borrar: $scope.doBorrar,
             indice: $index
           },
-          controller: DialogController,
+          controller: EditUserCtrl,
           templateUrl: '../../views/edit_user.tmpl.html',
           parent: angular.element(document.body),
           targetEvent: ev,
@@ -41,13 +48,9 @@ angular.module('activosInformaticosApp')
               $scope.people[$index] = user;
             }
           }, function() {
-            //$scope.status = 'Hiciste click en cancel.';
+            
           });
-        /*$scope.$watch(function() {
-          return $mdMedia('xs') || $mdMedia('sm');
-        }, function(wantsFullScreen) {
-          $scope.customFullscreen = (wantsFullScreen === true);
-      });*/
+        
     };
 
     $scope.doBorrar = function(person, ev, indice) {
@@ -68,23 +71,11 @@ angular.module('activosInformaticosApp')
           $scope.status = 'No se realizaron cambios';
         });
     };
-    
-    dataFactory.getUsers( function (response) {
-      $scope.people = response;
-
-    });
-
-    
 
     $scope.showAddUser = function(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
-        locals: {
-          person: {},
-          borrar: {},
-          indice: {}
-        },
-        controller: DialogController,
+        controller: AddUserCtrl,
         templateUrl: '../../views/user.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
@@ -94,37 +85,19 @@ angular.module('activosInformaticosApp')
       .then(function(user) {
         
         if (user) {
-          //console.log($scope.people.length);
-          
-          //$scope.$$phase || $scope.$apply(function(user) {
             
             $scope.people.push(user);
-          //});
-          //console.log($scope.people.length);
+
         }
-      /*  $scope.status = 'Hiciste click en "' + answer + '".';
-      }, function() {
-        $scope.status = 'Hiciste click en cancel.';*/
-        //console.log(answer);
         
       });
-      
-      /*scope.$watch(function() {
-        return $mdMedia('xs') || $mdMedia('sm');
-      }, function(wantsFullScreen) {
-        $scope.customFullscreen = (wantsFullScreen === true);
-      });*/
     };
 
     $scope.showAddAssetType = function(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
-        locals: {
-          person: {},
-          borrar: {},
-          indice: {}
-        },
-        controller: DialogController,
+        
+        controller: AddTypeCtrl,
         templateUrl: '../../views/add_asset_type.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
@@ -136,22 +109,10 @@ angular.module('activosInformaticosApp')
 
 
       }) //function() {
-        //$scope.status = 'Hiciste click en cancel.';
-      //});
-      /*$scope.$watch(function() {
-        return $mdMedia('xs') || $mdMedia('sm');
-      }, function(wantsFullScreen) {
-        $scope.customFullscreen = (wantsFullScreen === true);
-      });*/
+        
     };
     
-    function DialogController(person, borrar,indice, $scope, $mdDialog, $mdToast) {
-      
-
-      //console.log(person);
-      $scope.update_person = $.extend({},person);
-      $scope.borrar = borrar;
-      $scope.indice = indice;
+    function AddTypeCtrl($scope, $mdDialog, $mdToast) {
 
       $scope.tipos = [
         "String",
@@ -166,15 +127,61 @@ angular.module('activosInformaticosApp')
       ];
 
       $scope.addItem = function() {
-            //var r = Math.ceil(Math.random() * 1000);
             var n = $scope.properties.length;
             $scope.properties.push({ label: n+1, name:'', type:'' });
           };
 
       $scope.removeItem = function(index) {
-            //$scope.properties.pop($index);
             $scope.properties.splice(index,1);
           };
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.answer = function(answer, user) {
+
+        if (  answer == 'TipoActivo') {
+          var atributos = $scope.properties;
+          dataFactory.createAssetType( function (){
+            $mdDialog.hide(user);    
+          }, user, atributos, $mdDialog, $mdToast);
+        }
+        else {
+          $mdDialog.hide(null);
+        }
+      };
+    }
+
+    function AddUserCtrl($scope, $mdDialog, $mdToast) {
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.answer = function(answer, user) {
+      
+        if ( answer == 'Aceptar') {
+          dataFactory.createUser( function (){
+            $mdDialog.hide(user);        
+          }, user, $mdDialog, $mdToast);
+        } 
+        else {
+          $mdDialog.hide(null);
+        }
+      
+      };
+    }
+
+    function EditUserCtrl(person, borrar,indice, $scope, $mdDialog, $mdToast) {
+      
+      $scope.update_person = $.extend({},person);
+      $scope.borrar = borrar;
+      $scope.indice = indice;
 
       $scope.callDel = function (indice) {
         //console.log(indice);
@@ -189,43 +196,16 @@ angular.module('activosInformaticosApp')
         $mdDialog.cancel();
       };
       $scope.answer = function(answer, user) {
-        //$mdDialog.hide();
-
         //console.log(user);
-
-        if ( answer == 'Aceptar') {
-          dataFactory.createUser( function (){
+        if (  answer == 'Editar') {
+          dataFactory.editUser( function (){
             $mdDialog.hide(user);
-            //$scope.people.push(user);
             
             //location.reload();       
           }, user, $mdDialog, $mdToast);
-        
         } else {
-          if (  answer == 'Editar') {
-            dataFactory.editUser( function (){
-              $mdDialog.hide(user);
-            
-            //location.reload();       
-            }, user, $mdDialog, $mdToast);
-          } else {
-            if (  answer == 'TipoActivo') {
-              var atributos = $scope.properties;
-              dataFactory.createAssetType( function (){
-                
-              //console.log(user);
-              //console.log($scope.properties);
-                $mdDialog.hide(user);
-              
-              //location.reload();       
-              }, user, atributos, $mdDialog, $mdToast);
-            }
-            else {
-              $mdDialog.hide(null);
-            }
-          }
+          $mdDialog.hide(null);
         }
-
       };
     }
     
