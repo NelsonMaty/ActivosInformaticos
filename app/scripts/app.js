@@ -234,6 +234,17 @@ angular
 
     };
 
+    dataFactory.getAssets = function(callback){
+
+      $http.get(urlWS + 'assets')
+        .then(function(response){
+          //console.log(response);
+          callback(response.data);
+        },function(err){
+          console.log(err);
+      });
+    };
+
     dataFactory.createAsset = function(callback,asset,$mdDialog,$mdToast){
       console.log(asset);
       //asset.typeId = 
@@ -268,6 +279,7 @@ angular
       });
 
     };
+
 
     return dataFactory;
   }]);

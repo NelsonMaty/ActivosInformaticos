@@ -22,6 +22,13 @@ angular.module('activosInformaticosApp')
 
     });
 
+    dataFactory.getAssets( function (response) {
+      console.log(response);
+      $scope.myassets = response;
+      console.log($scope.myassets);
+
+    });
+
     $scope.showAddAsset = function(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
@@ -77,9 +84,10 @@ angular.module('activosInformaticosApp')
       $scope.asset = {};
 
       $scope.newAsset = function(asset) {
+        asset.typeId = $scope.sel_type.id;
         dataFactory.createAsset(function (){
-          console.log($scope.sel_type.id);
-          $mdDialog.hide(user);
+          //console.log($scope.sel_type.id);
+          $mdDialog.hide();
               
         }, asset, $mdDialog, $mdToast);
       }
