@@ -7,7 +7,7 @@
     "angular-resource": "^1.3.0",
     "angular-route": "^1.3.0",
     "jquery": "~2.1.4",
-    "angular-material": "~0.11.4",
+    "angular-material": "1.0.6",
     "ng-material-floating-button": "ng-mfb#~0.6.2",
     "angular-formly": "^7.5.2",
     "formlyMaterialTemplate": "*"
@@ -18,6 +18,8 @@
   "appPath": "app",
   "moduleName": "activosInformaticosApp",
   "resolutions": {
-    "angular": "1.5.0"
+    "angular": "1.5.0",
+    "angular-formly": "^7.5.2",
+    "angular-material": "1.0.6"
   }
 }
