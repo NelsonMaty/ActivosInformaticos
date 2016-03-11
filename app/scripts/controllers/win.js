@@ -175,6 +175,7 @@ angular.module('activosInformaticosApp')
                 type: 'select',
                 templateOptions: {
                   label: atributos[i].name,
+                  options: ["True","False"]
                   //datepickerPopup: 'dd-MMMM-yyyy'
                 }
               };
