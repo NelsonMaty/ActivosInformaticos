@@ -23,9 +23,9 @@ angular.module('activosInformaticosApp')
     });
 
     dataFactory.getAssets( function (response) {
-      console.log(response);
+      //console.log(response);
       $scope.myassets = response;
-      console.log($scope.myassets);
+      //console.log($scope.myassets);
 
     });
 
@@ -104,6 +104,30 @@ angular.module('activosInformaticosApp')
         console.log(type);
       };
 
+      /*formlyConfig.setType({
+          name: 'datepicker',
+          templateUrl:  'datepicker.html',
+          //wrapper: ['bootstrapLabel', 'bootstrapHasError'],
+          defaultOptions: {
+            ngModelAttrs: ngModelAttrs,
+            templateOptions: {
+              datepickerOptions: {
+                format: 'MM.dd.yyyy',
+                initDate: new Date()
+              }
+            }
+          },
+          controller: ['$scope', function ($scope) {
+            $scope.datepicker = {};
+
+            $scope.datepicker.opened = false;
+
+            $scope.datepicker.open = function ($event) {
+              $scope.datepicker.opened = !$scope.datepicker.opened;
+            };
+          }]
+        });*/
+
       $scope.doFormly = function(sel_type) {
         $scope.hide();
         //$scope.asset = {};
@@ -132,13 +156,40 @@ angular.module('activosInformaticosApp')
 
         for (var i=0; i<sel_type.properties.length;i++) {
           //console.log(atributos[i].name);
-          aux = {
-            key: atributos[i].name,
-            type: 'input',
-            templateOptions: {
-              label: atributos[i].name,
-              placeholder: ''
-            }
+          switch(atributos[i].type) {
+            case 'Date':
+              console.log("case date");
+              aux = {
+                key: atributos[i].name,
+                type: 'date',
+                templateOptions: {
+                  label: atributos[i].name,
+                  //datepickerPopup: 'dd-MMMM-yyyy'
+                }
+              };
+              break;
+            case 'Boolean':
+              console.log("case boolean");
+              aux = {
+                key: atributos[i].name,
+                type: 'select',
+                templateOptions: {
+                  label: atributos[i].name,
+                  //datepickerPopup: 'dd-MMMM-yyyy'
+                }
+              };
+              break;
+            
+            default:
+              aux = {
+                key: atributos[i].name,
+                type: 'input',
+                templateOptions: {
+                  label: atributos[i].name,
+                  placeholder: ''
+                }
+              };
+              break;
           }
           fields.push(aux);
           //console.log(aux);
