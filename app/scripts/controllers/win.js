@@ -161,9 +161,10 @@ angular.module('activosInformaticosApp')
               console.log("case date");
               aux = {
                 key: atributos[i].name,
-                type: 'date',
+                type: 'input',
                 templateOptions: {
-                  label: atributos[i].name,
+                  type: 'date',
+                  label: atributos[i].name
                   //datepickerPopup: 'dd-MMMM-yyyy'
                 }
               };
