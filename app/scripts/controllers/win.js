@@ -76,6 +76,31 @@ angular.module('activosInformaticosApp')
       
     };
 
+    $scope.editdAsset = function(ev,asset,$index) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      $mdDialog.show({
+        locals: {
+          asset: asset,
+          indice: $index
+          //assettypes: $scope.assettypes,
+          //showformly: $scope.showFormly,
+          //fields: {}
+        },
+        controller: EditAssetCtrl,
+        templateUrl: '../../views/edit_asset.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false,
+        fullscreen: useFullScreen
+      })
+      .then(function() {
+        //console.log(user);
+        //$scope.showFormly(ev);
+        
+      });
+      
+    };
+
     function DialogCtrl(assettypes, showformly, fields, $scope, $mdDialog, $mdToast) {
       $scope.assettypes = assettypes;
       $scope.showFormly = showformly;
@@ -104,29 +129,7 @@ angular.module('activosInformaticosApp')
         console.log(type);
       };
 
-      /*formlyConfig.setType({
-          name: 'datepicker',
-          templateUrl:  'datepicker.html',
-          //wrapper: ['bootstrapLabel', 'bootstrapHasError'],
-          defaultOptions: {
-            ngModelAttrs: ngModelAttrs,
-            templateOptions: {
-              datepickerOptions: {
-                format: 'MM.dd.yyyy',
-                initDate: new Date()
-              }
-            }
-          },
-          controller: ['$scope', function ($scope) {
-            $scope.datepicker = {};
-
-            $scope.datepicker.opened = false;
-
-            $scope.datepicker.open = function ($event) {
-              $scope.datepicker.opened = !$scope.datepicker.opened;
-            };
-          }]
-        });*/
+      
 
       $scope.doFormly = function(sel_type) {
         $scope.hide();
@@ -205,6 +208,38 @@ angular.module('activosInformaticosApp')
           
 
     };
+
+    function EditAssetCtrl(asset, indice, $scope, $mdDialog, $mdToast) {
+      
+      $scope.update_asset = $.extend({},asset);
+      //$scope.borrar = borrar;
+      $scope.indice = indice;
+
+      /*$scope.callDel = function (indice) {
+        //console.log(indice);
+        ev = {};
+        borrar(person,ev,indice);
+      }*/
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.answer = function(answer, user) {
+        //console.log(user);
+        if (  answer == 'Editar') {
+          dataFactory.editUser( function (){
+            $mdDialog.hide(user);
+            
+            //location.reload();       
+          }, user, $mdDialog, $mdToast);
+        } else {
+          $mdDialog.hide(null);
+        }
+      };
+    }
     
   });
 

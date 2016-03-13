@@ -57,7 +57,7 @@
                   <h1 class="md-display-2">Todos los activos</h1>
                     <md-list ng-cloak>
                       
-                      <md-list-item ng-repeat="assets in myassets" ng-click="">
+                      <md-list-item ng-repeat="assets in myassets" ng-click="editAsset($event, assets.asset, $index)">
                         
                         <p>{{ assets.asset.name }}</p>
                         

@@ -1,0 +1,18 @@
+<md-dialog aria-label="Editar Activo" ng-cloak style="width: 800px; ">
+	<md-toolbar layout="row">
+	  <div class="md-toolbar-tools">
+	    
+	    <h1> {{update_asset.name}} &nbsp; </h1>
+	    
+	  </div>
+	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
+	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+	  </md-button>
+	</md-toolbar>
+	<formly-form model="asset" fields="formly_fields" >
+		
+		<md-button ng-click="newAsset(asset)">Crear</md-button>
+		
+	</formly-form>
+
+</md-dialog>
