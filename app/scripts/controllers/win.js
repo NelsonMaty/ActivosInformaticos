@@ -76,8 +76,9 @@ angular.module('activosInformaticosApp')
       
     };
 
-    $scope.editdAsset = function(ev,asset,$index) {
+    $scope.editAsset = function(ev,asset,$index) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      console.log(asset);
       $mdDialog.show({
         locals: {
           asset: asset,
@@ -109,7 +110,9 @@ angular.module('activosInformaticosApp')
       $scope.asset = {};
 
       $scope.newAsset = function(asset) {
+        console.log("id de tipo " + sel_type.id);
         asset.typeId = $scope.sel_type.id;
+        console.log(asset.typeId);
         dataFactory.createAsset(function (){
           //console.log($scope.sel_type.id);
           $mdDialog.hide();
@@ -141,6 +144,15 @@ angular.module('activosInformaticosApp')
                 templateOptions: {
                   label: 'Nombre',
                   placeholder: sel_type.name
+                }
+              },
+              {
+                key: 'typeId',
+                type: 'input',
+                hide: true,
+                templateOptions: {
+                  label: 'Nombre',
+                  placeholder: sel_type.id
                 }
               },
               {
@@ -212,9 +224,79 @@ angular.module('activosInformaticosApp')
     function EditAssetCtrl(asset, indice, $scope, $mdDialog, $mdToast) {
       
       $scope.update_asset = $.extend({},asset);
+
+      console.log(asset.length);
       //$scope.borrar = borrar;
       $scope.indice = indice;
 
+      /*$scope.fields = [
+              {
+                key: 'name',
+                type: 'input',
+                templateOptions: {
+                  label: 'Nombre',
+                  placeholder: asset.name
+                }
+              },
+              {
+                key: 'comment',
+                type: 'textarea',
+                templateOptions: {
+                  label: 'Descripcion',
+                  placeholder: asset.comment
+                }
+              }  
+              //Aca se cierra el array de objetos para formly
+        ];
+
+        //funciion para agregar dinamicamente los atributos al array fields
+
+        for (var i=0; i<asset.length;i++) {
+          //console.log(atributos[i].name);
+          switch(atributos[i].type) {
+            case 'Date':
+              console.log("case date");
+              aux = {
+                key: atributos[i].name,
+                type: 'input',
+                templateOptions: {
+                  type: 'date',
+                  label: atributos[i].name
+                  //datepickerPopup: 'dd-MMMM-yyyy'
+                }
+              };
+              break;
+            case 'Boolean':
+              console.log("case boolean");
+              aux = {
+                key: atributos[i].name,
+                type: 'select',
+                templateOptions: {
+                  label: atributos[i].name,
+                  options: ["True","False"]
+                  //datepickerPopup: 'dd-MMMM-yyyy'
+                }
+              };
+              break;
+            
+            default:
+              aux = {
+                key: atributos[i].name,
+                type: 'input',
+                templateOptions: {
+                  label: atributos[i].name,
+                  placeholder: ''
+                }
+              };
+              break;
+          }
+          fields.push(aux);
+          //console.log(aux);
+        }*/
+         
+      
+
+      //console.log($scope.update_asset);
       /*$scope.callDel = function (indice) {
         //console.log(indice);
         ev = {};
