@@ -70,11 +70,7 @@ angular.module('activosInformaticosApp')
         console.log("termine de agregar");
         if (asset) {
           console.log(asset);
-          $scope.myassets.push(
-            {
-              asset: asset
-            }
-          );
+          $scope.myassets.push(asset);
           console.log($scope.myassets);
         }
         
@@ -85,7 +81,7 @@ angular.module('activosInformaticosApp')
 
     $scope.editAsset = function(ev,asset,$index) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-      console.log(asset);
+      //console.log(asset);
       $mdDialog.show({
         locals: {
           asset: asset,
@@ -227,7 +223,7 @@ angular.module('activosInformaticosApp')
       $scope.typeid = typeid;
 
       $scope.newAsset = function(asset) {
-        console.log("id de tipo " + $scope.typeid);
+        //console.log("id de tipo " + $scope.typeid);
         asset.typeId = $scope.typeid;
         //console.log("id de tipo" + asset.typeId);
         dataFactory.createAsset(function (){
@@ -250,57 +246,79 @@ angular.module('activosInformaticosApp')
     function EditAssetCtrl(asset, indice, $scope, $mdDialog, $mdToast) {
       
       $scope.update_asset = $.extend({},asset);
-
-      console.log(asset.length);
-      //$scope.borrar = borrar;
       $scope.indice = indice;
+      $scope.asset_type = {};
 
-      /*$scope.fields = [
-              {
-                key: 'name',
-                type: 'input',
-                templateOptions: {
-                  label: 'Nombre',
-                  placeholder: asset.name
-                }
-              },
-              {
-                key: 'comment',
-                type: 'textarea',
-                templateOptions: {
-                  label: 'Descripcion',
-                  placeholder: asset.comment
-                }
-              }  
-              //Aca se cierra el array de objetos para formly
+      dataFactory.getAnAssetType ($scope.update_asset.typeId, function (response) {
+        
+        $scope.asset_type = response;
+        console.log($scope.asset_type);
+        $scope.fields = [
+          {
+                  key: 'name',
+                  type: 'input',
+                  templateOptions: {
+                    label: 'Nombre',
+                    placeholder: $scope.update_asset.name
+                  }
+          },
+          {
+                  key: 'typeId',
+                  type: 'input',
+                  hide: true,
+                  templateOptions: {
+                    label: 'Tipo',
+                    placeholder: $scope.asset_type._id
+                  }
+          },
+          {
+                  key: 'attached',
+                  type: 'input',
+                  hide: true,
+                  templateOptions: {
+                    label: 'Información adjunta',
+                    placeholder: ''
+                  }
+          },
+          {
+                  key: 'comment',
+                  type: 'textarea',
+                  templateOptions: {
+                    label: 'Descripcion',
+                    placeholder: $scope.update_asset.comment
+                  }
+          }  
         ];
-
-        //funciion para agregar dinamicamente los atributos al array fields
-
-        for (var i=0; i<asset.length;i++) {
+        atributos = $scope.asset_type.properties;
+        for (var i=0; i<$scope.asset_type.properties.length;i++) {
           //console.log(atributos[i].name);
+
           switch(atributos[i].type) {
             case 'Date':
-              console.log("case date");
+              //console.log("case date");
+
+              
               aux = {
                 key: atributos[i].name,
                 type: 'input',
                 templateOptions: {
                   type: 'date',
-                  label: atributos[i].name
+                  label: atributos[i].name,
+                  placeholder: $scope.update_asset[atributos[i].name]
                   //datepickerPopup: 'dd-MMMM-yyyy'
                 }
               };
               break;
             case 'Boolean':
-              console.log("case boolean");
+              //console.log("case boolean");
               aux = {
                 key: atributos[i].name,
                 type: 'select',
                 templateOptions: {
                   label: atributos[i].name,
-                  options: ["True","False"]
-                  //datepickerPopup: 'dd-MMMM-yyyy'
+                  options: ["True","False"],
+                  placeholder: $scope.update_asset[atributos[i].name]
+                  
                 }
               };
               break;
@@ -311,23 +329,16 @@ angular.module('activosInformaticosApp')
                 type: 'input',
                 templateOptions: {
                   label: atributos[i].name,
-                  placeholder: ''
+                  placeholder: $scope.update_asset[atributos[i].name]
                 }
               };
               break;
           }
-          fields.push(aux);
+          $scope.fields.push(aux);
           //console.log(aux);
-        }*/
-         
-      
+        }
 
-      //console.log($scope.update_asset);
-      /*$scope.callDel = function (indice) {
-        //console.log(indice);
-        ev = {};
-        borrar(person,ev,indice);
-      }*/
+      });
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -335,18 +346,14 @@ angular.module('activosInformaticosApp')
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
-      $scope.answer = function(answer, user) {
-        //console.log(user);
-        if (  answer == 'Editar') {
-          dataFactory.editUser( function (){
-            $mdDialog.hide(user);
-            
-            //location.reload();       
-          }, user, $mdDialog, $mdToast);
-        } else {
-          $mdDialog.hide(null);
-        }
-      };
+
+      
+      //keys = Object.keys(update_asset);
+      
+      
+
+
+
     };
     
   });

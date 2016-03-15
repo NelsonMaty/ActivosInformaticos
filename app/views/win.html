@@ -57,9 +57,9 @@
                   <h1 class="md-display-2">Todos los activos</h1>
                     <md-list ng-cloak>
                       
-                      <md-list-item ng-repeat="assets in myassets" ng-click="editAsset($event, assets.asset, $index)">
+                      <md-list-item ng-repeat="asset in myassets" ng-click="editAsset($event, asset, $index)">
                         
-                        <p>{{ assets.asset.name }}</p>
+                        <p>{{ asset.name }}</p>
                         
                         <md-divider ng-if="!$last"></md-divider>
                     </md-list-item>

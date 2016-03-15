@@ -9,10 +9,12 @@
 	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
 	  </md-button>
 	</md-toolbar>
-	<formly-form model="asset" fields="formly_fields" >
-		
-		<md-button ng-click="newAsset(asset)">Crear</md-button>
-		
-	</formly-form>
+	<form ng-submit="updateAsset(update_asset)">
+		{{update_asset}}
+		<formly-form model="update_asset" fields="fields" >
+			
+		</formly-form>
+		<md-button>Crear</md-button>
+	</form>
 
 </md-dialog>

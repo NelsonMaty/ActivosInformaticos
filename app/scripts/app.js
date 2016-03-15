@@ -87,6 +87,17 @@ angular
       });
     };
 
+    dataFactory.getAnAssetType = function(typeid,callback){
+
+      $http.get(urlWS + 'assetTypes/' + typeid)
+        .then(function(response){
+          //console.log(response);
+          callback(response.data);
+        },function(err){
+          console.log(err);
+      });
+    };
+
     dataFactory.createAssetType = function(callback,user,atributos,$mdDialog,$mdToast){
       console.log(user);
       console.log(atributos);
@@ -251,9 +262,8 @@ angular
       $http({
         method:"post",
         url:urlWS + 'assets',
-        data: {
-            asset
-        }
+        data: asset
+        
 
       })
         .success(function(data){
