@@ -10,11 +10,21 @@
 	  </md-button>
 	</md-toolbar>
 	<form ng-submit="updateAsset(update_asset)">
-		{{update_asset}}
+		
 		<formly-form model="update_asset" fields="fields" >
 			
 		</formly-form>
-		<md-button>Crear</md-button>
+		<md-dialog-actions layout="row">
+			<md-button ng-click="editAsset(update_asset)">
+			  Aceptar
+			</md-button>
+			<md-button ng-click="cancel()" style="margin-right:20px;">
+			  Cancelar
+			</md-button>
+			<md-button class="md-icon-button" ng-click="delAsset(indice)">
+			    <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
+			</md-button>
+		</md-dialog-actions>
 	</form>
 
 </md-dialog>

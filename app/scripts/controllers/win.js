@@ -105,6 +105,25 @@ angular.module('activosInformaticosApp')
       
     };
 
+    $scope.deleteAsset = function(ev, asset, indice) {
+      //console.log(person);
+      var confirm = $mdDialog.confirm()
+          .title('¿Está seguro que desea borrar este activo?')
+          //.textContent('All of the banks have agreed to forgive you your debts.')
+          .ariaLabel('Borrado de activo')
+          .targetEvent(ev)
+          .ok('Aceptar')
+          .cancel('Cancelar');
+      $mdDialog.show(confirm)
+        .then(function() {
+          dataFactory.deleteAsset(asset,$mdDialog,$mdToast);
+          $scope.people.splice(indice,1);
+          //$scope.status = 'El usuario fue borrado';
+        }, function() {
+          $scope.status = 'No se realizaron cambios';
+        });
+    };
+
     function SelectTypeCtrl(assettypes, showformly, $scope, $mdDialog, $mdToast) {
       $scope.assettypes = assettypes;
       $scope.showFormly = showformly;
@@ -339,6 +358,10 @@ angular.module('activosInformaticosApp')
         }
 
       });
+
+      $scope.delAsset = function(asset) {
+        
+      }
 
       $scope.hide = function() {
         $mdDialog.hide();
