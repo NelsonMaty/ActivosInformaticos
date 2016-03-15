@@ -34,10 +34,10 @@ angular.module('activosInformaticosApp')
       $mdDialog.show({
         locals: {
           assettypes: $scope.assettypes,
-          showformly: $scope.showFormly,
-          fields: {}
+          showformly: $scope.showFormly
+          //fields: {}
         },
-        controller: DialogCtrl,
+        controller: SelectTypeCtrl,
         templateUrl: '../../views/add_asset.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
@@ -52,16 +52,14 @@ angular.module('activosInformaticosApp')
       
     };
 
-    $scope.showFormly = function(ev,formly_fields) {
+    $scope.showFormly = function(formly_fields,typeid) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-      //console.log(formly_fields);
       $mdDialog.show({
         locals: {
-          assettypes: {},
-          showformly: {},
-          fields: formly_fields
+          fields: formly_fields,
+          typeid: typeid
         },
-        controller: DialogCtrl,
+        controller: AddAssetCtrl,
         templateUrl: '../../views/formly.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
@@ -102,23 +100,9 @@ angular.module('activosInformaticosApp')
       
     };
 
-    function DialogCtrl(assettypes, showformly, fields, $scope, $mdDialog, $mdToast) {
+    function SelectTypeCtrl(assettypes, showformly, $scope, $mdDialog, $mdToast) {
       $scope.assettypes = assettypes;
       $scope.showFormly = showformly;
-      $scope.sel_type = {};
-      $scope.formly_fields = fields;
-      $scope.asset = {};
-
-      $scope.newAsset = function(asset) {
-        console.log("id de tipo " + sel_type.id);
-        asset.typeId = $scope.sel_type.id;
-        console.log(asset.typeId);
-        dataFactory.createAsset(function (){
-          //console.log($scope.sel_type.id);
-          $mdDialog.hide();
-              
-        }, asset, $mdDialog, $mdToast);
-      }
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -129,10 +113,8 @@ angular.module('activosInformaticosApp')
       
       $scope.goToType = function(type, $event) {
         $scope.sel_type = type;
-        console.log(type);
+        //console.log(type);
       };
-
-      
 
       $scope.doFormly = function(sel_type) {
         $scope.hide();
@@ -151,8 +133,8 @@ angular.module('activosInformaticosApp')
                 type: 'input',
                 hide: true,
                 templateOptions: {
-                  label: 'Nombre',
-                  placeholder: sel_type.id
+                  label: 'Tipo',
+                  placeholder: sel_type._id
                 }
               },
               {
@@ -214,11 +196,37 @@ angular.module('activosInformaticosApp')
         $scope.formly_fields = fields;
         //console.log($scope.formly_fields);
         ev = {};
-        $scope.showFormly(ev,$scope.formly_fields);    
+        //console.log($scope.sel_type._id); 
+        $scope.showFormly($scope.formly_fields,sel_type._id);
+           
       };
+       
+    };
 
-          
+    function AddAssetCtrl(fields, typeid, $scope, $mdDialog, $mdToast) {
+      
+      $scope.formly_fields = fields;
+      $scope.typeid = typeid;
 
+      $scope.newAsset = function(asset) {
+        console.log("id de tipo " + $scope.typeid);
+        asset.typeId = $scope.typeid;
+        //console.log("id de tipo" + asset.typeId);
+        dataFactory.createAsset(function (){
+          //console.log($scope.sel_type.id);
+          $mdDialog.hide();
+              
+        }, asset, $mdDialog, $mdToast);
+      }
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      
     };
 
     function EditAssetCtrl(asset, indice, $scope, $mdDialog, $mdToast) {
@@ -321,7 +329,7 @@ angular.module('activosInformaticosApp')
           $mdDialog.hide(null);
         }
       };
-    }
+    };
     
   });
 
