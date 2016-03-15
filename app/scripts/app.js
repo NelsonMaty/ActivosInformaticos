@@ -246,8 +246,8 @@ angular
     };
 
     dataFactory.createAsset = function(callback,asset,$mdDialog,$mdToast){
-      console.log(asset);
-      //asset.typeId = 
+      //console.log(asset);
+      
       $http({
         method:"post",
         url:urlWS + 'assets',

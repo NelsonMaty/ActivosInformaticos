@@ -66,8 +66,17 @@ angular.module('activosInformaticosApp')
         clickOutsideToClose:false,
         fullscreen: useFullScreen
       })
-      .then(function() {
-        //console.log(user);
+      .then(function(asset) {
+        console.log("termine de agregar");
+        if (asset) {
+          console.log(asset);
+          $scope.myassets.push(
+            {
+              asset: asset
+            }
+          );
+          console.log($scope.myassets);
+        }
         
         
       });
@@ -138,6 +147,15 @@ angular.module('activosInformaticosApp')
                 }
               },
               {
+                key: 'attached',
+                type: 'input',
+                hide: true,
+                templateOptions: {
+                  label: 'Información adjunta',
+                  placeholder: ''
+                }
+              },
+              {
                 key: 'comment',
                 type: 'textarea',
                 templateOptions: {
@@ -155,7 +173,7 @@ angular.module('activosInformaticosApp')
           //console.log(atributos[i].name);
           switch(atributos[i].type) {
             case 'Date':
-              console.log("case date");
+              //console.log("case date");
               aux = {
                 key: atributos[i].name,
                 type: 'input',
@@ -167,14 +185,14 @@ angular.module('activosInformaticosApp')
               };
               break;
             case 'Boolean':
-              console.log("case boolean");
+              //console.log("case boolean");
               aux = {
                 key: atributos[i].name,
                 type: 'select',
                 templateOptions: {
                   label: atributos[i].name,
                   options: ["True","False"]
-                  //datepickerPopup: 'dd-MMMM-yyyy'
+                  
                 }
               };
               break;
@@ -214,7 +232,7 @@ angular.module('activosInformaticosApp')
         //console.log("id de tipo" + asset.typeId);
         dataFactory.createAsset(function (){
           //console.log($scope.sel_type.id);
-          $mdDialog.hide();
+          $mdDialog.hide(asset);
               
         }, asset, $mdDialog, $mdToast);
       }
