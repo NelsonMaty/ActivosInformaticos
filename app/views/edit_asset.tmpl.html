@@ -5,9 +5,12 @@
 	    <h1> {{update_asset.name}} &nbsp; </h1>
 	    
 	  </div>
+	  <md-icon md-font-set="material-icons" ng-click="doEditar(person, $event, $index)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}">edit</md-icon>
+                      <md-divider ng-if="!$last"></md-divider>
 	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
 	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
 	  </md-button>
+
 	</md-toolbar>
 	<form >
 		

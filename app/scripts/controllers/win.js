@@ -281,6 +281,9 @@ angular.module('activosInformaticosApp')
                   templateOptions: {
                     label: 'Nombre',
                     placeholder: $scope.update_asset.name
+                  },
+                  expressionProperties: {
+                    "templateOptions.disabled": "!model.firstName"
                   }
           },
           {
