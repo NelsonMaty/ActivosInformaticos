@@ -65,17 +65,6 @@ angular
     var urlWS = 'http://localhost:10010/'
     var dataFactory = {};
 
-    dataFactory.getUsers = function(callback){
-
-      $http.get(urlWS + 'users')
-        .then(function(response){
-          //console.log(response);
-          callback(response.data);
-        },function(err){
-          console.log(err);
-      });
-    };
-
     dataFactory.getAssetTypes = function(callback){
 
       $http.get(urlWS + 'assetTypes')
@@ -134,6 +123,18 @@ angular
           );
       });
 
+    };
+
+    dataFactory.getUsers = function(callback){
+
+      $http.get(urlWS + 'users')
+        .then(function(response){
+          //console.log(response);
+          callback(response.data);
+        },function(err){
+          console.log(err);
+      });
+    
     };
 
     dataFactory.createUser = function(callback,user,$mdDialog,$mdToast){
@@ -254,6 +255,7 @@ angular
         },function(err){
           console.log(err);
       });
+    
     };
 
     dataFactory.createAsset = function(callback,asset,$mdDialog,$mdToast){
@@ -290,6 +292,42 @@ angular
 
     };
 
+    dataFactory.deleteAsset = function(asset,$mdDialog,$mdToast){
+      //console.log(person);
+
+      $http({
+        method:"delete",
+        url:urlWS + 'assets/' + asset._id,
+        /*data: {
+            "name":user.name,
+            "comment":user.comment
+        }*/
+
+      })
+        .success(function(data){
+          //alert("El usuario fue creado con éxito");
+          $mdToast.show(
+            $mdToast.simple()
+              //.content('Se ha eliminado el usuario ' + data.name + ' de la base de datos')
+              .content(data.message)
+              .position('top right')
+              .hideDelay(3000)
+          );
+
+          //callback();
+      })
+        .error(function(err){
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo borrar el activo en base de datos')
+              .position('top right')
+              .hideDelay(3000)
+          );
+      });
+
+    };
 
     return dataFactory;
   }]);

@@ -85,7 +85,8 @@ angular.module('activosInformaticosApp')
       $mdDialog.show({
         locals: {
           asset: asset,
-          indice: $index
+          indice: $index,
+          deleteAsset: $scope.deleteAsset
           //assettypes: $scope.assettypes,
           //showformly: $scope.showFormly,
           //fields: {}
@@ -262,9 +263,10 @@ angular.module('activosInformaticosApp')
       
     };
 
-    function EditAssetCtrl(asset, indice, $scope, $mdDialog, $mdToast) {
+    function EditAssetCtrl(asset, indice, deleteAsset, $scope, $mdDialog, $mdToast) {
       
       $scope.update_asset = $.extend({},asset);
+      $scope.deleteAsset = deleteAsset
       $scope.indice = indice;
       $scope.asset_type = {};
 
@@ -359,8 +361,9 @@ angular.module('activosInformaticosApp')
 
       });
 
-      $scope.delAsset = function(asset) {
-        
+      $scope.callDelete = function(indice) {
+        ev = {};
+        deleteAsset(ev,asset,indice);
       }
 
       $scope.hide = function() {
