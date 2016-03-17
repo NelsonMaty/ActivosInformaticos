@@ -5,18 +5,20 @@
 	    <h1> {{update_asset.name}} &nbsp; </h1>
 	    
 	  </div>
-	  <md-icon md-font-set="material-icons" ng-click="doEditar(person, $event, $index)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}">edit</md-icon>
-                      <md-divider ng-if="!$last"></md-divider>
+	  
+      <md-button class="md-icon-button" style="top: 7px;" ng-click="enableEdit()">
+	    <md-icon md-font-set="material-icons" aria-label="Edit asset">edit</md-icon>
+	  </md-button>
+
 	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
 	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
 	  </md-button>
-
 	</md-toolbar>
 	<form >
 		
-		<formly-form model="update_asset" fields="fields" >
-			
+		<formly-form model="update_asset" fields="fields" >	
 		</formly-form>
+
 		<md-dialog-actions layout="row">
 			<md-button ng-click="editAsset(update_asset)">
 			  Aceptar
@@ -28,6 +30,6 @@
 			    <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
 			</md-button>
 		</md-dialog-actions>
-	</form>
 
+	</form>
 </md-dialog>

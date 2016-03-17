@@ -87,9 +87,7 @@ angular.module('activosInformaticosApp')
           asset: asset,
           indice: $index,
           deleteAsset: $scope.deleteAsset
-          //assettypes: $scope.assettypes,
-          //showformly: $scope.showFormly,
-          //fields: {}
+          
         },
         controller: EditAssetCtrl,
         templateUrl: '../../views/edit_asset.tmpl.html',
@@ -99,8 +97,7 @@ angular.module('activosInformaticosApp')
         fullscreen: useFullScreen
       })
       .then(function() {
-        //console.log(user);
-        //$scope.showFormly(ev);
+        
         
       });
       
@@ -269,6 +266,8 @@ angular.module('activosInformaticosApp')
       $scope.deleteAsset = deleteAsset
       $scope.indice = indice;
       $scope.asset_type = {};
+      $scope.formData = false;
+      //$scope.edit = {};
 
       dataFactory.getAnAssetType ($scope.update_asset.typeId, function (response) {
         
@@ -283,7 +282,10 @@ angular.module('activosInformaticosApp')
                     placeholder: $scope.update_asset.name
                   },
                   expressionProperties: {
-                    "templateOptions.disabled": "!model.firstName"
+                    "templateOptions.disabled": function ($modelValue, $viewValue) {
+                      //console.log($scope.formData);
+                      return !$scope.formData;
+                    }
                   }
           },
           {
@@ -297,8 +299,8 @@ angular.module('activosInformaticosApp')
           },
           {
                   key: 'attached',
-                  type: 'input',
-                  hide: true,
+                  type: 'textarea',
+                  //hide: true,
                   templateOptions: {
                     label: 'Información adjunta',
                     placeholder: ''
@@ -367,6 +369,12 @@ angular.module('activosInformaticosApp')
       $scope.callDelete = function(indice) {
         ev = {};
         deleteAsset(ev,asset,indice);
+      }
+
+      $scope.enableEdit = function() {
+        //console.log($scope.formData);
+        $scope.formData = true;
+        //console.log($scope.edit);
       }
 
       $scope.hide = function() {
