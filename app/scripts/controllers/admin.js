@@ -10,6 +10,11 @@ angular.module('activosInformaticosApp')
 
     });
 
+    dataFactory.getAssetTypes( function (response) {
+      $scope.assettypes = response;
+
+    });
+
     $scope.toggleSidenav = function(menuId) {
       //$mdSidenav(menuId).toggle();
     };
