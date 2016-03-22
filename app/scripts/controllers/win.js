@@ -266,7 +266,7 @@ angular.module('activosInformaticosApp')
       $scope.deleteAsset = deleteAsset
       $scope.indice = indice;
       $scope.asset_type = {};
-      $scope.formData = false;
+      //$scope.formData = false;
       $scope.up_asset = {};
       //$scope.edit = {};
 

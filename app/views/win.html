@@ -55,13 +55,28 @@
               <md-tab label="Todos">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Todos los activos</h1>
-                    <md-list ng-cloak>
+
+                    <div layout="row" layout-wrap layout-margin layout-align="start center" >
+                         
+                      <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="editAsset($event, asset, $index)">
+                             <!--img src="images/nota.svg"/-->
+                             <md-icon style="font-size: 48px;" md-font-set="material-icons">description</md-icon>
+                             <div style="text-align: center"> {{asset.name}} </div>
+                      </div>
+                        
+
+                    </div>
+                    <!--md-list ng-cloak>
                       
                       <md-list-item ng-repeat="asset in myassets" ng-click="editAsset($event, asset, $index)">
                         
                         <p>{{ asset.name }}</p>
+
                         
                         <md-divider ng-if="!$last"></md-divider>
+
+                        
+
                     </md-list-item>
                   </md-list-->
 

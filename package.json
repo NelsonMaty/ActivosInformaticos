@@ -39,5 +39,10 @@
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "dependencies": {
+    "angular": "^1.5.2",
+    "angular-formly": "^8.1.0",
+    "api-check": "^7.5.5"
   }
 }
