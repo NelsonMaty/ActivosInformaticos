@@ -79,6 +79,29 @@ angular.module('activosInformaticosApp')
       
     };
 
+    $scope.goAsset = function(ev,asset,$index) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      //console.log(asset);
+      $mdDialog.show({
+        locals: {
+          asset: asset,
+          indice: $index,
+          editAsset: $scope.editAsset
+          
+        },
+        controller: ShowAssetCtrl,
+        templateUrl: '../../views/show_asset.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false,
+        fullscreen: useFullScreen
+      })
+      .then(function() {
+        
+        
+      });
+    };
+
     $scope.editAsset = function(ev,asset,$index) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       //console.log(asset);
@@ -120,6 +143,22 @@ angular.module('activosInformaticosApp')
         }, function() {
           $scope.status = 'No se realizaron cambios';
         });
+    };
+
+    function ShowAssetCtrl(asset, indice, editAsset, $scope, $mdDialog, $mdToast){
+      $scope.asset = asset;
+      $scope.indice = indice;
+      $scope.editAsset = editAsset;
+      $scope.ev = {};
+
+      $scope.keys = Object.keys(asset);
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
     };
 
     function SelectTypeCtrl(assettypes, showformly, $scope, $mdDialog, $mdToast) {
@@ -266,7 +305,12 @@ angular.module('activosInformaticosApp')
       $scope.deleteAsset = deleteAsset
       $scope.indice = indice;
       $scope.asset_type = {};
-      //$scope.formData = false;
+      
+      $scope.options = {
+        formState: {
+                editable: '' // <-- this is bound to the firstName of the first field
+              }
+      };
       $scope.up_asset = {};
       //$scope.edit = {};
 
@@ -283,7 +327,7 @@ angular.module('activosInformaticosApp')
                     placeholder: $scope.update_asset.name
                   },
                   expressionProperties: {
-                    "templateOptions.disabled": "!update_asset.editable"
+                    "templateOptions.disabled": "!options.formState.editable"
                     }
                   
           },
@@ -403,9 +447,11 @@ angular.module('activosInformaticosApp')
 
       $scope.enableEdit = function() {
         console.log("presione para editar");
-        console.log($scope.update_asset.editable);
-        $scope.update_asset.editable = "True";
-        //console.log($scope.edit);
+        //console.log($scope.update_asset.editable);
+        //$scope.update_asset.editable = "True";
+        $scope.options.formState.editable = "True";
+        
+        console.log($scope.edit);
       }
 
       $scope.hide = function() {
@@ -417,10 +463,6 @@ angular.module('activosInformaticosApp')
 
       
       //keys = Object.keys(update_asset);
-      
-      
-
-
 
     };
     

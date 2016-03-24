@@ -2,11 +2,11 @@
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
 	    
-	    <h1> {{update_asset.name}} &nbsp; </h1>
+	    <h1> {{asset.name}} &nbsp; </h1>
 	    
 	  </div>
 	  
-      <md-button class="md-icon-button" style="top: 7px;" ng-click="enableEdit()">
+      <md-button class="md-icon-button" style="top: 7px;" ng-click="editAsset(ev,asset,indice)">
 	    <md-icon md-font-set="material-icons" aria-label="Edit asset">edit</md-icon>
 	  </md-button>
 
@@ -16,8 +16,14 @@
 	</md-toolbar>
 	<form >
 		
-		<formly-form model="update_asset" fields="fields" options="options">	
-		</formly-form>
+		<h1 class="md-display-2" style="padding-left: 20px;">Comentarios</h1>
+	    <p style="padding-left: 20px; padding-bottom: 20px;"> {{asset.comment}} </p>
+	    <md-divider ></md-divider>
+	    <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
+	    
+	    <!--div ng-repeat="attributes in sel_type.properties">
+	            <p> Atributo: {{attributes.name}} - Tipo: {{attributes.type}} </p>
+	    </div-->	
 
 		<md-dialog-actions layout="row">
 			<md-button ng-click="editAsset(update_asset)">
@@ -26,10 +32,9 @@
 			<md-button ng-click="cancel()" style="margin-right:20px;">
 			  Cancelar
 			</md-button>
-			<md-button class="md-icon-button" ng-click="callDelete(indice)">
-			    <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
-			</md-button>
+			
 		</md-dialog-actions>
 
 	</form>
 </md-dialog>
+
