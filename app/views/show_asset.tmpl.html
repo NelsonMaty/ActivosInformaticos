@@ -21,9 +21,10 @@
 	    <md-divider ></md-divider>
 	    <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
 	    
-	    <!--div ng-repeat="attributes in sel_type.properties">
-	            <p> Atributo: {{attributes.name}} - Tipo: {{attributes.type}} </p>
-	    </div-->	
+	    <div ng-repeat="key in keys" >
+	    	<md-icon md-font-set="material-icons" class="attributes" >settings_input_component</md-icon>
+	        <p style="padding-left: 20px; padding-bottom: 20px;"> {{key}}:  </p>
+	    </div>	
 
 		<md-dialog-actions layout="row">
 			<md-button ng-click="hide()">

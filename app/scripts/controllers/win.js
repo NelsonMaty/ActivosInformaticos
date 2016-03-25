@@ -152,6 +152,8 @@ angular.module('activosInformaticosApp')
       $scope.ev = {};
 
       $scope.keys = Object.keys(asset);
+      $scope.keys.splice(0,3);
+      $scope.keys.pop();
 
       $scope.hide = function() {
         $mdDialog.hide();
