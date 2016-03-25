@@ -150,10 +150,15 @@ angular.module('activosInformaticosApp')
       $scope.indice = indice;
       $scope.editAsset = editAsset;
       $scope.ev = {};
+      $scope.type_name = {};
 
       $scope.keys = Object.keys(asset);
       $scope.keys.splice(0,3);
       $scope.keys.pop();
+
+      dataFactory.getAnAssetType($scope.asset.typeId, function (response) {
+        $scope.type_name = response.name;
+        });
 
       $scope.hide = function() {
         $mdDialog.hide();
