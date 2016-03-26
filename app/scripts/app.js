@@ -292,6 +292,40 @@ angular
 
     };
 
+    dataFactory.editAsset = function(callback,asset,$mdDialog,$mdToast){
+      console.log(asset);
+
+      $http({
+        method:"put",
+        url:urlWS + 'assets/' + asset._id,
+        data: asset
+        
+
+      })
+        .success(function(data){
+          //alert("El usuario fue creado con éxito");
+          $mdToast.show(
+            $mdToast.simple()
+              .content('Se ha modificado el activo ' + asset.name + ' en la base de datos')
+              .position('top right')
+              .hideDelay(3000)
+          );
+
+          callback();
+      })
+        .error(function(err){
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo modificar el activo en la base de datos')
+              .position('top right')
+              .hideDelay(3000)
+          );
+      });
+
+    };
+
     dataFactory.deleteAsset = function(asset,$mdDialog,$mdToast){
       //console.log(person);
 

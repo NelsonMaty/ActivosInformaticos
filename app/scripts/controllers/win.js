@@ -108,6 +108,7 @@ angular.module('activosInformaticosApp')
       $mdDialog.show({
         locals: {
           asset: asset,
+          myassets: $scope.myassets,
           indice: $index,
           deleteAsset: $scope.deleteAsset
           
@@ -152,7 +153,9 @@ angular.module('activosInformaticosApp')
       $scope.ev = {};
       $scope.type_name = {};
 
+
       $scope.keys = Object.keys(asset);
+      console.log($scope.keys);
       $scope.keys.splice(0,5);
       $scope.keys.pop();
       //$scope.keys.push('Tipo');
@@ -307,10 +310,11 @@ angular.module('activosInformaticosApp')
       
     };
 
-    function EditAssetCtrl(asset, indice, deleteAsset, $scope, $mdDialog, $mdToast) {
+    function EditAssetCtrl(asset, myassets, indice, deleteAsset, $scope, $mdDialog, $mdToast) {
       
       $scope.update_asset = $.extend({},asset);
-      $scope.deleteAsset = deleteAsset
+      $scope.myassets = myassets;
+      $scope.deleteAsset = deleteAsset;
       $scope.indice = indice;
       $scope.asset_type = {};
       
@@ -333,10 +337,10 @@ angular.module('activosInformaticosApp')
                   templateOptions: {
                     label: 'Nombre',
                     placeholder: $scope.update_asset.name
-                  },
+                  }/*,
                   expressionProperties: {
                     "templateOptions.disabled": "!options.formState.editable"
-                    }
+                    }*/
                   
           },
           {
@@ -355,13 +359,13 @@ angular.module('activosInformaticosApp')
                   templateOptions: {
                     label: 'Información adjunta',
                     placeholder: ''
-                  },
+                  }/*,
                   expressionProperties: {
                     "templateOptions.disabled": "!update_asset.editable"
-                    }
+                    }*/
                   
           },
-          {
+          /*{
                   key: 'editable',
                   type: 'input',
                   //type: 'select',
@@ -371,17 +375,17 @@ angular.module('activosInformaticosApp')
                     label: 'editable',
                     //placeholder: ''
                   }
-          },
+          },*/
           {
                   key: 'comment',
                   type: 'textarea',
                   templateOptions: {
                     label: 'Descripcion',
                     placeholder: $scope.update_asset.comment
-                  },
+                  }/*,
                   expressionProperties: {
                     "templateOptions.disabled": "!update_asset.editable"
-                    }
+                    }*/
                   
           }  
         ];
@@ -402,10 +406,10 @@ angular.module('activosInformaticosApp')
                   label: atributos[i].name,
                   placeholder: $scope.update_asset[atributos[i].name]
                   //datepickerPopup: 'dd-MMMM-yyyy'
-                },
+                }/*,
                 expressionProperties: {
                     "templateOptions.disabled": "!update_asset.editable"
-                    }
+                    }*/
                   
               };
               break;
@@ -419,10 +423,10 @@ angular.module('activosInformaticosApp')
                   options: ["True","False"],
                   placeholder: $scope.update_asset[atributos[i].name]
                   
-                },
+                }/*,
                 expressionProperties: {
                     "templateOptions.disabled": "!update_asset.editable"
-                    }
+                    }*/
                   
               };
               break;
@@ -434,10 +438,10 @@ angular.module('activosInformaticosApp')
                 templateOptions: {
                   label: atributos[i].name,
                   placeholder: $scope.update_asset[atributos[i].name]
-                },
+                }/*,
                 expressionProperties: {
                     "templateOptions.disabled": "!update_asset.editable"
-                    }
+                    }*/
                   
               };
               break;
@@ -453,14 +457,14 @@ angular.module('activosInformaticosApp')
         deleteAsset(ev,asset,indice);
       }
 
-      /*$scope.enableEdit = function() {
-        console.log("presione para editar");
-        //console.log($scope.update_asset.editable);
-        //$scope.update_asset.editable = "True";
-        $scope.options.formState.editable = "True";
-        
-        console.log($scope.edit);
-      }*/
+      $scope.updateAsset = function (asset) {
+        dataFactory.editAsset (function (){
+            $mdDialog.hide(asset);
+            $scope.myassets.splice(indice,1,asset);
+            //location.reload();       
+          }, asset, $mdDialog, $mdToast);
+
+      };
 
       $scope.hide = function() {
         $mdDialog.hide();
