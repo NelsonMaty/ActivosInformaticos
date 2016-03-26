@@ -2,7 +2,7 @@
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
 	    
-	    <h1> {{asset.name}} &nbsp; </h1>
+	    <h1> {{asset.name}} - Tipo: {{type_name}} &nbsp; </h1>
 	    
 	  </div>
 	  
@@ -25,11 +25,12 @@
 	    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
 	        <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong> 
 	        <p style="padding-left: 20px; padding-bottom: 20px;">{{asset[key]}} </p>
+	        
 	    </md-list-item>	
 
-	    <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
+	    <!--md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
 	    <strong style="padding-left: 20px; padding-bottom: 20px;"> Tipo: </strong> 
-	    <p style="padding-left: 20px; padding-bottom: 20px;">{{type_name}} </p>
+	    <p style="padding-left: 20px; padding-bottom: 20px;">{{type_name}} </p-->
 
 		<md-dialog-actions layout="row">
 			<md-button ng-click="hide()">

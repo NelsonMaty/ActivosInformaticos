@@ -153,8 +153,9 @@ angular.module('activosInformaticosApp')
       $scope.type_name = {};
 
       $scope.keys = Object.keys(asset);
-      $scope.keys.splice(0,3);
+      $scope.keys.splice(0,5);
       $scope.keys.pop();
+      //$scope.keys.push('Tipo');
 
       dataFactory.getAnAssetType($scope.asset.typeId, function (response) {
         $scope.type_name = response.name;
@@ -313,13 +314,13 @@ angular.module('activosInformaticosApp')
       $scope.indice = indice;
       $scope.asset_type = {};
       
-      $scope.options = {
+      /*$scope.options = {
         formState: {
                 editable: '' // <-- this is bound to the firstName of the first field
               }
       };
       $scope.up_asset = {};
-      //$scope.edit = {};
+      //$scope.edit = {};*/
 
       dataFactory.getAnAssetType ($scope.update_asset.typeId, function (response) {
         
@@ -452,14 +453,14 @@ angular.module('activosInformaticosApp')
         deleteAsset(ev,asset,indice);
       }
 
-      $scope.enableEdit = function() {
+      /*$scope.enableEdit = function() {
         console.log("presione para editar");
         //console.log($scope.update_asset.editable);
         //$scope.update_asset.editable = "True";
         $scope.options.formState.editable = "True";
         
         console.log($scope.edit);
-      }
+      }*/
 
       $scope.hide = function() {
         $mdDialog.hide();
