@@ -155,10 +155,19 @@ angular.module('activosInformaticosApp')
 
 
       $scope.keys = Object.keys(asset);
-      console.log($scope.keys);
-      $scope.keys.splice(0,5);
-      $scope.keys.pop();
-      //$scope.keys.push('Tipo');
+      //console.log($scope.keys);
+      $scope.a =$scope.keys.indexOf("deleted");
+      $scope.keys.splice($scope.a,1);
+      $scope.b =$scope.keys.indexOf("__v");
+      $scope.keys.splice($scope.b,1);
+      $scope.c =$scope.keys.indexOf("name");
+      $scope.keys.splice($scope.c,1);
+      $scope.d =$scope.keys.indexOf("comment");
+      $scope.keys.splice($scope.d,1);
+      $scope.e =$scope.keys.indexOf("$$hashKey");
+      $scope.keys.splice($scope.e,1);
+
+      
 
       dataFactory.getAnAssetType($scope.asset.typeId, function (response) {
         $scope.type_name = response.name;
