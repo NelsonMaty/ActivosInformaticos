@@ -116,6 +116,46 @@ angular.module('activosInformaticosApp')
       }) //function() {
         
     };
+
+    $scope.goToType = function(type,ev) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      $mdDialog.show({
+        locals: {
+          type: type
+        },
+        controller: ShowTypeCtrl,
+        templateUrl: '../../views/show_asset_type.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false,
+        fullscreen: useFullScreen
+      })
+      .then(function(answer) {
+        //$scope.status = 'Hiciste click en "' + answer + '".';
+
+
+      }) //function() {
+        
+    };
+
+    function ShowTypeCtrl(type, $scope, $mdDialog, $mdToast){
+      $scope.type = type;
+      //$scope.indice = indice;
+      //$scope.editAsset = editAsset;
+      $scope.ev = {};
+      //$scope.type_name = {};
+
+      //$scope.keys = Object.keys(asset);
+      //console.log($scope.keys);
+     
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+    };
     
     function AddTypeCtrl($scope, $mdDialog, $mdToast) {
 
