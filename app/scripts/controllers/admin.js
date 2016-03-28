@@ -164,16 +164,21 @@ angular.module('activosInformaticosApp')
         "Boolean",
         "Integer",
         "Float",
+        "List",
         "Date"
       ];
 
       $scope.properties = [
-        { label: '1', name:'', type:''  }
+        { label: '1', 
+          name:'',
+          type:'',
+          required:'',
+          list: ['0']   }
       ];
 
       $scope.addItem = function() {
             var n = $scope.properties.length;
-            $scope.properties.push({ label: n+1, name:'', type:'' });
+            $scope.properties.push({ label: n+1, name:'', type:'',required:'', list: [] });
           };
 
       $scope.removeItem = function(index) {
@@ -186,13 +191,13 @@ angular.module('activosInformaticosApp')
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
-      $scope.answer = function(answer, user) {
+      $scope.answer = function(answer, type) {
 
         if (  answer == 'TipoActivo') {
           var atributos = $scope.properties;
           dataFactory.createAssetType( function (){
-            $mdDialog.hide(user);    
-          }, user, atributos, $mdDialog, $mdToast);
+            $mdDialog.hide(type);    
+          }, type, atributos, $mdDialog, $mdToast);
         }
         else {
           $mdDialog.hide(null);

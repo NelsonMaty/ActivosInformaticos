@@ -1,4 +1,4 @@
-<md-dialog aria-label="Nuevo tipo de activo" ng-cloak>
+<md-dialog aria-label="Nuevo tipo de activo" ng-cloak >
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -12,7 +12,7 @@
     
     <div layout="column" style="margin-right: 20px; margin-left: 20px;">
       <md-content class="autoScroll" >
-        <md-input-container class="md-icon-float md-block">
+        <md-input-container class="md-icon-float md-block" >
           <!-- Use floating label instead of placeholder -->
           <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
           <input ng-model="AssetType.name" type="text" placeholder="Nombre de tipo">
@@ -20,39 +20,46 @@
         <!--md-divider ng-if="!$last"></md-divider-->
       </md-content>
       <md-content class="autoScroll" >
-        <md-input-container class="md-icon-float md-block">
+        <md-input-container class="md-icon-float md-block" >
           <!-- Use floating label instead of placeholder -->
           <md-icon md-font-set="material-icons" class="comments" aria-label="Comentarios">comment</md-icon>
           <input ng-model="AssetType.comment" type="text" placeholder="Comentarios">
         </md-input-container>
         <!--md-divider ng-if="!$last"></md-divider-->
       </md-content>
-      <md-content layout-gt-sm="row" ng-repeat="d in properties">
+      <md-content layout-gt-sm="row" ng-repeat="attribute in properties">
           <!--{{ d.label}}-->
 
           <md-input-container class="md-icon-float md-block" >
               <md-icon md-font-set="material-icons" class="attributes" >settings_input_component</md-icon>
-              <input ng-model="d.name" type="text" placeholder="Atributos" aria-label="lista atributos">
+              <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos">
           </md-input-container>
 
-          <md-input-container class="md-select md-block">
+          <md-input-container class="md-select md-block" >
             <label>Tipo</label>
-            <md-select ng-model="d.type">
+            <md-select ng-model="attribute.type">
               <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
                 {{tipo}}
               </md-option>
             </md-select>    
           </md-input-container>
+
+          <md-content layout-gt-sm="row" ng-repeat="element in attribute.list" ng-if="attribute.type=='List'">
+            <md-input-container class="md-icon-float md-block" >
+              <md-icon md-font-set="material-icons" class="list" >list</md-icon>
+              <input ng-model="atribute.list" type="text" placeholder="Elemento de lista" aria-label="lista atributos">
+            </md-input-container>
+          </md-content>
           
           <md-content layout-gt-sm="row" ng-if="properties.length>1">
             <md-button  aria-label="Quitar columna" ng-click="removeItem($index)"> 
-              <md-icon md-font-set="material-icons">remove</md-icon>
+              <md-icon md-font-set="material-icons">remove_circle</md-icon>
             </md-button>
           </md-content>
 
           <md-content layout-gt-sm="row" ng-if="$last">
             <md-button  aria-label="Añadir columna" ng-click="addItem()"> 
-              <md-icon md-font-set="material-icons">add</md-icon>
+              <md-icon md-font-set="material-icons">add_circle</md-icon>
             </md-button>
           </md-content>
 

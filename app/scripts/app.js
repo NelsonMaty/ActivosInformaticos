@@ -87,16 +87,16 @@ angular
       });
     };
 
-    dataFactory.createAssetType = function(callback,user,atributos,$mdDialog,$mdToast){
-      console.log(user);
+    dataFactory.createAssetType = function(callback,type,atributos,$mdDialog,$mdToast){
+      console.log(type);
       console.log(atributos);
 
       $http({
         method:"post",
         url:urlWS + 'assetTypes',
         data: {
-            "name":user.name,
-            "comment":user.comment,
+            "name":type.name,
+            "comment":type.comment,
             "properties": atributos
         }
 
@@ -105,7 +105,7 @@ angular
           //alert("El usuario fue creado con éxito");
           $mdToast.show(
             $mdToast.simple()
-              .content('Se ha agregado el tipo de activo ' + user.name + ' a la base de datos')
+              .content('Se ha agregado el tipo de activo ' + type.name + ' a la base de datos')
               .position('top right')
               .hideDelay(3000)
           );
