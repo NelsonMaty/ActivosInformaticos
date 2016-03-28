@@ -1,0 +1,43 @@
+<md-dialog aria-label="Editar Activo" ng-cloak style="width: 800px; ">
+	<md-toolbar layout="row">
+	  <div class="md-toolbar-tools">
+	    
+	    <h1> {{type.name}}  &nbsp; </h1>
+	    
+	  </div>
+	  
+      <md-button class="md-icon-button" style="top: 7px;" ng-click="editAssetType(ev,type,indice)">
+	    <md-icon md-font-set="material-icons" aria-label="Edit asset">edit</md-icon>
+	  </md-button>
+
+	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
+	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+	  </md-button>
+	</md-toolbar>
+	<form >
+		
+		<h1 class="md-display-2" style="padding-left: 20px;">Comentarios</h1>
+	    <p style="padding-left: 20px; padding-bottom: 20px;"> {{type.comment}} </p>
+	    <md-divider ></md-divider>
+	    <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
+	    
+	    <md-list-item ng-repeat="attributes in type.properties">
+	        <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
+	        <strong style="padding-left: 20px; padding-bottom: 20px;"> Nombre: </strong>   
+	        <p style="padding-left: 20px; padding-bottom: 20px;">{{attributes.name}} </p>
+	        <strong style="padding-left: 20px; padding-bottom: 20px;"> Tipo: </strong>
+	        <p style="padding-left: 20px; padding-bottom: 20px;">{{attributes.type}} </p>
+	    </md-list-item>
+
+	   
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="hide()">
+			  Aceptar
+			</md-button>
+			
+			
+		</md-dialog-actions>
+
+	</form>
+</md-dialog>
