@@ -111,7 +111,9 @@ angular.module('activosInformaticosApp')
       })
       .then(function(answer) {
         //$scope.status = 'Hiciste click en "' + answer + '".';
-
+        if (answer) {
+          $scope.assettypes.push(answer);
+        }
 
       }) //function() {
         
@@ -146,7 +148,7 @@ angular.module('activosInformaticosApp')
       //$scope.type_name = {};
 
       //$scope.keys = Object.keys(asset);
-      //console.log($scope.keys);
+      console.log($scope.type);
      
 
       $scope.hide = function() {
@@ -172,13 +174,13 @@ angular.module('activosInformaticosApp')
         { label: '1', 
           name:'',
           type:'',
-          required:''
+          required: false
              }
       ];
 
       $scope.addItem = function() {
             var n = $scope.properties.length;
-            $scope.properties.push({ label: n+1, name:'', type:'',required:'' });
+            $scope.properties.push({ label: n+1, name:'', type:'',required:false });
           };
 
       $scope.removeItem = function(index) {

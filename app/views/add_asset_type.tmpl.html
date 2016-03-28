@@ -1,5 +1,5 @@
 <md-dialog aria-label="Nuevo tipo de activo" ng-cloak >
-  <form style="height: 432px;">
+  <form >
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Nuevo Tipo de Activo</h2>
@@ -17,6 +17,7 @@
           <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
           <input ng-model="AssetType.name" type="text" placeholder="Nombre de tipo">
         </md-input-container>
+        
         <!--md-divider ng-if="!$last"></md-divider-->
       </md-content>
       <md-content class="autoScroll" style="height: 92px; top: 10px;">
@@ -43,6 +44,11 @@
               </md-option>
             </md-select>    
           </md-input-container>
+
+          <label>Obligatorio</label>
+          <md-checkbox ng-model="attribute.required" aria-label="Checkbox 1">
+
+          </md-checkbox>
 
           <!--md-content layout-gt-sm="row" ng-repeat="element in attribute.list" ng-if="attribute.type=='List'">
             <md-input-container class="md-icon-float md-block" >
