@@ -172,13 +172,13 @@ angular.module('activosInformaticosApp')
         { label: '1', 
           name:'',
           type:'',
-          required:'',
-          list: ['0']   }
+          required:''
+             }
       ];
 
       $scope.addItem = function() {
             var n = $scope.properties.length;
-            $scope.properties.push({ label: n+1, name:'', type:'',required:'', list: [] });
+            $scope.properties.push({ label: n+1, name:'', type:'',required:'' });
           };
 
       $scope.removeItem = function(index) {

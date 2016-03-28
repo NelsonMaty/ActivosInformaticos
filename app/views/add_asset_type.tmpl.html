@@ -1,5 +1,5 @@
 <md-dialog aria-label="Nuevo tipo de activo" ng-cloak >
-  <form>
+  <form style="height: 432px;">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Nuevo Tipo de Activo</h2>
@@ -10,27 +10,27 @@
       </div>
     </md-toolbar>
     
-    <div layout="column" style="margin-right: 20px; margin-left: 20px;">
-      <md-content class="autoScroll" >
-        <md-input-container class="md-icon-float md-block" >
+    <div layout="column" style="margin-right: 20px; margin-left: 20px; padding-bottom: 22px;padding-top: 18px;">
+      <md-content class="autoScroll" style="height: 92px; top: 10px;">
+        <md-input-container class="md-icon-float md-block" style="padding-top: 0px; top: 10px; margin-bottom: 0px;">
           <!-- Use floating label instead of placeholder -->
           <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
           <input ng-model="AssetType.name" type="text" placeholder="Nombre de tipo">
         </md-input-container>
         <!--md-divider ng-if="!$last"></md-divider-->
       </md-content>
-      <md-content class="autoScroll" >
-        <md-input-container class="md-icon-float md-block" >
+      <md-content class="autoScroll" style="height: 92px; top: 10px;">
+        <md-input-container class="md-icon-float md-block" style="padding-top: 0px; top: 10px; margin-bottom: 0px;">
           <!-- Use floating label instead of placeholder -->
           <md-icon md-font-set="material-icons" class="comments" aria-label="Comentarios">comment</md-icon>
           <input ng-model="AssetType.comment" type="text" placeholder="Comentarios">
         </md-input-container>
         <!--md-divider ng-if="!$last"></md-divider-->
       </md-content>
-      <md-content layout-gt-sm="row" ng-repeat="attribute in properties">
+      <md-content layout-gt-sm="row" ng-repeat="attribute in properties" style="height: 92px; top: 20px; padding-bottom: 10px;">
           <!--{{ d.label}}-->
 
-          <md-input-container class="md-icon-float md-block" >
+          <md-input-container class="md-icon-float md-block" style="padding-top: 0px; top: 10px; margin-bottom: 0px;">
               <md-icon md-font-set="material-icons" class="attributes" >settings_input_component</md-icon>
               <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos">
           </md-input-container>
@@ -44,12 +44,12 @@
             </md-select>    
           </md-input-container>
 
-          <md-content layout-gt-sm="row" ng-repeat="element in attribute.list" ng-if="attribute.type=='List'">
+          <!--md-content layout-gt-sm="row" ng-repeat="element in attribute.list" ng-if="attribute.type=='List'">
             <md-input-container class="md-icon-float md-block" >
               <md-icon md-font-set="material-icons" class="list" >list</md-icon>
               <input ng-model="atribute.list" type="text" placeholder="Elemento de lista" aria-label="lista atributos">
             </md-input-container>
-          </md-content>
+          </md-content-->
           
           <md-content layout-gt-sm="row" ng-if="properties.length>1">
             <md-button  aria-label="Quitar columna" ng-click="removeItem($index)"> 
@@ -57,7 +57,7 @@
             </md-button>
           </md-content>
 
-          <md-content layout-gt-sm="row" ng-if="$last">
+          <md-content layout-gt-sm="row" ng-if="$last" style="margin-bottom: 0px; margin-top: 0px; ">
             <md-button  aria-label="Añadir columna" ng-click="addItem()"> 
               <md-icon md-font-set="material-icons">add_circle</md-icon>
             </md-button>
