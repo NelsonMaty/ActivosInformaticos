@@ -112,6 +112,7 @@ angular.module('activosInformaticosApp')
       .then(function(answer) {
         //$scope.status = 'Hiciste click en "' + answer + '".';
         if (answer) {
+          console.log(answer);
           $scope.assettypes.push(answer);
         }
 
@@ -196,10 +197,11 @@ angular.module('activosInformaticosApp')
       $scope.answer = function(answer, type) {
 
         if (  answer == 'TipoActivo') {
-          var atributos = $scope.properties;
+          //var atributos = $scope.properties;
+          type.properties = $scope.properties;
           dataFactory.createAssetType( function (){
             $mdDialog.hide(type);    
-          }, type, atributos, $mdDialog, $mdToast);
+          }, type, $mdDialog, $mdToast);
         }
         else {
           $mdDialog.hide(null);

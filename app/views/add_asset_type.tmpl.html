@@ -1,5 +1,5 @@
 <md-dialog aria-label="Nuevo tipo de activo" ng-cloak >
-  <form >
+  <form name="addAssetType">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Nuevo Tipo de Activo</h2>
@@ -15,7 +15,7 @@
         <md-input-container class=" md-block" >
           
           <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
-          <input ng-model="AssetType.name" type="text" placeholder="Nombre de tipo">
+          <input ng-model="AssetType.name" type="text" placeholder="Nombre de tipo" ng-required="true">
         </md-input-container>
         
         
@@ -33,12 +33,12 @@
 
           <md-input-container  class=" md-block" style="padding-right: 6px;">
               <md-icon md-font-set="material-icons"  >settings_input_component</md-icon>
-              <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos">
+              <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos" ng-required="true">
           </md-input-container>
 
           <md-input-container class="md-select " style="bottom: 4px;">
             <label>Tipo</label>
-            <md-select ng-model="attribute.type">
+            <md-select ng-model="attribute.type" ng-required="true">
               <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
                 {{tipo}}
               </md-option>
@@ -76,7 +76,7 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer('TipoActivo',AssetType)">
+      <md-button ng-click="answer('TipoActivo',AssetType)" ng-disabled="addAssetType.$invalid">
         Aceptar
       </md-button>
       <md-button ng-click="answer('Cancelar')" style="margin-right:20px;">

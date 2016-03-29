@@ -87,9 +87,9 @@ angular
       });
     };
 
-    dataFactory.createAssetType = function(callback,type,atributos,$mdDialog,$mdToast){
+    dataFactory.createAssetType = function(callback,type,$mdDialog,$mdToast){
       console.log(type);
-      console.log(atributos);
+      //console.log(atributos);
 
       $http({
         method:"post",
@@ -97,7 +97,8 @@ angular
         data: {
             "name":type.name,
             "comment":type.comment,
-            "properties": atributos
+            //"properties": atributos
+            "properties": type.properties
         }
 
       })
