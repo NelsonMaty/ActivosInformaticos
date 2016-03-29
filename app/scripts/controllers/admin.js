@@ -103,7 +103,7 @@ angular.module('activosInformaticosApp')
       $mdDialog.show({
         
         controller: AddTypeCtrl,
-        templateUrl: '../../views/add_asset_type.tmpl.html',
+        templateUrl: '../../views/add_asset_type_2.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:false,
