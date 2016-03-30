@@ -277,8 +277,8 @@ angular
               .position('top right')
               .hideDelay(3000)
           );
-
-          callback();
+          console.log(data);
+          callback(data);
       })
         .error(function(err){
           console.log(err);

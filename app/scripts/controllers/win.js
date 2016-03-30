@@ -71,7 +71,7 @@ angular.module('activosInformaticosApp')
         if (asset) {
           console.log(asset);
           $scope.myassets.push(asset);
-          console.log($scope.myassets);
+          //console.log($scope.myassets);
         }
         
         
@@ -156,17 +156,27 @@ angular.module('activosInformaticosApp')
 
       $scope.keys = Object.keys(asset);
       //console.log($scope.keys);
-      $scope.a =$scope.keys.indexOf("deleted");
-      $scope.keys.splice($scope.a,1);
-      $scope.b =$scope.keys.indexOf("__v");
-      $scope.keys.splice($scope.b,1);
+
       $scope.c =$scope.keys.indexOf("name");
       $scope.keys.splice($scope.c,1);
       $scope.d =$scope.keys.indexOf("comment");
       $scope.keys.splice($scope.d,1);
       $scope.e =$scope.keys.indexOf("$$hashKey");
       $scope.keys.splice($scope.e,1);
+            
+      //console.log($scope.keys.indexOf("__v"));
+      if ($scope.keys.indexOf("__v")>=0) {
+        //console.log($scope.asset.__v);
+        $scope.b =$scope.keys.indexOf("__v");
+        $scope.keys.splice($scope.b,1);
+        
+      }
 
+      if ($scope.keys.indexOf("deleted")>=0) {
+        //console.log($scope.asset.deleted);
+        $scope.a =$scope.keys.indexOf("deleted");
+        $scope.keys.splice($scope.a,1);
+      }
       
 
       dataFactory.getAnAssetType($scope.asset.typeId, function (response) {
@@ -302,8 +312,9 @@ angular.module('activosInformaticosApp')
         //console.log("id de tipo " + $scope.typeid);
         asset.typeId = $scope.typeid;
         //console.log("id de tipo" + asset.typeId);
-        dataFactory.createAsset(function (){
+        dataFactory.createAsset(function (response){
           //console.log($scope.sel_type.id);
+          asset._id=response.id;
           $mdDialog.hide(asset);
               
         }, asset, $mdDialog, $mdToast);
