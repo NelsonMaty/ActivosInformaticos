@@ -16,11 +16,11 @@
 	</md-toolbar>
 	<form >
 		
-		<formly-form model="update_asset" fields="fields" >	
+		<formly-form model="update_asset" fields="fields" form="formly_form">	
 		</formly-form>
 
 		<md-dialog-actions layout="row">
-			<md-button ng-click="updateAsset(update_asset)">
+			<md-button ng-click="updateAsset(update_asset)" ng-disabled="formly_form.$invalid">
 			  Aceptar
 			</md-button>
 			<md-button ng-click="cancel()" style="margin-right:20px;">

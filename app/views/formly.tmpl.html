@@ -10,9 +10,9 @@
 	  </md-button>
 	</md-toolbar>
 	
-	<formly-form model="asset" fields="formly_fields" >
+	<formly-form model="asset" fields="formly_fields" form="create_form">
 		
-		<md-button ng-click="newAsset(asset)">Crear</md-button>
+		<md-button ng-click="newAsset(asset)" ng-disabled="create_form.$invalid" >Crear</md-button>
 		
 	</formly-form>
 

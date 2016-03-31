@@ -210,13 +210,19 @@ angular.module('activosInformaticosApp')
       $scope.doFormly = function(sel_type) {
         $scope.hide();
         //$scope.asset = {};
+        function validateInt(value) {
+          
+          return /^\-?(0|[1-9]\d*)$/.test(value);
+        }
+
         fields = [
               {
                 key: 'name',
                 type: 'input',
                 templateOptions: {
                   label: 'Nombre',
-                  placeholder: sel_type.name
+                  placeholder: sel_type.name,
+                  required: true
                 }
               },
               {
@@ -231,10 +237,10 @@ angular.module('activosInformaticosApp')
               {
                 key: 'attached',
                 type: 'input',
-                hide: true,
                 templateOptions: {
-                  label: 'Información adjunta',
-                  placeholder: ''
+                  type:'url',
+                  label: 'Url de información adjunta',
+                  placeholder: 'http://'
                 }
               },
               {
@@ -278,6 +284,50 @@ angular.module('activosInformaticosApp')
                 }
               };
               break;
+            case 'Integer':
+              //console.log("case boolean");
+              aux = {
+                key: atributos[i].name,
+                type: 'input',
+                templateOptions: {
+                  type: 'number',
+                  label: atributos[i].name,
+                  placeholder: ''
+                  
+                },
+                validators: {
+                  int: function($viewValue, $modelValue, scope) {
+                    var value = $modelValue || $viewValue;
+                    if (value) {
+                      return validateInt(value);
+                    } else {
+                      return true;
+                    }
+                  }
+                }/*,
+                expressionProperties: {
+                    "templateOptions.disabled": "!update_asset.editable"
+                    }*/
+                  
+              };
+              break;
+            case 'Float':
+              //console.log("case boolean");
+              aux = {
+                key: atributos[i].name,
+                type: 'input',
+                templateOptions: {
+                  type: 'number',
+                  label: atributos[i].name,
+                  placeholder: ''
+                  
+                }/*,
+                expressionProperties: {
+                    "templateOptions.disabled": "!update_asset.editable"
+                    }*/
+                  
+              };
+              break;
             
             default:
               aux = {
@@ -307,6 +357,7 @@ angular.module('activosInformaticosApp')
       
       $scope.formly_fields = fields;
       $scope.typeid = typeid;
+      //$scope.formly_form = {};
 
       $scope.newAsset = function(asset) {
         //console.log("id de tipo " + $scope.typeid);
@@ -356,7 +407,8 @@ angular.module('activosInformaticosApp')
                   type: 'input',
                   templateOptions: {
                     label: 'Nombre',
-                    placeholder: $scope.update_asset.name
+                    placeholder: $scope.update_asset.name,
+                    required: true
                   }/*,
                   expressionProperties: {
                     "templateOptions.disabled": "!options.formState.editable"
@@ -375,27 +427,16 @@ angular.module('activosInformaticosApp')
           {
                   key: 'attached',
                   type: 'textarea',
-                  //hide: true,
                   templateOptions: {
-                    label: 'Información adjunta',
-                    placeholder: ''
+                    type:'url',
+                    label: 'Url de información adjunta',
+                    placeholder: 'http://'
                   }/*,
                   expressionProperties: {
                     "templateOptions.disabled": "!update_asset.editable"
                     }*/
                   
           },
-          /*{
-                  key: 'editable',
-                  type: 'input',
-                  //type: 'select',
-                  //hide: true,
-                  templateOptions: {
-                    //options: ["true","false"],
-                    label: 'editable',
-                    //placeholder: ''
-                  }
-          },*/
           {
                   key: 'comment',
                   type: 'textarea',
@@ -450,7 +491,47 @@ angular.module('activosInformaticosApp')
                   
               };
               break;
-            
+            case 'Integer':
+              //console.log("case boolean");
+              aux = {
+                key: atributos[i].name,
+                type: 'input',
+                templateOptions: {
+                  label: atributos[i].name,
+                  placeholder: $scope.update_asset[atributos[i].name]
+                  
+                },
+                validators: {
+                  int: function($viewValue, $modelValue, scope) {
+                    var value = $modelValue || $viewValue;
+                    if (value) {
+                      return validateInt(value);
+                    } 
+                  }
+                }/*,
+                expressionProperties: {
+                    "templateOptions.disabled": "!update_asset.editable"
+                    }*/
+                  
+              };
+              break;
+            case 'Float':
+              //console.log("case boolean");
+              aux = {
+                key: atributos[i].name,
+                type: 'input',
+                templateOptions: {
+                  type: 'number',
+                  label: atributos[i].name,
+                  placeholder: $scope.update_asset[atributos[i].name]
+                  
+                }/*,
+                expressionProperties: {
+                    "templateOptions.disabled": "!update_asset.editable"
+                    }*/
+                  
+              };
+              break;
             default:
               aux = {
                 key: atributos[i].name,
@@ -471,6 +552,11 @@ angular.module('activosInformaticosApp')
         }
 
       });
+
+      function validateInt(value) {
+        
+        return /^\-?(0|[1-9]\d*)$/.test(value);
+      }
 
       $scope.callDelete = function(indice) {
         ev = {};
