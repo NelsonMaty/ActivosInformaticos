@@ -1,0 +1,87 @@
+<md-dialog aria-label="Nueva Relacion" ng-cloak style="width: 1200px; height: 600px;">
+
+  <div layout="column" style=" height: 100%; width: 100%">
+    <md-toolbar layout="row">
+      <div class="md-toolbar-tools">
+        
+        <h1>Alta de relación - Selección de Activos Informaticos &nbsp; </h1>
+        
+      </div>
+      <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
+        <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+      </md-button>
+    </md-toolbar>
+    
+    <div layout="row" flex>
+      <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style="min-width: 20% !important;">
+        <md-input-container class="md-icon-float md-block" style="top: 20px;">
+          <input type="search" ng-model="buscado" placeholder="Tipos" aria-label="filter assets" />
+        </md-input-container>
+        <md-list ng-cloak>
+          <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
+          <md-list-item ng-repeat="asset in assets | filter:buscado" ng-click="goToAsset(asset, $event)">
+            
+            <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
+            <p>{{ asset.name }}</p>
+            
+            <md-divider ng-if="!$last"></md-divider>
+          </md-list-item>
+        </md-list>
+      </md-sidenav>
+      
+      <div layout="column" flex id="activos graficos" style="min-width: 20% !important;">
+        <div layout="row" layout-wrap layout-margin layout-align="start center"> 
+          <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-click="goAsset($event, asset, $index)">
+                  
+            <md-icon style="font-size: 48px; width: 50px;height: 50px;" md-font-set="material-icons">description</md-icon>
+            <div style="text-align: center"> {{sel_asset.name}} </div>
+          </div>
+        </div>
+      </div>
+      
+      <md-sidenav layout="column" flex id="content" class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" md-is-locked-open="$mdMedia('gt-sm')" style="min-width: 40% !important;" >
+        <md-content layout="column" flex class="md-padding">   
+          <md-content>
+              <md-tabs md-dynamic-height="" md-border-bottom="">
+                <md-tab label="Descripción">
+                  <md-content class="md-padding">
+                    <h1 class="md-display-2">Descripción</h1>
+                    
+                      {{sel_asset.comment}}  
+                    
+                  </md-content>
+                </md-tab>
+                <md-tab label="Atributos">
+                  <md-content class="md-padding">
+                    <h1 class="md-display-2">Atributos</h1>
+                    <md-list-item ng-repeat="key in keys" >
+                      <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
+                        <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong> 
+                        <p style="padding-left: 20px; padding-bottom: 20px;">{{asset[key]}} </p>
+                        
+                    </md-list-item>                     
+                  </md-content>
+                </md-tab>
+                <md-tab label="Ciclo de vida">
+                  <md-content class="md-padding">
+                    <h1 class="md-display-2">Ciclo de vida</h1>
+                    
+                  </md-content>
+                </md-tab>
+              </md-tabs>
+          </md-content>
+        </md-content>
+        <md-dialog-actions layout="row">
+          <span flex></span>
+          <md-button ng-click="doFormly(sel_type)">
+            Aceptar
+          </md-button>
+          <md-button ng-click="cancel()" style="margin-right:20px;">
+            Cancelar
+          </md-button>
+        </md-dialog-actions>
+      </md-sidenav>
+    </div>
+  </div>
+
+</md-dialog>

@@ -85,6 +85,7 @@ angular.module('activosInformaticosApp')
       $mdDialog.show({
         locals: {
           asset: asset,
+          myassets: $scope.myassets,
           indice: $index,
           editAsset: $scope.editAsset
           
@@ -146,8 +147,81 @@ angular.module('activosInformaticosApp')
         });
     };
 
-    function ShowAssetCtrl(asset, indice, editAsset, $scope, $mdDialog, $mdToast){
+    $scope.selectAsset = function(ev) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      $mdDialog.show({
+        locals: {
+          myassets: $scope.myassets
+          //showformly: $scope.showFormly
+          //fields: {}
+        },
+        controller: SelectAssetCtrl,
+        templateUrl: '../../views/select_asset.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false,
+        fullscreen: useFullScreen
+      })
+      .then(function() {
+        //console.log(user);
+        //$scope.showFormly(ev);
+        
+      });
+      
+    };
+
+    function SelectAssetCtrl(myassets,$scope, $mdDialog, $mdToast){
+      $scope.assets = myassets;
+      $scope.type_name = {};
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.goToAsset = function(asset, $event) {
+        $scope.sel_asset = asset;
+        dataFactory.getAnAssetType($scope.sel_asset.typeId, function (response) {
+          $scope.type_name = response.name;
+
+          
+        });
+
+        $scope.keys = Object.keys(asset);
+        //console.log($scope.keys);
+
+        $scope.c =$scope.keys.indexOf("name");
+        $scope.keys.splice($scope.c,1);
+        $scope.d =$scope.keys.indexOf("comment");
+        $scope.keys.splice($scope.d,1);
+        $scope.e =$scope.keys.indexOf("$$hashKey");
+        $scope.keys.splice($scope.e,1);
+              
+        //console.log($scope.keys.indexOf("__v"));
+        if ($scope.keys.indexOf("__v")>=0) {
+          //console.log($scope.asset.__v);
+          $scope.b =$scope.keys.indexOf("__v");
+          $scope.keys.splice($scope.b,1);
+          
+        }
+
+        if ($scope.keys.indexOf("deleted")>=0) {
+          //console.log($scope.asset.deleted);
+          $scope.a =$scope.keys.indexOf("deleted");
+          $scope.keys.splice($scope.a,1);
+        }
+
+        console.log($scope.sel_asset);
+      };
+
+
+    };
+
+    function ShowAssetCtrl(asset, myassets, indice, editAsset, $scope, $mdDialog, $mdToast){
       $scope.asset = asset;
+      $scope.assets = myassets;
       $scope.indice = indice;
       $scope.editAsset = editAsset;
       $scope.ev = {};
@@ -182,6 +256,7 @@ angular.module('activosInformaticosApp')
       dataFactory.getAnAssetType($scope.asset.typeId, function (response) {
         $scope.type_name = response.name;
         });
+
 
       $scope.hide = function() {
         $mdDialog.hide();
