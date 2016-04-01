@@ -52,12 +52,13 @@ angular.module('activosInformaticosApp')
       
     };
 
-    $scope.showFormly = function(formly_fields,typeid) {
+    $scope.showFormly = function(formly_fields,typeid, listas) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
         locals: {
           fields: formly_fields,
-          typeid: typeid
+          typeid: typeid,
+          listas: listas
         },
         controller: AddAssetCtrl,
         templateUrl: '../../views/formly.tmpl.html',
@@ -269,6 +270,7 @@ angular.module('activosInformaticosApp')
     function SelectTypeCtrl(assettypes, showformly, $scope, $mdDialog, $mdToast) {
       $scope.assettypes = assettypes;
       $scope.showFormly = showformly;
+      $scope.listas = [];
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -312,6 +314,7 @@ angular.module('activosInformaticosApp')
               {
                 key: 'attached',
                 type: 'input',
+                hide: true,
                 templateOptions: {
                   type:'url',
                   label: 'Url de información adjunta',
@@ -403,6 +406,25 @@ angular.module('activosInformaticosApp')
                   
               };
               break;
+            case 'List':
+              console.log("case List");
+              $scope.listas.push({
+                name: atributos[i].name,
+                elements: ''
+              })
+              
+              aux = {
+                key: atributos[i].name,
+                type: 'input',
+                hide: true,
+                templateOptions: {
+                  label: atributos[i].name,
+                  placeholder: ''
+                  
+              }
+                  
+            };
+            break;  
             
             default:
               aux = {
@@ -422,20 +444,39 @@ angular.module('activosInformaticosApp')
         //console.log($scope.formly_fields);
         ev = {};
         //console.log($scope.sel_type._id); 
-        $scope.showFormly($scope.formly_fields,sel_type._id);
+        $scope.showFormly($scope.formly_fields,sel_type._id, $scope.listas);
            
       };
        
     };
 
-    function AddAssetCtrl(fields, typeid, $scope, $mdDialog, $mdToast) {
+    function AddAssetCtrl(fields, typeid, listas, $scope, $mdDialog, $mdToast) {
       
       $scope.formly_fields = fields;
       $scope.typeid = typeid;
+      $scope.listas = listas;
+      $scope.adjuntos = [
+        {
+          url: ''
+        }
+      ];
+
+
+      $scope.addItem = function() {
+            //var n = $scope.s.length;
+            $scope.adjuntos.push({url:''});
+          };
+
+      $scope.removeItem = function(index) {
+            $scope.adjuntos.splice(index,1);
+          };
+
       //$scope.formly_form = {};
 
       $scope.newAsset = function(asset) {
         //console.log("id de tipo " + $scope.typeid);
+        console.log($scope.adjuntos);
+        asset.attached = $scope.adjuntos;
         asset.typeId = $scope.typeid;
         //console.log("id de tipo" + asset.typeId);
         dataFactory.createAsset(function (response){
@@ -463,14 +504,21 @@ angular.module('activosInformaticosApp')
       $scope.deleteAsset = deleteAsset;
       $scope.indice = indice;
       $scope.asset_type = {};
+
+      $scope.adjuntos = $scope.update_asset.attached;
+
+
+      $scope.addItem = function() {
+            //var n = $scope.s.length;
+            $scope.adjuntos.push({url:''});
+          };
+
+      $scope.removeItem = function(index) {
+            $scope.adjuntos.splice(index,1);
+          };
+
       
-      /*$scope.options = {
-        formState: {
-                editable: '' // <-- this is bound to the firstName of the first field
-              }
-      };
-      $scope.up_asset = {};
-      //$scope.edit = {};*/
+      
 
       dataFactory.getAnAssetType ($scope.update_asset.typeId, function (response) {
         
@@ -502,6 +550,7 @@ angular.module('activosInformaticosApp')
           {
                   key: 'attached',
                   type: 'textarea',
+                  hide: true,
                   templateOptions: {
                     type:'url',
                     label: 'Url de información adjunta',
@@ -639,6 +688,7 @@ angular.module('activosInformaticosApp')
       }
 
       $scope.updateAsset = function (asset) {
+        asset.attached = $scope.adjuntos;
         dataFactory.editAsset (function (){
             $mdDialog.hide(asset);
             $scope.myassets.splice(indice,1,asset);
