@@ -457,7 +457,7 @@ angular.module('activosInformaticosApp')
       $scope.formly_fields = fields;
       $scope.typeid = typeid;
       $scope.listas = listas;
-      $scope.types_list = [];
+      $scope.names_list = [];
       $scope.adjuntos = [
         {
           url: ''
@@ -491,28 +491,35 @@ angular.module('activosInformaticosApp')
             
           };
 
-      dataFactory.getAnAssetType($scope.asset.typeId, function (response) {
+      dataFactory.getAnAssetType($scope.typeid, function (response) {
         //$scope.type_attributes = response.properties;
 
-        for (i=0;i<response.properties.length();i++) {
+        for (i=0;i<response.properties.length;i++) {
           if (response.properties[i].type=="List") {
             $scope.names_list.push(response.properties[i].name);
           }
         }
       });
 
-      //$scope.formly_form = {};
 
       $scope.newAsset = function(asset) {
-        //console.log("id de tipo " + $scope.typeid);
-        console.log($scope.adjuntos);
+        
         asset.attached = $scope.adjuntos;
         asset.typeId = $scope.typeid;
 
-        dataFactory.getAnAssetType
-        //console.log("id de tipo" + asset.typeId);
+        for (i=0;i<$scope.listas.length;i++) {
+          
+          for (j=0;j<$scope.names_list.length;j++) {
+            
+            if(listas[i].name == $scope.names_list[j]) {
+              asset[$scope.names_list[j]] = listas[i].elements;
+            }
+          }  
+        }
+        
+        
         dataFactory.createAsset(function (response){
-          //console.log($scope.sel_type.id);
+          
           asset._id=response.id;
           $mdDialog.hide(asset);
               
