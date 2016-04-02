@@ -410,7 +410,9 @@ angular.module('activosInformaticosApp')
               console.log("case List");
               $scope.listas.push({
                 name: atributos[i].name,
-                elements: ''
+                elements: [{
+                  content: ''
+                } ]
               })
               
               aux = {
@@ -462,13 +464,28 @@ angular.module('activosInformaticosApp')
       ];
 
 
-      $scope.addItem = function() {
-            //var n = $scope.s.length;
-            $scope.adjuntos.push({url:''});
+      $scope.addItem = function(answer,parent_index) {
+            console.log("parent_index:" + parent_index);
+            //console.log($scope.listas[parent_index]);
+            //$scope.lista_actual = $scope.listas[parent_index].elements;
+            //console.log($scope.lista_actual);
+            if (answer == 'lista') {
+              $scope.listas[parent_index].elements.push({content:''}); 
+            } else {
+              $scope.adjuntos.push({url:''});  
+            }
+            
           };
 
-      $scope.removeItem = function(index) {
-            $scope.adjuntos.splice(index,1);
+      $scope.removeItem = function(answer,parent_index,index) {
+            if (answer == 'lista') {
+              if ($scope.listas[parent_index].elements.length>1){
+                $scope.listas[parent_index].elements.splice(index,1);
+              }
+            } else {
+              $scope.adjuntos.splice(index,1);  
+            }
+            
           };
 
       //$scope.formly_form = {};
