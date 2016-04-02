@@ -19,11 +19,10 @@
 		    	<h2> {{lista.name}} </h2>	
 		    </div>
 		    
-		    <div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px;">
+		    <div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
 			    
 			    <md-input-container  class=" md-block" style="padding-right: 6px; ">
-			        
-			        <input ng-model="element.content" type="text" placeholder="lista.name" aria-label="lista">
+			        <input ng-model="element.content" type="text" placeholder="" aria-label="lista">
 			    </md-input-container>
 			    
 			    <div layout-gt-sm="row" >
@@ -45,7 +44,7 @@
 			<h2> Informacion adjunta </h2>	
 		</div>
 		
-		<div layout="row" ng-repeat="link in adjuntos" style="min-height: 82px; padding-left: 16px;">
+		<div layout="row" ng-repeat="link in adjuntos" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
 		    <!--{{ d.label}}-->
 
 		    <md-input-container  class=" md-block" style="padding-right: 6px; ">
@@ -59,7 +58,7 @@
 		      </md-button>
 		    </div>
 
-		    <div layout-gt-sm="row" ng-if="$last"  >
+		    <div layout-gt-sm="row"   >
 		      <md-button  aria-label="Añadir columna" ng-click="addItem('')" style=" bottom: 14px;"> 
 		        <md-icon md-font-set="material-icons">add_circle</md-icon>
 		      </md-button>

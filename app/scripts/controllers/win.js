@@ -457,6 +457,7 @@ angular.module('activosInformaticosApp')
       $scope.formly_fields = fields;
       $scope.typeid = typeid;
       $scope.listas = listas;
+      $scope.types_list = [];
       $scope.adjuntos = [
         {
           url: ''
@@ -470,7 +471,8 @@ angular.module('activosInformaticosApp')
             //$scope.lista_actual = $scope.listas[parent_index].elements;
             //console.log($scope.lista_actual);
             if (answer == 'lista') {
-              $scope.listas[parent_index].elements.push({content:''}); 
+              $scope.listas[parent_index].elements.push({content:''});
+              //$scope.ultimo = false;
             } else {
               $scope.adjuntos.push({url:''});  
             }
@@ -480,13 +482,24 @@ angular.module('activosInformaticosApp')
       $scope.removeItem = function(answer,parent_index,index) {
             if (answer == 'lista') {
               if ($scope.listas[parent_index].elements.length>1){
+
                 $scope.listas[parent_index].elements.splice(index,1);
-              }
+              } 
             } else {
               $scope.adjuntos.splice(index,1);  
             }
             
           };
+
+      dataFactory.getAnAssetType($scope.asset.typeId, function (response) {
+        //$scope.type_attributes = response.properties;
+
+        for (i=0;i<response.properties.length();i++) {
+          if (response.properties[i].type=="List") {
+            $scope.names_list.push(response.properties[i].name);
+          }
+        }
+      });
 
       //$scope.formly_form = {};
 
@@ -495,6 +508,8 @@ angular.module('activosInformaticosApp')
         console.log($scope.adjuntos);
         asset.attached = $scope.adjuntos;
         asset.typeId = $scope.typeid;
+
+        dataFactory.getAnAssetType
         //console.log("id de tipo" + asset.typeId);
         dataFactory.createAsset(function (response){
           //console.log($scope.sel_type.id);
