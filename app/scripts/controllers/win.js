@@ -226,18 +226,23 @@ angular.module('activosInformaticosApp')
       $scope.indice = indice;
       $scope.editAsset = editAsset;
       $scope.ev = {};
-      $scope.type_name = {};
+      $scope.asset_type = {};
+      $scope.names_list = [];
+      $scope.listas = [];
+      //$scope.adjuntos = [];
+      //$scope.type_name = {};
 
 
       $scope.keys = Object.keys(asset);
       //console.log($scope.keys);
 
-      $scope.c =$scope.keys.indexOf("name");
-      $scope.keys.splice($scope.c,1);
-      $scope.d =$scope.keys.indexOf("comment");
-      $scope.keys.splice($scope.d,1);
-      $scope.e =$scope.keys.indexOf("$$hashKey");
-      $scope.keys.splice($scope.e,1);
+      //$scope.c =$scope.keys.indexOf("name");
+      $scope.keys.splice($scope.keys.indexOf("name"),1);
+      //$scope.d =$scope.keys.indexOf("comment");
+      $scope.keys.splice($scope.keys.indexOf("comment"),1);
+      //$scope.e =$scope.keys.indexOf("$$hashKey");
+      $scope.keys.splice($scope.keys.indexOf("$$hashKey"),1);
+      $scope.keys.splice($scope.keys.indexOf("attached"),1);
             
       //console.log($scope.keys.indexOf("__v"));
       if ($scope.keys.indexOf("__v")>=0) {
@@ -255,7 +260,32 @@ angular.module('activosInformaticosApp')
       
 
       dataFactory.getAnAssetType($scope.asset.typeId, function (response) {
-        $scope.type_name = response.name;
+        
+        $scope.asset_type = response;
+
+        for (i=0;i<response.properties.length;i++) {
+          if (response.properties[i].type=="List") {
+            $scope.names_list.push(response.properties[i].name);
+
+          }
+        }
+
+        for (i=0;i<$scope.names_list.length;i++) {
+          for (j=0;j<$scope.keys.length;j++) {
+            //console.log($scope.names_list[i]);
+            //console.log($scope.keys[j]);
+            if($scope.names_list[i] == $scope.keys[j]) {
+              //console.log("dentro de if");
+              $scope.listas.push({
+                name: $scope.names_list[i],
+                elements: $scope.asset[$scope.keys[j]]
+              });
+              $scope.keys.splice(j,1);
+              //console.log($scope.listas);
+            }
+          }
+        }
+
         });
 
 
@@ -265,6 +295,7 @@ angular.module('activosInformaticosApp')
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
+    
     };
 
     function SelectTypeCtrl(assettypes, showformly, $scope, $mdDialog, $mdToast) {
@@ -542,8 +573,9 @@ angular.module('activosInformaticosApp')
       $scope.indice = indice;
       $scope.asset_type = {};
       $scope.listas = [];
-      $scope.adjuntos = $scope.update_asset.attached;
-
+      $scope.adjuntos = [];
+      $scope.adjuntos = $.extend([],asset.attached);
+      
 
       $scope.addItem = function(answer,parent_index) {
             //var n = $scope.s.length;

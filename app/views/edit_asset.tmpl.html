@@ -56,7 +56,7 @@
 		    </md-input-container>
 		    
 		    <div layout-gt-sm="row" ng-if="adjuntos.length>1" >
-		      <md-button  aria-label="Quitar columna" ng-click="removeItem($index)" style=" bottom: 14px;"> 
+		      <md-button  aria-label="Quitar columna" ng-click="removeItem('',$parent.$index,$index)" style=" bottom: 14px;"> 
 		        <md-icon md-font-set="material-icons">remove_circle</md-icon>
 		      </md-button>
 		    </div>
