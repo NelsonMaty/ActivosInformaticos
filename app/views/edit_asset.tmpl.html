@@ -5,10 +5,6 @@
 	    <h1> {{update_asset.name}} &nbsp; </h1>
 	    
 	  </div>
-	  
-      <!--md-button class="md-icon-button" style="top: 7px;" ng-click="enableEdit()">
-	    <md-icon md-font-set="material-icons" aria-label="Edit asset">edit</md-icon>
-	  </md-button-->
 
 	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
 	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
@@ -18,7 +14,40 @@
 		
 		<formly-form model="update_asset" fields="fields" form="formly_form">
 
-			<div layout="row" ng-repeat="link in adjuntos" style="min-height: 82px;">
+			<div layout="column" ng-repeat="lista in listas" style="min-height: 82px;">
+			    <!--{{ d.label}}-->
+			    <md-divider></md-divider>
+			    <div style="padding-left: 16px; padding-top: 10px;">
+			    	<h2> {{lista.name}} </h2>	
+			    </div>
+			    
+			    <div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
+				    
+				    <md-input-container  class=" md-block" style="padding-right: 6px; ">
+				        <input ng-model="element.content" type="text" placeholder="" aria-label="lista">
+				    </md-input-container>
+				    
+				    <div layout-gt-sm="row" >
+				      <md-button  aria-label="Quitar columna" ng-click="removeItem('lista',$parent.$index,$index)" style=" bottom: 14px;"> 
+				        <md-icon md-font-set="material-icons">remove_circle</md-icon>
+				      </md-button>
+				    </div>
+
+				    <div layout-gt-sm="row" >
+				      <md-button  aria-label="Añadir columna" ng-click="addItem('lista',$parent.$index)" style=" bottom: 14px;"> 
+				        <md-icon md-font-set="material-icons">add_circle</md-icon>
+				      </md-button>
+				    </div>
+
+				</div>
+			</div>
+
+			<md-divider></md-divider>
+			<div style="padding-left: 16px; padding-top: 10px;">
+				<h2> Informacion adjunta </h2>	
+			</div>
+
+			<div layout="row" ng-repeat="link in adjuntos" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
 		    <!--{{ d.label}}-->
 
 		    <md-input-container  class=" md-block" style="padding-right: 6px;">

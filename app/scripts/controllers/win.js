@@ -466,10 +466,8 @@ angular.module('activosInformaticosApp')
 
 
       $scope.addItem = function(answer,parent_index) {
-            console.log("parent_index:" + parent_index);
-            //console.log($scope.listas[parent_index]);
-            //$scope.lista_actual = $scope.listas[parent_index].elements;
-            //console.log($scope.lista_actual);
+            //console.log("parent_index:" + parent_index);
+            
             if (answer == 'lista') {
               $scope.listas[parent_index].elements.push({content:''});
               //$scope.ultimo = false;
@@ -543,22 +541,33 @@ angular.module('activosInformaticosApp')
       $scope.deleteAsset = deleteAsset;
       $scope.indice = indice;
       $scope.asset_type = {};
-
+      $scope.listas = [];
       $scope.adjuntos = $scope.update_asset.attached;
 
 
-      $scope.addItem = function() {
+      $scope.addItem = function(answer,parent_index) {
             //var n = $scope.s.length;
-            $scope.adjuntos.push({url:''});
-          };
+            if (answer == 'lista') {
+              $scope.listas[parent_index].elements.push({content:''});
+              //$scope.ultimo = false;
+            } else {
+              $scope.adjuntos.push({url:''});  
+            }
+      };
 
-      $scope.removeItem = function(index) {
-            $scope.adjuntos.splice(index,1);
-          };
+      $scope.removeItem = function(answer,parent_index,index) {
+
+        if (answer == 'lista') {
+          if ($scope.listas[parent_index].elements.length>1){
+            $scope.listas[parent_index].elements.splice(index,1);
+          } 
+        } else {
+          $scope.adjuntos.splice(index,1);  
+        }
+            //$scope.adjuntos.splice(index,1);
+      };
 
       
-      
-
       dataFactory.getAnAssetType ($scope.update_asset.typeId, function (response) {
         
         $scope.asset_type = response;
@@ -695,6 +704,26 @@ angular.module('activosInformaticosApp')
                   
               };
               break;
+            case 'List':
+              
+              $scope.listas.push({
+                name: atributos[i].name,
+                elements: $scope.update_asset[atributos[i].name]
+                 
+              })
+              
+              aux = {
+                key: atributos[i].name,
+                type: 'input',
+                hide: true,
+                templateOptions: {
+                  label: atributos[i].name,
+                  placeholder: ''
+                  
+              }
+                  
+            };
+            break;  
             default:
               aux = {
                 key: atributos[i].name,
@@ -713,7 +742,7 @@ angular.module('activosInformaticosApp')
           $scope.fields.push(aux);
           //console.log(aux);
         }
-
+        console.log($scope.listas);
       });
 
       function validateInt(value) {
