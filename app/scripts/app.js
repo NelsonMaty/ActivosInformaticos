@@ -46,22 +46,14 @@ angular
         controllerAs: 'about'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/win'
       });
 
-      /*$httpProvider.defaults.headers.common = {};
-      $httpProvider.defaults.headers.post = {};
-      $httpProvider.defaults.headers.put = {};
-      $httpProvider.defaults.headers.patch = {};*/
   })
 
 
 
   .factory('dataFactory', ['$http',function($http){
-      //var urlGeoObjectWS= 'http://nodejs-nodo1-dev.psi.unc.edu.ar:3005/';
-      //var urlKunturWS = 'backend/';//'http://nodejs-nodo1-dev.psi.unc.edu.ar:3006/'
-      //var urlKunturWS = 'http://172.16.248.229:8080/'
-    //var urlWS = 'http://localhost:8080/v1/'
     var urlWS = 'http://localhost:10010/'
     var dataFactory = {};
 
@@ -88,7 +80,7 @@ angular
     };
 
     dataFactory.createAssetType = function(callback,type,$mdDialog,$mdToast){
-      console.log(type);
+      //console.log(type);
       //console.log(atributos);
 
       $http({
@@ -122,6 +114,44 @@ angular
               .position('top right')
               .hideDelay(3000)
           );
+      });
+
+    };
+
+    dataFactory.editAssetType = function(callback,update_type,$mdDialog,$mdToast){
+      console.log(update_type);
+
+      $http({
+        method:"put",
+        url:urlWS + 'assetTypes/' + update_type._id,
+        data: {
+            "name":update_type.name,
+            "comment":update_type.comment,
+            "properties": update_type.properties
+        }
+
+      })
+        .success(function(data){
+          //alert("El usuario fue creado con éxito");
+          $mdToast.show(
+            $mdToast.simple()
+              .content('Se ha modificado el tipo de activo ' + update_type.name )
+              .position('top right')
+              .hideDelay(3000)
+          );
+
+          callback(update_type);
+      })
+        .error(function(err){
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo modificar el tipo de activo')
+              .position('top right')
+              .hideDelay(3000)
+          );
+          callback(null);
       });
 
     };

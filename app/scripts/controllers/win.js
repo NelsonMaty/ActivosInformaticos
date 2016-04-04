@@ -217,7 +217,6 @@ angular.module('activosInformaticosApp')
         console.log($scope.sel_asset);
       };
 
-
     };
 
     function ShowAssetCtrl(asset, myassets, indice, editAsset, $scope, $mdDialog, $mdToast){
@@ -313,15 +312,7 @@ angular.module('activosInformaticosApp')
       
       $scope.goToType = function(type, $event) {
         $scope.sel_type = type;
-        //$scope.sel_atributos = $.extend([],type.properties);
-        /*for (i=0;i<$scope.sel_atributos.length;i++) {
-          if ($scope.sel_atributos[i].required) {
-            $scope.sel_atributos[i].required = 'Si';
-          } else {
-            $scope.sel_atributos[i].required = 'No';
-          }
-        }*/
-        //console.log(type);
+     
       };
 
       $scope.doFormly = function(sel_type) {

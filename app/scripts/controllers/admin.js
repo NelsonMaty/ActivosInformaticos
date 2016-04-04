@@ -119,12 +119,40 @@ angular.module('activosInformaticosApp')
       }) //function() {
         
     };
+           
+    $scope.editAssetType = function (ev,type,indice) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+        //console.log($index);
+        $mdDialog.show({
+          locals: {
+            type: type,
+            indice: indice
+          },
+          controller: EditAssetTypeCtrl,
+          templateUrl: '../../views/edit_asset_type.tmpl.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          clickOutsideToClose:false,
+          fullscreen: useFullScreen
+        })
+          .then(function(type) {
+            //$scope.status = 'Hiciste click en "' + answer + '".';
+            console.log("function");
+            if (type) {
+              console.log("edito");
+              $scope.assettypes[$index] = type;
+            }
+          }, function() {
+            
+          });
+    };
 
     $scope.goToType = function(type,ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
         locals: {
-          type: type
+          type: type,
+          editAssetType: $scope.editAssetType
         },
         controller: ShowTypeCtrl,
         templateUrl: '../../views/show_asset_type.tmpl.html',
@@ -141,24 +169,12 @@ angular.module('activosInformaticosApp')
         
     };
 
-    function ShowTypeCtrl(type, $scope, $mdDialog, $mdToast){
+    function ShowTypeCtrl(type, editAssetType, $scope, $mdDialog, $mdToast){
       $scope.type = type;
-      //$scope.indice = indice;
-      //$scope.editAsset = editAsset;
+      $scope.editAssetType = editAssetType;
       $scope.ev = {};
       $scope.atributos = type.properties;
-      /*for (i=0;i<$scope.atributos.length;i++) {
-        if ($scope.atributos[i].required == true) {
-          $scope.atributos[i].required = 'Si';
-        } else {
-          $scope.atributos[i].required = 'No';
-        }
-      }*/
-      //$scope.type_name = {};
-
-      //$scope.keys = Object.keys(asset);
-      //console.log($scope.type);
-     
+      
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -215,6 +231,47 @@ angular.module('activosInformaticosApp')
           $mdDialog.hide(null);
         }
       };
+    }
+
+    function EditAssetTypeCtrl(type, indice, $scope, $mdDialog, $mdToast) {
+      
+      $scope.update_type = $.extend(true,{},type);
+
+      $scope.indice = indice;
+
+      $scope.tipos = [
+        "String",
+        "Boolean",
+        "Integer",
+        "Float",
+        "List",
+        "Date"
+      ];
+
+      $scope.addItem = function() {
+            var n = $scope.update_type.properties.length;
+            $scope.update_type.properties.push({ label: n+1, name:'', type:'',required:false });
+          };
+
+      $scope.removeItem = function(index) {
+            $scope.update_type.properties.splice(index,1);
+          };
+
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      
+      $scope.editar = function(update_type) {
+        
+        dataFactory.editAssetType( function (response){
+            $mdDialog.hide(response);      
+          }, update_type, $mdDialog, $mdToast);
+      };
+
     }
 
     function AddUserCtrl($scope, $mdDialog, $mdToast) {
