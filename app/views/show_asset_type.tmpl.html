@@ -21,16 +21,15 @@
 	    <md-divider ></md-divider>
 	    <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
 	    
-	    <md-list-item ng-repeat="attributes in type.properties">
+	    <md-list-item ng-repeat="atributo in atributos">
 	        <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
 	        <strong style="padding-left: 20px; padding-bottom: 20px;"> Nombre: </strong>   
-	        <p style="padding-left: 20px; padding-bottom: 20px;">{{attributes.name}} </p>
+	        <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.name}} </p>
 	        <strong style="padding-left: 20px; padding-bottom: 20px;"> Tipo: </strong>
-	        <p style="padding-left: 20px; padding-bottom: 20px;">{{attributes.type}} </p>
+	        <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.type}} </p>
 	        <strong style="padding-left: 20px; padding-bottom: 20px;"> Obligatorio: </strong>
-	        <p style="padding-left: 20px; padding-bottom: 20px;">{{attributes.required}} </p>
+	        <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.required}} </p>
 	    </md-list-item>
-
 	   
 
 		<md-dialog-actions layout="row">

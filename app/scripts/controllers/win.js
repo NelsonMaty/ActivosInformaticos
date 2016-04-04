@@ -312,6 +312,14 @@ angular.module('activosInformaticosApp')
       
       $scope.goToType = function(type, $event) {
         $scope.sel_type = type;
+        $scope.sel_atributos = $.extend([],type.properties);
+        for (i=0;i<$scope.sel_atributos.length;i++) {
+          if ($scope.sel_atributos[i].required == true) {
+            $scope.sel_atributos[i].required = 'Si';
+          } else {
+            $scope.sel_atributos[i].required = 'No';
+          }
+        }
         //console.log(type);
       };
 
@@ -371,71 +379,127 @@ angular.module('activosInformaticosApp')
           switch(atributos[i].type) {
             case 'Date':
               //console.log("case date");
-              aux = {
-                key: atributos[i].name,
-                type: 'input',
-                templateOptions: {
-                  type: 'date',
-                  label: atributos[i].name
+              if (atributos[i].required) {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    type: 'date',
+                    label: atributos[i].name,
+                    required: true
                   //datepickerPopup: 'dd-MMMM-yyyy'
-                }
-              };
+                  }
+                };
+              } else {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    type: 'date',
+                    label: atributos[i].name
+                  //datepickerPopup: 'dd-MMMM-yyyy'
+                  }
+                };  
+              }
+              
               break;
             case 'Boolean':
               //console.log("case boolean");
-              aux = {
-                key: atributos[i].name,
-                type: 'select',
-                templateOptions: {
-                  label: atributos[i].name,
-                  options: ["True","False"]
-                  
-                }
-              };
+              if (atributos[i].required) {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'select',
+                  templateOptions: {
+                    label: atributos[i].name,
+                    options: ["True","False"],
+                    required: true
+                  }
+                };
+              } else {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'select',
+                  templateOptions: {
+                    label: atributos[i].name,
+                    options: ["True","False"]
+                    
+                  }
+                };
+              }
+              
               break;
             case 'Integer':
               //console.log("case boolean");
-              aux = {
-                key: atributos[i].name,
-                type: 'input',
-                templateOptions: {
-                  type: 'number',
-                  label: atributos[i].name,
-                  placeholder: ''
-                  
-                },
-                validators: {
-                  int: function($viewValue, $modelValue, scope) {
-                    var value = $modelValue || $viewValue;
-                    if (value) {
-                      return validateInt(value);
-                    } else {
-                      return true;
+              if (atributos[i].required) {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    type: 'number',
+                    label: atributos[i].name,
+                    placeholder: '',
+                    required: true
+                  },
+                  validators: {
+                    int: function($viewValue, $modelValue, scope) {
+                      var value = $modelValue || $viewValue;
+                      if (value) {
+                        return validateInt(value);
+                      } else {
+                        return true;
+                      }
                     }
                   }
-                }/*,
-                expressionProperties: {
-                    "templateOptions.disabled": "!update_asset.editable"
-                    }*/
-                  
-              };
+                };  
+              } else {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    type: 'number',
+                    label: atributos[i].name,
+                    placeholder: ''
+                    
+                  },
+                  validators: {
+                    int: function($viewValue, $modelValue, scope) {
+                      var value = $modelValue || $viewValue;
+                      if (value) {
+                        return validateInt(value);
+                      } else {
+                        return true;
+                      }
+                    }
+                  }
+                };  
+              }
+              
               break;
             case 'Float':
-              //console.log("case boolean");
-              aux = {
-                key: atributos[i].name,
-                type: 'input',
-                templateOptions: {
-                  type: 'number',
-                  label: atributos[i].name,
-                  placeholder: ''
-                  
-                }/*,
-                expressionProperties: {
-                    "templateOptions.disabled": "!update_asset.editable"
-                    }*/
-                  
-              };
+              if (atributos[i].required) {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    type: 'number',
+                    label: atributos[i].name,
+                    placeholder: '',
+                    required: true
+                  } 
+                };
+              } else {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    type: 'number',
+                    label: atributos[i].name,
+                    placeholder: ''
+                    
+                  } 
+                };  
+              }
+              
               break;
             case 'List':
               console.log("case List");
@@ -452,22 +516,33 @@ angular.module('activosInformaticosApp')
                 hide: true,
                 templateOptions: {
                   label: atributos[i].name,
-                  placeholder: ''
-                  
-              }
-                  
-            };
-            break;  
+                  placeholder: ''   
+                }    
+              };
+              break;  
             
             default:
-              aux = {
-                key: atributos[i].name,
-                type: 'input',
-                templateOptions: {
-                  label: atributos[i].name,
-                  placeholder: ''
-                }
-              };
+              if (atributos[i].required) {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    label: atributos[i].name,
+                    placeholder: '',
+                    required: true
+                  }
+                };
+              } else {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    label: atributos[i].name,
+                    placeholder: ''
+                  }
+                };
+              }
+              
               break;
           }
           fields.push(aux);

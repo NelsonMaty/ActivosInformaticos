@@ -1,4 +1,4 @@
-<md-dialog aria-label="Nuevo Activo" ng-cloak style="width: 800px; height: 600px;">
+<md-dialog aria-label="Nuevo Activo" ng-cloak style="width: 1000px; height: 600px;">
 
   <div layout="column" style=" height: 100%; width: 100%">
     <md-toolbar layout="row">
@@ -43,12 +43,14 @@
                 <md-tab label="Atributos">
                   <md-content class="md-padding">
                     <h1 class="md-display-2">Atributos</h1>
-                    <md-list-item ng-repeat="attributes in sel_type.properties">
+                    <md-list-item ng-repeat="atributo in sel_atributos">
                       <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
                       <strong style="padding-left: 20px; padding-bottom: 20px;"> Nombre: </strong>   
-                      <p style="padding-left: 20px; padding-bottom: 20px;">{{attributes.name}} </p>
+                      <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.name}} </p>
                       <strong style="padding-left: 20px; padding-bottom: 20px;"> Tipo: </strong>
-                      <p style="padding-left: 20px; padding-bottom: 20px;">{{attributes.type}} </p>
+                      <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.type}} </p>
+                      <strong style="padding-left: 20px; padding-bottom: 20px;"> Obligatorio: </strong>
+                      <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.required}} </p>
                     </md-list-item>
                   </md-content>
                 </md-tab>
