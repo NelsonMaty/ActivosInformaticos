@@ -336,7 +336,7 @@ angular.module('activosInformaticosApp')
                 key: 'name',
                 type: 'input',
                 templateOptions: {
-                  label: 'Nombre',
+                  label: '* Nombre',
                   placeholder: sel_type.name,
                   required: true
                 }
@@ -385,7 +385,7 @@ angular.module('activosInformaticosApp')
                   type: 'input',
                   templateOptions: {
                     type: 'date',
-                    label: atributos[i].name,
+                    label: '* ' + atributos[i].name,
                     required: true
                   //datepickerPopup: 'dd-MMMM-yyyy'
                   }
@@ -410,7 +410,7 @@ angular.module('activosInformaticosApp')
                   key: atributos[i].name,
                   type: 'select',
                   templateOptions: {
-                    label: atributos[i].name,
+                    label: '* ' + atributos[i].name,
                     options: ["True","False"],
                     required: true
                   }
@@ -436,7 +436,7 @@ angular.module('activosInformaticosApp')
                   type: 'input',
                   templateOptions: {
                     type: 'number',
-                    label: atributos[i].name,
+                    label: '* ' + atributos[i].name,
                     placeholder: '',
                     required: true
                   },
@@ -482,7 +482,7 @@ angular.module('activosInformaticosApp')
                   type: 'input',
                   templateOptions: {
                     type: 'number',
-                    label: atributos[i].name,
+                    label: '* ' + atributos[i].name,
                     placeholder: '',
                     required: true
                   } 
@@ -505,6 +505,7 @@ angular.module('activosInformaticosApp')
               console.log("case List");
               $scope.listas.push({
                 name: atributos[i].name,
+                required: atributos[i].required,
                 elements: [{
                   content: ''
                 } ]
@@ -527,7 +528,7 @@ angular.module('activosInformaticosApp')
                   key: atributos[i].name,
                   type: 'input',
                   templateOptions: {
-                    label: atributos[i].name,
+                    label: '* ' + atributos[i].name,
                     placeholder: '',
                     required: true
                   }
@@ -563,6 +564,7 @@ angular.module('activosInformaticosApp')
       $scope.formly_fields = fields;
       $scope.typeid = typeid;
       $scope.listas = listas;
+      $scope.type_prop = [];
       $scope.names_list = [];
       $scope.adjuntos = [
         {
@@ -597,7 +599,6 @@ angular.module('activosInformaticosApp')
 
       dataFactory.getAnAssetType($scope.typeid, function (response) {
         //$scope.type_attributes = response.properties;
-
         for (i=0;i<response.properties.length;i++) {
           if (response.properties[i].type=="List") {
             $scope.names_list.push(response.properties[i].name);
@@ -684,7 +685,7 @@ angular.module('activosInformaticosApp')
                   key: 'name',
                   type: 'input',
                   templateOptions: {
-                    label: 'Nombre',
+                    label: '* Nombre',
                     placeholder: $scope.update_asset.name,
                     required: true
                   }/*,
@@ -735,86 +736,163 @@ angular.module('activosInformaticosApp')
 
           switch(atributos[i].type) {
             case 'Date':
-              //console.log("case date");
-
-              
-              aux = {
-                key: atributos[i].name,
-                type: 'input',
-                templateOptions: {
-                  type: 'date',
-                  label: atributos[i].name,
-                  placeholder: $scope.update_asset[atributos[i].name]
-                  //datepickerPopup: 'dd-MMMM-yyyy'
-                }/*,
-                expressionProperties: {
-                    "templateOptions.disabled": "!update_asset.editable"
-                    }*/
-                  
-              };
+              $scope.update_asset[atributos[i].name] = '';
+              if (atributos[i].required) {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    type: 'date',
+                    label: '* ' + atributos[i].name,
+                    placeholder: $scope.update_asset[atributos[i].name],
+                    required: true
+                    //datepickerPopup: 'dd-MMMM-yyyy'
+                  }/*,
+                  expressionProperties: {
+                      "templateOptions.disabled": "!update_asset.editable"
+                      }*/
+                    
+                };
+              } else {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    type: 'date',
+                    label: atributos[i].name,
+                    placeholder: $scope.update_asset[atributos[i].name]
+                    //datepickerPopup: 'dd-MMMM-yyyy'
+                  }/*,
+                  expressionProperties: {
+                      "templateOptions.disabled": "!update_asset.editable"
+                      }*/
+                    
+                };
+              }
               break;
             case 'Boolean':
-              //console.log("case boolean");
-              aux = {
-                key: atributos[i].name,
-                type: 'select',
-                templateOptions: {
-                  label: atributos[i].name,
-                  options: ["True","False"],
-                  placeholder: $scope.update_asset[atributos[i].name]
-                  
-                }/*,
-                expressionProperties: {
-                    "templateOptions.disabled": "!update_asset.editable"
-                    }*/
-                  
-              };
+              if (atributos[i].required) {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'select',
+                  templateOptions: {
+                    label: '* ' + atributos[i].name,
+                    options: ["True","False"],
+                    placeholder: $scope.update_asset[atributos[i].name],
+                    required: true
+                    
+                  }/*,
+                  expressionProperties: {
+                      "templateOptions.disabled": "!update_asset.editable"
+                      }*/
+                    
+                };
+              } else {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'select',
+                  templateOptions: {
+                    label: atributos[i].name,
+                    options: ["True","False"],
+                    placeholder: $scope.update_asset[atributos[i].name]
+                    
+                  }/*,
+                  expressionProperties: {
+                      "templateOptions.disabled": "!update_asset.editable"
+                      }*/
+                    
+                };  
+              }
+              
               break;
             case 'Integer':
-              //console.log("case boolean");
-              aux = {
-                key: atributos[i].name,
-                type: 'input',
-                templateOptions: {
-                  label: atributos[i].name,
-                  placeholder: $scope.update_asset[atributos[i].name]
-                  
-                },
-                validators: {
-                  int: function($viewValue, $modelValue, scope) {
-                    var value = $modelValue || $viewValue;
-                    if (value) {
-                      return validateInt(value);
-                    } 
-                  }
-                }/*,
-                expressionProperties: {
-                    "templateOptions.disabled": "!update_asset.editable"
-                    }*/
-                  
-              };
+              if (atributos[i].required) {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    label: '* ' + atributos[i].name,
+                    placeholder: $scope.update_asset[atributos[i].name],
+                    required: true
+                  },
+                  validators: {
+                    int: function($viewValue, $modelValue, scope) {
+                      var value = $modelValue || $viewValue;
+                      if (value) {
+                        return validateInt(value);
+                      } 
+                    }
+                  }/*,
+                  expressionProperties: {
+                      "templateOptions.disabled": "!update_asset.editable"
+                      }*/
+                    
+                };
+              } else {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    label: atributos[i].name,
+                    placeholder: $scope.update_asset[atributos[i].name]
+                    
+                  },
+                  validators: {
+                    int: function($viewValue, $modelValue, scope) {
+                      var value = $modelValue || $viewValue;
+                      if (value) {
+                        return validateInt(value);
+                      } 
+                    }
+                  }/*,
+                  expressionProperties: {
+                      "templateOptions.disabled": "!update_asset.editable"
+                      }*/
+                    
+                };  
+              }
+              
               break;
             case 'Float':
-              //console.log("case boolean");
-              aux = {
-                key: atributos[i].name,
-                type: 'input',
-                templateOptions: {
-                  type: 'number',
-                  label: atributos[i].name,
-                  placeholder: $scope.update_asset[atributos[i].name]
-                  
-                }/*,
-                expressionProperties: {
-                    "templateOptions.disabled": "!update_asset.editable"
-                    }*/
-                  
-              };
+              if (atributos[i].required) {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    type: 'number',
+                    label: '* ' + atributos[i].name,
+                    placeholder: $scope.update_asset[atributos[i].name],
+                    required: true
+                    
+                  }/*,
+                  expressionProperties: {
+                      "templateOptions.disabled": "!update_asset.editable"
+                      }*/
+                    
+                };
+              } else {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    type: 'number',
+                    label: atributos[i].name,
+                    placeholder: $scope.update_asset[atributos[i].name]
+                    
+                  }/*,
+                  expressionProperties: {
+                      "templateOptions.disabled": "!update_asset.editable"
+                      }*/
+                    
+                };  
+              }
+              
               break;
             case 'List':
               
               $scope.listas.push({
                 name: atributos[i].name,
+                required: atributos[i].required,
                 elements: $scope.update_asset[atributos[i].name]
                  
               })
@@ -832,18 +910,35 @@ angular.module('activosInformaticosApp')
             };
             break;  
             default:
-              aux = {
-                key: atributos[i].name,
-                type: 'input',
-                templateOptions: {
-                  label: atributos[i].name,
-                  placeholder: $scope.update_asset[atributos[i].name]
-                }/*,
-                expressionProperties: {
-                    "templateOptions.disabled": "!update_asset.editable"
-                    }*/
-                  
-              };
+              if (atributos[i].required) {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    label: '* ' + atributos[i].name,
+                    placeholder: $scope.update_asset[atributos[i].name],
+                    required: true
+                  }/*,
+                  expressionProperties: {
+                      "templateOptions.disabled": "!update_asset.editable"
+                      }*/
+                    
+                };
+              } else {
+                aux = {
+                  key: atributos[i].name,
+                  type: 'input',
+                  templateOptions: {
+                    label: atributos[i].name,
+                    placeholder: $scope.update_asset[atributos[i].name]
+                  }/*,
+                  expressionProperties: {
+                      "templateOptions.disabled": "!update_asset.editable"
+                      }*/
+                    
+                };  
+              }
+              
               break;
           }
           $scope.fields.push(aux);
