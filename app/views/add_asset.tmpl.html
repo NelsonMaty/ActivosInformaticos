@@ -50,7 +50,8 @@
                       <strong style="padding-left: 20px; padding-bottom: 20px;"> Tipo: </strong>
                       <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.type}} </p>
                       <strong style="padding-left: 20px; padding-bottom: 20px;"> Obligatorio: </strong>
-                      <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.required}} </p>
+                      <p ng-if="atributo.required" style="padding-left: 20px; padding-bottom: 20px;">Sí</p>
+                      <p ng-if="!atributo.required" style="padding-left: 20px; padding-bottom: 20px;">No</p>
                     </md-list-item>
                   </md-content>
                 </md-tab>

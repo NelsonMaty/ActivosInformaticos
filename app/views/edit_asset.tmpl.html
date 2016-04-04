@@ -18,13 +18,13 @@
 			    <!--{{ d.label}}-->
 			    <md-divider></md-divider>
 			    <div style="padding-left: 16px; padding-top: 10px;">
-			    	<h2> {{lista.name}} </h2>	
+			    	<h2>Lista: {{lista.name}} </h2>	
 			    </div>
 			    
 			    <div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
 				    
 				    <md-input-container  class=" md-block" style="padding-right: 6px; ">
-				        <input ng-model="element.content" type="text" placeholder="" aria-label="lista" required="lista.required">
+				        <input ng-model="element.content" type="text" placeholder="" aria-label="lista" ng-required="lista.required">
 				    </md-input-container>
 				    
 				    <div layout-gt-sm="row" >

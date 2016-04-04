@@ -301,6 +301,7 @@ angular.module('activosInformaticosApp')
     function SelectTypeCtrl(assettypes, showformly, $scope, $mdDialog, $mdToast) {
       $scope.assettypes = assettypes;
       $scope.showFormly = showformly;
+      $scope.sel_atributos = [];
       $scope.listas = [];
 
       $scope.hide = function() {
@@ -312,19 +313,20 @@ angular.module('activosInformaticosApp')
       
       $scope.goToType = function(type, $event) {
         $scope.sel_type = type;
-        $scope.sel_atributos = $.extend([],type.properties);
-        for (i=0;i<$scope.sel_atributos.length;i++) {
-          if ($scope.sel_atributos[i].required == true) {
+        //$scope.sel_atributos = $.extend([],type.properties);
+        /*for (i=0;i<$scope.sel_atributos.length;i++) {
+          if ($scope.sel_atributos[i].required) {
             $scope.sel_atributos[i].required = 'Si';
           } else {
             $scope.sel_atributos[i].required = 'No';
           }
-        }
+        }*/
         //console.log(type);
       };
 
       $scope.doFormly = function(sel_type) {
         $scope.hide();
+
         //$scope.asset = {};
         function validateInt(value) {
           
@@ -379,7 +381,7 @@ angular.module('activosInformaticosApp')
           switch(atributos[i].type) {
             case 'Date':
               //console.log("case date");
-              if (atributos[i].required) {
+              if (atributos[i].required == true) {
                 aux = {
                   key: atributos[i].name,
                   type: 'input',
@@ -405,7 +407,7 @@ angular.module('activosInformaticosApp')
               break;
             case 'Boolean':
               //console.log("case boolean");
-              if (atributos[i].required) {
+              if (atributos[i].required == true) {
                 aux = {
                   key: atributos[i].name,
                   type: 'select',
@@ -430,7 +432,7 @@ angular.module('activosInformaticosApp')
               break;
             case 'Integer':
               //console.log("case boolean");
-              if (atributos[i].required) {
+              if (atributos[i].required == true) {
                 aux = {
                   key: atributos[i].name,
                   type: 'input',
@@ -476,7 +478,7 @@ angular.module('activosInformaticosApp')
               
               break;
             case 'Float':
-              if (atributos[i].required) {
+              if (atributos[i].required == true) {
                 aux = {
                   key: atributos[i].name,
                   type: 'input',
@@ -523,7 +525,7 @@ angular.module('activosInformaticosApp')
               break;  
             
             default:
-              if (atributos[i].required) {
+              if (atributos[i].required == true) {
                 aux = {
                   key: atributos[i].name,
                   type: 'input',
@@ -564,6 +566,7 @@ angular.module('activosInformaticosApp')
       $scope.formly_fields = fields;
       $scope.typeid = typeid;
       $scope.listas = listas;
+      console.log($scope.listas);
       $scope.type_prop = [];
       $scope.names_list = [];
       $scope.adjuntos = [
@@ -737,7 +740,7 @@ angular.module('activosInformaticosApp')
           switch(atributos[i].type) {
             case 'Date':
               $scope.update_asset[atributos[i].name] = '';
-              if (atributos[i].required) {
+              if (atributos[i].required == true) {
                 aux = {
                   key: atributos[i].name,
                   type: 'input',
@@ -771,7 +774,7 @@ angular.module('activosInformaticosApp')
               }
               break;
             case 'Boolean':
-              if (atributos[i].required) {
+              if (atributos[i].required == true) {
                 aux = {
                   key: atributos[i].name,
                   type: 'select',
@@ -806,7 +809,7 @@ angular.module('activosInformaticosApp')
               
               break;
             case 'Integer':
-              if (atributos[i].required) {
+              if (atributos[i].required == true) {
                 aux = {
                   key: atributos[i].name,
                   type: 'input',
@@ -854,7 +857,7 @@ angular.module('activosInformaticosApp')
               
               break;
             case 'Float':
-              if (atributos[i].required) {
+              if (atributos[i].required == true) {
                 aux = {
                   key: atributos[i].name,
                   type: 'input',
@@ -910,7 +913,7 @@ angular.module('activosInformaticosApp')
             };
             break;  
             default:
-              if (atributos[i].required) {
+              if (atributos[i].required == true) {
                 aux = {
                   key: atributos[i].name,
                   type: 'input',

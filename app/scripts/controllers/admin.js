@@ -146,14 +146,14 @@ angular.module('activosInformaticosApp')
       //$scope.indice = indice;
       //$scope.editAsset = editAsset;
       $scope.ev = {};
-      $scope.atributos = $.extend([],type.properties);
-      for (i=0;i<$scope.atributos.length;i++) {
+      $scope.atributos = type.properties;
+      /*for (i=0;i<$scope.atributos.length;i++) {
         if ($scope.atributos[i].required == true) {
           $scope.atributos[i].required = 'Si';
         } else {
           $scope.atributos[i].required = 'No';
         }
-      }
+      }*/
       //$scope.type_name = {};
 
       //$scope.keys = Object.keys(asset);
