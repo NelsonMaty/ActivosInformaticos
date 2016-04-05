@@ -1,10 +1,10 @@
-<md-dialog aria-label="Nueva Relacion" ng-cloak style="width: 1200px; height: 600px;">
+<md-dialog aria-label="Nueva Relacion" ng-cloak style="width: 800px; height: 600px;">
 
-  <div layout="column" style=" height: 100%; width: 100%">
+  
     <md-toolbar layout="row">
       <div class="md-toolbar-tools">
         
-        <h1>Alta de relación - Selección de Activos Informaticos &nbsp; </h1>
+        <h1>Alta de relación &nbsp; </h1>
         
       </div>
       <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
@@ -12,16 +12,29 @@
       </md-button>
     </md-toolbar>
     
-    <div layout="row" flex>
-      <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style="min-width: 20% !important;">
+    <div ng-switch="etapa">
+      <div ng-switch-when="1">
+        <h1 class="md-display-2">Guía para creación de relaciones</h1>
+        <md-content flex layout-padding >
+        <p> Bienvenido al asistente para creación de relaciones entre activos. A continuación, el asistente lo guiará mediante una serie de pasos para crear una relación entre activos.
+            Presione  el botón "Siguiente" para poder continuar </p>
+        </md-content>
+        <md-button ng-click="firstSelect()">
+          Siguiente
+        </md-button>
+        <md-button ng-click="cancel()" style="margin-right:20px;">
+          Cancelar
+        </md-button>
+      </div>
+      <!--md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style="min-width: 20% !important;">
         <md-input-container class="md-icon-float md-block" style="top: 20px;">
           <input type="search" ng-model="buscado" placeholder="Tipos" aria-label="filter assets" />
         </md-input-container>
         <md-list ng-cloak>
-          <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
+         
           <md-list-item ng-repeat="asset in assets | filter:buscado" ng-click="goToAsset(asset, $event)">
             
-            <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
+            
             <p>{{ asset.name }}</p>
             
             <md-divider ng-if="!$last"></md-divider>
@@ -35,9 +48,9 @@
             Quitar
           </md-button>
         </div>
-      </md-sidenav>
+      </md-sidenav-->
       
-      <div layout="column" flex id="activos graficos" style="min-width: 20% !important;">
+      <!--div layout="column" flex id="activos graficos" style="min-width: 20% !important;">
         <div layout="row" layout-wrap layout-margin layout-align="start center" ng-repeat="asset in added"> 
           <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-click="goToAsset(asset,$event)">
                   
@@ -77,19 +90,17 @@
                         </md-list-item>
 
                         <div layout="column" ng-repeat="lista in listas" style=" overflow: auto;">
-                            <!--{{ d.label}}-->
-                            <md-divider></md-divider>
-                            <!--div style="padding-left: 16px; padding-top: 10px;"-->
-                              <h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>  
-                            <!--/div-->
                             
-                            <!--div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;"-->
+                            <md-divider></md-divider>
+                            
+                              <h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>  
+                            
                             <div style="min-height: 100px;">
                             <md-list-item ng-repeat="element in lista.elements"  >    
                                   <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">list</md-icon> 
                                     <p style="padding-left: 20px; padding-bottom: 20px;">{{element.content}} </p>
                             </md-list-item>
-                          <!--/div-->
+                         
                           </div>
                       </div>
 
@@ -97,7 +108,7 @@
                       <h1 class="md-display-2" style="padding-left: 20px;">Informacion Adjunta</h1>
                       
                       <md-list-item ng-repeat="link in sel_asset.attached" >
-                          <!--{{ d.label}}-->
+                        
                               <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px; margin-left: 0px;">link</md-icon> 
                               <a href="{{link.url}}" style="padding-left: 20px; padding-bottom: 20px;">{{link.url}} </a>       
 
@@ -124,8 +135,10 @@
             Cancelar
           </md-button>
         </md-dialog-actions>
-      </md-sidenav>
+      </md-sidenav-->
+
+
     </div>
-  </div>
+  
 
 </md-dialog>

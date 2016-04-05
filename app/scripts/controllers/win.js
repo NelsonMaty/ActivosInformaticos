@@ -189,6 +189,7 @@ angular.module('activosInformaticosApp')
 
     function SelectAssetCtrl(myassets,$scope, $mdDialog, $mdToast){
       $scope.assets = myassets;
+      $scope.etapa = 1;
       $scope.type_name = {};
       $scope.listas = [];
       $scope.names_list = [];
