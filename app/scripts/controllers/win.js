@@ -6,6 +6,10 @@ angular.module('activosInformaticosApp')
     $scope.toggleSidenav = function(menuId) {
     	//$mdSidenav(menuId).toggle();
     };
+
+    $scope.clicked_asset = {};
+    $scope.clicked_index = {};
+    $scope.clicked = false;
     
     $scope.openMenu = function($mdOpenMenu, ev) {
       originatorEv = ev;
@@ -28,6 +32,12 @@ angular.module('activosInformaticosApp')
       //console.log($scope.myassets);
 
     });
+
+    $scope.clickAsset = function(asset,indice) {
+      $scope.clicked_asset = asset;
+      $scope.clicked_index = indice;
+      $scope.clicked = true;
+    };
 
     $scope.showAddAsset = function(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;

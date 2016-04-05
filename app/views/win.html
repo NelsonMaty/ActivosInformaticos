@@ -6,9 +6,24 @@
 
       <h1>Activos Informaticos &nbsp; </h1>
 
-      <md-button class="md-icon-button" aria-label="Menu">
-          <md-icon md-font-set="material-icons">menu</md-icon>
-      </md-button>
+      <md-fab-toolbar md-open="clicked" md-direction="right">
+        <md-fab-trigger class="align-with-text">
+          <!--md-icon md-font-set="material-icons">menu</md-icon-->
+        </md-fab-trigger>
+        <md-toolbar>
+          <md-fab-actions class="md-toolbar-tools">
+            <md-button aria-label="Abrir" class="md-icon-button" ng-click="goAsset($event, clicked_asset, clicked_index)">
+              <md-icon md-font-set="material-icons">open_in_new</md-icon>
+            </md-button>
+            <md-button aria-label="Editar" class="md-icon-button">
+              <md-icon md-font-set="material-icons">edit</md-icon>
+            </md-button>
+            <md-button aria-label="Borrar" class="md-icon-button">
+              <md-icon md-font-set="material-icons">delete</md-icon>
+            </md-button>
+          </md-fab-actions>
+        </md-toolbar>
+      </md-fab-toolbar>  
       
       <span flex=""></span>
       <md-button class="md-icon-button" aria-label="Busqueda">
@@ -58,7 +73,8 @@
 
                   <div layout="row" layout-wrap layout-margin layout-align="start center" >
                          
-                    <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)">
+                    <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
+                    <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="clickAsset(asset, $index)">
                              <!--img src="images/nota.svg"/-->
                       <md-icon style="font-size: 48px; width: 50px;height: 50px;" md-font-set="material-icons">description</md-icon>
                       <div style="text-align: center"> {{asset.name}} </div>
