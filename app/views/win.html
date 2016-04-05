@@ -6,14 +6,22 @@
 
       <h1>Activos Informaticos &nbsp; </h1>
       <div class="cerrar-menu-activo" ng-class="{'mostrar-menu-activo': clicked }">
+
             <md-button aria-label="Abrir" label="Abrir" class="md-icon-button" ng-click="goAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
+              <md-tooltip md-direction="bottom"> Abrir </md-tooltip>
               <md-icon md-font-set="material-icons">open_in_new</md-icon>
             </md-button>
             <md-button aria-label="Editar" label="Editar" class="md-icon-button" ng-click="editAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
+              <md-tooltip md-direction="bottom"> Editar </md-tooltip>
               <md-icon md-font-set="material-icons">edit</md-icon>
             </md-button>
             <md-button aria-label="Borrar" label="Borrar" class="md-icon-button"ng-click="deleteAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
+              <md-tooltip md-direction="bottom"> Borrar </md-tooltip>
               <md-icon md-font-set="material-icons">delete</md-icon>
+            </md-button>
+            <md-button aria-label="Borrar" label="Borrar" class="md-icon-button" >
+              <md-tooltip md-direction="bottom"> Relacionar </md-tooltip>
+              <md-icon md-font-set="material-icons">link</md-icon>
             </md-button>
       </div>
       <span flex=""></span>

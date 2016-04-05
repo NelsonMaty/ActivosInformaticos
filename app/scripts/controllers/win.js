@@ -190,6 +190,23 @@ angular.module('activosInformaticosApp')
     function SelectAssetCtrl(myassets,$scope, $mdDialog, $mdToast){
       $scope.assets = myassets;
       $scope.type_name = {};
+      $scope.listas = [];
+      $scope.names_list = [];
+      $scope.sel_asset = {};
+      $scope.added = [];
+
+      $scope.addSelected = function (sel_asset) {
+        if ($scope.added.length < 2 && sel_asset.added != true) {
+          $scope.added.push(sel_asset);
+          $scope.sel_asset.added = true;
+        }
+
+      }
+
+      $scope.removeSelected = function (sel_asset,indice) {
+        $scope.added.splice(indice,1);
+        $scope.sel_asset.added = false;
+      }
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -200,35 +217,59 @@ angular.module('activosInformaticosApp')
 
       $scope.goToAsset = function(asset, $event) {
         $scope.sel_asset = asset;
-        dataFactory.getAnAssetType($scope.sel_asset.typeId, function (response) {
-          $scope.type_name = response.name;
-
-          
-        });
+        $scope.sel_asset.added = false;
+        $scope.listas = [];
 
         $scope.keys = Object.keys(asset);
-        //console.log($scope.keys);
 
-        $scope.c =$scope.keys.indexOf("name");
-        $scope.keys.splice($scope.c,1);
-        $scope.d =$scope.keys.indexOf("comment");
-        $scope.keys.splice($scope.d,1);
-        $scope.e =$scope.keys.indexOf("$$hashKey");
-        $scope.keys.splice($scope.e,1);
+        $scope.keys.splice($scope.keys.indexOf("name"),1);
+        $scope.keys.splice($scope.keys.indexOf("comment"),1);
+        $scope.keys.splice($scope.keys.indexOf("$$hashKey"),1);
+        $scope.keys.splice($scope.keys.indexOf("attached"),1);
               
-        //console.log($scope.keys.indexOf("__v"));
+        
         if ($scope.keys.indexOf("__v")>=0) {
-          //console.log($scope.asset.__v);
+          
           $scope.b =$scope.keys.indexOf("__v");
           $scope.keys.splice($scope.b,1);
           
         }
 
         if ($scope.keys.indexOf("deleted")>=0) {
-          //console.log($scope.asset.deleted);
+          
           $scope.a =$scope.keys.indexOf("deleted");
           $scope.keys.splice($scope.a,1);
         }
+        
+
+        dataFactory.getAnAssetType($scope.sel_asset.typeId, function (response) {
+          $scope.type_name = response.name;
+          $scope.asset_type = response;
+
+          for (i=0;i<response.properties.length;i++) {
+            if (response.properties[i].type=="List") {
+              $scope.names_list.push(response.properties[i].name);
+
+            }
+          }
+
+          for (i=0;i<$scope.names_list.length;i++) {
+            for (j=0;j<$scope.keys.length;j++) {
+              
+              if($scope.names_list[i] == $scope.keys[j]) {
+                
+                $scope.listas.push({
+                  name: $scope.names_list[i],
+                  elements: $scope.sel_asset[$scope.keys[j]]
+                });
+                $scope.keys.splice(j,1);
+                
+              }
+            }
+          }
+
+        });
+        
 
         console.log($scope.sel_asset);
       };
