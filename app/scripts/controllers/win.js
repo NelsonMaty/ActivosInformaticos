@@ -37,7 +37,13 @@ angular.module('activosInformaticosApp')
       $scope.clicked_asset = asset;
       $scope.clicked_index = indice;
       $scope.clicked = true;
+      //console.log($scope.clicked);
     };
+
+    $scope.clickClose = function () {
+      $scope.clicked = false;
+      //console.log($scope.clicked);
+    }
 
     $scope.showAddAsset = function(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;

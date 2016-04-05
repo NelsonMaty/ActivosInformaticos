@@ -1,30 +1,21 @@
 
 
-<div layout="column" style=" height: 100%;">
-  <md-toolbar layout="row"-->
+<div layout="column" style=" height: 100%;" ng-click="clickClose()">
+  <md-toolbar layout="row" >
     <div class="md-toolbar-tools">
 
       <h1>Activos Informaticos &nbsp; </h1>
-
-      <md-fab-toolbar md-open="clicked" md-direction="right">
-        <md-fab-trigger class="align-with-text">
-          <!--md-icon md-font-set="material-icons">menu</md-icon-->
-        </md-fab-trigger>
-        <md-toolbar>
-          <md-fab-actions class="md-toolbar-tools">
-            <md-button aria-label="Abrir" class="md-icon-button" ng-click="goAsset($event, clicked_asset, clicked_index)">
+      <div class="cerrar-menu-activo" ng-class="{'mostrar-menu-activo': clicked }">
+            <md-button aria-label="Abrir" class="md-icon-button" ng-click="goAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
               <md-icon md-font-set="material-icons">open_in_new</md-icon>
             </md-button>
-            <md-button aria-label="Editar" class="md-icon-button">
+            <md-button aria-label="Editar" class="md-icon-button" ng-click="editAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
               <md-icon md-font-set="material-icons">edit</md-icon>
             </md-button>
-            <md-button aria-label="Borrar" class="md-icon-button">
+            <md-button aria-label="Borrar" class="md-icon-button"ng-click="deleteAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
               <md-icon md-font-set="material-icons">delete</md-icon>
             </md-button>
-          </md-fab-actions>
-        </md-toolbar>
-      </md-fab-toolbar>  
-      
+      </div>
       <span flex=""></span>
       <md-button class="md-icon-button" aria-label="Busqueda">
         <md-icon md-font-set="material-icons">search</md-icon>
@@ -50,8 +41,7 @@
           </md-menu-item>
           
         </md-menu-content>  
-
-        
+  
       </md-menu>
     </div>
   </md-toolbar>
@@ -62,8 +52,6 @@
     </md-sidenav>
     <div layout="column" flex id="content">
       <md-content layout="column" flex class="md-padding">
-        <!--This Starter Application consists of a Toolbar, SideNav (with two buttons), and Content area.
-        <p>Acá van las pestañas! </p-->
 
           <md-content>
             <md-tabs md-dynamic-height="" md-border-bottom="">
@@ -74,7 +62,7 @@
                   <div layout="row" layout-wrap layout-margin layout-align="start center" >
                          
                     <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
-                    <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="clickAsset(asset, $index)">
+                    <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="clickAsset(asset, $index);  $event.stopPropagation();">
                              <!--img src="images/nota.svg"/-->
                       <md-icon style="font-size: 48px; width: 50px;height: 50px;" md-font-set="material-icons">description</md-icon>
                       <div style="text-align: center"> {{asset.name}} </div>
