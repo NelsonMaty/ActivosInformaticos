@@ -954,7 +954,7 @@ angular.module('activosInformaticosApp')
           $scope.fields.push(aux);
           //console.log(aux);
         }
-        console.log($scope.listas);
+        //console.log($scope.listas);
       });
 
       function validateInt(value) {
