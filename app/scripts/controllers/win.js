@@ -209,6 +209,14 @@ angular.module('activosInformaticosApp')
         $scope.sel_asset.added = false;
       }
 
+      $scope.nextSelect = function () {
+        ++$scope.etapa;
+      }
+
+      $scope.prevSelect = function () {
+        --$scope.etapa;
+      }
+
       $scope.hide = function() {
         $mdDialog.hide();
       };

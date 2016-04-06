@@ -1,6 +1,5 @@
 <md-dialog aria-label="Nueva Relacion" ng-cloak style="width: 800px; height: 600px;">
 
-  
     <md-toolbar layout="row">
       <div class="md-toolbar-tools">
         
@@ -14,18 +13,47 @@
     
     <div ng-switch="etapa">
       <div ng-switch-when="1">
-        <h1 class="md-display-2">Guía para creación de relaciones</h1>
+        <h1 class="md-display-2" style="padding-left: 16px;">Guía para creación de relaciones</h1>
         <md-content flex layout-padding >
         <p> Bienvenido al asistente para creación de relaciones entre activos. A continuación, el asistente lo guiará mediante una serie de pasos para crear una relación entre activos.
             Presione  el botón "Siguiente" para poder continuar </p>
         </md-content>
-        <md-button ng-click="firstSelect()">
-          Siguiente
-        </md-button>
-        <md-button ng-click="cancel()" style="margin-right:20px;">
-          Cancelar
-        </md-button>
+        <md-content style="top: 320px;">
+          <md-button ng-click="nextSelect()" style="left: 560px;">
+            Siguiente
+          </md-button>
+          <md-button ng-click="cancel()" style="left: 560px;">
+            Cancelar
+          </md-button>
+        </md-content>
       </div>
+      
+      <div ng-switch-when="2">
+        <h1 class="md-display-2" style="padding-left: 16px;">Seleccione primer activo</h1>
+        
+        <div layout="column" flex id="activos graficos" style="min-width: 20% !important;">
+          <div layout="row" layout-wrap layout-margin layout-align="start center" ng-repeat="asset in assets"> 
+            <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-click="goToAsset(asset,$event)">
+              <md-icon style="font-size: 48px; width: 50px;height: 50px;" md-font-set="material-icons">description</md-icon>
+              <div style="text-align: center"> {{asset.name}} </div>
+            </div>
+          </div>
+        </div>
+        
+        <md-content >
+          <md-button ng-click="prevSelect()" style="left: 450px;">
+            Anterior
+          </md-button>
+          <md-button ng-click="nextSelect()" style="left: 450px;">
+            Siguiente
+          </md-button>
+          <md-button ng-click="cancel()" style="left: 450px;">
+            Cancelar
+          </md-button>
+        </md-content>
+      </div>
+
+      
       <!--md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style="min-width: 20% !important;">
         <md-input-container class="md-icon-float md-block" style="top: 20px;">
           <input type="search" ng-model="buscado" placeholder="Tipos" aria-label="filter assets" />
