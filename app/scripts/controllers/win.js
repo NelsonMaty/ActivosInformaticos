@@ -208,7 +208,7 @@ angular.module('activosInformaticosApp')
       $scope.type_name = {};
       $scope.listas = [];
       $scope.names_list = [];
-      $scope.sel_asset = {};
+      $scope.sel_asset = null;
       $scope.added = [];
       $scope.first = first;
       if (first) {
@@ -217,7 +217,7 @@ angular.module('activosInformaticosApp')
 
       $scope.addSelected = function (sel_asset) {
         $scope.added.push(sel_asset);
-        $scope.sel_asset = {};
+        $scope.sel_asset = null;
         //delete $scope.assets[sel_asset.name];
         $scope.nextSelect();
         console.log($scope.added);
@@ -225,7 +225,7 @@ angular.module('activosInformaticosApp')
 
       $scope.removeSelected = function () {
         $scope.added.pop();
-        $scope.sel_asset = {};
+        $scope.sel_asset = null;
         //$scope.sel_asset.added = false;
         $scope.prevSelect();
         console.log($scope.added);
