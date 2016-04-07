@@ -7,19 +7,19 @@
       <h1>Activos Informaticos &nbsp; </h1>
       <div class="cerrar-menu-activo" ng-class="{'mostrar-menu-activo animated bounceInLeft': clicked }">
 
-            <md-button aria-label="Abrir" label="Abrir" class="md-icon-button" ng-click="goAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
+            <md-button aria-label="Abrir" class="md-icon-button" ng-click="goAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
               <md-tooltip md-direction="bottom"> Abrir </md-tooltip>
               <md-icon md-font-set="material-icons">open_in_new</md-icon>
             </md-button>
-            <md-button aria-label="Editar" label="Editar" class="md-icon-button" ng-click="editAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
+            <md-button aria-label="Editar"  class="md-icon-button" ng-click="editAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
               <md-tooltip md-direction="bottom"> Editar </md-tooltip>
               <md-icon md-font-set="material-icons">edit</md-icon>
             </md-button>
-            <md-button aria-label="Borrar" label="Borrar" class="md-icon-button"ng-click="deleteAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
+            <md-button aria-label="Borrar"  class="md-icon-button"ng-click="deleteAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
               <md-tooltip md-direction="bottom"> Borrar </md-tooltip>
               <md-icon md-font-set="material-icons">delete</md-icon>
             </md-button>
-            <md-button aria-label="Borrar" label="Borrar" class="md-icon-button" >
+            <md-button aria-label="Borrar" class="md-icon-button" ng-click="addRelation($event,'3', clicked_asset); $event.stopPropagation();">
               <md-tooltip md-direction="bottom"> Relacionar </md-tooltip>
               <md-icon md-font-set="material-icons">link</md-icon>
             </md-button>
@@ -100,7 +100,7 @@
       
       <ul mfb-menu menu-state="myVar" position="br" effect="slidein" active-icon="ion-close" resting-icon="ion-plus" toggling-method="click" >
         <!--a mfb-button mfb-button-close icon="ion-android-list" label="Nuevo tipo de activo" ng-click="showAddAssetType($event)" >  </a-->
-        <a mfb-button mfb-button-close icon="ion-link" label="Nueva relacion" ng-click="selectAsset($event)" >  </a>
+        <a mfb-button mfb-button-close icon="ion-link" label="Nueva relacion" ng-click="addRelation($event,'1',null)" >  </a>
         <a mfb-button mfb-button-close icon="ion-ios-paper" label="Nuevo activo" ng-click="showAddAsset($event)" >  </a>
       </ul>
 

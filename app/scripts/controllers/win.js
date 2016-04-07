@@ -10,7 +10,19 @@ angular.module('activosInformaticosApp')
     $scope.clicked_asset = {};
     $scope.clicked_index = {};
     $scope.clicked = false;
-    
+
+    var animationMenuExit = function(trigger, element){
+        element = $(element);
+            element.addClass('animated ' + 'bounceOutLeft');
+            window.setTimeout( function(){
+                    
+                    element.removeClass('animated ' + 'bounceOutLeft');
+                    $scope.clicked = false;
+                    $scope.$apply();
+            }, 1200);
+
+    }
+
     $scope.openMenu = function($mdOpenMenu, ev) {
       originatorEv = ev;
       $mdOpenMenu(ev);
@@ -41,8 +53,9 @@ angular.module('activosInformaticosApp')
     };
 
     $scope.clickClose = function () {
-      $scope.clicked = false;
-      //console.log($scope.clicked);
+      
+        animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
+      
     }
 
     $scope.showAddAsset = function(ev) {
@@ -164,15 +177,15 @@ angular.module('activosInformaticosApp')
         });
     };
 
-    $scope.selectAsset = function(ev) {
+    $scope.addRelation = function(ev,etapa,asset) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
       $mdDialog.show({
         locals: {
-          myassets: $scope.myassets
-          //showformly: $scope.showFormly
-          //fields: {}
+          myassets: $scope.myassets,
+          etapa: etapa,
+          first: asset          
         },
-        controller: SelectAssetCtrl,
+        controller: AddRelationCtrl,
         templateUrl: '../../views/select_asset.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
@@ -187,27 +200,35 @@ angular.module('activosInformaticosApp')
       
     };
 
-    function SelectAssetCtrl(myassets,$scope, $mdDialog, $mdToast){
+    function AddRelationCtrl(myassets,etapa,first,$scope, $mdDialog, $mdToast){
       $scope.assets = myassets;
+      $scope.etapa = etapa;
+      $scope.relation = {};
       $scope.buscado = '';
-      $scope.etapa = 1;
       $scope.type_name = {};
       $scope.listas = [];
       $scope.names_list = [];
       $scope.sel_asset = {};
       $scope.added = [];
+      $scope.first = first;
+      if (first) {
+        $scope.added.push(first);
+      }
 
       $scope.addSelected = function (sel_asset) {
         $scope.added.push(sel_asset);
+        $scope.sel_asset = {};
         //delete $scope.assets[sel_asset.name];
         $scope.nextSelect();
-
+        console.log($scope.added);
       }
 
-      $scope.removeSelected = function (sel_asset,indice) {
+      $scope.removeSelected = function () {
         $scope.added.pop();
+        $scope.sel_asset = {};
         //$scope.sel_asset.added = false;
         $scope.prevSelect();
+        console.log($scope.added);
       }
 
       $scope.nextSelect = function () {
@@ -217,6 +238,8 @@ angular.module('activosInformaticosApp')
       $scope.prevSelect = function () {
         --$scope.etapa;
       }
+
+
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -281,7 +304,7 @@ angular.module('activosInformaticosApp')
         });
         
 
-        console.log($scope.sel_asset);
+        //console.log($scope.sel_asset);
       };
 
     };
