@@ -189,6 +189,7 @@ angular.module('activosInformaticosApp')
 
     function SelectAssetCtrl(myassets,$scope, $mdDialog, $mdToast){
       $scope.assets = myassets;
+      $scope.buscado = '';
       $scope.etapa = 1;
       $scope.type_name = {};
       $scope.listas = [];
@@ -197,16 +198,16 @@ angular.module('activosInformaticosApp')
       $scope.added = [];
 
       $scope.addSelected = function (sel_asset) {
-        if ($scope.added.length < 2 && sel_asset.added != true) {
-          $scope.added.push(sel_asset);
-          $scope.sel_asset.added = true;
-        }
+        $scope.added.push(sel_asset);
+        //delete $scope.assets[sel_asset.name];
+        $scope.nextSelect();
 
       }
 
       $scope.removeSelected = function (sel_asset,indice) {
-        $scope.added.splice(indice,1);
-        $scope.sel_asset.added = false;
+        $scope.added.pop();
+        //$scope.sel_asset.added = false;
+        $scope.prevSelect();
       }
 
       $scope.nextSelect = function () {
@@ -226,7 +227,7 @@ angular.module('activosInformaticosApp')
 
       $scope.goToAsset = function(asset, $event) {
         $scope.sel_asset = asset;
-        $scope.sel_asset.added = false;
+        //$scope.sel_asset.added = false;
         $scope.listas = [];
 
         $scope.keys = Object.keys(asset);
