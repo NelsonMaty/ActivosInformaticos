@@ -1063,9 +1063,20 @@ angular.module('activosInformaticosApp')
 
     };
     
-  });
+  })
 
-
+  .filter('selected', function() {
+    return function (assets,selected) {
+      //debugger;
+      for (i=0;i<assets.length;i++) {
+        if (assets[i] == selected[0]) {
+          console.log("if");
+          assets.splice(i,1);
+          break;
+        }
+      } return assets;
+    }
+  } );
   
   
   

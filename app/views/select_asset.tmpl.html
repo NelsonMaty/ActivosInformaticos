@@ -139,7 +139,7 @@
             </md-input-container>
             <md-list ng-cloak>
               <md-subheader class="md-no-sticky">Conectando {{added[0].name}} con {{sel_asset.name}}  </md-subheader>
-              <md-list-item ng-repeat="asset in assets | filter:buscado | filter: assets != added[0]" ng-click="goToAsset(asset, $event)">
+              <md-list-item ng-repeat="asset in assets | filter:buscado | selected:added" ng-click="goToAsset(asset, $event)">
                 
                 <p>{{ asset.name }}</p>
                 
@@ -269,7 +269,7 @@
               <md-button ng-click="removeSelected()" style="left: 460px;">
                 Atras
               </md-button>
-              <md-button ng-click="nextSelect()" style="left: 460px;">
+              <md-button ng-click="nextSelect()" ng-disabled="addRelation.$invalid" style="left: 460px;">
                 Siguiente
               </md-button>
               <md-button ng-click="cancel()" style="left: 460px;">
