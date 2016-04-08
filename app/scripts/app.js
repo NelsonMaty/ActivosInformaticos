@@ -394,5 +394,39 @@ angular
 
     };
 
+    dataFactory.createRelation = function(callback,relation,$mdDialog,$mdToast){
+      console.log(relation);
+      
+      $http({
+        method:"post",
+        url:urlWS + 'relations',
+        data: relation
+        
+
+      })
+        .success(function(data){
+          $mdToast.show(
+            $mdToast.simple()
+              .content('Se ha creado la relación entre ' + relation.assets[0].name + ' y ' + relation.assets[1].name )
+              .position('top right')
+              .hideDelay(3000)
+          );
+          console.log(data);
+          callback(data);
+      })
+        .error(function(err){
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo crear la relacion entre ' + relation.assets[0].name + ' y ' + relation.assets[1].name)
+              .position('top right')
+              .hideDelay(3000)
+          );
+          callback(err);
+      });
+
+    };
+
     return dataFactory;
   }]);

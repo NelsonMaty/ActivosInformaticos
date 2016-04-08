@@ -258,11 +258,7 @@
 
                 </md-checkbox>
               </div>
-              
-              
             </md-content>
-
-           
               
             <md-content style="top: 200px;">
               <span flex></span> 
@@ -277,12 +273,40 @@
               </md-button>  
             </md-content>
               
-            
           </form>
+      </div>
+
+      <div ng-switch-when="5" >
+        <div style="overflow: auto;">
+          
+          <h1 class="md-display-2" style="padding-left: 20px;">Resumen</h1>
+          <p style="padding-left: 20px; padding-bottom: 30px;"> Relación a crear entre los activos {{added[0].name}} y {{added[1].name}} </p>
+          <md-divider ></md-divider>
+          <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
+            
+          <md-list-item ng-repeat="key in rel_atributtes" >
+            <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
+            <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong> 
+            <p style="padding-left: 20px; padding-bottom: 20px;">{{relation[key]}} </p>
+                
+          </md-list-item>  
+
+        </div> 
+        <md-content style="top:90px;">
+            <span flex></span> 
+            <md-button ng-click="prevSelect()" style="left: 460px;">
+              Atras
+            </md-button>
+            <md-button ng-click="create(relation)" style="left: 460px;">
+              Finalizar
+            </md-button>
+            <md-button ng-click="cancel()" style="left: 460px;">
+              Cancelar
+            </md-button>  
+        </md-content> 
         
       </div>
 
     </div>
   
-
 </md-dialog>

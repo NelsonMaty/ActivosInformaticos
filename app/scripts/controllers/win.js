@@ -209,6 +209,7 @@ angular.module('activosInformaticosApp')
       $scope.listas = [];
       $scope.names_list = [];
       $scope.sel_asset = null;
+      $scope.relation.critic = false;
       $scope.added = [];
       $scope.first = first;
       if (first) {
@@ -220,7 +221,7 @@ angular.module('activosInformaticosApp')
         $scope.sel_asset = null;
         //delete $scope.assets[sel_asset.name];
         $scope.nextSelect();
-        console.log($scope.added);
+        //console.log($scope.added);
       }
 
       $scope.removeSelected = function () {
@@ -233,13 +234,25 @@ angular.module('activosInformaticosApp')
 
       $scope.nextSelect = function () {
         ++$scope.etapa;
+        if ($scope.etapa == 5) {
+          $scope.rel_atributtes = Object.keys($scope.relation);  
+        }
       }
 
       $scope.prevSelect = function () {
         --$scope.etapa;
       }
 
+      $scope.create = function (relation) {
+        relation.assets = $scope.added;
 
+        dataFactory.createRelation(function (response){
+          
+          $mdDialog.hide(relation);
+              
+        }, relation, $mdDialog, $mdToast);
+
+      }
 
       $scope.hide = function() {
         $mdDialog.hide();
@@ -1070,7 +1083,7 @@ angular.module('activosInformaticosApp')
       //debugger;
       for (i=0;i<assets.length;i++) {
         if (assets[i] == selected[0]) {
-          console.log("if");
+          //console.log("if");
           assets.splice(i,1);
           break;
         }
