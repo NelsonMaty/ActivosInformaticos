@@ -82,7 +82,13 @@
               <md-tab label="Relaciones">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Relaciones</h1>
-                  <p></p>
+                  <div layout="row" layout-wrap layout-margin layout-align="start center" >
+                         
+                    <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in myrelations" ng-click="goRelation($event, clicked_relation, clicked_index)">
+                      <md-icon style="font-size: 48px; width: 50px;height: 50px;" md-font-set="material-icons">link</md-icon>
+                      <div style="text-align: center"> {{relation.name}} </div>
+                    </div>
+                  </div>
                   
                 </md-content>
               </md-tab>

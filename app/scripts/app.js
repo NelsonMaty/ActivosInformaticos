@@ -57,6 +57,9 @@ angular
     var urlWS = 'http://localhost:10010/'
     var dataFactory = {};
 
+    
+    //----------Types---------//
+
     dataFactory.getAssetTypes = function(callback){
 
       $http.get(urlWS + 'assetTypes')
@@ -155,6 +158,9 @@ angular
       });
 
     };
+
+
+    //----------Users---------//
 
     dataFactory.getUsers = function(callback){
 
@@ -277,6 +283,9 @@ angular
 
     };
 
+
+    //----------Assets---------//
+
     dataFactory.getAssets = function(callback){
 
       $http.get(urlWS + 'assets')
@@ -392,6 +401,21 @@ angular
           );
       });
 
+    };
+
+
+    //----------Relations---------//
+
+    dataFactory.getRelations = function(callback){
+
+      $http.get(urlWS + 'relations')
+        .then(function(response){
+          //console.log(response);
+          callback(response.data);
+        },function(err){
+          console.log(err);
+      });
+    
     };
 
     dataFactory.createRelation = function(callback,relation,$mdDialog,$mdToast){
