@@ -72,7 +72,7 @@
                     <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
                     <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="clickAsset(asset, $index);  $event.stopPropagation();" ng-dblclick="goAsset($event, clicked_asset, clicked_index)">
                              <!--img src="images/nota.svg"/-->
-                      <md-icon style="font-size: 48px; width: 50px;height: 50px;" md-font-set="material-icons">description</md-icon>
+                      <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-activo animated pulse': clickedIcon($index) }"  md-font-set="material-icons">description</md-icon>
                       <div style="text-align: center"> {{asset.name}} </div>
                     </div>
                   </div>

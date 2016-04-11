@@ -38,7 +38,7 @@
             </md-input-container>
             <md-list ng-cloak>
               <md-subheader class="md-no-sticky">Seleccione el primer activo</md-subheader>
-              <md-list-item ng-repeat="asset in assets | filter:buscado" ng-click="goToAsset(asset, $event)">
+              <md-list-item ng-repeat="asset in assets | filter:buscado" ng-click="goToAsset(asset, $event, $index)" ng-class="{'select-activo animated flash': clickedIcon($index) }">
                 
                 <p>{{ asset.name }}</p>
                 
@@ -139,7 +139,7 @@
             </md-input-container>
             <md-list ng-cloak>
               <md-subheader class="md-no-sticky">Conectando {{added[0].name}} con {{sel_asset.name}}  </md-subheader>
-              <md-list-item ng-repeat="asset in assets | filter:buscado | selected:added" ng-click="goToAsset(asset, $event)">
+              <md-list-item ng-repeat="asset in assets | filter:buscado | selected:added" ng-click="goToAsset(asset, $event, $index)" ng-class="{'select-activo animated flash': clickedIcon($index) }">
                 
                 <p>{{ asset.name }}</p>
                 

@@ -19,7 +19,7 @@
         </md-input-container>
         <md-list ng-cloak>
           <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
-          <md-list-item ng-repeat="type in assettypes | filter:buscado" ng-click="goToType(type, $event)">
+          <md-list-item ng-repeat="type in assettypes | filter:buscado" ng-click="goToType(type, $event, $index)" ng-class="{'select-activo animated pulse': clickedIcon($index) }">
             
             <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
             <p>{{ type.name }}</p>

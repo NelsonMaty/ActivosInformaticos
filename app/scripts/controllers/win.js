@@ -20,7 +20,7 @@ angular.module('activosInformaticosApp')
                     element.removeClass('animated ' + 'bounceOutLeft');
                     $scope.clicked = false;
                     $scope.$apply();
-            }, 1200);
+            }, 1100);
 
     }
 
@@ -60,11 +60,15 @@ angular.module('activosInformaticosApp')
       //console.log($scope.clicked);
     };
 
+    $scope.clickedIcon= function(indice) {
+      return($scope.clicked_index == indice);
+    };
+
     $scope.clickClose = function () {
-      
+        $scope.clicked_index = null;
         animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
       
-    }
+    };
 
     
     //-----------Assets-----------//
@@ -291,6 +295,7 @@ angular.module('activosInformaticosApp')
         $scope.listas = [];
         $scope.names_list = [];
         $scope.sel_asset = null;
+        $scope.clicked_index = null;
         $scope.relation.critic = false;
         $scope.added = [];
         $scope.first = first;
@@ -298,9 +303,14 @@ angular.module('activosInformaticosApp')
           $scope.added.push(first);
         }
 
+        $scope.clickedIcon= function(indice) {
+          return($scope.clicked_index == indice);
+        };
+
         $scope.addSelected = function (sel_asset) {
           $scope.added.push(sel_asset);
           $scope.sel_asset = null;
+          $scope.clicked_index = null;
           //delete $scope.assets[sel_asset.name];
           $scope.nextSelect();
           //console.log($scope.added);
@@ -309,6 +319,7 @@ angular.module('activosInformaticosApp')
         $scope.removeSelected = function () {
           $scope.added.pop();
           $scope.sel_asset = null;
+          $scope.clicked_index = null;
           //$scope.sel_asset.added = false;
           $scope.prevSelect();
           console.log($scope.added);
@@ -343,8 +354,9 @@ angular.module('activosInformaticosApp')
           $mdDialog.cancel();
         };
 
-        $scope.goToAsset = function(asset, $event) {
+        $scope.goToAsset = function(asset, $event, indice) {
           $scope.sel_asset = asset;
+          $scope.clicked_index = indice;
           //$scope.sel_asset.added = false;
           $scope.listas = [];
 
@@ -584,6 +596,7 @@ angular.module('activosInformaticosApp')
         $scope.showFormly = showformly;
         $scope.sel_atributos = [];
         $scope.listas = [];
+        $scope.clicked_index = null;
 
         $scope.hide = function() {
           $mdDialog.hide();
@@ -591,9 +604,14 @@ angular.module('activosInformaticosApp')
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
+
+        $scope.clickedIcon= function(indice) {
+          return($scope.clicked_index == indice);
+        };
         
-        $scope.goToType = function(type, $event) {
+        $scope.goToType = function(type, $event, indice) {
           $scope.sel_type = type;
+          $scope.clicked_index = indice;
        
         };
 
