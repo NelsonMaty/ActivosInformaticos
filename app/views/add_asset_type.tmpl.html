@@ -2,7 +2,7 @@
   <form name="addAssetType">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Nuevo Tipo de Activo</h2>
+        <h2>Nuevo Tipo de Activo - Paso {{etapa}} de 2 </h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
@@ -10,15 +10,12 @@
       </div>
     </md-toolbar>
     
-    <md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
+    <!--md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
       <div >
         <md-input-container class=" md-block" >
-          
           <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
           <input ng-model="AssetType.name" type="text" placeholder="Nombre de tipo" ng-required="true">
         </md-input-container>
-        
-        
       </div>
       <div>
         <md-input-container class=" md-block" >
@@ -29,7 +26,6 @@
        
       </div>
       <div layout="row" ng-repeat="attribute in properties" style="min-height: 82px;">
-          <!--{{ d.label}}-->
 
           <md-input-container  class=" md-block" style="padding-right: 6px;">
               <md-icon md-font-set="material-icons"  >settings_input_component</md-icon>
@@ -51,12 +47,6 @@
 
           </md-checkbox>
           </div>
-          <!--md-content layout-gt-sm="row" ng-repeat="element in attribute.list" ng-if="attribute.type=='List'">
-            <md-input-container class="md-icon-float md-block" >
-              <md-icon md-font-set="material-icons" class="list" >list</md-icon>
-              <input ng-model="atribute.list" type="text" placeholder="Elemento de lista" aria-label="lista atributos">
-            </md-input-container>
-          </md-content-->
           
           <div layout-gt-sm="row" ng-if="properties.length>1" >
             <md-button  aria-label="Quitar columna" ng-click="removeItem($index)" style=" bottom: 14px;"> 
@@ -82,6 +72,114 @@
       <md-button ng-click="answer('Cancelar')" style="margin-right:20px;">
         Cancelar
       </md-button>
-    </md-dialog-actions>
+    </md-dialog-actions-->
+    <div ng-switch="etapa">
+      
+      <div ng-switch-when="1">
+        <md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
+          <div>
+            <md-input-container class=" md-block" >
+              <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
+              <input ng-model="AssetType.name" type="text" placeholder="Nombre de tipo" ng-required="true">
+            </md-input-container>
+          </div>
+          <div>
+            <md-input-container class=" md-block" >
+              
+              <md-icon md-font-set="material-icons" class="comments" aria-label="Comentarios">comment</md-icon>
+              <input ng-model="AssetType.comment" type="text" placeholder="Comentarios">
+            </md-input-container>
+           
+          </div>
+          <div layout="row" ng-repeat="attribute in properties" style="min-height: 82px;">
+
+              <md-input-container  class=" md-block" style="padding-right: 6px;">
+                  <md-icon md-font-set="material-icons"  >settings_input_component</md-icon>
+                  <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos" ng-required="true">
+              </md-input-container>
+
+              <md-input-container class="md-select " style="bottom: 4px;">
+                <label>Tipo</label>
+                <md-select ng-model="attribute.type" ng-required="true">
+                  <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
+                    {{tipo}}
+                  </md-option>
+                </md-select>    
+              </md-input-container>
+
+              <div style="padding-top: 18px; padding-left: 6px; min-width: 118px;">
+              <label>Obligatorio</label>
+              <md-checkbox ng-model="attribute.required" aria-label="Checkbox 1">
+
+              </md-checkbox>
+              </div>
+              
+              <div layout-gt-sm="row" ng-if="properties.length>1" >
+                <md-button  aria-label="Quitar columna" ng-click="removeItem($index)" style=" bottom: 14px;"> 
+                  <md-icon md-font-set="material-icons">remove_circle</md-icon>
+                </md-button>
+              </div>
+
+              <div layout-gt-sm="row" ng-if="$last"  >
+                <md-button  aria-label="Añadir columna" ng-click="addItem()" style=" bottom: 14px;"> 
+                  <md-icon md-font-set="material-icons">add_circle</md-icon>
+                </md-button>
+              </div>
+          </div>
+        </md-content>
+        <md-dialog-actions layout="row">
+          <span flex></span>
+          <md-button ng-click="nextSelect()" ng-disabled="addAssetType.$invalid">
+            Siguiente
+          </md-button>
+          <md-button ng-click="cancel()" style="margin-right:20px;">
+            Cancelar
+          </md-button>
+        </md-dialog-actions>
+      </div>
+      
+      <div layout="row" ng-switch-when="2">
+        <div layout="row">
+          <md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
+            
+            <div layout="row" ng-repeat="nodo in cicle.node" style="min-height: 82px;">
+
+                <md-input-container  class=" md-block" style="padding-right: 6px;">
+                    <md-icon md-font-set="material-icons"  >panorama_fish_eye</md-icon>
+                    <input ng-model="node.name" type="text" placeholder="Nombre" aria-label="lista nodos" ng-required="true">
+                </md-input-container>
+
+                <md-input-container class="md-select " style="bottom: 4px;">
+                  <label>Tipo</label>
+                  <md-select ng-model="attribute.type" ng-required="true">
+                    <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
+                      {{tipo}}
+                    </md-option>
+                  </md-select>    
+                </md-input-container>
+
+                <div style="padding-top: 18px; padding-left: 6px; min-width: 118px;">
+                  <label>Obligatorio</label>
+                  <md-checkbox ng-model="attribute.required" aria-label="Checkbox 1"></md-checkbox>
+                </div>
+                
+                <div layout-gt-sm="row" ng-if="properties.length>1" >
+                  <md-button  aria-label="Quitar columna" ng-click="removeItem($index)" style=" bottom: 14px;"> 
+                    <md-icon md-font-set="material-icons">remove_circle</md-icon>
+                  </md-button>
+                </div>
+
+                <div layout-gt-sm="row" ng-if="$last"  >
+                  <md-button  aria-label="Añadir columna" ng-click="addItem()" style=" bottom: 14px;"> 
+                    <md-icon md-font-set="material-icons">add_circle</md-icon>
+                  </md-button>
+                </div>
+            </div>
+          </md-content>    
+        </div>
+      </div>
+
+    </div>
+
   </form>
 </md-dialog>
