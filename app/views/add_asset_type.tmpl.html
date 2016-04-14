@@ -1,4 +1,4 @@
-<md-dialog aria-label="Nuevo tipo de activo" ng-cloak >
+<md-dialog aria-label="Nuevo tipo de activo" ng-cloak style="width: 1000px;">
   <form name="addAssetType">
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -139,44 +139,93 @@
       </div>
       
       <div layout="row" ng-switch-when="2">
-        <div layout="row">
-          <md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
+          <md-content layout="column"  style="padding-top: 18px; margin-left: 20px; ">
             
-            <div layout="row" ng-repeat="nodo in cicle.node" style="min-height: 82px;">
-
+            <div layout="column" ng-repeat="nodo in nodes" style="min-height: 82px;">
+              
+              <div layout="row">
+                
                 <md-input-container  class=" md-block" style="padding-right: 6px;">
-                    <md-icon md-font-set="material-icons"  >panorama_fish_eye</md-icon>
-                    <input ng-model="node.name" type="text" placeholder="Nombre" aria-label="lista nodos" ng-required="true">
-                </md-input-container>
-
-                <md-input-container class="md-select " style="bottom: 4px;">
-                  <label>Tipo</label>
-                  <md-select ng-model="attribute.type" ng-required="true">
-                    <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
-                      {{tipo}}
-                    </md-option>
-                  </md-select>    
+                    <md-icon md-font-set="material-icons">panorama_fish_eye</md-icon>
+                    <input ng-model="nodo.name" type="text" placeholder="Nombre de estado" aria-label="lista nodos" ng-required="true">
                 </md-input-container>
 
                 <div style="padding-top: 18px; padding-left: 6px; min-width: 118px;">
-                  <label>Obligatorio</label>
-                  <md-checkbox ng-model="attribute.required" aria-label="Checkbox 1"></md-checkbox>
+                  <label>Estado Final</label>
+                  <md-checkbox ng-model="nodo.final" aria-label="Checkbox 1"></md-checkbox>
                 </div>
                 
-                <div layout-gt-sm="row" ng-if="properties.length>1" >
-                  <md-button  aria-label="Quitar columna" ng-click="removeItem($index)" style=" bottom: 14px;"> 
+                <div layout-gt-sm="row" ng-if="nodes.length>1" >
+                  <md-button  aria-label="Quitar columna" ng-click="removeNode($index)" style=" bottom: 14px;"> 
                     <md-icon md-font-set="material-icons">remove_circle</md-icon>
                   </md-button>
                 </div>
 
-                <div layout-gt-sm="row" ng-if="$last"  >
-                  <md-button  aria-label="Añadir columna" ng-click="addItem()" style=" bottom: 14px;"> 
+                <div layout-gt-sm="row" ng-if="$last">
+                  <md-button  aria-label="Añadir columna" ng-click="addNode()" style=" bottom: 14px;"> 
                     <md-icon md-font-set="material-icons">add_circle</md-icon>
                   </md-button>
                 </div>
+
+              </div>
+
+              <div layout="row" ng-repeat="dir in nodo.dirs" style="min-height: 82px;">
+                  
+                  <!-- <md-input-container class=" md-block" style="padding-right: 6px;">
+                      <md-icon md-font-set="material-icons">panorama_fish_eye</md-icon>
+                      <input ng-model="dir.enlace" type="text" placeholder="Direccion de estado" aria-label="lista de direcciones" ng-required="true">
+                  </md-input-container> -->
+
+                  <md-autocomplete
+                            md-selected-item="dir.enlace"
+                            md-search-text="searchText"
+                            md-selected-item-change="ctrl.selectedItemChange(item)"
+                            md-items="item in querySearch(searchText)"
+                            md-item-text="item"
+                            placeholder="Seleccione el nodo destino">
+                    <md-item-template>
+                      <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                            No existe ningún nodo llamado "{{searchText}} al cual ir. ".
+                      <a ng-click="addNode()">Agregue uno nuevo</a>
+                    </md-not-found>
+                  </md-autocomplete>
+                  
+                  <div layout-gt-sm="row" ng-if="nodo.dirs.length>1" >
+                    <md-button  aria-label="Quitar columna" ng-click="removeLink($index)" style=" bottom: 14px;"> 
+                      <md-icon md-font-set="material-icons">remove_circle</md-icon>
+                    </md-button>
+                  </div>
+
+                  <div layout-gt-sm="row" ng-if="$last"  >
+                    <md-button  aria-label="Añadir columna" ng-click="addLink()" style=" bottom: 14px;"> 
+                      <md-icon md-font-set="material-icons">add_circle</md-icon>
+                    </md-button>
+                  </div>
+                   
+              </div>
+
+              <md-divider ng-if="!$last"></md-divider>
+
             </div>
-          </md-content>    
-        </div>
+            
+            <md-dialog-actions layout="row">
+              <span flex></span>
+              <md-button ng-click="prevSelect()">
+                Atras
+              </md-button>
+              <md-button ng-click="answer('TipoActivo',AssetType)" ng-disabled="addAssetType.$invalid">
+                Siguiente
+              </md-button>
+              <md-button ng-click="cancel()" style="margin-right:20px;">
+                Cancelar
+              </md-button>
+            </md-dialog-actions>
+            
+          </md-content>
+
+
       </div>
 
     </div>

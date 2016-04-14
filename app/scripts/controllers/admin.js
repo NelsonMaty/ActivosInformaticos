@@ -193,6 +193,14 @@ angular.module('activosInformaticosApp')
       
       function AddTypeCtrl($scope, $mdDialog, $mdToast) {
         $scope.etapa = 1;
+        $scope.lista_nodos = [];
+        $scope.nodes = [{
+          name: '',
+          final: false,
+          dirs: {
+            enlace: ''
+          }
+        }]; 
 
         $scope.tipos = [
           "String",
@@ -211,6 +219,31 @@ angular.module('activosInformaticosApp')
                }
         ];
 
+        $scope.createFilterFor = function (query) {
+              var lowercaseQuery = angular.lowercase(query);
+
+              return function filterFn(state) {
+                return (state.value.indexOf(lowercaseQuery) === 0);
+              };
+
+        }
+
+        $scope.querySearch = function (query) {
+              for (i=0;i<$scope.nodes.length;i++) {
+                $scope.lista_nodos.push($scope.nodes[i].name);
+              }
+              var results = query ? $scope.lista_nodos.filter( $scope.createFilterFor(query) ) : $scope.lista_nodos,
+                  deferred;
+              /*if (self.simulateQuery) {
+                deferred = $q.defer();
+                $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+                return deferred.promise;
+              } else {
+                return results;
+              }*/
+              return results;
+            }
+
         $scope.addItem = function() {
               var n = $scope.properties.length;
               $scope.properties.push({ label: n+1, name:'', type:'',required:false });
@@ -220,11 +253,20 @@ angular.module('activosInformaticosApp')
               $scope.properties.splice(index,1);
         };
 
+        $scope.addNode = function() {
+              var n = $scope.nodes.length;
+              $scope.nodes.push({ name:'', final:false, dirs: { link: ''} });
+        };
+
+        $scope.removeNode = function(index) {
+              $scope.nodes.splice(index,1);
+        };
+
         $scope.nextSelect = function () {
           ++$scope.etapa;
-          if ($scope.etapa == 5) {
+          /*if ($scope.etapa == 5) {
             $scope.rel_atributtes = Object.keys($scope.relation);  
-          }
+          }*/
         }
 
         $scope.prevSelect = function () {
