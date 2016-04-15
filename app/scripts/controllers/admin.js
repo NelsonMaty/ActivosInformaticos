@@ -1,7 +1,7 @@
 
 
 angular.module('activosInformaticosApp')
-  .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia, $mdToast, dataFactory) {
+  .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia, $mdToast, $filter, dataFactory) {
     
     $scope.people=[];
     
@@ -192,14 +192,15 @@ angular.module('activosInformaticosApp')
       };
       
       function AddTypeCtrl($scope, $mdDialog, $mdToast) {
+        $scope.asset_type = {};
         $scope.etapa = 1;
         $scope.lista_nodos = [];
         $scope.nodes = [{
           name: '',
           final: false,
-          dirs: {
+          dirs: [{
             enlace: ''
-          }
+          }]
         }]; 
 
         $scope.tipos = [
@@ -219,29 +220,13 @@ angular.module('activosInformaticosApp')
                }
         ];
 
-        $scope.createFilterFor = function (query) {
-              var lowercaseQuery = angular.lowercase(query);
+        $scope.querySearch = function (query, indice_padre) {
+              
+              
+              return $filter('filter')($scope.nodes, {name:query});
+                  //deferred;
 
-              return function filterFn(state) {
-                return (state.value.indexOf(lowercaseQuery) === 0);
-              };
-
-        }
-
-        $scope.querySearch = function (query) {
-              for (i=0;i<$scope.nodes.length;i++) {
-                $scope.lista_nodos.push($scope.nodes[i].name);
-              }
-              var results = query ? $scope.lista_nodos.filter( $scope.createFilterFor(query) ) : $scope.lista_nodos,
-                  deferred;
-              /*if (self.simulateQuery) {
-                deferred = $q.defer();
-                $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-                return deferred.promise;
-              } else {
-                return results;
-              }*/
-              return results;
+              
             }
 
         $scope.addItem = function() {
@@ -255,11 +240,20 @@ angular.module('activosInformaticosApp')
 
         $scope.addNode = function() {
               var n = $scope.nodes.length;
-              $scope.nodes.push({ name:'', final:false, dirs: { link: ''} });
+              $scope.nodes.push({ name:'', final:false, dirs: { enlace: ''} });
         };
 
         $scope.removeNode = function(index) {
               $scope.nodes.splice(index,1);
+        };
+
+        $scope.addLink = function(parent) {
+              var n = $scope.nodes[parent].dirs.length;
+              $scope.nodes[parent].dirs.push({ enlace: ''});
+        };
+
+        $scope.removeLink = function(parent,index) {
+              $scope.nodes[parent].dirs.splice(index,1);
         };
 
         $scope.nextSelect = function () {
