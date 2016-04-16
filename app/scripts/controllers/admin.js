@@ -35,7 +35,7 @@ angular.module('activosInformaticosApp')
 
       $scope.doEditar = function(person, ev, $index) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-          //console.log($index);
+          console.log($index);
           $mdDialog.show({
             locals: {
               person: person,
@@ -102,6 +102,7 @@ angular.module('activosInformaticosApp')
 
     
     //----------Types---------//
+      
       $scope.showAddAssetType = function(ev) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         $mdDialog.show({
@@ -124,13 +125,13 @@ angular.module('activosInformaticosApp')
           
       };
              
-      $scope.editAssetType = function (ev,type,indice) {
+      $scope.editAssetType = function (ev,type,$index) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-          //console.log($index);
+          console.log($index);
           $mdDialog.show({
             locals: {
               type: type,
-              indice: indice
+              indice: $index
             },
             controller: EditAssetTypeCtrl,
             templateUrl: '../../views/edit_asset_type.tmpl.html',
@@ -141,7 +142,7 @@ angular.module('activosInformaticosApp')
           })
             .then(function(type) {
               //$scope.status = 'Hiciste click en "' + answer + '".';
-              console.log("function");
+              console.log($index);
               if (type) {
                 console.log("edito");
                 $scope.assettypes[$index] = type;
@@ -151,11 +152,12 @@ angular.module('activosInformaticosApp')
             });
       };
 
-      $scope.goToType = function(type,ev) {
+      $scope.goToType = function(type,ev,$index) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         $mdDialog.show({
           locals: {
             type: type,
+            indice: $index,
             editAssetType: $scope.editAssetType
           },
           controller: ShowTypeCtrl,
@@ -176,8 +178,9 @@ angular.module('activosInformaticosApp')
     
     //----------Controllers----------//
       
-      function ShowTypeCtrl(type, editAssetType, $scope, $mdDialog, $mdToast){
+      function ShowTypeCtrl(type, editAssetType, indice, $scope, $mdDialog, $mdToast){
         $scope.type = type;
+        $scope.indice = indice;
         $scope.editAssetType = editAssetType;
         $scope.ev = {};
         $scope.atributos = type.properties;
@@ -220,14 +223,15 @@ angular.module('activosInformaticosApp')
                }
         ];
 
-        $scope.querySearch = function (query, indice_padre) {
-              
-              
-              return $filter('filter')($scope.nodes, {name:query});
-                  //deferred;
+        //$scope.nodes_names = [{}];
+        //$scope.nodes_names[0].name = $scope.nodes[0].name;
 
-              
-            }
+
+        $scope.querySearch = function (query, indice_padre) {
+                    
+              return $filter('filter')($scope.nodes, {name:query});
+                  //deferred  
+        }
 
         $scope.addItem = function() {
               var n = $scope.properties.length;
@@ -240,11 +244,16 @@ angular.module('activosInformaticosApp')
 
         $scope.addNode = function() {
               var n = $scope.nodes.length;
-              $scope.nodes.push({ name:'', final:false, dirs: { enlace: ''} });
+              $scope.nodes.push({ name:'', final:false, dirs: [{ enlace: ''}] });
+              
+             /* for (i=0;i<n;i++) {
+                $scope.nodes_names[i].name = $scope.nodes[i].name;
+              }*/
         };
 
         $scope.removeNode = function(index) {
               $scope.nodes.splice(index,1);
+
         };
 
         $scope.addLink = function(parent) {
@@ -278,6 +287,7 @@ angular.module('activosInformaticosApp')
           if (  answer == 'TipoActivo') {
             //var atributos = $scope.properties;
             type.properties = $scope.properties;
+            type.nodes = $scope.nodes;
             dataFactory.createAssetType( function (){
               $mdDialog.hide(type);    
             }, type, $mdDialog, $mdToast);

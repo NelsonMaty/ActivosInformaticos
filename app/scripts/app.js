@@ -126,7 +126,8 @@ angular
               "name":type.name,
               "comment":type.comment,
               //"properties": atributos
-              "properties": type.properties
+              "properties": type.properties,
+              "nodes": type.nodes
           }
 
         })

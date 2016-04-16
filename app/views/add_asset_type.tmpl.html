@@ -162,7 +162,7 @@
                 </div>
 
                 <div layout-gt-sm="row" ng-if="$last">
-                  <md-button  aria-label="Añadir columna" ng-click="addNode()" style=" bottom: 14px;"> 
+                  <md-button  aria-label="Añadir columna" ng-click="addNode()" ng-disabled="!nodo.name" style=" bottom: 14px;"> 
                     <md-icon md-font-set="material-icons">add_circle</md-icon>
                   </md-button>
                 </div>
@@ -177,15 +177,17 @@
                   </md-input-container> -->
                   <md-input-container style="left: 35px;">
                     <md-icon md-font-set="material-icons" style="padding-top: 10px;">directions</md-icon>
-                    <md-autocomplete
+                    <md-autocomplete ng-required="true"
+                              md-input-name="autocomplete"
                               md-no-cache="true"
                               md-selected-item="dir.enlace"
                               md-search-text="searchText"
                               md-selected-item-change="ctrl.selectedItemChange(item)"
                               md-items="item in querySearch(searchText,$parent.$index)"
                               md-item-text="item.name"
-                              ng-disabled="nodo.final"
-                              style="width: 286px;" 
+                              ng-disabled=" nodo.final || nodes.length==1 "
+                              style="width: 286px;"
+                               
                               >
                       <md-item-template>
                         <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
@@ -195,17 +197,23 @@
                         <a ng-click="addNode()">Agregue uno</a>
                       </md-not-found>
                     </md-autocomplete>
+                    <!--label>Tipo</label>
+                    <md-select ng-model="dir.enlace" ng-required="true" ng-disabled="nodo.final || nodes.length==1">
+                      <md-option ng-repeat="node in nodes" value="{{nodo.name}}">
+                        {{nodo.name}}
+                      </md-option>
+                    </md-select-->  
                   </md-input-container>
                   
                   <div layout-gt-sm="row" ng-if="nodo.dirs.length>1" >
-                    <md-button  aria-label="Quitar columna" ng-click="removeLink($parent.$index,$index)" style=" bottom: 14px; left: 46px;"> 
-                      <md-icon md-font-set="material-icons">remove_circle</md-icon>
+                    <md-button  aria-label="Quitar columna" ng-click="removeLink($parent.$parent.$index,$index)" style=" bottom: 14px; left: 46px;"> 
+                      <md-icon md-font-set="material-icons">remove_circle_outline</md-icon>
                     </md-button>
                   </div>
 
                   <div layout-gt-sm="row" ng-if="$last"  >
                     <md-button  aria-label="Añadir columna" ng-click="addLink($parent.$index)" style=" bottom: 14px; left: 46px;"> 
-                      <md-icon md-font-set="material-icons">add_circle</md-icon>
+                      <md-icon md-font-set="material-icons">add_circle_outline</md-icon>
                     </md-button>
                   </div>
                    
