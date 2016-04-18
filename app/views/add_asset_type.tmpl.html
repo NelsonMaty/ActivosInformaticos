@@ -177,7 +177,7 @@
                   </md-input-container> -->
                   <md-input-container style="left: 35px;">
                     <md-icon md-font-set="material-icons" style="padding-top: 10px;">directions</md-icon>
-                    <md-autocomplete ng-required="true"
+                    <md-autocomplete ng-required="!nodo.final"
                               md-input-name="autocomplete"
                               md-no-cache="true"
                               md-selected-item="dir.enlace"
@@ -196,7 +196,11 @@
                               No existe "{{searchText}}". 
                         <a ng-click="addNode()">Agregue uno</a>
                       </md-not-found>
+                      <!-- <div ng-messages for="addAssetType.autocomplete.$error" role="alert">
+                        <div ng-message when="item.name==nodo.name">El nodo no puede apuntar a si mismo</div>
+                      </div> -->
                     </md-autocomplete>
+                    
                     <!--label>Tipo</label>
                     <md-select ng-model="dir.enlace" ng-required="true" ng-disabled="nodo.final || nodes.length==1">
                       <md-option ng-repeat="node in nodes" value="{{nodo.name}}">
@@ -212,7 +216,7 @@
                   </div>
 
                   <div layout-gt-sm="row" ng-if="$last"  >
-                    <md-button  aria-label="Añadir columna" ng-click="addLink($parent.$index)" style=" bottom: 14px; left: 46px;"> 
+                    <md-button  aria-label="Añadir columna" ng-click="addLink($parent.$parent.$index)" style=" bottom: 14px; left: 46px;"> 
                       <md-icon md-font-set="material-icons">add_circle_outline</md-icon>
                     </md-button>
                   </div>
