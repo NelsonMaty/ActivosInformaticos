@@ -69,9 +69,10 @@ angular.module('activosInformaticosApp')
     };
 
     $scope.clickClose = function () {
+      if ($scope.clicked) {
         $scope.clicked_index = null;
         animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
-      
+      } 
     };
 
     
