@@ -452,12 +452,12 @@ angular
       
       };
 
-      dataFactory.createRelation = function(callback,relation,$mdDialog,$mdToast){
+      dataFactory.createRelation = function(callback,relation,id,$mdDialog,$mdToast){
         console.log(relation);
         
         $http({
           method:"post",
-          url:urlWS + 'relations',
+          url:urlWS + 'assets/' + id + '/relations',
           data: relation
           
 

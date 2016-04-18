@@ -342,13 +342,14 @@ angular.module('activosInformaticosApp')
         }
 
         $scope.create = function (relation) {
-          relation.assets = $scope.added;
+          //relation.assets = $scope.added;
+          relation.relatedAssetId = $scope.added[1]._id
 
           dataFactory.createRelation(function (response){
             
             $mdDialog.hide(relation);
                 
-          }, relation, $mdDialog, $mdToast);
+          }, relation, $scope.added[0]._id, $mdDialog, $mdToast);
 
         }
 
