@@ -440,9 +440,9 @@ angular
 
     //----------Relations---------//
 
-      dataFactory.getRelations = function(callback){
+      dataFactory.getAssetRelations = function(id,callback){
 
-        $http.get(urlWS + 'relations')
+        $http.get(urlWS + 'assets/' + id + '/relations')
           .then(function(response){
             //console.log(response);
             callback(response.data);

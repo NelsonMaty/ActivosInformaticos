@@ -63,6 +63,7 @@
 
           <md-content>
             <md-tabs md-dynamic-height="" md-border-bottom="">
+
               <md-tab label="Todos">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Todos los activos</h1>
@@ -79,18 +80,45 @@
                                         
                 </md-content>
               </md-tab>
+
               <md-tab label="Relaciones">
-                <md-content class="md-padding">
+                <div>
                   <h1 class="md-display-2">Relaciones</h1>
-                  <div layout="row" layout-wrap layout-margin layout-align="start center" >
-                         
-                    <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in myrelations" ng-click="goRelation($event, clicked_relation, clicked_index)">
-                      <md-icon style="font-size: 48px; width: 50px;height: 50px;" md-font-set="material-icons">link</md-icon>
-                      <div style="text-align: center"> {{relation.name}} </div>
+                  <div layout="column">
+                    <div layout="row" style="min-height: 700px;">
+                    
+                      <md-sidenav class="md-sidenav-left " md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style="min-width: 25% !important; width: 700px; height: 700px;">
+                        <md-input-container class="md-icon-float md-block" style="top: 20px;">
+                          <input type="search" ng-model="buscado" placeholder="Activos" aria-label="filter assets" />
+                        </md-input-container>
+                        <md-list ng-cloak>
+                          <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
+                          <md-list-item ng-repeat="asset in myassets | filter:buscado" ng-click="searchRelations(asset._id)" ng-class="{'select-activo animated pulse': clickedIcon($index) }">
+                            
+                            <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
+                            <p>{{ asset.name }}</p>
+                            
+                            <md-divider ng-if="!$last"></md-divider>
+                          </md-list-item>
+                        </md-list>
+                      </md-sidenav>
+                      
+                      <div layout="column" flex id="content" style="width: 1000px; height: 700px;">
+                        <div layout="row" layout-wrap layout-margin layout-align="start center" >
+                               
+                          <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
+                          <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in relations" ng-dblclick="goRelation($event, relation, $index)">
+                                   <!--img src="images/nota.svg"/-->
+                            <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-activo animated pulse': clickedIcon($index) }"  md-font-set="material-icons">link</md-icon>
+                            <div style="text-align: center"> {{relation.name}} </div>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                   
-                </md-content>
+                </div>
               </md-tab>
               <md-tab label="Mapa">
                 <md-content class="md-padding">

@@ -241,8 +241,8 @@
                   <md-icon md-font-set="material-icons" style="padding-top: 10px;">directions</md-icon>
                 
                   <md-select ng-model="dir.enlace" ng-required="true" ng-disabled="nodo.final || nodes.length==1" aria-label="nombre nodos">
-                    <!--md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-disabled"listaNombreNodos[$parent.$parent.$parent.$index]==estado.name"-->
-                    <md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-disabled"$parent.$parent.$parent.$index === 0">
+                    <md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-disabled"listaNombreNodos[$parent.$parent.$parent.$index] === estado.name">
+                    <!--md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-disabled"$parent.$parent.$parent.$index === 0"-->
                         {{estado.name}} {{listaNombreNodos[$parent.$parent.$parent.$index]}}
                     </md-option>
                   </md-select>  

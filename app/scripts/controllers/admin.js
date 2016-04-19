@@ -268,6 +268,9 @@ angular.module('activosInformaticosApp')
         };
 
         $scope.removeNode = function(index) {
+              if ( $scope.nodes[index].final ) {
+                $scope.hayFinal = false;
+              }
               $scope.nodes.splice(index,1);
 
         };
