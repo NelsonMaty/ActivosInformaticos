@@ -301,7 +301,7 @@ angular.module('activosInformaticosApp')
         $scope.names_list = [];
         $scope.sel_asset = null;
         $scope.clicked_index = null;
-        $scope.relation.critic = false;
+        $scope.relation.isCritical = false;
         $scope.added = [];
         $scope.first = first;
         if (first) {
@@ -349,7 +349,7 @@ angular.module('activosInformaticosApp')
             
             $mdDialog.hide(relation);
                 
-          }, relation, $scope.added[0]._id, $mdDialog, $mdToast);
+          }, relation, $scope.added, $mdDialog, $mdToast);
 
         }
 

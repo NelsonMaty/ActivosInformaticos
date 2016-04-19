@@ -197,9 +197,12 @@ angular.module('activosInformaticosApp')
       function AddTypeCtrl($scope, $mdDialog, $mdToast) {
         $scope.asset_type = {};
         $scope.etapa = 1;
-        $scope.lista_nodos = [];
+        $scope.listaNombreNodos = [];
+        $scope.hayFinal = false;
+        
         $scope.nodes = [{
           name: '',
+          inicial: true,
           final: false,
           dirs: [{
             enlace: ''
@@ -226,6 +229,19 @@ angular.module('activosInformaticosApp')
         //$scope.nodes_names = [{}];
         //$scope.nodes_names[0].name = $scope.nodes[0].name;
 
+        $scope.changeFinal = function (valor) {
+          $scope.hayFinal = valor;
+        }
+
+       /* $scope.differentName = function (indice_padre,seleccionado) {
+          console.log("entro if");
+          if (nodes[indice_padre].name == seleccionado) {
+            return true;
+          } else {
+            return false;
+          }
+
+        }*/
 
         $scope.querySearch = function (query, indice_padre) {
                     
@@ -244,7 +260,7 @@ angular.module('activosInformaticosApp')
 
         $scope.addNode = function() {
               var n = $scope.nodes.length;
-              $scope.nodes.push({ name:'', final:false, dirs: [{ enlace: ''}] });
+              $scope.nodes.push({ name:'', inicial:false, final:false, dirs: [{ enlace: ''}] });
               
              /* for (i=0;i<n;i++) {
                 $scope.nodes_names[i].name = $scope.nodes[i].name;
@@ -267,9 +283,12 @@ angular.module('activosInformaticosApp')
 
         $scope.nextSelect = function () {
           ++$scope.etapa;
-          /*if ($scope.etapa == 5) {
-            $scope.rel_atributtes = Object.keys($scope.relation);  
-          }*/
+          if ($scope.etapa == 3) {
+            //$scope.rel_atributtes = Object.keys($scope.relation);  
+            for (i=0;i<$scope.nodes.length;i++) {
+              $scope.listaNombreNodos[i] = $scope.nodes[i].name; 
+            } 
+          }
         }
 
         $scope.prevSelect = function () {

@@ -452,12 +452,12 @@ angular
       
       };
 
-      dataFactory.createRelation = function(callback,relation,id,$mdDialog,$mdToast){
+      dataFactory.createRelation = function(callback,relation,added,$mdDialog,$mdToast){
         console.log(relation);
         
         $http({
           method:"post",
-          url:urlWS + 'assets/' + id + '/relations',
+          url:urlWS + 'assets/' + added[0]._id + '/relations',
           data: relation
           
 
@@ -465,7 +465,7 @@ angular
           .success(function(data){
             $mdToast.show(
               $mdToast.simple()
-                .content('Se ha creado la relación entre ' + relation.assets[0].name + ' y ' + relation.assets[1].name )
+                .content('Se ha creado la relación entre ' + added[0].name + ' y ' + added[1].name )
                 .position('top right')
                 .hideDelay(3000)
             );
@@ -477,7 +477,7 @@ angular
 
             $mdToast.show(
               $mdToast.simple()
-                .content('No se pudo crear la relacion entre ' + relation.assets[0].name + ' y ' + relation.assets[1].name)
+                .content('No se pudo crear la relacion entre ' + added[0].name + ' y ' + added[1].name)
                 .position('top right')
                 .hideDelay(3000)
             );
