@@ -58,7 +58,7 @@ angular.module('activosInformaticosApp')
 
       dataFactory.getAssetRelations(id, function (response) {
             //console.log(response);
-            $scope.relations = response;
+            $scope.assetRelations = response;
             //console.log($scope.myassets);
 
           });
@@ -252,7 +252,7 @@ angular.module('activosInformaticosApp')
           //console.log(user);
           if (relation) {
             console.log(relation);
-            //$scope.myrelations.push(relations);
+            $scope.assetRelations.push(relation);
             //console.log($scope.myassets);
           }
           
@@ -265,9 +265,10 @@ angular.module('activosInformaticosApp')
         $mdDialog.show({
           locals: {
             relation: relation,
-            //myassets: $scope.myassets,
+            assetRelations: $scope.assetRelations,
             indice: $index,
-            deleteRelation: $scope.deleteRelation
+            deleteRelation: $scope.deleteRelation,
+            sourceAssetId: $scope.sourceAssetId
             
           },
           controller: EditRelationCtrl,
@@ -282,17 +283,17 @@ angular.module('activosInformaticosApp')
         });
       };
 
-      $scope.deleteRelation = function(ev, relation, indice) {
+      $scope.deleteRelation = function(ev, relation, indice, sourceAssetId) {
         var confirm = $mdDialog.confirm()
-            .title('¿Está seguro que desea borrar este activo?')
+            .title('¿Está seguro que desea borrar esta relacion?')
             .ariaLabel('Borrado de relacion')
             .targetEvent(ev)
             .ok('Aceptar')
             .cancel('Cancelar');
         $mdDialog.show(confirm)
           .then(function() {
-            dataFactory.deleteAsset(asset,$mdDialog,$mdToast);
-            $scope.myassets.splice(indice,1);
+            dataFactory.deleteRelation(relation, sourceAssetId, $mdDialog,$mdToast);
+            $scope.assetRelations.splice(indice,1);
           }, function() {
             //$scope.status = 'No se realizaron cambios';
           });
@@ -433,52 +434,29 @@ angular.module('activosInformaticosApp')
 
       };
 
-      function EditRelationCtrl(asset, myassets, indice, deleteAsset, $scope, $mdDialog, $mdToast) {
+      function EditRelationCtrl(relation, assetRelations, indice, deleteRelation, sourceAssetId, $scope, $mdDialog, $mdToast) {
         
-        $scope.update_asset = $.extend({},asset);
-        $scope.myassets = myassets;
-        $scope.deleteAsset = deleteAsset;
+        $scope.update_relation = $.extend({},relation);
+        $scope.assetRelations = assetRelations;
+        $scope.deleteRelation = deleteRelation;
         $scope.indice = indice;
-        $scope.asset_type = {};
-        $scope.listas = [];
-        $scope.adjuntos = [];
-        $scope.adjuntos = $.extend([],asset.attached);
-        
-
-        $scope.addItem = function(answer,parent_index) {
-              //var n = $scope.s.length;
-              if (answer == 'lista') {
-                $scope.listas[parent_index].elements.push({content:''});
-                //$scope.ultimo = false;
-              } else {
-                $scope.adjuntos.push({url:''});  
-              }
-        };
-
-        $scope.removeItem = function(answer,parent_index,index) {
-
-          if (answer == 'lista') {
-            if ($scope.listas[parent_index].elements.length>1){
-              $scope.listas[parent_index].elements.splice(index,1);
-            } 
-          } else {
-            $scope.adjuntos.splice(index,1);  
-          }
-              //$scope.adjuntos.splice(index,1);
-        };
+        $scope.sourceAssetId = sourceAssetId;
+        //$scope.listas = [];
+        //$scope.adjuntos = [];
+        //$scope.adjuntos = $.extend([],asset.attached);
 
         $scope.callDelete = function(indice) {
           ev = {};
-          deleteAsset(ev,asset,indice);
+          deleteRelation(ev,relation,indice,$scope.sourceAssetId);
         }
 
-        $scope.updateAsset = function (asset) {
-          asset.attached = $scope.adjuntos;
-          dataFactory.editAsset (function (){
-              $mdDialog.hide(asset);
-              $scope.myassets.splice(indice,1,asset);
+        $scope.updateRelation = function (relation) {
+          //asset.attached = $scope.adjuntos;
+          dataFactory.editRelation (function (){
+              $mdDialog.hide(relation);
+              $scope.assetRelations.splice(indice,1,relation);
               //location.reload();       
-            }, asset, $mdDialog, $mdToast);
+            }, relation, $scope.sourceAssetId, $mdDialog, $mdToast);
 
         };
 

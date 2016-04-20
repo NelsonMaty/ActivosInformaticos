@@ -367,7 +367,7 @@ angular
       };
 
       dataFactory.editAsset = function(callback,asset,$mdDialog,$mdToast){
-        console.log(asset);
+        //console.log(asset);
 
         $http({
           method:"put",
@@ -497,6 +497,79 @@ angular
         });
 
       };
+
+      dataFactory.editRelation = function(callback,relation,sourceId,$mdDialog,$mdToast){
+        console.log(relation);
+
+        $http({
+          method:"put",
+          url:urlWS + 'assets/' + sourceId + '/relations/' + relation._id,
+          data: relation
+          
+
+        })
+          .success(function(data){
+            //alert("El usuario fue creado con éxito");
+            $mdToast.show(
+              $mdToast.simple()
+                .content('Se ha modificado la relacion ' + relation.name + ' en la base de datos')
+                .position('top right')
+                .hideDelay(3000)
+            );
+
+            callback();
+        })
+          .error(function(err){
+            console.log(err);
+
+            $mdToast.show(
+              $mdToast.simple()
+                .content('No se pudo modificar la relacion en la base de datos')
+                .position('top right')
+                .hideDelay(3000)
+            );
+        });
+
+      };
+
+      dataFactory.deleteRelation = function(relation, sourceId, $mdDialog,$mdToast){
+        //console.log(person);
+
+        $http({
+          method:"delete",
+          url:urlWS + 'assets/' + sourceId + '/relations/' + relation._id,
+          /*data: {
+              "name":user.name,
+              "comment":user.comment
+          }*/
+
+        })
+          .success(function(data){
+            //alert("El usuario fue creado con éxito");
+            $mdToast.show(
+              $mdToast.simple()
+                //.content('Se ha eliminado el usuario ' + data.name + ' de la base de datos')
+                .content(data.message)
+                .position('top right')
+                .hideDelay(3000)
+            );
+
+            //callback();
+        })
+          .error(function(err){
+            console.log(err);
+
+            $mdToast.show(
+              $mdToast.simple()
+                .content('No se pudo borrar el activo en base de datos')
+                .position('top right')
+                .hideDelay(3000)
+            );
+        });
+
+      };
+
+
 
     return dataFactory;
   }]);
