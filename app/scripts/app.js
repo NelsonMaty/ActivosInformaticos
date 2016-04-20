@@ -437,6 +437,18 @@ angular
 
       };
 
+      dataFactory.getAnAsset = function(id,callback){
+
+        $http.get(urlWS + 'assets/' + id)
+          .then(function(response){
+            //console.log(response);
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
+      
+      };
+
 
     //----------Relations---------//
 

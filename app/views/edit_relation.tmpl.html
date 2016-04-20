@@ -1,0 +1,60 @@
+<md-dialog aria-label="Mostrar Relacion" ng-cloak style="width: 800px; ">
+	<md-toolbar layout="row">
+	  <div class="md-toolbar-tools">
+	    
+	    <h1> {{update_relation.name}} &nbsp; </h1>
+	    
+	  </div>
+
+	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
+	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+	  </md-button>
+	</md-toolbar>
+	<form name="editRelations"
+	<div style="overflow: auto;">
+		<h1 class="md-display-2" style="padding-left: 20px;"> Activos involucrados </h1>
+		<div layout="row" style="padding-bottom: 30px; padding-top: 20px;">
+			<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px; ">description</md-icon>
+			<p style="padding-left: 20px;" ng-click=""> {{sourceAsset.name}}   -   {{relatedAsset.name}}</p>
+			<!--p ng-click=""> {{relatedAsset.name}} y </p-->	
+		</div>
+		
+		<md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
+		  <div>
+		    <md-input-container class=" md-block" >  
+		      <md-icon md-font-set="material-icons" class="name" aria-label="nombre relacion">link</md-icon>
+		      <input ng-model="update_relation.name" type="text" placeholder="* Nombre de relacion" ng-required="true">
+		    </md-input-container>             
+		  </div>
+		  <div>
+		    <md-input-container class=" md-block" >  
+		      <md-icon md-font-set="material-icons" class="comments" aria-label="Comentarios">comment</md-icon>
+		      <input ng-model="update_relation.comment" type="text" placeholder="Comentarios">
+		    </md-input-container>
+		   
+		  </div>
+		  <div >
+		    <label>Crítico</label>
+		    <md-checkbox ng-model="update_relation.isCritical" aria-label="Checkbox 1">
+
+		    </md-checkbox>
+		  </div>
+		</md-content>
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="hide()" ng-click="updateRelation(updateasset)" ng-disabled="editRelations.$invalid">
+			  Editar
+			</md-button>
+			<md-button ng-click="cancel()" style="margin-right:20px;">
+			  Cancelar
+			</md-button>
+			<md-button class="md-icon-button" ng-click="callDelete(indice)">
+				<md-tooltip md-direction="bottom"> Borrar </md-tooltip>
+			    <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
+			</md-button>
+			
+		</md-dialog-actions>
+
+	</div>
+	</form>
+</md-dialog>

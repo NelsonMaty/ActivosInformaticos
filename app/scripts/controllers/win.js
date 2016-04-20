@@ -54,6 +54,7 @@ angular.module('activosInformaticosApp')
     });*/
 
     $scope.searchRelations = function(id) {
+      $scope.sourceAssetId = id;
 
       dataFactory.getAssetRelations(id, function (response) {
             //console.log(response);
@@ -208,13 +209,13 @@ angular.module('activosInformaticosApp')
 
     //-----------Relations-----------//
     
-      $scope.goRelation = function(ev,relation,$index) {
+      $scope.goRelation = function(ev,relation,assetId,$index) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         //console.log(asset);
         $mdDialog.show({
           locals: {
             relation: relation,
-            //myassets: $scope.myassets,
+            sourceAssetId: assetId,
             indice: $index,
             editRelation: $scope.editRelation
             
@@ -493,32 +494,30 @@ angular.module('activosInformaticosApp')
 
       };
 
-      function ShowRelationCtrl(relation, indice, editRelation, $scope, $mdDialog, $mdToast){
+      function ShowRelationCtrl(relation, sourceAssetId, indice, editRelation, $scope, $mdDialog, $mdToast){
         $scope.relation = relation;
-        //$scope.relations = myassets;
+        $scope.sourceAssetId = sourceAssetId;
         $scope.indice = indice;
         $scope.editRelation = editRelation;
         $scope.ev = {};
-        //$scope.asset_type = {};
-        //$scope.names_list = [];
-        //$scope.listas = [];
-        //$scope.adjuntos = [];
-        //$scope.type_name = {};
 
+        if ($scope.relation.isCritical) {
+          $scope.critico = "Sí";
+        } else {
+          $scope.critico = "No";
+        }
 
-        $scope.keys = Object.keys(relation);
-        //console.log($scope.keys);
+        dataFactory.getAnAsset($scope.sourceAssetId, function (response) {
+          
+          $scope.sourceAsset = response;
 
-        //$scope.c =$scope.keys.indexOf("name");
-        //$scope.keys.splice($scope.keys.indexOf("name"),1);
-        //$scope.d =$scope.keys.indexOf("comment");
-        //$scope.keys.splice($scope.keys.indexOf("comment"),1);
-        //$scope.e =$scope.keys.indexOf("$$hashKey");
-        //$scope.keys.splice($scope.keys.indexOf("$$hashKey"),1);
-        //$scope.keys.splice($scope.keys.indexOf("attached"),1);
-              
-        //console.log($scope.keys.indexOf("__v"));
+        });
+        
+        dataFactory.getAnAsset($scope.relation.relatedAssetId, function (response) {
+          
+          $scope.relatedAsset = response;
 
+        });
 
         $scope.hide = function() {
           $mdDialog.hide();
