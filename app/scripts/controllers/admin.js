@@ -233,7 +233,7 @@ angular.module('activosInformaticosApp')
           $scope.hayFinal = valor;
         }
 
-       /* $scope.differentName = function (indice_padre,seleccionado) {
+        /*$scope.differentDir = function (indice_padre,estado.name) {
           console.log("entro if");
           if (nodes[indice_padre].name == seleccionado) {
             return true;
@@ -242,6 +242,10 @@ angular.module('activosInformaticosApp')
           }
 
         }*/
+
+        /*$("div").focusout(function(){
+            $(this).css("background-color", "#FFFFFF");
+        });*/
 
         $scope.querySearch = function (query, indice_padre) {
                     
@@ -318,6 +322,8 @@ angular.module('activosInformaticosApp')
             $mdDialog.hide(null);
           }
         };
+
+
       }
 
       function EditAssetTypeCtrl(type, indice, $scope, $mdDialog, $mdToast) {
