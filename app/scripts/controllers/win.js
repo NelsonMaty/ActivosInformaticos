@@ -445,6 +445,18 @@ angular.module('activosInformaticosApp')
         //$scope.adjuntos = [];
         //$scope.adjuntos = $.extend([],asset.attached);
 
+        dataFactory.getAnAsset($scope.sourceAssetId, function (response) {
+          
+          $scope.sourceAsset = response;
+
+        });
+        
+        dataFactory.getAnAsset($scope.update_relation.relatedAssetId, function (response) {
+          
+          $scope.relatedAsset = response;
+
+        });
+
         $scope.callDelete = function(indice) {
           ev = {};
           deleteRelation(ev,relation,indice,$scope.sourceAssetId);
