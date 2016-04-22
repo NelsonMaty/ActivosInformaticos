@@ -18,7 +18,7 @@
   "appPath": "app",
   "moduleName": "activosInformaticosApp",
   "resolutions": {
-    "angular": "1.5.2",
+    "angular": "1.5.5",
     "angular-formly": "^7.5.2",
     "angular-material": "1.1.0-rc4"
   }

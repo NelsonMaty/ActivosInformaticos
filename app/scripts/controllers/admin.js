@@ -199,6 +199,8 @@ angular.module('activosInformaticosApp')
         $scope.etapa = 1;
         $scope.listaNombreNodos = [];
         $scope.hayFinal = false;
+        //$scope.estados = [];
+        $scope.nombreDuplicado = false;
         
         $scope.nodes = [{
           name: '',
@@ -242,6 +244,35 @@ angular.module('activosInformaticosApp')
           }
 
         }*/
+
+        $scope.compararNombre = function () {
+          console.log("comparando");
+          for (i=0;i<$scope.nodes.length;i++) {
+            for (j=0;j<$scope.nodes.length;j++) {
+              if ($scope.nodes[j].name == $scope.nodes[i].name && i != j) {
+                $scope.nombreDuplicado = true;
+                return true;
+              } else {
+                $scope.nombreDuplicado = false;
+
+              }
+            }
+          } return false;
+        }
+
+        $("lista_nodos").blur(function(){
+            //alert("This input field has lost its focus.");
+            console.log("comparando");
+            for (i=0;i<$scope.nodes.length;i++) {
+              for (j=0;j<$scope.nodes.length;j++) {
+                if ($scope.nodes[j].name == $scope.nodes[i].name && i != j) {
+                  $scope.nombreDuplicado = true;
+                } else {
+                  $scope.nombreDuplicado = false;
+                }
+              }
+            }
+        });
 
         /*$("div").focusout(function(){
             $(this).css("background-color", "#FFFFFF");
@@ -291,7 +322,8 @@ angular.module('activosInformaticosApp')
         $scope.nextSelect = function () {
           ++$scope.etapa;
           if ($scope.etapa == 3) {
-            //$scope.rel_atributtes = Object.keys($scope.relation);  
+            //$scope.estados = $.extend(true,[],$scope.nodes);
+            //console.log($scope.estados);
             for (i=0;i<$scope.nodes.length;i++) {
               $scope.listaNombreNodos[i] = $scope.nodes[i].name; 
             } 
@@ -424,19 +456,20 @@ angular.module('activosInformaticosApp')
   })
 
   .filter('selected', function() {
-    return function (nodes,selected) {
+    return function (estados,selected) {
       //debugger;
-      console.log("dentro del for");
-      for (i=0;i<nodes.length;i++) {
+      //console.log("dentro del for");
+      //console.log("nodes: " + nodes )
+      for (i=0;i<estados.length;i++) {
         for (j=0;j<selected.length;j++) {
-          if (nodes[i] == selected[j].enlace) {
+          if (estados[i].name == selected[j].enlace) {
             console.log("if");
-            nodes.splice(i,1);
+            estados.splice(i,1);
             //break;
           }
         }
         
-      } return nodes;
+      } return estados;
     }
   } );
 

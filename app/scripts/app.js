@@ -14,6 +14,7 @@ angular
     'ngResource',
     'ngMaterial',
     'ngRoute',
+    'ngMessages',
     'formly',
     'formlyMaterialTemplate',
     'ng-mfb'
