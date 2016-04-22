@@ -249,7 +249,7 @@
                   <md-icon md-font-set="material-icons" >directions</md-icon>
                 
                   <md-select ng-model="dir.enlace" ng-required="true"  aria-label="nombre nodos">
-                    <md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-hide="listaNombreNodos[$parent.$parent.$parent.$index] == estado.name ">
+                    <md-option ng-repeat="estado in nodes | selected: nodo.dirs" value="{{estado.name}}" ng-hide="listaNombreNodos[$parent.$parent.$parent.$index] == estado.name ">
                     <!--md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-disabled"$parent.$parent.$parent.$index === 1"-->
                         Estado {{estado.name}}  
                     </md-option>

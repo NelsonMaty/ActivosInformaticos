@@ -421,7 +421,24 @@ angular.module('activosInformaticosApp')
         };
       }
     
-});
+  })
+
+  .filter('selected', function() {
+    return function (nodes,selected) {
+      //debugger;
+      console.log("dentro del for");
+      for (i=0;i<nodes.length;i++) {
+        for (j=0;j<selected.length;j++) {
+          if (nodes[i] == selected[j].enlace) {
+            console.log("if");
+            nodes.splice(i,1);
+            //break;
+          }
+        }
+        
+      } return nodes;
+    }
+  } );
 
 
  
