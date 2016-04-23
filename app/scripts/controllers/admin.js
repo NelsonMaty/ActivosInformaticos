@@ -201,6 +201,7 @@ angular.module('activosInformaticosApp')
         $scope.hayFinal = false;
         //$scope.estados = [];
         $scope.nombreDuplicado = false;
+        $scope.nombreAtributoDuplicado = false;
         
         $scope.nodes = [{
           name: '',
@@ -233,7 +234,7 @@ angular.module('activosInformaticosApp')
         }
 
         $scope.compararNombre = function () {
-          console.log("comparando");
+          //console.log("comparando");
           for (i=0;i<$scope.nodes.length;i++) {
             for (j=0;j<$scope.nodes.length;j++) {
               if ($scope.nodes[j].name == $scope.nodes[i].name && i != j) {
@@ -241,6 +242,21 @@ angular.module('activosInformaticosApp')
                 return true;
               } else {
                 $scope.nombreDuplicado = false;
+
+              }
+            }
+          } return false;
+        }
+
+        $scope.compararAtributo = function () {
+          //console.log($scope.properties);
+          for (i=0;i<$scope.properties.length;i++) {
+            for (j=0;j<$scope.properties.length;j++) {
+              if ($scope.properties[j].name == $scope.properties[i].name && i != j) {
+                $scope.nombreAtributoDuplicado = true;
+                return true;
+              } else {
+                $scope.nombreAtributoDuplicado = false;
 
               }
             }

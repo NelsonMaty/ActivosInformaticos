@@ -32,7 +32,7 @@
 
               <md-input-container  class=" md-block" style="padding-right: 6px;">
                   <md-icon md-font-set="material-icons"  >settings_input_component</md-icon>
-                  <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos" ng-required="true">
+                  <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos" ng-required="true" ng-blur="compararAtributo()">
               </md-input-container>
 
               <md-input-container class="md-select " style="bottom: 4px;">
@@ -66,7 +66,7 @@
         </md-content>
         <md-dialog-actions layout="row">
           <span flex></span>
-          <md-button ng-click="nextSelect()" ng-disabled="addAssetType.$invalid">
+          <md-button ng-click="nextSelect()" ng-disabled="addAssetType.$invalid || nombreAtributoDuplicado">
             Siguiente
           </md-button>
           <md-button ng-click="cancel()" style="margin-right:20px;">
