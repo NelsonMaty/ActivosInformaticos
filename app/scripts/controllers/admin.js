@@ -228,22 +228,9 @@ angular.module('activosInformaticosApp')
                }
         ];
 
-        //$scope.nodes_names = [{}];
-        //$scope.nodes_names[0].name = $scope.nodes[0].name;
-
         $scope.changeFinal = function (valor) {
           $scope.hayFinal = valor;
         }
-
-        /*$scope.differentDir = function (indice_padre,estado.name) {
-          console.log("entro if");
-          if (nodes[indice_padre].name == seleccionado) {
-            return true;
-          } else {
-            return false;
-          }
-
-        }*/
 
         $scope.compararNombre = function () {
           console.log("comparando");
@@ -260,7 +247,7 @@ angular.module('activosInformaticosApp')
           } return false;
         }
 
-        $("lista_nodos").blur(function(){
+        /*$("lista_nodos").blur(function(){
             //alert("This input field has lost its focus.");
             console.log("comparando");
             for (i=0;i<$scope.nodes.length;i++) {
@@ -345,7 +332,7 @@ angular.module('activosInformaticosApp')
           if (  answer == 'TipoActivo') {
             //var atributos = $scope.properties;
             type.properties = $scope.properties;
-            type.nodes = $scope.nodes;
+            type.lifeCycleNodes = $scope.nodes;
             dataFactory.createAssetType( function (){
               $mdDialog.hide(type);    
             }, type, $mdDialog, $mdToast);
@@ -453,13 +440,11 @@ angular.module('activosInformaticosApp')
         };
       }
     
-  })
+  });
 
-  .filter('selected', function() {
+  /*.filter('selected', function() {
     return function (estados,selected) {
-      //debugger;
-      //console.log("dentro del for");
-      //console.log("nodes: " + nodes )
+      
       for (i=0;i<estados.length;i++) {
         for (j=0;j<selected.length;j++) {
           if (estados[i].name == selected[j].enlace) {
@@ -471,7 +456,20 @@ angular.module('activosInformaticosApp')
         
       } return estados;
     }
-  } );
+  } )
+
+  .directive("repeatedName", function() {
+    return {
+              
+        require: "ngModel",
+         
+        link: function($scope, $element, $attrs, ngModel) {
+            ngModel.$validators.repeatedName = function(modelValue) {  
+                return modelValue % 2 === 1;
+            }
+        }
+    };
+});*/
 
 
  

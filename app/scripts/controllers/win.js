@@ -860,9 +860,11 @@ angular.module('activosInformaticosApp')
       function AddAssetCtrl(fields, typeid, listas, $scope, $mdDialog, $mdToast) {
         
         $scope.formly_fields = fields;
+        $scope.asset = {};
+        $scope.asset.tags = [];
         $scope.typeid = typeid;
         $scope.listas = listas;
-        console.log($scope.listas);
+        $scope.estadoActual = null;
         $scope.type_prop = [];
         $scope.names_list = [];
         $scope.adjuntos = [
@@ -903,6 +905,8 @@ angular.module('activosInformaticosApp')
               $scope.names_list.push(response.properties[i].name);
             }
           }
+
+          $scope.estadoActual = response.lifeCycleNodes[0].name;
         });
 
 
@@ -910,6 +914,7 @@ angular.module('activosInformaticosApp')
           
           asset.attached = $scope.adjuntos;
           asset.typeId = $scope.typeid;
+          asset.estadoActual = $scope.estadoActual;
 
           for (i=0;i<$scope.listas.length;i++) {
             
