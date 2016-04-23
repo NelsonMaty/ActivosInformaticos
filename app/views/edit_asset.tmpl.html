@@ -44,6 +44,29 @@
 
 			<md-divider></md-divider>
 			<div style="padding-left: 16px; padding-top: 10px;">
+				<h2> Tags </h2>	
+			</div>
+			
+			<div style="padding-left: 16px; padding-top: 10px;">
+				<md-chips ng-model="update_asset.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>	
+			</div>
+
+			<md-divider></md-divider>
+			<div style="padding-left: 16px; padding-top: 10px;">
+				<h2> Contacto </h2>	
+			</div>
+			<div style="padding-left: 16px; padding-top: 10px;">
+				<md-input-container class=" md-block" style="margin-bottom: 0px;">
+					<input ng-model="update_asset.stakeholders.name" type="text" placeholder="Nombre de contacto" >	
+				</md-input-container>
+
+				<md-input-container class=" md-block" style="margin-bottom: 0px;">
+					<input ng-model="update_asset.stakeholders.email" type="email" placeholder="Email de contacto" >	
+				</md-input-container>	
+			</div>
+
+			<md-divider></md-divider>
+			<div style="padding-left: 16px; padding-top: 10px;">
 				<h2> Informacion adjunta </h2>	
 			</div>
 

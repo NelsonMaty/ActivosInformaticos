@@ -536,6 +536,8 @@ angular.module('activosInformaticosApp')
 
         //$scope.c =$scope.keys.indexOf("name");
         $scope.keys.splice($scope.keys.indexOf("name"),1);
+        $scope.keys.splice($scope.keys.indexOf("tags"),1);
+        $scope.keys.splice($scope.keys.indexOf("stakeholders"),1);
         //$scope.d =$scope.keys.indexOf("comment");
         $scope.keys.splice($scope.keys.indexOf("comment"),1);
         //$scope.e =$scope.keys.indexOf("$$hashKey");
@@ -862,6 +864,7 @@ angular.module('activosInformaticosApp')
         $scope.formly_fields = fields;
         $scope.asset = {};
         $scope.asset.tags = [];
+        $scope.asset.stakeholders = { name: '', email: ''};
         $scope.typeid = typeid;
         $scope.listas = listas;
         $scope.estadoActual = null;
