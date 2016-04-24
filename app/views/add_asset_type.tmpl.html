@@ -97,7 +97,7 @@
 
                 <div style="padding-top: 18px; padding-left: 6px; min-width: 118px;">
                   <label>Estado Final</label>
-                  <md-checkbox ng-model="nodo.final"  aria-label="Checkbox 1" ng-change="changeFinal(nodo.final)" ng-disabled="!nodo.final && hayFinal"></md-checkbox>
+                  <md-checkbox ng-model="nodo.isFinal"  aria-label="Checkbox 1" ng-change="changeFinal(nodo.isFinal)" ng-disabled="!nodo.isFinal && hayFinal"></md-checkbox>
                 </div>
                 
                 <div layout-gt-sm="row" ng-if="!$first">
@@ -142,7 +142,7 @@
             
             <h1 class="md-display-2">Transición de estados</h1>
 
-            <div layout="column" ng-repeat="nodo in nodes" ng-if="!nodo.final" style="min-height: 82px;">
+            <div layout="column" ng-repeat="nodo in nodes" ng-if="!nodo.isFinal" style="min-height: 82px;">
               
               <div layout="row" style="margin-top: 18px;">
                 
@@ -158,7 +158,7 @@
                 
               </div>
 
-              <div layout="row" ng-repeat="dir in nodo.dirs" style="min-height: 82px;">
+              <div layout="row" ng-repeat="dir in nodo.adjacents" style="min-height: 82px;">
                   
                 <md-input-container style="left: 35px;">
                   <md-icon md-font-set="material-icons" >directions</md-icon>
@@ -171,14 +171,14 @@
                   </md-select>  
                 </md-input-container>
                   
-                <div layout-gt-sm="row" ng-if="nodo.dirs.length>1" >
+                <div layout-gt-sm="row" ng-if="nodo.adjacents.length>1" >
                   <md-button  aria-label="Quitar columna" ng-click="removeLink($parent.$parent.$index,$index)" style="  left: 46px;"> 
                     <md-icon md-font-set="material-icons">remove_circle_outline</md-icon>
                   </md-button>
                 </div>
 
                 <div layout-gt-sm="row" ng-if="$last"  >
-                  <md-button  aria-label="Añadir columna" ng-click="addLink($parent.$parent.$index)" ng-disabled="nodo.dirs.length == nodes.length-1" style="  left: 46px;"> 
+                  <md-button  aria-label="Añadir columna" ng-click="addLink($parent.$parent.$index)" ng-disabled="nodo.adjacents.length == nodes.length-1" style="  left: 46px;"> 
                     <md-icon md-font-set="material-icons">add_circle_outline</md-icon>
                   </md-button>
                 </div>

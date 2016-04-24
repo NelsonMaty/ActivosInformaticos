@@ -205,11 +205,12 @@ angular.module('activosInformaticosApp')
         
         $scope.nodes = [{
           name: '',
-          inicial: true,
-          final: false,
-          dirs: [{
+          isInitial: true,
+          isFinal: false,
+          adjacents: [{
             enlace: ''
-          }]
+          }],
+          comment: ''
         }]; 
 
         $scope.tipos = [
@@ -298,7 +299,7 @@ angular.module('activosInformaticosApp')
 
         $scope.addNode = function() {
               var n = $scope.nodes.length;
-              $scope.nodes.push({ name:'', inicial:false, final:false, dirs: [{ enlace: ''}] });
+              $scope.nodes.push({ name:'', isInitial:false, isFinal:false, adjacents: [{ enlace: ''}], comment: '' });
               
              /* for (i=0;i<n;i++) {
                 $scope.nodes_names[i].name = $scope.nodes[i].name;
@@ -306,7 +307,7 @@ angular.module('activosInformaticosApp')
         };
 
         $scope.removeNode = function(index) {
-              if ( $scope.nodes[index].final ) {
+              if ( $scope.nodes[index].isFinal ) {
                 $scope.hayFinal = false;
               }
               $scope.nodes.splice(index,1);
@@ -314,12 +315,12 @@ angular.module('activosInformaticosApp')
         };
 
         $scope.addLink = function(parent) {
-              var n = $scope.nodes[parent].dirs.length;
-              $scope.nodes[parent].dirs.push({ enlace: ''});
+              var n = $scope.nodes[parent].adjacents.length;
+              $scope.nodes[parent].adjacents.push({ enlace: ''});
         };
 
         $scope.removeLink = function(parent,index) {
-              $scope.nodes[parent].dirs.splice(index,1);
+              $scope.nodes[parent].adjacents.splice(index,1);
         };
 
         $scope.nextSelect = function () {
@@ -343,12 +344,13 @@ angular.module('activosInformaticosApp')
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
+        
         $scope.answer = function(answer, type) {
 
           if (  answer == 'TipoActivo') {
             //var atributos = $scope.properties;
             type.properties = $scope.properties;
-            type.lifeCycleNodes = $scope.nodes;
+            type.lifeCycle = $scope.nodes;
             dataFactory.createAssetType( function (){
               $mdDialog.hide(type);    
             }, type, $mdDialog, $mdToast);
@@ -358,8 +360,7 @@ angular.module('activosInformaticosApp')
           }
         };
 
-
-      }
+      };
 
       function EditAssetTypeCtrl(type, indice, $scope, $mdDialog, $mdToast) {
         
@@ -400,7 +401,7 @@ angular.module('activosInformaticosApp')
             }, update_type, $mdDialog, $mdToast);
         };
 
-      }
+      };
 
       function AddUserCtrl($scope, $mdDialog, $mdToast) {
 
@@ -422,7 +423,7 @@ angular.module('activosInformaticosApp')
           }
         
         };
-      }
+      };
 
       function EditUserCtrl(person, borrar,indice, $scope, $mdDialog, $mdToast) {
         
@@ -454,7 +455,7 @@ angular.module('activosInformaticosApp')
             $mdDialog.hide(null);
           }
         };
-      }
+      };
     
   });
 

@@ -636,7 +636,7 @@ angular.module('activosInformaticosApp')
                   key: 'name',
                   type: 'input',
                   templateOptions: {
-                    label: '* Nombre',
+                    label: 'Nombre',
                     placeholder: sel_type.name,
                     required: true
                   }
@@ -685,7 +685,7 @@ angular.module('activosInformaticosApp')
                     type: 'input',
                     templateOptions: {
                       type: 'date',
-                      label: '* ' + atributos[i].name,
+                      label: '' + atributos[i].name,
                       required: true
                     //datepickerPopup: 'dd-MMMM-yyyy'
                     }
@@ -710,7 +710,7 @@ angular.module('activosInformaticosApp')
                     key: atributos[i].name,
                     type: 'select',
                     templateOptions: {
-                      label: '* ' + atributos[i].name,
+                      label: '' + atributos[i].name,
                       options: ["True","False"],
                       required: true
                     }
@@ -736,7 +736,7 @@ angular.module('activosInformaticosApp')
                     type: 'input',
                     templateOptions: {
                       type: 'number',
-                      label: '* ' + atributos[i].name,
+                      label: '' + atributos[i].name,
                       placeholder: '',
                       required: true
                     },
@@ -782,7 +782,7 @@ angular.module('activosInformaticosApp')
                     type: 'input',
                     templateOptions: {
                       type: 'number',
-                      label: '* ' + atributos[i].name,
+                      label: '' + atributos[i].name,
                       placeholder: '',
                       required: true
                     } 
@@ -828,7 +828,7 @@ angular.module('activosInformaticosApp')
                     key: atributos[i].name,
                     type: 'input',
                     templateOptions: {
-                      label: '* ' + atributos[i].name,
+                      label: '' + atributos[i].name,
                       placeholder: '',
                       required: true
                     }
@@ -909,7 +909,7 @@ angular.module('activosInformaticosApp')
             }
           }
 
-          $scope.estadoActual = response.lifeCycleNodes[0].name;
+          $scope.estadoActual = response.lifeCycle[0].name;
         });
 
 
