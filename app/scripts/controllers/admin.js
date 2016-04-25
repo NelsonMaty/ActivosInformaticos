@@ -207,9 +207,7 @@ angular.module('activosInformaticosApp')
           name: '',
           isInitial: true,
           isFinal: false,
-          adjacents: [{
-            enlace: ''
-          }],
+          adjacents: [''],
           comment: ''
         }]; 
 
@@ -299,7 +297,8 @@ angular.module('activosInformaticosApp')
 
         $scope.addNode = function() {
               var n = $scope.nodes.length;
-              $scope.nodes.push({ name:'', isInitial:false, isFinal:false, adjacents: [{ enlace: ''}], comment: '' });
+              //$scope.nodes.push({ name:'', isInitial:false, isFinal:false, adjacents: [{ enlace: ''}], comment: '' });
+              $scope.nodes.push({ name:'', isInitial:false, isFinal:false, adjacents: [''], comment: '' });
               
              /* for (i=0;i<n;i++) {
                 $scope.nodes_names[i].name = $scope.nodes[i].name;
@@ -315,8 +314,10 @@ angular.module('activosInformaticosApp')
         };
 
         $scope.addLink = function(parent) {
+              //console.log($scope.nodes[parent])
               var n = $scope.nodes[parent].adjacents.length;
-              $scope.nodes[parent].adjacents.push({ enlace: ''});
+              //$scope.nodes[parent].adjacents.push({ enlace: ''});
+              $scope.nodes[parent].adjacents.push(' ');
         };
 
         $scope.removeLink = function(parent,index) {
