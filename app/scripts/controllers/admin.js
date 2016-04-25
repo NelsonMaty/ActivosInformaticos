@@ -262,24 +262,6 @@ angular.module('activosInformaticosApp')
           } return false;
         }
 
-        /*$("lista_nodos").blur(function(){
-            //alert("This input field has lost its focus.");
-            console.log("comparando");
-            for (i=0;i<$scope.nodes.length;i++) {
-              for (j=0;j<$scope.nodes.length;j++) {
-                if ($scope.nodes[j].name == $scope.nodes[i].name && i != j) {
-                  $scope.nombreDuplicado = true;
-                } else {
-                  $scope.nombreDuplicado = false;
-                }
-              }
-            }
-        });
-
-        /*$("div").focusout(function(){
-            $(this).css("background-color", "#FFFFFF");
-        });*/
-
         $scope.querySearch = function (query, indice_padre) {
                     
               return $filter('filter')($scope.nodes, {name:query});

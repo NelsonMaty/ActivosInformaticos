@@ -870,11 +870,7 @@ angular.module('activosInformaticosApp')
         $scope.estadoActual = null;
         $scope.type_prop = [];
         $scope.names_list = [];
-        $scope.adjuntos = [
-          {
-            url: ''
-          }
-        ];
+        $scope.asset.attached = [''];
 
 
         $scope.addItem = function(answer,parent_index) {
@@ -884,7 +880,7 @@ angular.module('activosInformaticosApp')
                 $scope.listas[parent_index].elements.push({content:''});
                 //$scope.ultimo = false;
               } else {
-                $scope.adjuntos.push({url:''});  
+                $scope.asset.attached.push('');  
               }
               
             };
@@ -896,7 +892,7 @@ angular.module('activosInformaticosApp')
                   $scope.listas[parent_index].elements.splice(index,1);
                 } 
               } else {
-                $scope.adjuntos.splice(index,1);  
+                $scope.asset.attached.splice(index,1);  
               }
               
             };
@@ -915,7 +911,7 @@ angular.module('activosInformaticosApp')
 
         $scope.newAsset = function(asset) {
           
-          asset.attached = $scope.adjuntos;
+          //asset.attached = $scope.adjuntos;
           asset.typeId = $scope.typeid;
           asset.estadoActual = $scope.estadoActual;
 
@@ -950,7 +946,7 @@ angular.module('activosInformaticosApp')
 
       function EditAssetCtrl(asset, myassets, indice, deleteAsset, $scope, $mdDialog, $mdToast) {
         
-        $scope.update_asset = $.extend({},asset);
+        $scope.update_asset = $.extend(true,{},asset);
         $scope.myassets = myassets;
         $scope.deleteAsset = deleteAsset;
         $scope.indice = indice;
@@ -966,7 +962,7 @@ angular.module('activosInformaticosApp')
                 $scope.listas[parent_index].elements.push({content:''});
                 //$scope.ultimo = false;
               } else {
-                $scope.adjuntos.push({url:''});  
+                $scope.update_asset.attached.push('');  
               }
         };
 
@@ -977,7 +973,7 @@ angular.module('activosInformaticosApp')
               $scope.listas[parent_index].elements.splice(index,1);
             } 
           } else {
-            $scope.adjuntos.splice(index,1);  
+            $scope.update_asset.attached.splice(index,1);  
           }
               //$scope.adjuntos.splice(index,1);
         };
@@ -1265,7 +1261,7 @@ angular.module('activosInformaticosApp')
         }
 
         $scope.updateAsset = function (asset) {
-          asset.attached = $scope.adjuntos;
+          //asset.attached = $scope.adjuntos;
           dataFactory.editAsset (function (){
               $mdDialog.hide(asset);
               $scope.myassets.splice(indice,1,asset);

@@ -162,7 +162,7 @@
                 
               </div>
 
-              <div layout="row" ng-repeat="dir in nodo.adjacents" style="min-height: 82px;">
+              <div layout="row" ng-repeat="dir in nodo.adjacents track by $index" style="min-height: 82px;">
                   
                 <md-input-container style="left: 35px;">
                   <md-icon md-font-set="material-icons" >directions</md-icon>

@@ -70,15 +70,15 @@
 				<h2> Informacion adjunta </h2>	
 			</div>
 
-			<div layout="row" ng-repeat="link in adjuntos" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
+			<div layout="row" ng-repeat="link in update_asset.attached track by $index" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
 		    <!--{{ d.label}}-->
 
 		    <md-input-container  class=" md-block" style="padding-right: 6px;">
 		        
-		        <input ng-model="link.url" type="url" placeholder="https://" aria-label="lista">
+		        <input ng-model="update_asset.attached[$index]" type="url" placeholder="https://" aria-label="lista">
 		    </md-input-container>
 		    
-		    <div layout-gt-sm="row" ng-if="adjuntos.length>1" >
+		    <div layout-gt-sm="row" ng-if="update_asset.attached.length>1" >
 		      <md-button  aria-label="Quitar columna" ng-click="removeItem('',$parent.$index,$index)" style=" bottom: 14px;"> 
 		        <md-icon md-font-set="material-icons">remove_circle</md-icon>
 		      </md-button>

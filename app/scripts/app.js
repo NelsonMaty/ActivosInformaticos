@@ -128,7 +128,7 @@ angular
               "comment":type.comment,
               //"properties": atributos
               "properties": type.properties,
-              "lifeCycleNodes": type.lifeCycleNodes
+              "lifeCycle": type.lifeCycle
           }
 
         })
