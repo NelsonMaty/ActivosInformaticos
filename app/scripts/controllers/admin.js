@@ -350,6 +350,8 @@ angular.module('activosInformaticosApp')
         $scope.update_type = $.extend(true,{},type);
 
         $scope.indice = indice;
+        $scope.hayFinal = true;
+        $scope.etapa = 1;
 
         $scope.tipos = [
           "String",
@@ -369,6 +371,49 @@ angular.module('activosInformaticosApp')
               $scope.update_type.properties.splice(index,1);
             };
 
+        $scope.addNode = function() {
+              var n = $scope.update_type.lifeCycle.length;
+              //$scope.nodes.push({ name:'', isInitial:false, isFinal:false, adjacents: [{ enlace: ''}], comment: '' });
+              $scope.update_type.lifeCycle.push({ name:'', isInitial:false, isFinal:false, adjacents: [''], comment: '' });
+              
+             /* for (i=0;i<n;i++) {
+                $scope.nodes_names[i].name = $scope.nodes[i].name;
+              }*/
+        };
+
+        $scope.removeNode = function(index) {
+              if ( $scope.update_type.lifeCycle[index].isFinal ) {
+                $scope.hayFinal = false;
+              }
+              $scope.update_type.lifeCycle.splice(index,1);
+
+        };
+
+        $scope.addLink = function(parent) {
+              //console.log($scope.nodes[parent])
+              var n = $scope.update_type.lifeCycle[parent].adjacents.length;
+              //$scope.nodes[parent].adjacents.push({ enlace: ''});
+              $scope.update_type.lifeCycle[parent].adjacents.push(' ');
+        };
+
+        $scope.removeLink = function(parent,index) {
+              $scope.update_type.lifeCycle[parent].adjacents.splice(index,1);
+        };
+
+        $scope.nextSelect = function () {
+          ++$scope.etapa;
+          if ($scope.etapa == 3) {
+            //$scope.estados = $.extend(true,[],$scope.nodes);
+            //console.log($scope.estados);
+            for (i=0;i<$scope.nodes.length;i++) {
+              $scope.listaNombreNodos[i] = $scope.nodes[i].name; 
+            } 
+          }
+        }
+
+        $scope.prevSelect = function () {
+          --$scope.etapa;
+        }
 
         $scope.hide = function() {
           $mdDialog.hide();
