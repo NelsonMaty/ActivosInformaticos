@@ -11,7 +11,7 @@
     </md-toolbar>
 
     <div ng-switch="etapa">
-      
+
       <div ng-switch-when="1">
         <md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
           <div>
@@ -22,11 +22,11 @@
           </div>
           <div>
             <md-input-container class=" md-block" >
-              
+
               <md-icon md-font-set="material-icons" class="comments" aria-label="Comentarios">comment</md-icon>
               <input ng-model="asset_type.comment" type="text" placeholder="Comentarios">
             </md-input-container>
-           
+
           </div>
           <div layout="row" ng-repeat="attribute in properties" style="min-height: 82px;">
 
@@ -45,7 +45,7 @@
                   <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
                     {{tipo}}
                   </md-option>
-                </md-select>    
+                </md-select>
               </md-input-container>
 
               <div style="padding-top: 18px; padding-left: 6px; min-width: 118px;">
@@ -54,15 +54,15 @@
 
               </md-checkbox>
               </div>
-              
+
               <div layout-gt-sm="row" ng-if="properties.length>1" >
-                <md-button  aria-label="Quitar columna" ng-click="removeItem($index)" style=" bottom: 14px;"> 
+                <md-button  aria-label="Quitar columna" ng-click="removeItem($index)" style=" bottom: 14px;">
                   <md-icon md-font-set="material-icons">remove_circle</md-icon>
                 </md-button>
               </div>
 
               <div layout-gt-sm="row" ng-if="$last"  >
-                <md-button  aria-label="Añadir columna" ng-click="addItem()" style=" bottom: 14px;"> 
+                <md-button  aria-label="Añadir columna" ng-click="addItem()" style=" bottom: 14px;">
                   <md-icon md-font-set="material-icons">add_circle</md-icon>
                 </md-button>
               </div>
@@ -78,17 +78,17 @@
           </md-button>
         </md-dialog-actions>
       </div>
-      
+
       <div layout="row" ng-switch-when="2">
 
           <div layout="column"  style="padding-top: 18px; margin-left: 20px; ">
-            
+
             <h1 class="md-display-2">Ciclo de vida</h1>
-            
+
             <div layout="column" ng-repeat="nodo in nodes" style="min-height: 82px;">
-              
+
               <div layout="row" style="margin-top: 18px;">
-                
+
                 <md-input-container  class=" md-block " style="padding-right: 6px;">
                     <md-icon md-font-set="material-icons" style="padding-top: 10px;">panorama_fish_eye</md-icon>
                     <input name="nombre_estado" ng-model="nodo.name" type="text" placeholder="Nombre de estado" aria-label="lista_nodos" ng-required="true" ng-blur="compararNombre()">
@@ -99,19 +99,24 @@
 
                 </md-input-container>
 
-                <div style="padding-top: 18px; padding-left: 6px; min-width: 118px;">
-                  <label>Estado Final</label>
+                <div style="padding-top: 18px; padding-left: 6px; min-width: 118px;" ng-show="nodo.isInitial">
+                  <label>Estado inicial</label>
+                  <md-checkbox ng-model="nodo.isInitial"  aria-label="Checkbox 2"  ng-disabled="true"></md-checkbox>
+                </div>
+
+                <div style="padding-top: 18px; padding-left: 6px; min-width: 118px;" ng-hide="nodo.isInitial && nodes.length>1">
+                  <label>Estado final</label>
                   <md-checkbox ng-model="nodo.isFinal"  aria-label="Checkbox 1" ng-change="changeFinal(nodo.isFinal)" ng-disabled="!nodo.isFinal && hayFinal"></md-checkbox>
                 </div>
-                
+
                 <div layout-gt-sm="row" ng-if="!$first">
-                  <md-button  aria-label="Quitar columna" ng-click="removeNode($index)" style=" bottom: 14px;"> 
+                  <md-button  aria-label="Quitar columna" ng-click="removeNode($index)" style=" bottom: 14px;">
                     <md-icon md-font-set="material-icons">remove_circle</md-icon>
                   </md-button>
                 </div>
 
                 <div layout-gt-sm="row" ng-if="$last">
-                  <md-button  aria-label="Añadir columna" ng-click="addNode()" ng-disabled="!nodo.name" style=" bottom: 14px;"> 
+                  <md-button  aria-label="Añadir columna" ng-click="addNode()" ng-disabled="!nodo.name" style=" bottom: 14px;">
                     <md-icon md-font-set="material-icons">add_circle</md-icon>
                   </md-button>
                 </div>
@@ -121,7 +126,7 @@
               <md-divider ng-if="!$last"></md-divider>
 
             </div>
-            
+
             <md-dialog-actions layout="row">
               <span flex></span>
               <md-button ng-click="prevSelect()">
@@ -143,56 +148,59 @@
       <div layout="row" ng-switch-when="3">
 
           <div layout="column"  style="padding-top: 18px; margin-left: 20px; ">
-            
+
             <h1 class="md-display-2">Transición de estados</h1>
 
+            <div ng-if="nodes.length == 1" style="margin-top: 18px;">
+              <p style="padding-left: 30px; padding-bottom: 10px;">  No existen transiciones de estados disponibles </p>
+            </div>
+
             <div layout="column" ng-repeat="nodo in nodes" ng-if="!nodo.isFinal" style="min-height: 82px;">
-              
+
               <div layout="row" style="margin-top: 18px;">
-                
+
                 <md-input-container  class=" md-block" style="padding-right: 6px;">
                     <md-icon md-font-set="material-icons" style="top: 0px;">panorama_fish_eye</md-icon>
-                    
+
                     <div>
                       <h3 style="padding-left: 30px;">Estado {{nodo.name}}</h3>
                     </div>
-                    
-                    
+
+
                 </md-input-container>
-                
+
               </div>
 
               <div layout="row" ng-repeat="dir in nodo.adjacents track by $index" style="min-height: 82px;">
-                  
+
                 <md-input-container style="left: 35px;">
                   <md-icon md-font-set="material-icons" >directions</md-icon>
-                
+
                   <md-select ng-model="nodo.adjacents[$index]" ng-required="true"  aria-label="nombre nodos">
                     <md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-hide="listaNombreNodos[$parent.$parent.$parent.$index] == estado.name ">
-                    <!--md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-disabled"$parent.$parent.$parent.$index === 1"-->
-                        Estado {{estado.name}}  
+                        Estado {{estado.name}}
                     </md-option>
-                  </md-select>  
+                  </md-select>
                 </md-input-container>
-                  
+
                 <div layout-gt-sm="row" ng-if="nodo.adjacents.length>1" >
-                  <md-button  aria-label="Quitar columna" ng-click="removeLink($parent.$parent.$index,$index)" style="  left: 46px;"> 
+                  <md-button  aria-label="Quitar columna" ng-click="removeLink($parent.$parent.$index,$index)" style="  left: 46px;">
                     <md-icon md-font-set="material-icons">remove_circle_outline</md-icon>
                   </md-button>
                 </div>
 
                 <div layout-gt-sm="row" ng-if="$last"  >
-                  <md-button  aria-label="Añadir columna" ng-click="addLink($parent.$parent.$index)" ng-disabled="nodo.adjacents.length == nodes.length-1" style="  left: 46px;"> 
+                  <md-button  aria-label="Añadir columna" ng-click="addLink($parent.$parent.$index)" ng-disabled="nodo.adjacents.length == nodes.length-1" style="  left: 46px;">
                     <md-icon md-font-set="material-icons">add_circle_outline</md-icon>
                   </md-button>
                 </div>
-                   
+
               </div>
 
               <md-divider ng-if="!$last"></md-divider>
 
             </div>
-            
+
             <md-dialog-actions layout="row">
               <span flex></span>
               <md-button ng-click="prevSelect()">
@@ -200,7 +208,7 @@
               </md-button>
               <md-button ng-click="answer('TipoActivo',asset_type)" ng-disabled="addAssetType.$invalid">
                   Crear
-              </md-button> 
+              </md-button>
               <!--md-button ng-click="nextSelect()" ng-disabled="addAssetType.$invalid">
                   Siguiente
               </md-button-->
@@ -211,7 +219,7 @@
           </div>
 
           <div layout="column"  style="padding-top: 18px; margin-left: 20px; ">
-            
+
           </div>
       </div>
 

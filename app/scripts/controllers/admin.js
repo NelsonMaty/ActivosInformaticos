@@ -2,9 +2,9 @@
 
 angular.module('activosInformaticosApp')
   .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia, $mdToast, $filter, dataFactory) {
-    
+
     $scope.people=[];
-    
+
     dataFactory.getUsers( function (response) {
       $scope.people = response;
 
@@ -20,7 +20,7 @@ angular.module('activosInformaticosApp')
     };
 
     //----------users---------//
-    
+
       $scope.goToPerson = function(person, event) {
           $mdDialog.show(
             $mdDialog.alert()
@@ -55,9 +55,9 @@ angular.module('activosInformaticosApp')
                 $scope.people[$index] = user;
               }
             }, function() {
-              
+
             });
-          
+
       };
 
       $scope.doBorrar = function(person, ev, indice) {
@@ -90,23 +90,23 @@ angular.module('activosInformaticosApp')
           fullscreen: useFullScreen
         })
         .then(function(user) {
-          
+
           if (user) {
-              
+
               $scope.people.push(user);
 
           }
-          
+
         });
       };
 
-    
+
     //----------Types---------//
-      
+
       $scope.showAddAssetType = function(ev) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         $mdDialog.show({
-          
+
           controller: AddTypeCtrl,
           templateUrl: '../../views/add_asset_type.tmpl.html',
           parent: angular.element(document.body),
@@ -122,9 +122,9 @@ angular.module('activosInformaticosApp')
           }
 
         }) //function() {
-          
+
       };
-             
+
       $scope.editAssetType = function (ev,type,$index) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
           console.log($index);
@@ -148,7 +148,7 @@ angular.module('activosInformaticosApp')
                 $scope.assettypes[$index] = type;
               }
             }, function() {
-              
+
             });
       };
 
@@ -172,19 +172,19 @@ angular.module('activosInformaticosApp')
 
 
         }) //function() {
-          
+
       };
 
-    
+
     //----------Controllers----------//
-      
+
       function ShowTypeCtrl(type, editAssetType, indice, $scope, $mdDialog, $mdToast){
         $scope.type = type;
         $scope.indice = indice;
         $scope.editAssetType = editAssetType;
         $scope.ev = {};
         $scope.atributos = type.properties;
-        
+
 
         $scope.hide = function() {
           $mdDialog.hide();
@@ -193,7 +193,7 @@ angular.module('activosInformaticosApp')
           $mdDialog.cancel();
         };
       };
-      
+
       function AddTypeCtrl($scope, $mdDialog, $mdToast) {
         $scope.asset_type = {};
         $scope.etapa = 1;
@@ -202,14 +202,14 @@ angular.module('activosInformaticosApp')
         //$scope.estados = [];
         $scope.nombreDuplicado = false;
         $scope.nombreAtributoDuplicado = false;
-        
+
         $scope.nodes = [{
           name: '',
           isInitial: true,
           isFinal: false,
           adjacents: [''],
           comment: ''
-        }]; 
+        }];
 
         $scope.tipos = [
           "String",
@@ -221,7 +221,7 @@ angular.module('activosInformaticosApp')
         ];
 
         $scope.properties = [
-          { label: '1', 
+          { label: '1',
             name:'',
             type:'',
             required: false
@@ -263,9 +263,9 @@ angular.module('activosInformaticosApp')
         }
 
         $scope.querySearch = function (query, indice_padre) {
-                    
+
               return $filter('filter')($scope.nodes, {name:query});
-                  //deferred  
+                  //deferred
         }
 
         $scope.addItem = function() {
@@ -282,10 +282,11 @@ angular.module('activosInformaticosApp')
               var n = $scope.nodes.length;
               //$scope.nodes.push({ name:'', isInitial:false, isFinal:false, adjacents: [{ enlace: ''}], comment: '' });
               $scope.nodes.push({ name:'', isInitial:false, isFinal:false, adjacents: [''], comment: '' });
-              
-             /* for (i=0;i<n;i++) {
-                $scope.nodes_names[i].name = $scope.nodes[i].name;
-              }*/
+
+              if ($scope.nodes[0].isFinal == true) {
+                $scope.nodes[0].isFinal = false;
+                $scope.hayFinal = false;
+              }
         };
 
         $scope.removeNode = function(index) {
@@ -314,8 +315,8 @@ angular.module('activosInformaticosApp')
             //$scope.estados = $.extend(true,[],$scope.nodes);
             //console.log($scope.estados);
             for (i=0;i<$scope.nodes.length;i++) {
-              $scope.listaNombreNodos[i] = $scope.nodes[i].name; 
-            } 
+              $scope.listaNombreNodos[i] = $scope.nodes[i].name;
+            }
           }
         }
 
@@ -329,7 +330,7 @@ angular.module('activosInformaticosApp')
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
-        
+
         $scope.answer = function(answer, type) {
 
           if (  answer == 'TipoActivo') {
@@ -337,7 +338,7 @@ angular.module('activosInformaticosApp')
             type.properties = $scope.properties;
             type.lifeCycle = $scope.nodes;
             dataFactory.createAssetType( function (){
-              $mdDialog.hide(type);    
+              $mdDialog.hide(type);
             }, type, $mdDialog, $mdToast);
           }
           else {
@@ -348,7 +349,7 @@ angular.module('activosInformaticosApp')
       };
 
       function EditAssetTypeCtrl(type, indice, $scope, $mdDialog, $mdToast) {
-        
+
         $scope.update_type = $.extend(true,{},type);
 
         $scope.nombreDuplicado = false;
@@ -380,7 +381,7 @@ angular.module('activosInformaticosApp')
               var n = $scope.update_type.lifeCycle.length;
               //$scope.nodes.push({ name:'', isInitial:false, isFinal:false, adjacents: [{ enlace: ''}], comment: '' });
               $scope.update_type.lifeCycle.push({ name:'', isInitial:false, isFinal:false, adjacents: [''], comment: '' });
-              
+
              /* for (i=0;i<n;i++) {
                 $scope.nodes_names[i].name = $scope.nodes[i].name;
               }*/
@@ -408,7 +409,7 @@ angular.module('activosInformaticosApp')
 
         $scope.nextSelect = function () {
           ++$scope.etapa;
-          
+
         }
 
         $scope.prevSelect = function () {
@@ -455,11 +456,11 @@ angular.module('activosInformaticosApp')
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
-        
+
         $scope.editar = function(update_type) {
-          
+
           dataFactory.editAssetType( function (response){
-              $mdDialog.hide(response);      
+              $mdDialog.hide(response);
             }, update_type, $mdDialog, $mdToast);
         };
 
@@ -474,21 +475,21 @@ angular.module('activosInformaticosApp')
           $mdDialog.cancel();
         };
         $scope.answer = function(answer, user) {
-        
+
           if ( answer == 'Aceptar') {
             dataFactory.createUser( function (){
-              $mdDialog.hide(user);        
+              $mdDialog.hide(user);
             }, user, $mdDialog, $mdToast);
-          } 
+          }
           else {
             $mdDialog.hide(null);
           }
-        
+
         };
       };
 
       function EditUserCtrl(person, borrar,indice, $scope, $mdDialog, $mdToast) {
-        
+
         $scope.update_person = $.extend({},person);
         $scope.borrar = borrar;
         $scope.indice = indice;
@@ -510,20 +511,20 @@ angular.module('activosInformaticosApp')
           if (  answer == 'Editar') {
             dataFactory.editUser( function (){
               $mdDialog.hide(user);
-              
-              //location.reload();       
+
+              //location.reload();
             }, user, $mdDialog, $mdToast);
           } else {
             $mdDialog.hide(null);
           }
         };
       };
-    
+
   });
 
   /*.filter('selected', function() {
     return function (estados,selected) {
-      
+
       for (i=0;i<estados.length;i++) {
         for (j=0;j<selected.length;j++) {
           if (estados[i].name == selected[j].enlace) {
@@ -532,23 +533,20 @@ angular.module('activosInformaticosApp')
             //break;
           }
         }
-        
+
       } return estados;
     }
   } )
 
   .directive("repeatedName", function() {
     return {
-              
+
         require: "ngModel",
-         
+
         link: function($scope, $element, $attrs, ngModel) {
-            ngModel.$validators.repeatedName = function(modelValue) {  
+            ngModel.$validators.repeatedName = function(modelValue) {
                 return modelValue % 2 === 1;
             }
         }
     };
 });*/
-
-
- 
