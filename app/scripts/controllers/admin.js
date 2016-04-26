@@ -275,6 +275,7 @@ angular.module('activosInformaticosApp')
 
         $scope.removeItem = function(index) {
               $scope.properties.splice(index,1);
+              $scope.compararAtributo();
         };
 
         $scope.addNode = function() {
@@ -292,6 +293,7 @@ angular.module('activosInformaticosApp')
                 $scope.hayFinal = false;
               }
               $scope.nodes.splice(index,1);
+              $scope.compararNombre();
 
         };
 
@@ -349,6 +351,8 @@ angular.module('activosInformaticosApp')
         
         $scope.update_type = $.extend(true,{},type);
 
+        $scope.nombreDuplicado = false;
+        $scope.nombreAtributoDuplicado = false;
         $scope.indice = indice;
         $scope.hayFinal = true;
         $scope.etapa = 1;
@@ -369,6 +373,7 @@ angular.module('activosInformaticosApp')
 
         $scope.removeItem = function(index) {
               $scope.update_type.properties.splice(index,1);
+              $scope.compararAtributo();
             };
 
         $scope.addNode = function() {
@@ -386,6 +391,7 @@ angular.module('activosInformaticosApp')
                 $scope.hayFinal = false;
               }
               $scope.update_type.lifeCycle.splice(index,1);
+              $scope.compararNombre();
 
         };
 
@@ -402,17 +408,45 @@ angular.module('activosInformaticosApp')
 
         $scope.nextSelect = function () {
           ++$scope.etapa;
-          if ($scope.etapa == 3) {
-            //$scope.estados = $.extend(true,[],$scope.nodes);
-            //console.log($scope.estados);
-            for (i=0;i<$scope.nodes.length;i++) {
-              $scope.listaNombreNodos[i] = $scope.nodes[i].name; 
-            } 
-          }
+          
         }
 
         $scope.prevSelect = function () {
           --$scope.etapa;
+        }
+
+        $scope.changeFinal = function (valor) {
+          $scope.hayFinal = valor;
+        }
+
+        $scope.compararNombre = function () {
+          //console.log("comparando");
+          for (i=0;i<$scope.update_type.lifeCycle.length;i++) {
+            for (j=0;j<$scope.update_type.lifeCycle.length;j++) {
+              if ($scope.update_type.lifeCycle[j].name == $scope.update_type.lifeCycle[i].name && i != j) {
+                $scope.nombreDuplicado = true;
+                return true;
+              } else {
+                $scope.nombreDuplicado = false;
+
+              }
+            }
+          } return false;
+        }
+
+        $scope.compararAtributo = function () {
+          //console.log($scope.update_type.properties);
+          for (i=0;i<$scope.update_type.properties.length;i++) {
+            for (j=0;j<$scope.update_type.properties.length;j++) {
+              if ($scope.update_type.properties[j].name == $scope.update_type.properties[i].name && i != j) {
+                $scope.nombreAtributoDuplicado = true;
+                return true;
+              } else {
+                $scope.nombreAtributoDuplicado = false;
+
+              }
+            }
+          } return false;
         }
 
         $scope.hide = function() {

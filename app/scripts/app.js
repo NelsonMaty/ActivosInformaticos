@@ -165,7 +165,8 @@ angular
           data: {
               "name":update_type.name,
               "comment":update_type.comment,
-              "properties": update_type.properties
+              "properties": update_type.properties,
+              "lifeCycle": update_type.lifeCycle
           }
 
         })
