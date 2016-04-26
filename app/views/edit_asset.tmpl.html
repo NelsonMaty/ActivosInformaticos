@@ -11,11 +11,12 @@
 	  </md-button>
 	</md-toolbar>
 	<form name="editar">
-		<div ng-switch="etapa">
-			<div ng-switch-when="1">
+		<!--div ng-switch="etapa"-->
+			<!--div ng-switch-when="1"-->
+			<div ng-show="etapa == 1">
 				<formly-form model="update_asset" fields="fields" form="formly_form">
 
-				</formly-form>
+				
 
 					<div layout="column" ng-repeat="lista in listas" style="min-height: 82px;">
 					    <!--{{ d.label}}-->
@@ -93,7 +94,8 @@
 					      </md-button>
 					    </div>
 					</div>
-				
+
+				</formly-form>
 
 
 				<md-dialog-actions layout="row">
@@ -113,7 +115,8 @@
 				</md-dialog-actions>
 			</div>
 
-			<div ng-switch-when="2">
+			<!--div ng-switch-when="2"-->
+			<div ng-show="etapa == 2">
 				<div layout="column"  style="padding-top: 18px; margin-left: 20px; ">
 				  
 				  <h1 class="md-display-2">Selección de estado actual</h1>
@@ -169,6 +172,6 @@
 				  
 				</div>
 			</div> 
-		</div>
+		<!--/div-->
 	</form>
 </md-dialog>

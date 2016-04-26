@@ -985,7 +985,9 @@ angular.module('activosInformaticosApp')
         dataFactory.getAnAssetType ($scope.update_asset.typeId, function (response) {
           
           $scope.asset_type = response;
-          //console.log($scope.asset_type);
+          
+          //console.log("generando campos formly");
+          
           $scope.fields = [
             {
                     key: 'name',
@@ -1281,7 +1283,7 @@ angular.module('activosInformaticosApp')
 
         $scope.updateAsset = function (asset) {
           //asset.attached = $scope.adjuntos;
-          $scope.asset.estadoActual = $scope.siguienteEstado;
+          asset.estadoActual = $scope.siguienteEstado;
           dataFactory.editAsset (function (){
               $mdDialog.hide(asset);
               $scope.myassets.splice(indice,1,asset);
