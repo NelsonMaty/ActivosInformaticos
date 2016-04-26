@@ -947,8 +947,11 @@ angular.module('activosInformaticosApp')
       function EditAssetCtrl(asset, myassets, indice, deleteAsset, $scope, $mdDialog, $mdToast) {
         
         $scope.update_asset = $.extend(true,{},asset);
+        $scope.indexEstadoActual = null;
         $scope.myassets = myassets;
         $scope.deleteAsset = deleteAsset;
+        $scope.etapa = 1;
+        $scope.siguienteEstado = null;
         $scope.indice = indice;
         $scope.asset_type = {};
         $scope.listas = [];
@@ -1248,7 +1251,23 @@ angular.module('activosInformaticosApp')
             //console.log(aux);
           }
           //console.log($scope.listas);
+          for (i=0; i<$scope.asset_type.lifeCycle.length;i++) {
+            if ($scope.asset_type.lifeCycle[i].name == $scope.update_asset.estadoActual) {
+              $scope.indexEstadoActual = i;
+            }
+          }
         });
+
+        $scope.nextSelect = function () {
+          ++$scope.etapa;
+          if ($scope.etapa == 5) {
+            $scope.rel_atributtes = Object.keys($scope.relation);  
+          }
+        }
+
+        $scope.prevSelect = function () {
+          --$scope.etapa;
+        }
 
         function validateInt(value) {
           
@@ -1262,6 +1281,7 @@ angular.module('activosInformaticosApp')
 
         $scope.updateAsset = function (asset) {
           //asset.attached = $scope.adjuntos;
+          $scope.asset.estadoActual = $scope.siguienteEstado;
           dataFactory.editAsset (function (){
               $mdDialog.hide(asset);
               $scope.myassets.splice(indice,1,asset);
