@@ -142,7 +142,7 @@
 				      <md-input-container style="left: 35px;" >
 				        <md-icon md-font-set="material-icons" >directions</md-icon>
 
-				        <md-select ng-model="siguienteEstado" ng-required="true"  aria-label="estado-actual" >
+				        <md-select ng-model="siguienteEstado" aria-label="estado-actual" >
 				          <md-option ng-repeat="estado in asset_type.lifeCycle[indexEstadoActual].adjacents" value="{{estado}}" >
 				          <!--md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-disabled"$parent.$parent.$parent.$index === 1"-->
 				              Estado {{estado}}
@@ -152,12 +152,16 @@
 
 				    </div>
 
-						<div layout="row"  style="min-height: 82px; margin-top: 18px;" ng-if="asset_type.lifeCycle.length == 1">
+						<div layout="row"  style="min-height: 82px; margin-top: 18px;" ng-show="asset_type.lifeCycle.length == 1">
               <p style="padding-left: 30px; padding-bottom: 10px;">  No existen transiciones de estados disponibles </p>
             </div>
 
-						<div layout="row"  style="min-height: 82px; margin-top: 18px;" ng-if="asset_type.lifeCycle[indexEstadoActual].isFinal">
+						<div layout="row"  style="min-height: 82px; margin-top: 18px;" ng-show="asset_type.lifeCycle[indexEstadoActual].isFinal">
               <p style="padding-left: 30px; padding-bottom: 10px;">  Este activo se encuentra en su estado final. No posee transiciones de estados disponibles </p>
+            </div>
+
+						<div layout="row"  style="min-height: 82px; margin-top: 18px;">
+              <p style="padding-left: 30px; padding-bottom: 10px;">  Para continuar sin cambiar de estado, presione "Aplicar" </p>
             </div>
 
 				  </div>
@@ -165,14 +169,21 @@
 				  <md-dialog-actions layout="row">
 				    <span flex></span>
 				    <md-button ng-click="prevSelect()">
-				        Atras
+				      Atras
 				    </md-button>
-				    <md-button ng-click="updateAsset(update_asset)" ng-disabled="editar.$invalid && asset_type.lifeCycle.length != 1 && !asset_type.lifeCycle[indexEstadoActual].isFinal">
-					  Aplicar
-					</md-button>
+				    <md-button ng-click="updateAsset(update_asset)" ng-disabled="editar.$invalid && asset_type.lifeCycle.length != 1 && !asset_type.lifeCycle[indexEstadoActual].isFinal" ng-hide="siguienteEstado == estadoFinal">
+					  	Aplicar
+						</md-button>
+						<md-button ng-click="confirmFinalAsset(update_asset)" ng-disabled="editar.$invalid" ng-show="siguienteEstado == estadoFinal">
+					  	Aplicar
+						</md-button>
 				    <md-button ng-click="cancel()" style="margin-right:10px;">
-				        Cancelar
+				      Cancelar
 				    </md-button>
+						<md-button class="md-icon-button" ng-click="callDelete(indice)">
+						<md-tooltip md-direction="bottom"> Borrar </md-tooltip>
+						  <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
+						</md-button>
 				  </md-dialog-actions>
 				</div>
 

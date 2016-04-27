@@ -205,8 +205,6 @@ angular.module('activosInformaticosApp')
           });
       };
 
-
-
     //-----------Relations-----------//
 
       $scope.goRelation = function(ev,relation,assetId,$index) {
@@ -940,6 +938,7 @@ angular.module('activosInformaticosApp')
 
         $scope.update_asset = $.extend(true,{},asset);
         $scope.indexEstadoActual = null;
+        $scope.estadoFinal = null;
         $scope.myassets = myassets;
         $scope.deleteAsset = deleteAsset;
         $scope.etapa = 1;
@@ -1090,6 +1089,7 @@ angular.module('activosInformaticosApp')
                     key: atributos[i].name,
                     type: 'input',
                     templateOptions: {
+                      type: 'number',
                       label: '* ' + atributos[i].name,
                       placeholder: $scope.update_asset[atributos[i].name],
                       required: true
@@ -1109,6 +1109,7 @@ angular.module('activosInformaticosApp')
                     key: atributos[i].name,
                     type: 'input',
                     templateOptions: {
+                      type: 'number',
                       label: atributos[i].name,
                       placeholder: $scope.update_asset[atributos[i].name]
 
@@ -1206,9 +1207,13 @@ angular.module('activosInformaticosApp')
             //console.log(aux);
           }
           //console.log($scope.listas);
+
           for (i=0; i<$scope.asset_type.lifeCycle.length;i++) {
             if ($scope.asset_type.lifeCycle[i].name == $scope.update_asset.estadoActual) {
               $scope.indexEstadoActual = i;
+            }
+            if ($scope.asset_type.lifeCycle[i].isFinal) {
+              $scope.estadoFinal = $scope.asset_type.lifeCycle[i].name;
             }
           }
         });
@@ -1229,18 +1234,36 @@ angular.module('activosInformaticosApp')
           return /^\-?(0|[1-9]\d*)$/.test(value);
         }
 
+        $scope.confirmFinalAsset = function(ev, asset) {
+          var confirm = $mdDialog.confirm()
+              .title('¿Está seguro que desea avanzar al estado final de este activo? Esta acción es irreversible')
+              .ariaLabel('Actualizar estado de activo')
+              .targetEvent(ev)
+              .ok('Aceptar')
+              .cancel('Cancelar');
+          $mdDialog.show(confirm)
+            .then(function() {
+              $scope.updateAsset(asset);
+
+            }, function() {
+              $scope.status = 'No se realizaron cambios';
+            });
+        };
+
         $scope.callDelete = function(indice) {
           ev = {};
           deleteAsset(ev,asset,indice);
         }
 
         $scope.updateAsset = function (asset) {
-          //asset.attached = $scope.adjuntos;
-          if ($scope.asset_type.lifeCycle[$scope.indexEstadoActual].isFinal)
-          {
-            asset.estadoActual = $scope.asset_type.lifeCycle[$scope.indexEstadoActual].name;
-          } else {
-              asset.estadoActual = $scope.siguienteEstado;
+          console.log(asset);
+          if ($scope.siguienteEstado) {
+            if ($scope.asset_type.lifeCycle[$scope.indexEstadoActual].isFinal)
+            {
+              asset.estadoActual = $scope.asset_type.lifeCycle[$scope.indexEstadoActual].name;
+            } else {
+                asset.estadoActual = $scope.siguienteEstado;
+            }
           }
 
           dataFactory.editAsset (function (){
