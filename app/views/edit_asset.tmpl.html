@@ -1,9 +1,9 @@
 <md-dialog aria-label="Editar Activo" ng-cloak style="width: 800px; ">
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
-	    
+
 	    <h1> {{update_asset.name}} &nbsp; </h1>
-	    
+
 	  </div>
 
 	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
@@ -16,29 +16,29 @@
 			<div ng-show="etapa == 1">
 				<formly-form model="update_asset" fields="fields" form="formly_form">
 
-				
+
 
 					<div layout="column" ng-repeat="lista in listas" style="min-height: 82px;">
 					    <!--{{ d.label}}-->
 					    <md-divider></md-divider>
 					    <div style="padding-left: 16px; padding-top: 10px;">
-					    	<h2>Lista: {{lista.name}} </h2>	
+					    	<h2>Lista: {{lista.name}} </h2>
 					    </div>
-					    
+
 					    <div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
-						    
+
 						    <md-input-container  class=" md-block" style="padding-right: 6px; ">
 						        <input ng-model="element.content" type="text" placeholder="" aria-label="lista" ng-required="lista.required">
 						    </md-input-container>
-						    
+
 						    <div layout-gt-sm="row" >
-						      <md-button  aria-label="Quitar columna" ng-click="removeItem('lista',$parent.$index,$index)" style=" bottom: 14px;"> 
+						      <md-button  aria-label="Quitar columna" ng-click="removeItem('lista',$parent.$index,$index)" style=" bottom: 14px;">
 						        <md-icon md-font-set="material-icons">remove_circle</md-icon>
 						      </md-button>
 						    </div>
 
 						    <div layout-gt-sm="row" >
-						      <md-button  aria-label="Añadir columna" ng-click="addItem('lista',$parent.$index)" style=" bottom: 14px;"> 
+						      <md-button  aria-label="Añadir columna" ng-click="addItem('lista',$parent.$index)" style=" bottom: 14px;">
 						        <md-icon md-font-set="material-icons">add_circle</md-icon>
 						      </md-button>
 						    </div>
@@ -48,48 +48,48 @@
 
 					<md-divider></md-divider>
 					<div style="padding-left: 16px; padding-top: 10px;">
-						<h2> Tags </h2>	
+						<h2> Tags </h2>
 					</div>
-					
+
 					<div style="padding-left: 16px; padding-top: 10px;">
-						<md-chips ng-model="update_asset.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>	
+						<md-chips ng-model="update_asset.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
 					</div>
 
 					<md-divider></md-divider>
 					<div style="padding-left: 16px; padding-top: 10px;">
-						<h2> Contacto </h2>	
+						<h2> Contacto </h2>
 					</div>
 					<div style="padding-left: 16px; padding-top: 10px;">
 						<md-input-container class=" md-block" style="margin-bottom: 0px;">
-							<input ng-model="update_asset.stakeholders.name" type="text" placeholder="Nombre de contacto" >	
+							<input ng-model="update_asset.stakeholders.name" type="text" placeholder="Nombre de contacto" >
 						</md-input-container>
 
 						<md-input-container class=" md-block" style="margin-bottom: 0px;">
-							<input ng-model="update_asset.stakeholders.email" type="email" placeholder="Email de contacto" >	
-						</md-input-container>	
+							<input ng-model="update_asset.stakeholders.email" type="email" placeholder="Email de contacto" >
+						</md-input-container>
 					</div>
 
 					<md-divider></md-divider>
 					<div style="padding-left: 16px; padding-top: 10px;">
-						<h2> Informacion adjunta </h2>	
+						<h2> Informacion adjunta </h2>
 					</div>
 
 					<div layout="row" ng-repeat="link in update_asset.attached track by $index" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
 				    <!--{{ d.label}}-->
 
 					    <md-input-container  class=" md-block" style="padding-right: 6px;">
-					        
+
 					        <input ng-model="update_asset.attached[$index]" type="url" placeholder="https://" aria-label="lista">
 					    </md-input-container>
-					    
+
 					    <div layout-gt-sm="row" ng-if="update_asset.attached.length>1" >
-					      <md-button  aria-label="Quitar columna" ng-click="removeItem('',$parent.$index,$index)" style=" bottom: 14px;"> 
+					      <md-button  aria-label="Quitar columna" ng-click="removeItem('',$parent.$index,$index)" style=" bottom: 14px;">
 					        <md-icon md-font-set="material-icons">remove_circle</md-icon>
 					      </md-button>
 					    </div>
 
 					    <div layout-gt-sm="row" ng-if="$last"  >
-					      <md-button  aria-label="Añadir columna" ng-click="addItem()" style=" bottom: 14px;"> 
+					      <md-button  aria-label="Añadir columna" ng-click="addItem()" style=" bottom: 14px;">
 					        <md-icon md-font-set="material-icons">add_circle</md-icon>
 					      </md-button>
 					    </div>
@@ -118,48 +118,56 @@
 			<!--div ng-switch-when="2"-->
 			<div ng-show="etapa == 2">
 				<div layout="column"  style="padding-top: 18px; margin-left: 20px; ">
-				  
+
 				  <h1 class="md-display-2">Selección de estado actual</h1>
 
 				  <div layout="column" style="min-height: 82px;">
-				    
+
 				    <div layout="row" style="margin-top: 18px;">
-				      
+
 				      <md-input-container  class=" md-block" style="padding-right: 6px;">
 				          <md-icon md-font-set="material-icons" style="top: 0px;">panorama_fish_eye</md-icon>
-				          
+
 				          <div>
-				            <h3 style="padding-left: 30px;">Estado {{update_asset.estadoActual}}</h3>
+				            <h3 style="padding-left: 30px;">Estados posibles para {{update_asset.estadoActual}}</h3>
 				          </div>
-				          
-				          
+
+
 				      </md-input-container>
-				      
+
 				    </div>
 
-				    <div layout="row"  style="min-height: 82px;">
-				        
-				      <md-input-container style="left: 35px;">
+				    <div layout="row"  style="min-height: 82px;" ng-hide="asset_type.lifeCycle.length == 1 || asset_type.lifeCycle[indexEstadoActual].isFinal">
+
+				      <md-input-container style="left: 35px;" >
 				        <md-icon md-font-set="material-icons" >directions</md-icon>
-				      
-				        <md-select ng-model="siguienteEstado" ng-required="true"  aria-label="estado-actual">
+
+				        <md-select ng-model="siguienteEstado" ng-required="true"  aria-label="estado-actual" >
 				          <md-option ng-repeat="estado in asset_type.lifeCycle[indexEstadoActual].adjacents" value="{{estado}}" >
 				          <!--md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-disabled"$parent.$parent.$parent.$index === 1"-->
-				              Estado {{estado}}  
+				              Estado {{estado}}
 				          </md-option>
-				        </md-select>  
+				        </md-select>
 				      </md-input-container>
-				         
+
 				    </div>
 
+						<div layout="row"  style="min-height: 82px; margin-top: 18px;" ng-if="asset_type.lifeCycle.length == 1">
+              <p style="padding-left: 30px; padding-bottom: 10px;">  No existen transiciones de estados disponibles </p>
+            </div>
+
+						<div layout="row"  style="min-height: 82px; margin-top: 18px;" ng-if="asset_type.lifeCycle[indexEstadoActual].isFinal">
+              <p style="padding-left: 30px; padding-bottom: 10px;">  Este activo se encuentra en su estado final. No posee transiciones de estados disponibles </p>
+            </div>
+
 				  </div>
-				  
+
 				  <md-dialog-actions layout="row">
 				    <span flex></span>
 				    <md-button ng-click="prevSelect()">
 				        Atras
 				    </md-button>
-				    <md-button ng-click="updateAsset(update_asset)" ng-disabled="editar.$invalid">
+				    <md-button ng-click="updateAsset(update_asset)" ng-disabled="editar.$invalid && asset_type.lifeCycle.length != 1 && !asset_type.lifeCycle[indexEstadoActual].isFinal">
 					  Aplicar
 					</md-button>
 				    <md-button ng-click="cancel()" style="margin-right:10px;">
@@ -169,9 +177,9 @@
 				</div>
 
 				<div layout="column"  style="padding-top: 18px; margin-left: 20px; ">
-				  
+
 				</div>
-			</div> 
+			</div>
 		<!--/div-->
 	</form>
 </md-dialog>

@@ -382,9 +382,10 @@ angular.module('activosInformaticosApp')
               //$scope.nodes.push({ name:'', isInitial:false, isFinal:false, adjacents: [{ enlace: ''}], comment: '' });
               $scope.update_type.lifeCycle.push({ name:'', isInitial:false, isFinal:false, adjacents: [''], comment: '' });
 
-             /* for (i=0;i<n;i++) {
-                $scope.nodes_names[i].name = $scope.nodes[i].name;
-              }*/
+             if ($scope.update_type.lifeCycle[0].isFinal == true) {
+                $scope.update_type.lifeCycle[0].isFinal = false;
+                $scope.hayFinal = false;
+              }
         };
 
         $scope.removeNode = function(index) {
