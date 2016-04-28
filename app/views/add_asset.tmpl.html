@@ -1,17 +1,17 @@
 <md-dialog aria-label="Nuevo Activo" ng-cloak style="width: 1000px; height: 600px;">
 
-  <div layout="column" style=" height: 100%; width: 100%">
+  <!-- <div layout="column" style=" height: 100%; width: 100%"> -->
     <md-toolbar layout="row">
       <div class="md-toolbar-tools">
-        
+
         <h1>Tipos de Activos Informaticos &nbsp; </h1>
-        
+
       </div>
       <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
         <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
       </md-button>
     </md-toolbar>
-    
+
     <div layout="row" flex>
       <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style="min-width: 30% !important;">
         <md-input-container class="md-icon-float md-block" style="top: 20px;">
@@ -20,24 +20,24 @@
         <md-list ng-cloak>
           <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
           <md-list-item ng-repeat="type in assettypes | filter:buscado" ng-click="goToType(type, $event, $index)" ng-class="{'select-activo animated pulse': clickedIcon($index) }">
-            
+
             <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
             <p>{{ type.name }}</p>
-            
+
             <md-divider ng-if="!$last"></md-divider>
           </md-list-item>
         </md-list>
       </md-sidenav>
       <div layout="column" flex id="content">
-        <md-content layout="column" flex class="md-padding">   
+        <md-content layout="column" flex class="md-padding">
           <md-content>
               <md-tabs md-dynamic-height="" md-border-bottom="">
                 <md-tab label="Descripción">
                   <md-content class="md-padding">
                     <h1 class="md-display-2">Descripción</h1>
-                    
-                      {{sel_type.comment}}  
-                    
+
+                      {{sel_type.comment}}
+
                   </md-content>
                 </md-tab>
                 <md-tab label="Atributos">
@@ -45,7 +45,7 @@
                     <h1 class="md-display-2">Atributos</h1>
                     <md-list-item ng-repeat="atributo in sel_type.properties">
                       <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
-                      <strong style="padding-left: 20px; padding-bottom: 20px;"> Nombre: </strong>   
+                      <strong style="padding-left: 20px; padding-bottom: 20px;"> Nombre: </strong>
                       <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.name}} </p>
                       <strong style="padding-left: 20px; padding-bottom: 20px;"> Tipo: </strong>
                       <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.type}} </p>
@@ -58,7 +58,7 @@
                 <md-tab label="Ciclo de vida">
                   <md-content class="md-padding">
                     <h1 class="md-display-2">Ciclo de vida</h1>
-                    
+
                   </md-content>
                 </md-tab>
               </md-tabs>
@@ -75,6 +75,6 @@
         </md-dialog-actions>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 
 </md-dialog>

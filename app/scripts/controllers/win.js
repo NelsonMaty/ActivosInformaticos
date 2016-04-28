@@ -1,7 +1,7 @@
 
 angular.module('activosInformaticosApp')
   .controller('AppController', function ($scope, $mdDialog, $location, $mdMedia, $mdToast, dataFactory) {
-    //var vm = this;
+  
 
     $scope.toggleSidenav = function(menuId) {
     	//$mdSidenav(menuId).toggle();
@@ -40,18 +40,10 @@ angular.module('activosInformaticosApp')
     });
 
     dataFactory.getAssets( function (response) {
-      //console.log(response);
+
       $scope.myassets = response;
-      //console.log($scope.myassets);
 
     });
-
-    /*dataFactory.getRelations( function (response) {
-      //console.log(response);
-      $scope.myrelations = response;
-      //console.log($scope.myassets);
-
-    });*/
 
     $scope.searchRelations = function(id) {
       $scope.sourceAssetId = id;
@@ -977,7 +969,7 @@ angular.module('activosInformaticosApp')
 
           $scope.asset_type = response;
 
-          //console.log("generando campos formly");
+
 
           $scope.fields = [
             {
@@ -1022,7 +1014,7 @@ angular.module('activosInformaticosApp')
           ];
           atributos = $scope.asset_type.properties;
           for (var i=0; i<$scope.asset_type.properties.length;i++) {
-            //console.log(atributos[i].name);
+
 
             switch(atributos[i].type) {
               case 'Date':
@@ -1204,9 +1196,9 @@ angular.module('activosInformaticosApp')
                 break;
             }
             $scope.fields.push(aux);
-            //console.log(aux);
+
           }
-          //console.log($scope.listas);
+
 
           for (i=0; i<$scope.asset_type.lifeCycle.length;i++) {
             if ($scope.asset_type.lifeCycle[i].name == $scope.update_asset.estadoActual) {
@@ -1243,6 +1235,7 @@ angular.module('activosInformaticosApp')
               .cancel('Cancelar');
           $mdDialog.show(confirm)
             .then(function() {
+              //console.log(asset);
               $scope.updateAsset(asset);
 
             }, function() {
@@ -1256,7 +1249,7 @@ angular.module('activosInformaticosApp')
         }
 
         $scope.updateAsset = function (asset) {
-          console.log(asset);
+
           if ($scope.siguienteEstado) {
             if ($scope.asset_type.lifeCycle[$scope.indexEstadoActual].isFinal)
             {
@@ -1269,7 +1262,7 @@ angular.module('activosInformaticosApp')
           dataFactory.editAsset (function (){
               $mdDialog.hide(asset);
               $scope.myassets.splice(indice,1,asset);
-              //location.reload();
+
             }, asset, $mdDialog, $mdToast);
 
         };
@@ -1282,7 +1275,7 @@ angular.module('activosInformaticosApp')
         };
 
 
-        //keys = Object.keys(update_asset);
+
 
       };
 

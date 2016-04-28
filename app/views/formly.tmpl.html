@@ -1,101 +1,104 @@
 <md-dialog aria-label="Nuevo Activo" ng-cloak style="width: 800px; ">
-	<div style="overflow: auto">
+	<!-- <div style="overflow: auto"> -->
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
-	    
 	    <h1>Alta de Activo &nbsp; </h1>
-	    
 	  </div>
-	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
+
+		<md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
 	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
 	  </md-button>
 	</md-toolbar>
-	
-	<formly-form model="asset" fields="formly_fields" form="create_form">
-		
-		<div layout="column" ng-repeat="lista in listas" style="min-height: 82px;">
-		    <!--{{ d.label}}-->
-		    <md-divider></md-divider>
-		    <div style="padding-left: 16px; padding-top: 10px;">
-		    	<h2>Lista: {{lista.name}} </h2>	
-		    </div>
-		    
-		    <div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
-			    
-			    <md-input-container  class=" md-block" style="padding-right: 6px; ">
-			        <input ng-model="element.content" type="text" placeholder="" aria-label="lista" ng-required="lista.required">
-			    </md-input-container>
-			    
-			    <div layout-gt-sm="row" >
-			      <md-button  aria-label="Quitar columna" ng-click="removeItem('lista',$parent.$index,$index)" style=" bottom: 14px;"> 
-			        <md-icon md-font-set="material-icons">remove_circle</md-icon>
-			      </md-button>
-			    </div>
 
-			    <div layout-gt-sm="row" >
-			      <md-button  aria-label="Añadir columna" ng-click="addItem('lista',$parent.$index)" style=" bottom: 14px;"> 
-			        <md-icon md-font-set="material-icons">add_circle</md-icon>
-			      </md-button>
-			    </div>
+	<div style="overflow: auto">
+		<formly-form model="asset" fields="formly_fields" form="create_form">
+
+			<div layout="column" ng-repeat="lista in listas" style="min-height: 82px;">
+					<!--{{ d.label}}-->
+					<md-divider></md-divider>
+					<div style="padding-left: 16px; padding-top: 10px;">
+						<h2>Lista: {{lista.name}} </h2>
+					</div>
+
+					<div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
+
+						<md-input-container  class=" md-block" style="padding-right: 6px; ">
+								<input ng-model="element.content" type="text" placeholder="" aria-label="lista" ng-required="lista.required">
+						</md-input-container>
+
+						<div layout-gt-sm="row" >
+							<md-button  aria-label="Quitar columna" ng-click="removeItem('lista',$parent.$index,$index)" style=" bottom: 14px;">
+								<md-icon md-font-set="material-icons">remove_circle</md-icon>
+							</md-button>
+						</div>
+
+						<div layout-gt-sm="row" >
+							<md-button  aria-label="Añadir columna" ng-click="addItem('lista',$parent.$index)" style=" bottom: 14px;">
+								<md-icon md-font-set="material-icons">add_circle</md-icon>
+							</md-button>
+						</div>
+
+				</div>
+			</div>
+
+			<md-divider></md-divider>
+			<div style="padding-left: 16px; padding-top: 10px;">
+				<h2> Tags </h2>
+			</div>
+
+			<div style="padding-left: 16px; padding-top: 10px;">
+				<md-chips ng-model="asset.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
+			</div>
+
+			<md-divider></md-divider>
+			<div style="padding-left: 16px; padding-top: 10px;">
+				<h2> Contacto </h2>
+			</div>
+			<div style="padding-left: 16px; padding-top: 10px;">
+				<md-input-container class=" md-block" style="margin-bottom: 0px;">
+					<input ng-model="asset.stakeholders.name" type="text" placeholder="Nombre de contacto" >
+				</md-input-container>
+
+				<md-input-container class=" md-block" style="margin-bottom: 0px;">
+					<input ng-model="asset.stakeholders.email" type="email" placeholder="Email de contacto" >
+				</md-input-container>
+			</div>
+
+
+			<md-divider></md-divider>
+			<div style="padding-left: 16px; padding-top: 10px;">
+				<h2> Informacion adjunta </h2>
+			</div>
+
+			<div layout="row" ng-repeat="link in asset.attached track by $index" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
+					<!--{{ d.label}}-->
+
+					<md-input-container  class=" md-block" style="padding-right: 6px; ">
+
+							<input ng-model="asset.attached[$index]" type="url" placeholder="https://" aria-label="lista">
+					</md-input-container>
+
+					<div layout-gt-sm="row" ng-if="asset.attached.length>1" >
+						<md-button  aria-label="Quitar columna" ng-click="removeItem('',$index)" style=" bottom: 14px;">
+							<md-icon md-font-set="material-icons">remove_circle</md-icon>
+						</md-button>
+					</div>
+
+					<div layout-gt-sm="row"   >
+						<md-button  aria-label="Añadir columna" ng-click="addItem('')" style=" bottom: 14px;">
+							<md-icon md-font-set="material-icons">add_circle</md-icon>
+						</md-button>
+					</div>
 
 			</div>
-		</div>
 
-		<md-divider></md-divider>
-		<div style="padding-left: 16px; padding-top: 10px;">
-			<h2> Tags </h2>	
-		</div>
-		
-		<div style="padding-left: 16px; padding-top: 10px;">
-			<md-chips ng-model="asset.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>	
-		</div>
-
-		<md-divider></md-divider>
-		<div style="padding-left: 16px; padding-top: 10px;">
-			<h2> Contacto </h2>	
-		</div>
-		<div style="padding-left: 16px; padding-top: 10px;">
-			<md-input-container class=" md-block" style="margin-bottom: 0px;">
-				<input ng-model="asset.stakeholders.name" type="text" placeholder="Nombre de contacto" >	
-			</md-input-container>
-
-			<md-input-container class=" md-block" style="margin-bottom: 0px;">
-				<input ng-model="asset.stakeholders.email" type="email" placeholder="Email de contacto" >	
-			</md-input-container>	
-		</div>
-		
-
-		<md-divider></md-divider>
-		<div style="padding-left: 16px; padding-top: 10px;">
-			<h2> Informacion adjunta </h2>	
-		</div>
-		
-		<div layout="row" ng-repeat="link in asset.attached track by $index" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
-		    <!--{{ d.label}}-->
-
-		    <md-input-container  class=" md-block" style="padding-right: 6px; ">
-		        
-		        <input ng-model="asset.attached[$index]" type="url" placeholder="https://" aria-label="lista">
-		    </md-input-container>
-		    
-		    <div layout-gt-sm="row" ng-if="asset.attached.length>1" >
-		      <md-button  aria-label="Quitar columna" ng-click="removeItem('',$index)" style=" bottom: 14px;"> 
-		        <md-icon md-font-set="material-icons">remove_circle</md-icon>
-		      </md-button>
-		    </div>
-
-		    <div layout-gt-sm="row"   >
-		      <md-button  aria-label="Añadir columna" ng-click="addItem('')" style=" bottom: 14px;"> 
-		        <md-icon md-font-set="material-icons">add_circle</md-icon>
-		      </md-button>
-		    </div>
-
-		</div>
+		</formly-form>
+	</div>
 
 
+	<md-dialog-actions layout="row">
 		<md-button ng-click="newAsset(asset)" ng-disabled="create_form.$invalid" >Crear</md-button>
 		<md-button ng-click="cancel()" >Cancelar</md-button>
-		
-	</formly-form>
-	</div>
+	</md-dialog-actions>
+	<!-- </div> -->
 </md-dialog>
