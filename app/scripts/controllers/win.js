@@ -1,7 +1,7 @@
 
 angular.module('activosInformaticosApp')
   .controller('AppController', function ($scope, $mdDialog, $location, $mdMedia, $mdToast, dataFactory) {
-  
+
 
     $scope.toggleSidenav = function(menuId) {
     	//$mdSidenav(menuId).toggle();
@@ -522,6 +522,7 @@ angular.module('activosInformaticosApp')
 
         $scope.keys.splice($scope.keys.indexOf("name"),1);
         $scope.keys.splice($scope.keys.indexOf("tags"),1);
+        $scope.keys.splice($scope.keys.indexOf("estadoActual"),1);
         $scope.keys.splice($scope.keys.indexOf("stakeholders"),1);
         $scope.keys.splice($scope.keys.indexOf("comment"),1);
         $scope.keys.splice($scope.keys.indexOf("$$hashKey"),1);
@@ -931,15 +932,18 @@ angular.module('activosInformaticosApp')
         $scope.update_asset = $.extend(true,{},asset);
         $scope.indexEstadoActual = null;
         $scope.estadoFinal = null;
+        $scope.estadoInicial = null;
         $scope.myassets = myassets;
         $scope.deleteAsset = deleteAsset;
         $scope.etapa = 1;
         $scope.siguienteEstado = null;
+        $scope.estadoInexistente = true;
         $scope.indice = indice;
         $scope.asset_type = {};
         $scope.listas = [];
-        $scope.adjuntos = [];
-        $scope.adjuntos = $.extend([],asset.attached);
+        $scope.volverInicial = false;
+        //$scope.adjuntos = [];
+        //$scope.adjuntos = $.extend([],asset.attached);
 
 
         $scope.addItem = function(answer,parent_index) {
@@ -959,6 +963,8 @@ angular.module('activosInformaticosApp')
               $scope.listas[parent_index].elements.splice(index,1);
             }
           } else {
+            //console.log(index);
+            //console.log($scope.update_asset.attached);
             $scope.update_asset.attached.splice(index,1);
           }
               //$scope.adjuntos.splice(index,1);
@@ -1203,9 +1209,13 @@ angular.module('activosInformaticosApp')
           for (i=0; i<$scope.asset_type.lifeCycle.length;i++) {
             if ($scope.asset_type.lifeCycle[i].name == $scope.update_asset.estadoActual) {
               $scope.indexEstadoActual = i;
+              $scope.estadoInexistente = false;
             }
             if ($scope.asset_type.lifeCycle[i].isFinal) {
               $scope.estadoFinal = $scope.asset_type.lifeCycle[i].name;
+            }
+            if ($scope.asset_type.lifeCycle[i].isInitial) {
+              $scope.estadoInicial = $scope.asset_type.lifeCycle[i].name;
             }
           }
         });
@@ -1257,6 +1267,10 @@ angular.module('activosInformaticosApp')
             } else {
                 asset.estadoActual = $scope.siguienteEstado;
             }
+          }
+
+          if ($scope.volverInicial) {
+            asset.estadoActual = $scope.estadoInicial;
           }
 
           dataFactory.editAsset (function (){

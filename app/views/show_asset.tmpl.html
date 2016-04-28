@@ -28,9 +28,14 @@
 	        <p style="padding-left: 20px; padding-bottom: 20px;">{{asset[key]}} </p>
 
 	    </md-list-item>
+			<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
+	    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">settings_input_component</md-icon>
+	    	<strong style="padding-left: 20px;">Estado actual: </strong>
+	    	<p style="padding-left: 20px; ">{{asset.estadoActual}}</p>
+	    </div>
 
 	    <div layout="column" ng-repeat="lista in listas" style=" overflow: auto;">
-			    <!--{{ d.label}}-->
+
 			    <md-divider></md-divider>
 			    <!--div style="padding-left: 16px; padding-top: 10px;"-->
 			    	<h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>

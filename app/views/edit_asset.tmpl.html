@@ -76,7 +76,7 @@
 						</div>
 
 						<div layout="row" ng-repeat="link in update_asset.attached track by $index" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
-					    <!--{{ d.label}}-->
+
 
 						    <md-input-container  class=" md-block" style="padding-right: 6px;">
 
@@ -85,7 +85,7 @@
 
 						    <div layout-gt-sm="row" ng-if="update_asset.attached.length>1" >
 						      <md-button  aria-label="Quitar columna" ng-click="removeItem('',$parent.$index,$index)" style=" bottom: 14px;">
-						        <md-icon md-font-set="material-icons">remove_circle</md-icon>
+									  <md-icon md-font-set="material-icons">remove_circle</md-icon>
 						      </md-button>
 						    </div>
 
@@ -138,7 +138,11 @@
 
 				    </div>
 
-				    <div layout="row"  style="min-height: 82px;" ng-hide="asset_type.lifeCycle.length == 1 || asset_type.lifeCycle[indexEstadoActual].isFinal">
+						<div layout="row"  style="min-height: 82px; margin-top: 18px;" ng-show="estadoInexistente">
+              <p style="padding-left: 30px; padding-bottom: 10px;"> Su estado actual ya no existe. Puede mantenerlo o volver a su estado inicial </p>
+            </div>
+
+				    <div layout="row"  style="min-height: 82px;" ng-hide="asset_type.lifeCycle.length == 1 || asset_type.lifeCycle[indexEstadoActual].isFinal || estadoInexistente">
 
 				      <md-input-container style="left: 35px;" >
 				        <md-icon md-font-set="material-icons" >directions</md-icon>
@@ -153,16 +157,23 @@
 
 				    </div>
 
+						<div style="min-height: 82px; margin-top: 18px; padding-left: 30px;" ng-show="estadoInexistente">
+							<label>Volver a estado inicial</label>
+							<md-checkbox ng-model="volverInicial" aria-label="Checkbox 1">
+
+							</md-checkbox>
+						</div>
+
 						<div layout="row"  style="min-height: 82px; margin-top: 18px;" ng-show="asset_type.lifeCycle.length == 1">
-              <p style="padding-left: 30px; padding-bottom: 10px;">  No existen transiciones de estados disponibles </p>
+              <p style="padding-left: 30px; padding-bottom: 10px;">  No existen transiciones de estados disponibles. </p>
             </div>
 
 						<div layout="row"  style="min-height: 82px; margin-top: 18px;" ng-show="asset_type.lifeCycle[indexEstadoActual].isFinal">
-              <p style="padding-left: 30px; padding-bottom: 10px;">  Este activo se encuentra en su estado final. No posee transiciones de estados disponibles </p>
+              <p style="padding-left: 30px; padding-bottom: 10px;">  Este activo se encuentra en su estado final. No posee transiciones de estados disponibles. </p>
             </div>
 
 						<div layout="row"  style="min-height: 82px; margin-top: 18px;">
-              <p style="padding-left: 30px; padding-bottom: 10px;">  Para continuar sin cambiar de estado, presione "Aplicar" </p>
+              <p style="padding-left: 30px; padding-bottom: 10px;">  Para continuar sin cambiar de estado, presione "Aplicar". </p>
             </div>
 
 				  </div>

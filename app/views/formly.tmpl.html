@@ -71,20 +71,18 @@
 			</div>
 
 			<div layout="row" ng-repeat="link in asset.attached track by $index" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
-					<!--{{ d.label}}-->
 
 					<md-input-container  class=" md-block" style="padding-right: 6px; ">
-
 							<input ng-model="asset.attached[$index]" type="url" placeholder="https://" aria-label="lista">
 					</md-input-container>
 
 					<div layout-gt-sm="row" ng-if="asset.attached.length>1" >
-						<md-button  aria-label="Quitar columna" ng-click="removeItem('',$index)" style=" bottom: 14px;">
+						<md-button  aria-label="Quitar columna" ng-click="removeItem('',$parent.$index,$index)" style=" bottom: 14px;">
 							<md-icon md-font-set="material-icons">remove_circle</md-icon>
 						</md-button>
 					</div>
 
-					<div layout-gt-sm="row"   >
+					<div layout-gt-sm="row" ng-if="$last">
 						<md-button  aria-label="Añadir columna" ng-click="addItem('')" style=" bottom: 14px;">
 							<md-icon md-font-set="material-icons">add_circle</md-icon>
 						</md-button>
