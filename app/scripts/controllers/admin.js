@@ -176,6 +176,99 @@ angular.module('activosInformaticosApp')
       };
 
 
+    //------Relation Types-------//
+
+      $scope.showAddRelationType = function(ev) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          $mdDialog.show({
+
+            controller: AddRelationTypeCtrl,
+            templateUrl: '../../views/add_relation_type.tmpl.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:false,
+            fullscreen: useFullScreen
+          })
+          .then(function(answer) {
+            //$scope.status = 'Hiciste click en "' + answer + '".';
+            if (answer) {
+              console.log(answer);
+              $scope.relationtypes.push(answer);
+            }
+
+          }) //function() {
+
+        };
+
+      $scope.editRelationType = function (ev,type,$index) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+            console.log($index);
+            $mdDialog.show({
+              locals: {
+                type: type,
+                indice: $index
+              },
+              controller: EditRelationTypeCtrl,
+              templateUrl: '../../views/edit_relation_type.tmpl.html',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:false,
+              fullscreen: useFullScreen
+            })
+              .then(function(type) {
+                //$scope.status = 'Hiciste click en "' + answer + '".';
+                //console.log($index);
+                if (type) {
+                  //console.log("edito");
+                  $scope.relationtypes[$index] = type;
+                }
+              }, function() {
+
+              });
+        };
+
+      $scope.goToRelationType = function(type,ev,$index) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          $mdDialog.show({
+            locals: {
+              type: type,
+              indice: $index,
+              editRelationType: $scope.editRelationType
+            },
+            controller: ShowRelationTypeCtrl,
+            templateUrl: '../../views/show_relation_type.tmpl.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:false,
+            fullscreen: useFullScreen
+          })
+          .then(function(answer) {
+            //$scope.status = 'Hiciste click en "' + answer + '".';
+
+
+          }) //function() {
+
+        };
+
+      $scope.deleteRelationType = function(type, ev, indice) {
+          //console.log(person);
+          var confirm = $mdDialog.confirm()
+              .title('¿Está seguro que desea borrar este tipo de relacion?')
+              //.textContent('All of the banks have agreed to forgive you your debts.')
+              .ariaLabel('Borrado de tipo de relacion')
+              .targetEvent(ev)
+              .ok('Aceptar')
+              .cancel('Cancelar');
+          $mdDialog.show(confirm)
+            .then(function() {
+              dataFactory.deleteRelationType(type,$mdDialog,$mdToast);
+              $scope.relationtypes.splice(indice,1);
+              //$scope.status = 'El usuario fue borrado';
+            }, function() {
+              $scope.status = 'No se realizaron cambios';
+            });
+        };
+
     //----------Controllers----------//
 
       function ShowTypeCtrl(type, editAssetType, indice, $scope, $mdDialog, $mdToast){
@@ -515,6 +608,75 @@ angular.module('activosInformaticosApp')
 
               //location.reload();
             }, user, $mdDialog, $mdToast);
+          } else {
+            $mdDialog.hide(null);
+          }
+        };
+      };
+
+      function ShowRelationTypeCtrl(type, editRelationType, indice, $scope, $mdDialog, $mdToast){
+        $scope.relationType = type;
+        $scope.indice = indice;
+        $scope.editAssetType = editAssetType;
+        $scope.ev = {};
+        //$scope.atributos = type.properties;
+
+
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+      };
+
+      function AddRelationTypeCtrl($scope, $mdDialog, $mdToast) {
+
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+        $scope.answer = function(answer, type) {
+
+          if ( answer == 'Aceptar') {
+            dataFactory.createRelationType( function (){
+              $mdDialog.hide(type);
+            }, type, $mdDialog, $mdToast);
+          }
+          else {
+            $mdDialog.hide(null);
+          }
+
+        };
+      };
+
+      function EditRelationTypeCtrl(type, borrar,indice, $scope, $mdDialog, $mdToast) {
+
+        $scope.update_relationType = $.extend({},type);
+        $scope.borrar = borrar;
+        $scope.indice = indice;
+
+        $scope.callDel = function (indice) {
+          ev = {};
+          borrar(type,ev,indice);
+        }
+
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+        $scope.answer = function(answer, type) {
+          //console.log(user);
+          if (  answer == 'Editar') {
+            dataFactory.editRelationType( function (){
+              $mdDialog.hide(type);
+
+              //location.reload();
+            }, type, $mdDialog, $mdToast);
           } else {
             $mdDialog.hide(null);
           }

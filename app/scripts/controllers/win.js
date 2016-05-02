@@ -1021,9 +1021,10 @@ angular.module('activosInformaticosApp')
           atributos = $scope.asset_type.properties;
           for (var i=0; i<$scope.asset_type.properties.length;i++) {
 
-
             switch(atributos[i].type) {
               case 'Date':
+                //var fecha = Date.parse($scope.update_asset[atributos[i].name]);
+                //$scope.update_asset[atributos[i].name] = fecha;
                 $scope.update_asset[atributos[i].name] = '';
                 if (atributos[i].required == true) {
                   aux = {
