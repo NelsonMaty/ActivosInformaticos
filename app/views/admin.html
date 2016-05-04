@@ -6,7 +6,7 @@
       <md-button class="md-icon-button" aria-label="Menu">
           <md-icon md-font-set="material-icons">menu</md-icon>
       </md-button>
-       
+
       <span flex=""></span>
       <md-button class="md-icon-button" aria-label="Busqueda">
         <md-icon md-font-set="material-icons">search</md-icon>
@@ -27,31 +27,31 @@
         <!--This Starter Application consists of a Toolbar, SideNav (with two buttons), and Content area.
         <p>Acá van las pestañas! </p-->
 
-        
+
           <md-content>
             <md-tabs md-dynamic-height="" md-border-bottom="">
               <md-tab label="Usuarios">
-                <md-content class="md-padding">   
+                <md-content class="md-padding">
                   <h1 class="md-display-2">Usuarios</h1>
                   <md-list ng-cloak>
                     <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
-                    <md-list-item ng-repeat="person in people" ng-click="goToPerson(person, $event)">
-                    
+                    <md-list-item ng-repeat="person in people" >
+
                       <md-icon md-font-set="material-icons">account_circle</md-icon>
                       <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
                       <p>{{ person.name }}</p>
-                      
+
                       <md-icon md-font-set="material-icons" ng-click="doEditar(person, $event, $index)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}">edit</md-icon>
                       <md-divider ng-if="!$last"></md-divider>
                     </md-list-item>
                   </md-list>
                 </md-content>
               </md-tab>
-              
-              <md-tab label="Tipos de activos">
+
+              <md-tab label="Tipos de activo">
                 <md-content class="md-padding">
-                  <h1 class="md-display-2">Tipos de activos</h1>
-                  
+                  <h1 class="md-display-2">Tipos de activo</h1>
+
                   <md-list ng-cloak>
                     <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
                     <md-list-item ng-repeat="type in assettypes" ng-click="goToType(type, $event,$index)">
@@ -62,13 +62,22 @@
                       <md-divider ng-if="!$last"></md-divider>
                     </md-list-item>
                   </md-list>
-                  
+
                 </md-content>
               </md-tab>
-              <md-tab label="Mapa">
+              <md-tab label="Tipos de relacion">
                 <md-content class="md-padding">
-                  <h1 class="md-display-2">Mapa</h1>
+                  <h1 class="md-display-2">Tipos de relacion</h1>
+                  <md-list ng-cloak>
                   
+                    <md-list-item ng-repeat="relType in relationtypes" ng-click="goToRelationType(reltype, $event,$index)">
+                      <md-icon md-font-set="material-icons">link</md-icon>
+
+                      <p>{{ relType.name }}</p>
+                      <md-icon md-font-set="material-icons" ng-click="editRelationType($event, relType, $index)" aria-label="Open Chat" class="md-secondary md-hue-3">edit</md-icon>
+                      <md-divider ng-if="!$last"></md-divider>
+                    </md-list-item>
+                  </md-list>
                 </md-content>
               </md-tab>
             </md-tabs>
@@ -76,24 +85,21 @@
 
           <ul mfb-menu menu-state="myVar" position="br" effect="slidein" active-icon="ion-close" resting-icon="ion-plus" toggling-method="click" >
             <a mfb-button mfb-button-close icon="ion-android-list" label="Nuevo tipo de activo" ng-click="showAddAssetType($event)" >  </a>
-            <a mfb-button mfb-button-close icon="ion-ios-people" label="Nuevo grupo" ng-click="showAddGroup($event)" >  </a>
+            <!-- <a mfb-button mfb-button-close icon="ion-ios-people" label="Nuevo grupo" ng-click="showAddGroup($event)" >  </a> -->
             <a mfb-button mfb-button-close icon="ion-ios-personadd" label="Nuevo usuario" ng-click="showAddUser($event)" >  </a>
           </ul>
 
           {{status}}
 
         </div>
-        
+
 
       </md-content>
-      
+
 
   </div>
 
-  
+
   <!-- Angular Material Dependencies -->
 
 </div>
-
-
-
