@@ -14,7 +14,7 @@
 
       <div ng-switch-when="1">
         <md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
-          <div >
+          <div style="width: 500px;">
             <md-input-container class=" md-block" >
 
               <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
@@ -25,7 +25,7 @@
 
 
           </div>
-          <div>
+          <div style="width: 500px;">
             <md-input-container class=" md-block" >
 
               <md-icon md-font-set="material-icons" class="comments" aria-label="Comentarios">comment</md-icon>
@@ -92,6 +92,10 @@
 
             <h1 class="md-display-2">Ciclo de vida</h1>
 
+            <div layout="row"  style="min-height: 82px; margin-top: 18px;">
+              <p style="padding-left: 30px; padding-bottom: 10px; padding-right: 30px;"> Agregue o edite los estados posibles para su tipo de activo </p>
+            </div>
+
             <div layout="column" ng-repeat="nodo in update_type.lifeCycle" style="min-height: 82px;">
 
               <div layout="row" style="margin-top: 18px;">
@@ -102,6 +106,10 @@
 
                     <div ng-messages="{'duplicados': nombreDuplicado}" >
                       <div ng-message="duplicados" style="opacity: 1 !important; margin-top: 0px;"> No pueden existir dos o más estados con el mismo nombre </div>
+                    </div>
+
+                    <div ng-messages="{'nofinal': !hayFinal}" >
+                      <div ng-message="nofinal" style="opacity: 1 !important; margin-top: 0px;"> Debe existir al menos un estado final </div>
                     </div>
 
                 </md-input-container>
@@ -154,6 +162,10 @@
           <div layout="column"  style="padding-top: 18px; margin-left: 20px; ">
 
             <h1 class="md-display-2">Transición de estados</h1>
+
+            <div layout="row"  style="min-height: 82px; margin-top: 18px;">
+              <p style="padding-left: 30px; padding-bottom: 10px; padding-right: 30px;"> Elija los estados destino para cada estado del ciclo </p>
+            </div>
 
             <div ng-if="update_type.lifeCycle.length == 1" style="margin-top: 18px;">
               <p style="padding-left: 30px; padding-bottom: 10px;">  No existen transiciones de estados disponibles </p>
