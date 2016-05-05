@@ -15,6 +15,11 @@ angular.module('activosInformaticosApp')
 
     });
 
+    dataFactory.getRelationTypes( function (response) {
+      $scope.relationtypes = response;
+
+    });
+
     $scope.toggleSidenav = function(menuId) {
       //$mdSidenav(menuId).toggle();
     };
@@ -202,10 +207,11 @@ angular.module('activosInformaticosApp')
 
       $scope.editRelationType = function (ev,type,$index) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-            console.log($index);
+            //console.log($index);
             $mdDialog.show({
               locals: {
                 type: type,
+                borrar: $scope.deleteRelationType,
                 indice: $index
               },
               controller: EditRelationTypeCtrl,
@@ -617,7 +623,7 @@ angular.module('activosInformaticosApp')
       function ShowRelationTypeCtrl(type, editRelationType, indice, $scope, $mdDialog, $mdToast){
         $scope.relationType = type;
         $scope.indice = indice;
-        $scope.editAssetType = editAssetType;
+        $scope.editRelationType = editRelationType;
         $scope.ev = {};
         //$scope.atributos = type.properties;
 

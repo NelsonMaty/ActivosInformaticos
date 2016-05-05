@@ -69,7 +69,7 @@
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Tipos de relacion</h1>
                   <md-list ng-cloak>
-                  
+
                     <md-list-item ng-repeat="relType in relationtypes" ng-click="goToRelationType(reltype, $event,$index)">
                       <md-icon md-font-set="material-icons">link</md-icon>
 
@@ -85,7 +85,7 @@
 
           <ul mfb-menu menu-state="myVar" position="br" effect="slidein" active-icon="ion-close" resting-icon="ion-plus" toggling-method="click" >
             <a mfb-button mfb-button-close icon="ion-android-list" label="Nuevo tipo de activo" ng-click="showAddAssetType($event)" >  </a>
-            <!-- <a mfb-button mfb-button-close icon="ion-ios-people" label="Nuevo grupo" ng-click="showAddGroup($event)" >  </a> -->
+            <a mfb-button mfb-button-close icon="ion-link" label="Nuevo tipo de relación" ng-click="showAddRelationType($event)" >  </a>
             <a mfb-button mfb-button-close icon="ion-ios-personadd" label="Nuevo usuario" ng-click="showAddUser($event)" >  </a>
           </ul>
 

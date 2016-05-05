@@ -91,7 +91,7 @@ angular
 
         };
 
-    
+
     //----------Types---------//
 
       dataFactory.getAssetTypes = function(callback){
@@ -207,7 +207,7 @@ angular
           },function(err){
             console.log(err);
         });
-      
+
       };
 
       dataFactory.createUser = function(callback,user,$mdDialog,$mdToast){
@@ -331,17 +331,17 @@ angular
           },function(err){
             console.log(err);
         });
-      
+
       };
 
       dataFactory.createAsset = function(callback,asset,$mdDialog,$mdToast){
         //console.log(asset);
-        
+
         $http({
           method:"post",
           url:urlWS + 'assets',
           data: asset
-          
+
 
         })
           .success(function(data){
@@ -375,7 +375,7 @@ angular
           method:"put",
           url:urlWS + 'assets/' + asset._id,
           data: asset
-          
+
 
         })
           .success(function(data){
@@ -448,7 +448,7 @@ angular
           },function(err){
             console.log(err);
         });
-      
+
       };
 
 
@@ -463,17 +463,17 @@ angular
           },function(err){
             console.log(err);
         });
-      
+
       };
 
       dataFactory.createRelation = function(callback,relation,added,$mdDialog,$mdToast){
         console.log(relation);
-        
+
         $http({
           method:"post",
           url:urlWS + 'assets/' + added[0]._id + '/relations',
           data: relation
-          
+
 
         })
           .success(function(data){
@@ -507,7 +507,7 @@ angular
           method:"put",
           url:urlWS + 'assets/' + sourceId + '/relations/' + relation._id,
           data: relation
-          
+
 
         })
           .success(function(data){
@@ -571,6 +571,128 @@ angular
 
       };
 
+    //-------relationtypes-------//
+
+    dataFactory.getRelationTypes = function(callback){
+
+      $http.get(urlWS + 'users')
+        .then(function(response){
+          //console.log(response);
+          callback(response.data);
+        },function(err){
+          console.log(err);
+      });
+
+    };
+
+    dataFactory.createRelationType = function(callback,type,$mdDialog,$mdToast){
+      //console.log(user);
+
+      $http({
+        method:"post",
+        url:urlWS + 'users',
+        data: {
+            "name":type.name,
+            "comment":type.comment
+        }
+
+      })
+        .success(function(data){
+          //alert("El usuario fue creado con éxito");
+          $mdToast.show(
+            $mdToast.simple()
+              .content('Se ha creado el tipo de relación ' + user.name )
+              .position('top right')
+              .hideDelay(3000)
+          );
+
+          callback();
+      })
+        .error(function(err){
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo crear el tipo de relación')
+              .position('top right')
+              .hideDelay(3000)
+          );
+      });
+
+    };
+
+    dataFactory.editRelationType = function(callback,type,$mdDialog,$mdToast){
+      //console.log(user);
+
+      $http({
+        method:"put",
+        url:urlWS + 'users/' + user._id,
+        data: {
+            "name":type.name,
+            "comment":type.comment
+        }
+
+      })
+        .success(function(data){
+          //alert("El usuario fue creado con éxito");
+          $mdToast.show(
+            $mdToast.simple()
+              .content('Se ha modificado el tipo de relación ' + user.name )
+              .position('top right')
+              .hideDelay(3000)
+          );
+
+          callback();
+      })
+        .error(function(err){
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo modificar el tipo de relación')
+              .position('top right')
+              .hideDelay(3000)
+          );
+      });
+
+    };
+
+    dataFactory.deleteRelationType = function(type,$mdDialog,$mdToast){
+      //console.log(person);
+
+      $http({
+        method:"delete",
+        url:urlWS + 'users/' + type._id,
+        /*data: {
+            "name":user.name,
+            "comment":user.comment
+        }*/
+
+      })
+        .success(function(data){
+          //alert("El usuario fue creado con éxito");
+          $mdToast.show(
+            $mdToast.simple()
+              //.content('Se ha eliminado el usuario ' + data.name + ' de la base de datos')
+              .content(data.message)
+              .position('top right')
+              .hideDelay(3000)
+          );
+
+          //callback();
+      })
+        .error(function(err){
+          console.log(err);
+
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo borrar el tipo de relación')
+              .position('top right')
+              .hideDelay(3000)
+          );
+      });
+
+    };
 
 
     return dataFactory;
