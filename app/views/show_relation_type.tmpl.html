@@ -1,0 +1,33 @@
+<md-dialog aria-label="Editar tipo relacion" ng-cloak style="width: 800px; ">
+	<md-toolbar layout="row">
+	  <div class="md-toolbar-tools">
+
+	    <h1> {{relationType.name}}  &nbsp; </h1>
+
+	  </div>
+
+      <md-button class="md-icon-button" style="top: 7px;" ng-click="editRelationType($event,relationType,indice)">
+      	<md-tooltip md-direction="bottom"> Editar </md-tooltip>
+	    <md-icon md-font-set="material-icons" aria-label="Edit asset">edit</md-icon>
+	  </md-button>
+
+	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
+	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+	  </md-button>
+	</md-toolbar>
+	<form >
+
+		<h1 class="md-display-2" style="padding-left: 20px;">Comentarios</h1>
+	    <p style="padding-left: 20px; padding-bottom: 20px;"> {{relationType.comment}} </p>
+
+
+		<md-dialog-actions layout="row">
+			<md-button ng-click="hide()">
+			  Aceptar
+			</md-button>
+
+
+		</md-dialog-actions>
+
+	</form>
+</md-dialog>
