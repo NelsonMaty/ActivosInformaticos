@@ -1,5 +1,5 @@
-<md-dialog aria-label="Nuevo Usuario" ng-cloak style="width: 340px; height: 300px;">
-  <form>
+<md-dialog aria-label="Nuevo Usuario" ng-cloak style="min-width: 340px; min-height: 300px;">
+  <form name="relationTypeForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Nuevo tipo de relacion</h2>
@@ -12,9 +12,12 @@
 
     <md-content style="padding-top: 20px; top: 10px; margin-left: 20px; width: 290px;">
       <md-input-container class="md-icon-float md-block">
-
         <md-icon md-font-set="material-icons" class="email">link</md-icon>
         <input ng-model="relationType.name" type="text" placeholder="*Nombre" ng-required="true">
+      </md-input-container>
+      <md-input-container class="md-icon-float md-block">
+        <md-icon md-font-set="material-icons" class="email">link</md-icon>
+        <input ng-model="relationType.counterRelation" type="text" placeholder="*Contra relación" ng-required="true">
       </md-input-container>
 
       <md-input-container class="md-block">
@@ -25,7 +28,7 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer('Aceptar', relation)">
+      <md-button ng-click="answer('Aceptar', relationType)" ng-disabled="relationTypeForm.$invalid">
         Aceptar
       </md-button>
       <md-button ng-click="cancel()" style="margin-right:20px;">

@@ -575,7 +575,7 @@ angular
 
     dataFactory.getRelationTypes = function(callback){
 
-      $http.get(urlWS + 'users')
+      $http.get(urlWS + 'relationTypes')
         .then(function(response){
           //console.log(response);
           callback(response.data);
@@ -590,10 +590,12 @@ angular
 
       $http({
         method:"post",
-        url:urlWS + 'users',
+        url:urlWS + 'relationTypes',
         data: {
             "name":type.name,
-            "comment":type.comment
+            "comment":type.comment,
+            "counterRelation":type.counterRelation
+
         }
 
       })
@@ -601,7 +603,7 @@ angular
           //alert("El usuario fue creado con éxito");
           $mdToast.show(
             $mdToast.simple()
-              .content('Se ha creado el tipo de relación ' + user.name )
+              .content('Se ha creado el tipo de relación ' + type.name )
               .position('top right')
               .hideDelay(3000)
           );
@@ -626,10 +628,11 @@ angular
 
       $http({
         method:"put",
-        url:urlWS + 'users/' + user._id,
+        url:urlWS + 'relationTypes/' + type._id,
         data: {
             "name":type.name,
-            "comment":type.comment
+            "comment":type.comment,
+            "counterRelation":type.counterRelation
         }
 
       })
@@ -637,7 +640,7 @@ angular
           //alert("El usuario fue creado con éxito");
           $mdToast.show(
             $mdToast.simple()
-              .content('Se ha modificado el tipo de relación ' + user.name )
+              .content('Se ha modificado el tipo de relación ' + type.name )
               .position('top right')
               .hideDelay(3000)
           );
@@ -662,7 +665,7 @@ angular
 
       $http({
         method:"delete",
-        url:urlWS + 'users/' + type._id,
+        url:urlWS + 'relationTypes/' + type._id,
         /*data: {
             "name":user.name,
             "comment":user.comment

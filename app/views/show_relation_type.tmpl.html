@@ -2,7 +2,7 @@
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
 
-	    <h1> {{relationType.name}}  &nbsp; </h1>
+	    <h1> Tipo de relación: {{relationType.name}}  &nbsp; </h1>
 
 	  </div>
 
@@ -18,8 +18,10 @@
 	<form >
 
 		<h1 class="md-display-2" style="padding-left: 20px;">Comentarios</h1>
-	    <p style="padding-left: 20px; padding-bottom: 20px;"> {{relationType.comment}} </p>
-
+	  <p style="padding-left: 40px; padding-bottom: 40px;"> {{relationType.comment}} </p>
+		<md-divider></md-divider>
+		<h1 class="md-display-2" style="padding-left: 20px;">Relación contraria</h1>
+		<p style="padding-left: 40px; padding-bottom: 40px;"> {{relationType.counterRelation}} </p>
 
 		<md-dialog-actions layout="row">
 			<md-button ng-click="hide()">

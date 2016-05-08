@@ -1,5 +1,5 @@
-<md-dialog aria-label="Editar Usuario" ng-cloak style="width: 340px; height: 300px;">
-  <form>
+<md-dialog aria-label="Editar Usuario" ng-cloak style="min-width: 340px; min-height: 300px;">
+  <form name="relationTypeForm">
   <!--form-->
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -15,9 +15,13 @@
 
       <md-input-container class="md-icon-float md-block">
         <md-icon md-font-set="material-icons">link</md-icon>
-        <input ng-model="update_relationType.name" type="text" placeholder="Nombre" />
+        <input ng-model="update_relationType.name" type="text" placeholder="Nombre" ng-required="true" />
       </md-input-container>
 
+      <md-input-container class="md-icon-float md-block">
+        <md-icon md-font-set="material-icons">link</md-icon>
+        <input ng-model="update_relationType.counterRelation" type="text" placeholder="Contra relación" ng-required="true"/>
+      </md-input-container>
 
       <md-input-container class="md-block">
           <!-- Use floating placeholder instead of label -->
@@ -28,7 +32,7 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer('Editar', update_relationType)">
+      <md-button ng-click="answer('Editar', update_relationType)" ng-disabled="relationTypeForm.$invalid">
         Aceptar
       </md-button>
       <md-button ng-click="cancel()" style="margin-right:20px;">
