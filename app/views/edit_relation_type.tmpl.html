@@ -15,12 +15,16 @@
 
       <md-input-container class="md-icon-float md-block">
         <md-icon md-font-set="material-icons">link</md-icon>
-        <input ng-model="update_relationType.name" type="text" placeholder="Nombre" ng-required="true" />
+        <input ng-model="update_relationType._id" type="text" placeholder="Nombre" ng-required="true" ng-disabled="true" />
       </md-input-container>
 
       <md-input-container class="md-icon-float md-block">
-        <md-icon md-font-set="material-icons">link</md-icon>
-        <input ng-model="update_relationType.counterRelation" type="text" placeholder="Contra relación" ng-required="true"/>
+        <md-icon md-font-set="material-icons" class="email">link</md-icon>
+        <input ng-model="update_relationType.outLabel" type="text" placeholder="*Etiqueta relación saliente" ng-required="true">
+      </md-input-container>
+      <md-input-container class="md-icon-float md-block">
+        <md-icon md-font-set="material-icons" class="email">link</md-icon>
+        <input ng-model="update_relationType.inLabel" type="text" placeholder="*Etiqueta relación entrante" ng-required="true">
       </md-input-container>
 
       <md-input-container class="md-block">

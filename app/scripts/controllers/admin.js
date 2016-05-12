@@ -647,6 +647,7 @@ angular.module('activosInformaticosApp')
         $scope.answer = function(answer, type) {
 
           if ( answer == 'Aceptar') {
+              //$mdDialog.hide(type);
             dataFactory.createRelationType( function (){
               $mdDialog.hide(type);
             }, type, $mdDialog, $mdToast);
@@ -678,6 +679,7 @@ angular.module('activosInformaticosApp')
         $scope.answer = function(answer, type) {
           //console.log(user);
           if (  answer == 'Editar') {
+              //$mdDialog.hide(type);
             dataFactory.editRelationType( function (){
               $mdDialog.hide(type);
 
@@ -691,31 +693,6 @@ angular.module('activosInformaticosApp')
 
   });
 
-  /*.filter('selected', function() {
-    return function (estados,selected) {
+  /*
 
-      for (i=0;i<estados.length;i++) {
-        for (j=0;j<selected.length;j++) {
-          if (estados[i].name == selected[j].enlace) {
-            console.log("if");
-            estados.splice(i,1);
-            //break;
-          }
-        }
-
-      } return estados;
-    }
-  } )
-
-  .directive("repeatedName", function() {
-    return {
-
-        require: "ngModel",
-
-        link: function($scope, $element, $attrs, ngModel) {
-            ngModel.$validators.repeatedName = function(modelValue) {
-                return modelValue % 2 === 1;
-            }
-        }
-    };
-});*/
+  */

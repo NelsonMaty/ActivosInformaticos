@@ -591,12 +591,10 @@ angular
       $http({
         method:"post",
         url:urlWS + 'relationTypes',
-        data: {
-            "name":type.name,
-            "comment":type.comment,
-            "counterRelation":type.counterRelation
+        data: type
 
-        }
+
+
 
       })
         .success(function(data){
@@ -629,11 +627,7 @@ angular
       $http({
         method:"put",
         url:urlWS + 'relationTypes/' + type._id,
-        data: {
-            "name":type.name,
-            "comment":type.comment,
-            "counterRelation":type.counterRelation
-        }
+        data: type
 
       })
         .success(function(data){
