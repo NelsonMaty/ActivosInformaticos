@@ -75,6 +75,11 @@
                                 <p style="padding-left: 20px; padding-bottom: 20px;">{{sel_asset[key]}} </p>
 
                             </md-list-item>
+                            <div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
+                      	    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">settings_input_component</md-icon>
+                      	    	<strong style="padding-left: 20px;">Estado actual: </strong>
+                      	    	<p style="padding-left: 20px; ">{{sel_asset.estadoActual}}</p>
+                      	    </div>
 
                             <div layout="column" ng-repeat="lista in listas" style=" overflow: auto;">
 
@@ -90,6 +95,25 @@
 
                               </div>
                           </div>
+
+                          <md-divider></md-divider>
+                      		<h1 class="md-display-2" style="padding-left: 20px;">Tags</h1>
+                      		<div style="padding-left: 16px; padding-top: 10px; ">
+                      			<md-chips ng-model="sel_asset.tags" readonly="true" style="padding-bottom: 30px;"></md-chips>
+                      		</div>
+
+                      		<md-divider></md-divider>
+                      		<h1 class="md-display-2" style="padding-left: 20px;">Contacto</h1>
+                      		<div layout="row" style="padding-bottom: 30px; padding-top: 14px;">
+                      		    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">person</md-icon>
+                      		    <strong style="padding-left: 20px; ">Nombre: </strong>
+                      		    <p style="padding-left: 20px; "> {{sel_asset.stakeholders.name}}</p>
+                      	  </div>
+                      	  <div layout="row" style="padding-bottom: 30px;">
+                      		    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">email</md-icon>
+                      		    <strong style="padding-left: 20px; ">Email: </strong>
+                      		    <p style="padding-left: 20px; "> {{sel_asset.stakeholders.email}}</p>
+                      	  </div>
 
                           <md-divider></md-divider>
                           <h1 class="md-display-2" style="padding-left: 20px;">Informacion Adjunta</h1>
@@ -176,6 +200,11 @@
                                 <p style="padding-left: 20px; padding-bottom: 20px;">{{sel_asset[key]}} </p>
 
                             </md-list-item>
+                            <div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
+                      	    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">settings_input_component</md-icon>
+                      	    	<strong style="padding-left: 20px;">Estado actual: </strong>
+                      	    	<p style="padding-left: 20px; ">{{sel_asset.estadoActual}}</p>
+                      	    </div>
 
                             <div layout="column" ng-repeat="lista in listas" style=" overflow: auto;">
 
@@ -191,6 +220,25 @@
 
                               </div>
                           </div>
+
+                          <md-divider></md-divider>
+                      		<h1 class="md-display-2" style="padding-left: 20px;">Tags</h1>
+                      		<div style="padding-left: 16px; padding-top: 10px; ">
+                      			<md-chips ng-model="sel_asset.tags" readonly="true" style="padding-bottom: 30px;"></md-chips>
+                      		</div>
+
+                      		<md-divider></md-divider>
+                      		<h1 class="md-display-2" style="padding-left: 20px;">Contacto</h1>
+                      		<div layout="row" style="padding-bottom: 30px; padding-top: 14px;">
+                      		    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">person</md-icon>
+                      		    <strong style="padding-left: 20px; ">Nombre: </strong>
+                      		    <p style="padding-left: 20px; "> {{sel_asset.stakeholders.name}}</p>
+                      	  </div>
+                      	  <div layout="row" style="padding-bottom: 30px;">
+                      		    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">email</md-icon>
+                      		    <strong style="padding-left: 20px; ">Email: </strong>
+                      		    <p style="padding-left: 20px; "> {{sel_asset.stakeholders.email}}</p>
+                      	  </div>
 
                           <md-divider></md-divider>
                           <h1 class="md-display-2" style="padding-left: 20px;">Informacion Adjunta</h1>
@@ -252,7 +300,7 @@
                 </md-input-container>
 
               </div>
-              
+
               <!-- <div >
                 <label>Crítico</label>
                 <md-checkbox ng-model="relation.isCritical" aria-label="Checkbox 1">

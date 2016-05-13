@@ -11,6 +11,9 @@ angular.module('activosInformaticosApp')
     $scope.clicked_relation = {};
     $scope.clicked_index = {};
     $scope.clicked = false;
+    $scope.busquedaAvanzada = false;
+    $scope.opcionBusqueda = null;
+    $scope.busquedaTag = [];
 
     var animationMenuExit = function(trigger, element){
         element = $(element);
@@ -374,6 +377,9 @@ angular.module('activosInformaticosApp')
           $scope.keys.splice($scope.keys.indexOf("comment"),1);
           $scope.keys.splice($scope.keys.indexOf("$$hashKey"),1);
           $scope.keys.splice($scope.keys.indexOf("attached"),1);
+          $scope.keys.splice($scope.keys.indexOf("tags"),1);
+          $scope.keys.splice($scope.keys.indexOf("estadoActual"),1);
+          $scope.keys.splice($scope.keys.indexOf("stakeholders"),1);
 
 
           if ($scope.keys.indexOf("__v")>=0) {

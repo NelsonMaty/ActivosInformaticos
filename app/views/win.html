@@ -83,7 +83,7 @@
 
               <md-tab label="Relaciones">
                 <div>
-                  <h1 class="md-display-2">Relaciones</h1>
+                  <h1 class="md-display-2">Relaciones salientes</h1>
                   <div layout="column">
                     <div layout="row" style="min-height: 600px;">
 
@@ -136,16 +136,52 @@
                         <input ng-model="buscado" type="text" placeholder="Ingrese nombre de activo" >
                       </md-input-container>
                     </div>
+
                     <md-input-container>
                       <md-switch ng-model="busquedaAvanzada">Busqueda avanzada</md-switch>
                     </md-input-container>
+                    <div class="" layout="column">
+                      <div layout="row" ng-show="busquedaAvanzada">
+                        <div >
+                          <md-radio-group ng-model="opcionBusqueda">
+                            <md-radio-button value="tipo">Tipo de activo</md-radio-button>
+                            <md-radio-button value="tag">Tags</md-radio-button>
+                            <md-radio-button value="relacion">Relacion</md-radio-button>
+                            <md-radio-button value="estado">Estado actual</md-radio-button>
+                          </md-radio-group>
+                        </div>
+                        <div class="" layout="row" ng-switch="opcionBusqueda" style="padding-left: 50px;">
+                          <div ng-switch-when="tipo">
+                            <md-input-container class=" md-block" style="bottom:14px; margin-bottom:0px;">
+                              <input ng-model="busquedaIdType" type="text" placeholder="Id de tipo de activo" >
+                            </md-input-container>
+                            <md-input-container class=" md-block" style="bottom:14px;">
+                              <input ng-model="busquedaNameType" type="text" placeholder="Nombre de tipo de activo" >
+                            </md-input-container>
+                          </div>
+                          <div ng-switch-when="tag">
+                            <md-chips ng-model="busquedaTag" placeholder="Agregue tags a buscar" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
+                          </div>
+                          <div ng-switch-when="relacion">
+
+                          </div>
+                          <div ng-switch-when="estado">
+                            <md-input-container class=" md-block" style="bottom:14px;">
+                              <input ng-model="busquedaActualState" type="text" placeholder="Estado actual">
+                            </md-input-container>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
                     <div class="" style="padding-left: 160px;">
                       <md-button ng-click="" ng-disabled="userForm.$invalid">
                         Buscar
                       </md-button>
-                      <md-button ng-click="" style="margin-right:20px;">
+                      <!-- <md-button ng-click="" style="margin-right:20px;">
                         Avanzado
-                      </md-button>
+                      </md-button> -->
                     </div>
 
 
