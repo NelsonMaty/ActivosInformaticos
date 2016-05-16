@@ -306,7 +306,7 @@ angular.module('activosInformaticosApp')
         $scope.names_list = [];
         $scope.sel_asset = null;
         $scope.clicked_index = null;
-        // $scope.relation.isCritical = false;
+        $scope.relation.isCritical = false;
         $scope.added = [];
         $scope.first = first;
         $scope.relationTypeSelected = {};
@@ -321,7 +321,7 @@ angular.module('activosInformaticosApp')
 
         $scope.selectRelationType = function () {
           for (i=0;i<$scope.relationTypes.length;i++) {
-            if ($scope.relationTypes[i]._id == $scope.relation.type) {
+            if ($scope.relationTypes[i]._id == $scope.relation.relationTypeId) {
               $scope.relationTypeSelected = $scope.relationTypes[i];
             }
           }
