@@ -31,7 +31,7 @@
 	    <div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
 		    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px; ">settings_input_component</md-icon>
 		    <strong style="padding-left: 20px; ">Id de relación: </strong>
-		    <p style="padding-left: 20px; "> {{relation._id}}</p>
+		    <p style="padding-left: 20px; "> {{relation.id}}</p>
 	    </div>
 	    <div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
 	    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">settings_input_component</md-icon>
@@ -44,12 +44,18 @@
 	    	<strong style="padding-left: 20px;">Id de activo destino: </strong>
 	    	<p style="padding-left: 20px; ">{{relation.relatedAssetId}}</p>
 	    </div>
+			<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
+				<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">settings_input_component</md-icon>
+				<strong style="padding-left: 20px;">ID de tipo de relacion: </strong>
+				<p style="padding-left: 20px; ">{{relation.relationTypeId}}</p>
+			</div>
+
 
 		<md-dialog-actions layout="row">
 			<md-button ng-click="hide()">
 			  Aceptar
 			</md-button>
-			
+
 		</md-dialog-actions>
 
 	</div>

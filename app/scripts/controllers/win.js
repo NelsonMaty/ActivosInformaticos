@@ -245,7 +245,7 @@ angular.module('activosInformaticosApp')
           //console.log(user);
           if (relation) {
             console.log(relation);
-            $scope.assetRelations.push(relation);
+            //$scope.assetRelations.push(relation);
             //console.log($scope.myassets);
           }
 
@@ -451,9 +451,25 @@ angular.module('activosInformaticosApp')
         $scope.deleteRelation = deleteRelation;
         $scope.indice = indice;
         $scope.sourceAssetId = sourceAssetId;
-        //$scope.listas = [];
-        //$scope.adjuntos = [];
-        //$scope.adjuntos = $.extend([],asset.attached);
+        $scope.relationTypeSelected = {};
+
+
+        dataFactory.getARelationType($scope.update_relation.relationTypeId, function (response) {
+          $scope.relationTypeSelected = response;
+        });
+
+        dataFactory.getRelationTypes( function (response) {
+          $scope.relationTypes = response;
+        });
+
+        $scope.selectRelationType = function () {
+          //console.log($scope.relationTypes);
+          for (i=0;i<$scope.relationTypes.length;i++) {
+            if ($scope.relationTypes[i]._id == $scope.update_relation.relationTypeId) {
+              $scope.relationTypeSelected = $scope.relationTypes[i];
+            }
+          }
+        }
 
         dataFactory.getAnAsset($scope.sourceAssetId, function (response) {
 
@@ -474,6 +490,7 @@ angular.module('activosInformaticosApp')
 
         $scope.updateRelation = function (relation) {
           //asset.attached = $scope.adjuntos;
+          //console.log($scope.sourceAssetId);
           dataFactory.editRelation (function (){
               $mdDialog.hide(relation);
               $scope.assetRelations.splice(indice,1,relation);
@@ -495,6 +512,7 @@ angular.module('activosInformaticosApp')
       };
 
       function ShowRelationCtrl(relation, sourceAssetId, indice, editRelation, $scope, $mdDialog, $mdToast){
+        //console.log(relation);
         $scope.relation = relation;
         $scope.sourceAssetId = sourceAssetId;
         $scope.indice = indice;

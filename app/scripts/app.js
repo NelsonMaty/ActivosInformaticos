@@ -484,7 +484,7 @@ angular
                 .hideDelay(3000)
             );
             console.log(data);
-            callback(data);
+            callback();
         })
           .error(function(err){
             console.log(err);
@@ -505,7 +505,7 @@ angular
 
         $http({
           method:"put",
-          url:urlWS + 'assets/' + sourceId + '/relations/' + relation._id,
+          url:urlWS + 'assets/' + sourceId + '/relations/' + relation.id,
           data: relation
 
 
@@ -539,7 +539,7 @@ angular
 
         $http({
           method:"delete",
-          url:urlWS + 'assets/' + sourceId + '/relations/' + relation._id,
+          url:urlWS + 'assets/' + sourceId + '/relations/' + relation.id,
           /*data: {
               "name":user.name,
               "comment":user.comment
@@ -576,6 +576,18 @@ angular
     dataFactory.getRelationTypes = function(callback){
 
       $http.get(urlWS + 'relationTypes')
+        .then(function(response){
+          //console.log(response);
+          callback(response.data);
+        },function(err){
+          console.log(err);
+      });
+
+    };
+
+    dataFactory.getARelationType = function(id,callback){
+
+      $http.get(urlWS + 'relationTypes/' + id)
         .then(function(response){
           //console.log(response);
           callback(response.data);
