@@ -288,17 +288,40 @@
 
             <md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
               <div>
-                <md-input-container class=" md-block" >
+                <md-input-container class=" md-block" style="padding-right: 28px;">
                   <md-icon md-font-set="material-icons" class="name" aria-label="nombre relacion">link</md-icon>
                   <input ng-model="relation.name" type="text" placeholder="* Nombre de relacion" ng-required="true">
                 </md-input-container>
               </div>
               <div>
-                <md-input-container class=" md-block" >
+                <md-input-container class=" md-block" style="padding-right: 28px;">
                   <md-icon md-font-set="material-icons" class="comments" aria-label="Comentarios">comment</md-icon>
                   <input ng-model="relation.comment" type="text" placeholder="Comentarios">
                 </md-input-container>
 
+              </div>
+
+              <div class="">
+                <md-input-container class="md-block" style="padding-right: 28px;">
+                  <label>Tipo</label>
+                  <md-icon md-font-set="material-icons" aria-label="tipo de relacion">settings_input_component</md-icon>
+                  <md-select ng-model="relation.type" ng-required="true"  aria-label="nombre tipos" ng-change="selectRelationType()">
+                    <md-option ng-repeat="tipo in relationTypes" value="{{tipo._id}}">
+                        {{tipo._id}}
+                    </md-option>
+
+                  </md-select>
+                </md-input-container>
+              </div>
+              <div layout="row" style="padding-bottom: 30px; padding-top: 16px;">
+                <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">label</md-icon>
+                <strong style="padding-left: 20px;">Relacion saliente: </strong>
+                <p style="padding-left: 20px; ">{{relationTypeSelected.outLabel}}</p>
+              </div>
+              <div layout="row" style="padding-bottom: 30px;  padding-top: 16px;">
+                <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">label</md-icon>
+                <strong style="padding-left: 20px;">Relacion entrante: </strong>
+                <p style="padding-left: 20px; ">{{relationTypeSelected.inLabel}}</p>
               </div>
 
               <!-- <div >
@@ -309,7 +332,7 @@
               </div> -->
             </md-content>
 
-            <md-content style="top: 200px;">
+            <md-content style="top: 28px;">
               <span flex></span>
               <md-button ng-click="removeSelected()" style="left: 460px;">
                 Atras
@@ -333,15 +356,30 @@
           <md-divider ></md-divider>
           <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
 
-          <md-list-item ng-repeat="key in rel_atributtes" >
+          <!-- <md-list-item ng-repeat="key in rel_atributtes" >
             <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
             <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong>
             <p style="padding-left: 20px; padding-bottom: 20px;">{{relation[key]}} </p>
 
-          </md-list-item>
+          </md-list-item> -->
 
+          <div layout="row" style="padding-bottom: 30px; padding-top: 14px;">
+      		  <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">settings_input_component</md-icon>
+      		  <strong style="padding-left: 20px; ">Nombre: </strong>
+      		  <p style="padding-left: 20px; "> {{relation.name}}</p>
+      	  </div>
+      	  <div layout="row" style="padding-bottom: 30px;">
+      		  <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">settings_input_component</md-icon>
+      		  <strong style="padding-left: 20px; ">Tipo: </strong>
+      		  <p style="padding-left: 20px; "> {{relation.type}}</p>
+      	  </div>
+          <div layout="row" style="padding-bottom: 30px;">
+      		  <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">comment</md-icon>
+      		  <strong style="padding-left: 20px; ">Comentarios: </strong>
+      		  <p style="padding-left: 20px; "> {{relation.comment}}</p>
+      	  </div>
         </div>
-        <md-content style="top:90px;">
+        <md-content style="top:130px;">
             <span flex></span>
             <md-button ng-click="prevSelect()" style="left: 460px;">
               Atras

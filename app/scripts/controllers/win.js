@@ -306,11 +306,25 @@ angular.module('activosInformaticosApp')
         $scope.names_list = [];
         $scope.sel_asset = null;
         $scope.clicked_index = null;
-        $scope.relation.isCritical = false;
+        // $scope.relation.isCritical = false;
         $scope.added = [];
         $scope.first = first;
+        $scope.relationTypeSelected = {};
+
         if (first) {
           $scope.added.push(first);
+        }
+
+        dataFactory.getRelationTypes( function (response) {
+          $scope.relationTypes = response;
+        });
+
+        $scope.selectRelationType = function () {
+          for (i=0;i<$scope.relationTypes.length;i++) {
+            if ($scope.relationTypes[i]._id == $scope.relation.type) {
+              $scope.relationTypeSelected = $scope.relationTypes[i];
+            }
+          }
         }
 
         $scope.clickedIcon= function(indice) {

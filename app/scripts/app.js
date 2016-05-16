@@ -601,7 +601,7 @@ angular
           //alert("El usuario fue creado con éxito");
           $mdToast.show(
             $mdToast.simple()
-              .content('Se ha creado el tipo de relación ' + type.name )
+              .content('Se ha creado el tipo de relación ' + type._id )
               .position('top right')
               .hideDelay(3000)
           );
@@ -613,7 +613,8 @@ angular
 
           $mdToast.show(
             $mdToast.simple()
-              .content('No se pudo crear el tipo de relación')
+              .content('No se pudo crear el tipo de relación, ' + err.message)
+              //.content(data.message)
               .position('top right')
               .hideDelay(3000)
           );
@@ -646,7 +647,7 @@ angular
 
           $mdToast.show(
             $mdToast.simple()
-              .content('No se pudo modificar el tipo de relación')
+              .content('No se pudo modificar el tipo de relación ' + data.message)
               .position('top right')
               .hideDelay(3000)
           );
