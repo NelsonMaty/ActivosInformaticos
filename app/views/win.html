@@ -84,7 +84,7 @@
               <md-tab label="Relaciones">
                 <div>
                   <h1 class="md-display-2">Relaciones salientes</h1>
-                  <p> Seleccione un activo de la lista para ver las relaciones en las que participa </p>
+                  <p style="margin-top:20px; margin-bottom:20px;"> Seleccione un activo de la lista para ver las relaciones en las que participa </p>
                   <div layout="column">
                     <div layout="row" style="min-height: 600px;">
 
@@ -105,7 +105,7 @@
                       </md-sidenav>
 
                       <div layout="column" flex id="content" style="width: 1000px; ">
-                        <div layout="row" layout-wrap layout-margin layout-align="start center" >
+                        <div layout="row" layout-wrap layout-margin layout-align="start center" style="margin-left:20px;">
 
                           <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
                           <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
@@ -167,13 +167,18 @@
                             <md-input-container class=" md-block" style="bottom:14px; margin-bottom:0px;">
                               <input ng-model="busquedaIdRelation" type="text" placeholder="Id de relacion">
                             </md-input-container>
-                            <md-input-container class=" md-block" style="bottom:14px;">
-                              <input ng-model="busquedaNameRelation" type="text" placeholder="Nombre de relacion" >
+                            <md-input-container class=" md-block" style="bottom:14px; margin-bottom:0px; height:40px;">
+                              <input ng-model="busquedaTypeRelation" type="text" placeholder="Tipo de relacion" >
                             </md-input-container>
+
+                              <label style="padding-left:2px;">Crítico</label>
+                    		      <md-checkbox ng-model="busquedaRelationIsCritical" aria-label="Checkbox 1">
+                    		      </md-checkbox>
+
                           </div>
                           <div ng-switch-when="estado">
                             <md-input-container class=" md-block" style="bottom:14px;">
-                              <input ng-model="busquedaActualState" type="text" placeholder="Estado actual">
+                              <input ng-model="busquedaEstadoActual" type="text" placeholder="Estado actual">
                             </md-input-container>
                           </div>
                         </div>
