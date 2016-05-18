@@ -938,7 +938,9 @@ angular.module('activosInformaticosApp')
           }
 
           function graphviz(response) {
-            //response.lifeCycle =
+            $scope.graphLifeCycle = response.lifeCycle;
+            $scope.graph = null;
+            
           };
 
           $scope.estadoActual = response.lifeCycle[0].name;
