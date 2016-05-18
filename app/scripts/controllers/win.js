@@ -54,9 +54,20 @@ angular.module('activosInformaticosApp')
       dataFactory.getAssetRelations(id, function (response) {
             //console.log(response);
             $scope.assetRelations = response;
-            //console.log($scope.myassets);
+            $scope.labels = [];
+            //console.log($scope.assetRelations.length);
+            for (i=0;i<$scope.assetRelations.length;i++) {
+              //console.log($scope.assetRelations[i].relationTypeId);
+              dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
+                //console.log(response);
+                $scope.labels.push(response);
+              });
+
+            }
+            //console.log($scope.labels);
 
           });
+      //dataFactory.getARelationType
     }
 
     /*dataFactory.getGraph({
@@ -925,6 +936,10 @@ angular.module('activosInformaticosApp')
               $scope.names_list.push(response.properties[i].name);
             }
           }
+
+          function graphviz(response) {
+            //response.lifeCycle =
+          };
 
           $scope.estadoActual = response.lifeCycle[0].name;
         });
