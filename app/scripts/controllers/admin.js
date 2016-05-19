@@ -423,6 +423,33 @@ angular.module('activosInformaticosApp')
           --$scope.etapa;
         }
 
+        $scope.pedirGraphviz = function () {
+          $scope.graphLifeCycle = $scope.nodes;
+          $scope.stateGraph = ' ';
+          var auxGraph = $scope.graphLifeCycle[0].name.replace(" ","_");
+
+
+          $scope.confGraph = 'digraph life_cycle { rankdir=LR; node [shape = doublecircle]; '+auxGraph+' '
+          for (i=0;i<$scope.graphLifeCycle.length;i++) {
+            if ($scope.graphLifeCycle[i].isFinal) {
+
+              auxGraph = $scope.graphLifeCycle[i].name.replace(" ","_");
+              $scope.confGraph += auxGraph+'; node [shape = circle]; ';
+            }
+            for (j=0;j<$scope.graphLifeCycle[i].adjacents.length;j++) {
+              if (!$scope.graphLifeCycle[i].isFinal) {
+                auxGraph = $scope.graphLifeCycle[i].name.replace(" ","_");
+                var auxGraph2 = $scope.graphLifeCycle[i].adjacents[j].replace(" ","_");
+
+                $scope.stateGraph += auxGraph+' -> '+auxGraph2+'; ';
+              }
+            }
+          }
+          $scope.stateGraph += " }";
+          $scope.confGraph += $scope.stateGraph;
+          console.log($scope.confGraph);
+        }
+
         $scope.hide = function() {
           $mdDialog.hide();
         };

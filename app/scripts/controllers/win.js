@@ -48,7 +48,7 @@ angular.module('activosInformaticosApp')
 
     });
 
-    $scope.searchRelations = function(id) {
+    $scope.searchRelations = function(id,nombreActivo) {
       $scope.sourceAssetId = id;
 
       dataFactory.getAssetRelations(id, function (response) {
@@ -61,18 +61,35 @@ angular.module('activosInformaticosApp')
               dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
                 //console.log(response);
                 $scope.labels.push(response);
+                console.log($scope.labels);
               });
 
             }
-            //console.log($scope.labels);
+            console.log($scope.labels);
+              $scope.graphOutgoingRelations = $scope.assetRelations;
+              $scope.stateGraph = ' ';
+              var auxCentralGraph = nombreActivo.replace(" ","_");
 
-          });
-      //dataFactory.getARelationType
+              $scope.confGraph = 'digraph Out_Relations { rankdir=LR; node [shape = doublecircle]; '+auxCentralGraph+'; node [shape = circle]; ';
+              for (i=0;i<$scope.graphOutgoingRelations.length;i++) {
+
+                 var auxLabelGraph = $scope.labels[i].outLabel.replace(" ","_");
+
+                dataFactory.getAnAsset($scope.assetRelations[i].relatedAssetId, function (response) {
+                 var auxGraph2 = response.name.replace(" ","_");
+                 $scope.stateGraph += auxCentralGraph+' -> '+auxGraph2+'[ label = '+auxLabelGraph+' ]; ';
+               });
+
+              }
+
+              $scope.stateGraph += " }";
+              $scope.confGraph += $scope.stateGraph;
+              console.log($scope.confGraph);
+
+      });
+
     }
 
-    /*dataFactory.getGraph({
-      grafico: "digraph G { subgraph cluster_0 { style=filled; color=lightgrey; node [style=filled,color=white]; a0 -> a1 -> a2 -> a3; label = "+"'process #1'"+";} subgraph cluster_1 { node [style=filled]; b0 -> b1 -> b2 -> b3; label = "+"'process #2'"+"; color=blue } start -> a0; start -> b0; a1 -> b3; b2 -> a3; a3 -> a0; a3 -> end; b3 -> end; start [shape=Mdiamond]; end [shape=Msquare]; }"
-    });*/
 
     $scope.clickAsset = function(asset,indice) {
       $scope.clicked_asset = asset;
