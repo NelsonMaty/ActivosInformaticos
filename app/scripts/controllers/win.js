@@ -14,6 +14,8 @@ angular.module('activosInformaticosApp')
     $scope.busquedaAvanzada = false;
     $scope.opcionBusqueda = null;
     $scope.busquedaTag = [];
+    $scope.direccionRelaciones = false;
+
 
     var animationMenuExit = function(trigger, element){
         element = $(element);
@@ -50,8 +52,12 @@ angular.module('activosInformaticosApp')
 
     $scope.searchRelations = function(id,nombreActivo) {
       $scope.sourceAssetId = id;
+      $scope.select_asset = {};
+      $scope.select_asset._id = id;
+      $scope.select_asset.name = nombreActivo;
 
-      dataFactory.getAssetRelations(id, function (response) {
+      if (!$scope.direccionRelaciones) {
+        dataFactory.getAssetRelations(id, function (response) {
             //console.log(response);
             $scope.assetRelations = response;
             $scope.labels = [];
@@ -62,32 +68,56 @@ angular.module('activosInformaticosApp')
                 //console.log(response);
                 $scope.labels.push(response);
                 console.log($scope.labels);
+
+                // console.log($scope.assetRelations.length);
+                // if (i == ($scope.assetRelations.length - 1) ) {
+                //   $scope.graphOutgoingRelations = $scope.assetRelations;
+                //   $scope.stateGraph = ' ';
+                //   var auxCentralGraph = nombreActivo.replace(" ","_");
+                //
+                //   $scope.confGraph = 'digraph Out_Relations { rankdir=LR; node [shape = doublecircle]; '+auxCentralGraph+'; node [shape = circle]; ';
+                //   for (j=0;j<$scope.graphOutgoingRelations.length;j++) {
+                //
+                //      var auxLabelGraph = $scope.labels[j].outLabel.replace(" ","_");
+                //
+                //     dataFactory.getAnAsset($scope.assetRelations[j].relatedAssetId, function (response) {
+                //      var auxGraph2 = response.name.replace(" ","_");
+                //      $scope.stateGraph += auxCentralGraph+' -> '+auxGraph2+'[ label = '+auxLabelGraph+' ]; ';
+                //    });
+                //
+                //   }
+                //
+                //   $scope.stateGraph += " }";
+                //   $scope.confGraph += $scope.stateGraph;
+                //   console.log($scope.confGraph);
+                // }
+
+
               });
 
             }
-            console.log($scope.labels);
-              $scope.graphOutgoingRelations = $scope.assetRelations;
-              $scope.stateGraph = ' ';
-              var auxCentralGraph = nombreActivo.replace(" ","_");
 
-              $scope.confGraph = 'digraph Out_Relations { rankdir=LR; node [shape = doublecircle]; '+auxCentralGraph+'; node [shape = circle]; ';
-              for (i=0;i<$scope.graphOutgoingRelations.length;i++) {
+        });
+      } else {
+        dataFactory.getIncomingAssetRelations(id, function (response) {
 
-                 var auxLabelGraph = $scope.labels[i].outLabel.replace(" ","_");
+            $scope.assetRelations = response;
+            $scope.labels = [];
 
-                dataFactory.getAnAsset($scope.assetRelations[i].relatedAssetId, function (response) {
-                 var auxGraph2 = response.name.replace(" ","_");
-                 $scope.stateGraph += auxCentralGraph+' -> '+auxGraph2+'[ label = '+auxLabelGraph+' ]; ';
-               });
+            for (i=0;i<$scope.assetRelations.length;i++) {
 
-              }
+              dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
 
-              $scope.stateGraph += " }";
-              $scope.confGraph += $scope.stateGraph;
-              console.log($scope.confGraph);
+                $scope.labels.push(response);
+                console.log($scope.labels);
 
-      });
 
+              });
+
+            }
+
+        });
+      }
     }
 
 

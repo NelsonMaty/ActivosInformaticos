@@ -83,7 +83,17 @@
 
               <md-tab label="Relaciones">
                 <div>
-                  <h1 class="md-display-2">Relaciones salientes</h1>
+                  <div layout="column">
+                    <div layout="row">
+                      <h1 class="md-display-2" ng-show="!direccionRelaciones">Relaciones salientes</h1>
+                      <h1 class="md-display-2" ng-show="direccionRelaciones">Relaciones entrantes</h1>
+                      <md-input-container style="left:50%; margin-top:0px;">
+                        <md-switch ng-model="direccionRelaciones" ng-change="searchRelations(select_asset._id,select_asset.name)">Relaciones salientes/entrantes</md-switch>
+                      </md-input-container>
+                    </div>
+
+                  </div>
+
                   <p style="margin-top:20px; margin-bottom:20px;"> Seleccione un activo de la lista para ver las relaciones en las que participa </p>
                   <div layout="column">
                     <div layout="row" style="min-height: 600px;">
@@ -111,7 +121,8 @@
                           <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
                                    <!--img src="images/nota.svg"/-->
                             <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-activo animated pulse': clickedIcon($index) }"  md-font-set="material-icons">link</md-icon>
-                            <div style="text-align: center"> {{labels[$index].outLabel || relation.relationTypeId }} </div>
+                            <div style="text-align: center" ng-show="!direccionRelaciones"> {{labels[$index].outLabel || relation.relationTypeId }} </div>
+                            <div style="text-align: center" ng-show="direccionRelaciones"> {{labels[$index].inLabel || relation.relationTypeId }} </div>
                           </div>
                         </div>
                       </div>

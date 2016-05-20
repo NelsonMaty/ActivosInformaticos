@@ -466,6 +466,18 @@ angular
 
       };
 
+      dataFactory.getIncomingAssetRelations = function(id,callback){
+
+        $http.get(urlWS + 'assets/' + id + '/relations/incoming')
+          .then(function(response){
+            //console.log(response);
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
+
+      };
+
       dataFactory.createRelation = function(callback,relation,added,$mdDialog,$mdToast){
         console.log(relation);
 
