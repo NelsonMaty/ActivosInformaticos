@@ -55,6 +55,7 @@ angular.module('activosInformaticosApp')
       $scope.select_asset = {};
       $scope.select_asset._id = id;
       $scope.select_asset.name = nombreActivo;
+      $scope.clicked_RelationIndex = null;
 
       if (!$scope.direccionRelaciones) {
         dataFactory.getAssetRelations(id, function (response) {
@@ -67,7 +68,7 @@ angular.module('activosInformaticosApp')
               dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
                 //console.log(response);
                 $scope.labels.push(response);
-                console.log($scope.labels);
+                //console.log($scope.labels);
 
                 // console.log($scope.assetRelations.length);
                 // if (i == ($scope.assetRelations.length - 1) ) {
@@ -109,7 +110,7 @@ angular.module('activosInformaticosApp')
               dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
 
                 $scope.labels.push(response);
-                console.log($scope.labels);
+                //console.log($scope.labels);
 
 
               });
@@ -128,8 +129,19 @@ angular.module('activosInformaticosApp')
       //console.log($scope.clicked);
     };
 
+    $scope.clickRelation = function(relation,indice) {
+      $scope.clicked_relation = relation;
+      $scope.clicked_RelationIndex = indice;
+      $scope.clickedR = true;
+      //console.log($scope.clicked);
+    };
+
     $scope.clickedIcon= function(indice) {
       return($scope.clicked_index == indice);
+    };
+
+    $scope.clickedRelacionIcon= function(indice) {
+      return($scope.clicked_RelationIndex == indice);
     };
 
     $scope.clickClose = function () {
@@ -137,7 +149,20 @@ angular.module('activosInformaticosApp')
         $scope.clicked_index = null;
         animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
       }
+      // if ($scope.clickedR) {
+      //   $scope.clicked_RelationIndex = null;
+      //   //animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
+      // }
     };
+
+    $scope.clickRelacionClose = function() {
+      if ($scope.clickedR) {
+        $scope.clicked_RelationIndex = null;
+        //animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
+      }
+    }
+
+
 
 
     //-----------Assets-----------//

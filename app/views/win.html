@@ -82,12 +82,12 @@
               </md-tab>
 
               <md-tab label="Relaciones">
-                <div>
+                <div >
                   <div layout="column">
-                    <div layout="row">
+                    <div layout="row" layout-align="space-between center">
                       <h1 class="md-display-2" ng-show="!direccionRelaciones">Relaciones salientes</h1>
                       <h1 class="md-display-2" ng-show="direccionRelaciones">Relaciones entrantes</h1>
-                      <md-input-container style="left:50%; margin-top:0px;">
+                      <md-input-container style="margin-top:0px;">
                         <md-switch ng-model="direccionRelaciones" ng-change="searchRelations(select_asset._id,select_asset.name)">Relaciones salientes/entrantes</md-switch>
                       </md-input-container>
                     </div>
@@ -114,13 +114,13 @@
                         </md-list>
                       </md-sidenav>
 
-                      <div layout="column" flex id="content" style="width: 1000px; ">
-                        <div layout="row" layout-wrap layout-margin layout-align="start center" style="margin-left:20px;">
+                      <div layout="column" flex id="content" style="width: 1000px; " >
+                        <div layout="row" layout-wrap layout-margin layout-align="start center" style="margin-left:20px; " >
 
                           <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
-                          <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
+                          <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-click="clickRelation(relation, $index)" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
                                    <!--img src="images/nota.svg"/-->
-                            <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-activo animated pulse': clickedIcon($index) }"  md-font-set="material-icons">link</md-icon>
+                            <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-relacion animated pulse': clickedRelacionIcon($index) }"  md-font-set="material-icons">link</md-icon>
                             <div style="text-align: center" ng-show="!direccionRelaciones"> {{labels[$index].outLabel || relation.relationTypeId }} </div>
                             <div style="text-align: center" ng-show="direccionRelaciones"> {{labels[$index].inLabel || relation.relationTypeId }} </div>
                           </div>
@@ -139,7 +139,7 @@
                 </md-content>
               </md-tab>
               <md-tab label="Buscador">
-                <md-content class="md-padding" style="top: 70%; left: 33%;  ">
+                <md-content class="md-padding" style="top: 70%; left: 33%; " >
                     <h1 class="md-display-2" style="padding-left: 56px; padding-top: 56px;">Buscador de activos</h1>
 
                     <div style=" width: 500px; padding-top: 30px;">
