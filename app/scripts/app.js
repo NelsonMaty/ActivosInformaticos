@@ -59,37 +59,17 @@ angular
     var dataFactory = {};
 
 
-      dataFactory.getGraph = function(script){
+      dataFactory.getLifeCycleGraph = function(typeid,callback){
 
-        $http({
-            method:"post",
-            url:'http://127.0.0.1:8081/' + 'graph',
-            data: script
+        $http.get(urlWS + 'assetTypes/' + typeid + '/LifeCycle/Graph')
+          .then(function(response){
+            //console.log(response);
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
+      };
 
-          })
-            .success(function(data){
-              //alert("El usuario fue creado con éxito");
-              $mdToast.show(
-                $mdToast.simple()
-                  .content('Se envió el gráfico')
-                  .position('top right')
-                  .hideDelay(3000)
-              );
-
-              //callback();
-          })
-            .error(function(err){
-              console.log(err);
-
-              $mdToast.show(
-                $mdToast.simple()
-                  .content('No se pudo enviar el gráfico')
-                  .position('top right')
-                  .hideDelay(3000)
-              );
-          });
-
-        };
 
 
     //----------Types---------//

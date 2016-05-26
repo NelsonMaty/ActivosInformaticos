@@ -1047,32 +1047,11 @@ angular.module('activosInformaticosApp')
         $scope.goToType = function(type, $event, indice) {
           $scope.sel_type = type;
           $scope.clicked_index = indice;
-          //------------Funcion para crear grafico de ciclo de vida para el tipo de activo -----------------//
-            $scope.graphLifeCycle = $scope.sel_type.lifeCycle;
-            $scope.stateGraph = ' ';
-            var auxGraph = $scope.graphLifeCycle[0].name.replace(" ","_");
-
-
-            $scope.confGraph = 'digraph life_cycle { rankdir=LR; size='+'"8,5"'+'  node [shape = doublecircle]; '+auxGraph+' '
-            for (i=0;i<$scope.graphLifeCycle.length;i++) {
-              if ($scope.graphLifeCycle[i].isFinal) {
-
-                auxGraph = $scope.graphLifeCycle[i].name.replace(" ","_");
-                $scope.confGraph += auxGraph+'; node [shape = circle]; ';
-              }
-              for (j=0;j<$scope.graphLifeCycle[i].adjacents.length;j++) {
-                if (!$scope.graphLifeCycle[i].isFinal) {
-                  auxGraph = $scope.graphLifeCycle[i].name.replace(" ","_");
-                  var auxGraph2 = $scope.graphLifeCycle[i].adjacents[j].replace(" ","_");
-
-                  $scope.stateGraph += auxGraph+' -> '+auxGraph2+'; ';
-                }
-              }
-            }
-            $scope.stateGraph += " }";
-            $scope.confGraph += $scope.stateGraph;
-            console.log($scope.confGraph);
-
+          //console.log($scope.sel_type._id);
+          dataFactory.getLifeCycleGraph( $scope.sel_type._id, function (response) {
+            $scope.lifeCycleGraph = response;
+            //console.log($scope.lifeCycleGraph);
+          });
 
         };
 

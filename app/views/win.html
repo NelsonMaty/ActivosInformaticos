@@ -1,6 +1,6 @@
 
 
-<div layout="column" style=" height: 100%;" ng-click="clickClose()">
+<div layout="column" style=" height: 100%;" ng-click="clickClose(); clickRelacionClose();">
   <md-toolbar layout="row" >
     <div class="md-toolbar-tools">
 
@@ -118,7 +118,7 @@
                         <div layout="row" layout-wrap layout-margin layout-align="start center" style="margin-left:20px; " >
 
                           <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
-                          <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-click="clickRelation(relation, $index)" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
+                          <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-click="clickRelation(relation, $index);  $event.stopPropagation();" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
                                    <!--img src="images/nota.svg"/-->
                             <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-relacion animated pulse': clickedRelacionIcon($index) }"  md-font-set="material-icons">link</md-icon>
                             <div style="text-align: center" ng-show="!direccionRelaciones"> {{labels[$index].outLabel || relation.relationTypeId }} </div>
