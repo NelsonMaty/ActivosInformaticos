@@ -24,6 +24,7 @@ angular.module('activosInformaticosApp')
 
                     element.removeClass('animated ' + 'bounceOutLeft');
                     $scope.clicked = false;
+                    $scope.clickedR = false;
                     $scope.$apply();
             }, 1100);
 
@@ -131,7 +132,7 @@ angular.module('activosInformaticosApp')
     $scope.clickRelacionClose = function() {
       if ($scope.clickedR) {
         $scope.clicked_RelationIndex = null;
-        //animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
+        animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
       }
     }
 
@@ -684,6 +685,7 @@ angular.module('activosInformaticosApp')
       };
 
       $scope.deleteRelation = function(ev, relation, indice, sourceAssetId) {
+        //console.log(sourceAssetId);
         var confirm = $mdDialog.confirm()
             .title('¿Está seguro que desea borrar esta relacion?')
             .ariaLabel('Borrado de relacion')

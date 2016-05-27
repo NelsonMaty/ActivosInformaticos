@@ -2,10 +2,10 @@
 
 <div layout="column" style=" height: 100%;" ng-click="clickClose(); clickRelacionClose();">
   <md-toolbar layout="row" >
-    <div class="md-toolbar-tools">
+    <div class="md-toolbar-tools" >
 
       <h1>Activos Informaticos &nbsp; </h1>
-      <div class="cerrar-menu-activo" ng-class="{'mostrar-menu-activo animated bounceInLeft': clicked }">
+      <div ng-show="clicked" class="cerrar-menu-activo" ng-class="{'mostrar-menu-activo animated bounceInLeft': clicked }">
 
             <md-button aria-label="Abrir" class="md-icon-button" ng-click="goAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
               <md-tooltip md-direction="bottom"> Ver </md-tooltip>
@@ -19,10 +19,26 @@
               <md-tooltip md-direction="bottom"> Borrar </md-tooltip>
               <md-icon md-font-set="material-icons">delete</md-icon>
             </md-button>
-            <md-button aria-label="Borrar" class="md-icon-button" ng-click="addRelation($event,'3', clicked_asset); $event.stopPropagation();">
+            <md-button aria-label="Relacionar" class="md-icon-button" ng-click="addRelation($event,'3', clicked_asset); $event.stopPropagation();">
               <md-tooltip md-direction="bottom"> Relacionar </md-tooltip>
               <md-icon md-font-set="material-icons">link</md-icon>
             </md-button>
+      </div>
+      <div ng-show="clickedR" class="cerrar-menu-activo" ng-class="{'mostrar-menu-activo animated bounceInLeft': clickedR }">
+
+            <md-button aria-label="Abrir" class="md-icon-button" ng-click="goRelation($event, clicked_relation, clicked_RelationIndex); $event.stopPropagation();">
+              <md-tooltip md-direction="bottom"> Ver </md-tooltip>
+              <md-icon md-font-set="material-icons">visibility</md-icon>
+            </md-button>
+            <md-button aria-label="Editar"  class="md-icon-button" ng-click="editRelation($event, clicked_relation, clicked_RelationIndex); $event.stopPropagation();">
+              <md-tooltip md-direction="bottom"> Editar </md-tooltip>
+              <md-icon md-font-set="material-icons">edit</md-icon>
+            </md-button>
+            <md-button aria-label="Borrar"  class="md-icon-button"ng-click="deleteRelation($event, clicked_relation, clicked_RelationIndex, select_asset._id); $event.stopPropagation();">
+              <md-tooltip md-direction="bottom"> Borrar </md-tooltip>
+              <md-icon md-font-set="material-icons">delete</md-icon>
+            </md-button>
+
       </div>
       <span flex=""></span>
       <!-- <md-button class="md-icon-button" aria-label="Busqueda">
@@ -41,12 +57,7 @@
               Administrar usuarios
             </md-button>
           </md-menu-item>
-          <!-- <md-menu-item>
-            <md-button disabled="disabled" >
-              <md-icon md-font-set="material-icons">voicemail</md-icon>
-              Check voicemail
-            </md-button>
-          </md-menu-item> -->
+
 
         </md-menu-content>
 
@@ -136,6 +147,9 @@
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Mapa</h1>
                   <!--img src="/home/gonzalo/graph.png"-->
+                  <div class="">
+
+                  </div>
                 </md-content>
               </md-tab>
               <md-tab label="Buscador">
