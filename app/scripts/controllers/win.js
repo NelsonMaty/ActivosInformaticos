@@ -123,10 +123,7 @@ angular.module('activosInformaticosApp')
         $scope.clicked_index = null;
         animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
       }
-      // if ($scope.clickedR) {
-      //   $scope.clicked_RelationIndex = null;
-      //   //animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
-      // }
+
     };
 
     $scope.clickRelacionClose = function() {
@@ -140,7 +137,7 @@ angular.module('activosInformaticosApp')
     $scope.relationGraph = function () {
       //Constants for the SVG
 
-      var width = 800,
+      var width = 900,
           height = 600;
 
       //Set up the colour scale
@@ -249,10 +246,34 @@ angular.module('activosInformaticosApp')
       });
     };
 
-    setTimeout(function () {
-      $scope.relationGraph();
-    }, 1000);
+    // setTimeout(function () {
+    //   $scope.relationGraph();
+    // }, 1000);
 
+    $scope.goToMap = function (selected) {
+      //$scope.selected_asset = selected;
+      $scope.links = [];
+      $scope.nodos = [];
+      $scope.nodos[0] = selected;
+
+      dataFactory.getAssetRelations(selected_asset._id, function (response) {
+
+          $scope.assetRelationsN1 = response;
+          $scope.labels = [];
+
+          for (i=0;i<$scope.assetRelationsN1.length;i++) {
+
+            // dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
+            //
+            //   $scope.labels.push(response);
+            //
+            // });
+            //$scope
+            //dataFactory.getAnAsset = function(id,callback)
+
+          }
+      });
+    }
 
     //-----------Assets-----------//
 
