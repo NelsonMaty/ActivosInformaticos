@@ -139,9 +139,9 @@ angular.module('activosInformaticosApp')
 
     $scope.relationGraph = function () {
       //Constants for the SVG
-      console.log("graph");
-      var width = 500,
-          height = 500;
+
+      var width = 800,
+          height = 600;
 
       //Set up the colour scale
       var color = d3.scale.category20();
@@ -149,11 +149,12 @@ angular.module('activosInformaticosApp')
       //Set up the force layout
       var force = d3.layout.force()
           .charge(-120)
-          .linkDistance(30)
+          .linkDistance(50)
           .size([width, height]);
 
       //Append a SVG to the body of the html page. Assign this SVG as an object to svg
-      var svg = d3.select("body").append("svg")
+      //var svg = d3.select("body").append("svg")
+      var svg = d3.select("#relGraph").append("svg")
           .attr("width", width)
           .attr("height", height);
 
@@ -178,20 +179,25 @@ angular.module('activosInformaticosApp')
         ],
         links: [
           {
-            source: '1',
-            target: '0',
-            value: '3'
+            source: 0,
+            target: 1,
+            value: 3
           },
           {
-            source: '2',
-            target: '0',
-            value: '3'
+            source: 1,
+            target: 0,
+            value: 3
+          },
+          {
+            source: 2,
+            target: 0,
+            value: 3
           },
 
         ]
       };
 
-
+      //console.log(graph);
 
       //Creates the graph data structure out of the json data
       force.nodes(graph.nodes)
@@ -243,7 +249,10 @@ angular.module('activosInformaticosApp')
       });
     };
 
-    $scope.relationGraph();
+    setTimeout(function () {
+      $scope.relationGraph();
+    }, 1000);
+
 
     // $scope.relationGraph = function() {
     //   var Network, RadialPlacement, activate, root;
