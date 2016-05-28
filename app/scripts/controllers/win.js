@@ -134,360 +134,470 @@ angular.module('activosInformaticosApp')
         $scope.clicked_RelationIndex = null;
         animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
       }
-    }
+    };
 
-    $scope.relationGraph = function() {
-      var Network, RadialPlacement, activate, root;
 
-      root = typeof exports !== "undefined" && exports !== null ? exports : this;
+    $scope.relationGraph = function () {
+      //Constants for the SVG
+      console.log("graph");
+      var width = 500,
+          height = 500;
 
-      Network = function () {
-        var allData, charge, curLinksData, curNodesData, filter, filterLinks, filterNodes, force, forceTick, groupCenters, height, hideDetails, layout, link, linkedByIndex, linksG, mapNodes, moveToRadialLayout, neighboring, network, node, nodeColors, nodeCounts, nodesG, radialTick, setFilter, setLayout, setSort, setupData, showDetails, sort, sortedArtists, strokeFor, tooltip, update, updateCenters, updateLinks, updateNodes, width;
-        width = 960;
-        height = 800;
-        allData = [];
-        curLinksData = [];
-        curNodesData = [];
-        linkedByIndex = {};
-        nodesG = null;
-        linksG = null;
-        node = null;
-        link = null;
-        layout = "force";
-        filter = "all";
-        sort = "songs";
-        groupCenters = null;
-        force = d3.layout.force();
-        nodeColors = d3.scale.category20();
-        tooltip = Tooltip("vis-tooltip", 230);
+      //Set up the colour scale
+      var color = d3.scale.category20();
 
-        //funcionamiento básico
-        network = function(selection, data) {
-          var vis;
-          allData = setupData(data);
-          vis = d3.select(selection).append("svg").attr("width", width).attr("height", height);
-          linksG = vis.append("g").attr("id", "links");
-          nodesG = vis.append("g").attr("id", "nodes");
-          force.size([width, height]);
-          setLayout("force");
-          setFilter("all");
-          return update();
-        };
-        network.toggleLayout = function(newLayout) {
-          force.stop();
-          setLayout(newLayout);
-          return update();
-        };
-        network.toggleFilter = function(newFilter) {
-          force.stop();
-          setFilter(newFilter);
-          return update();
-        };
-        network.toggleSort = function(newSort) {
-          force.stop();
-          setSort(newSort);
-          return update();
-        };
-        network.updateSearch = function(searchTerm) {
-          var searchRegEx;
-          searchRegEx = new RegExp(searchTerm.toLowerCase());
-          return node.each(function(d) {
-            var element, match;
-            element = d3.select(this);
-            match = d.name.toLowerCase().search(searchRegEx);
-            if (searchTerm.length > 0 && match >= 0) {
-              element.style("fill", "#F38630").style("stroke-width", 2.0).style("stroke", "#555");
-              return d.searched = true;
-            } else {
-              d.searched = false;
-              return element.style("fill", function(d) {
-                return nodeColors(d.artist);
-              }).style("stroke-width", 1.0);
-            }
-          });
-        };
-        network.updateData = function(newData) {
-          allData = setupData(newData);
-          link.remove();
-          node.remove();
-          return update();
-        };
-        charge = function(node) {
-          return -Math.pow(node.radius, 2.0) / 2;
-        };
-        update = function() {
-          var artists;
-          //filter data to show based on current filter settings.
-          curNodesData = filterNodes(allData.nodes);
-          curLinksData = filterLinks(allData.links, curNodesData);
+      //Set up the force layout
+      var force = d3.layout.force()
+          .charge(-120)
+          .linkDistance(30)
+          .size([width, height]);
 
-          if (layout === "radial") {
-            artists = sortedArtists(curNodesData, curLinksData);
-            updateCenters(artists);
-          }
-          force.nodes(curNodesData);
-          updateNodes();
-          if (layout === "force") {
-            force.links(curLinksData);
-            updateLinks();
-          } else {
-            force.links([]);
-            if (link) {
-              link.data([]).exit().remove();
-              link = null;
-            }
-          }
-          return force.start();
-        };
-        updateNodes = function() {
-          node = nodesG.selectAll("circle.node").data(curNodesData, function(d) {
-            return d.id;
-          });
-          node.enter().append("circle").attr("class", "node").attr("cx", function(d) {
-            return d.x;
-          }).attr("cy", function(d) {
-            return d.y;
-          }).attr("r", function(d) {
-            return d.radius;
-          }).style("fill", function(d) {
-            return nodeColors(d.artist);
-          }).style("stroke", function(d) {
-            return strokeFor(d);
-          }).style("stroke-width", 1.0);
-          node.on("mouseover", showDetails).on("mouseout", hideDetails);
-          return node.exit().remove();
-        };
-        setLayout = function(newLayout) {
-          layout = newLayout;
-          if (layout === "force") {
-            return force.on("tick", forceTick).charge(-200).linkDistance(50);
-          } else if (layout === "radial") {
-            return force.on("tick", radialTick).charge(charge);
-          }
-        };
-        forceTick = function(e) {
-          node.attr("cx", function(d) {
-            return d.x;
-          }).attr("cy", function(d) {
-            return d.y;
-          });
-          return link.attr("x1", function(d) {
-            return d.source.x;
-          }).attr("y1", function(d) {
-            return d.source.y;
-          }).attr("x2", function(d) {
-            return d.target.x;
-          }).attr("y2", function(d) {
-            return d.target.y;
-          });
-        };
-        setupData = function(data) {
-          var circleRadius, countExtent, nodesMap;
-          countExtent = d3.extent(data.nodes, function(d) {
-            return d.playcount;
-          });
-          circleRadius = d3.scale.sqrt().range([3, 12]).domain(countExtent);
-          data.nodes.forEach(function(n) {
-            var randomnumber;
-            n.x = randomnumber = Math.floor(Math.random() * width);
-            n.y = randomnumber = Math.floor(Math.random() * height);
-            return n.radius = circleRadius(n.playcount);
-          });
-          nodesMap = mapNodes(data.nodes);
-          data.links.forEach(function(l) {
-            l.source = nodesMap.get(l.source);
-            l.target = nodesMap.get(l.target);
-            return linkedByIndex[l.source.id + "," + l.target.id] = 1;
-          });
-          return data;
-        };
+      //Append a SVG to the body of the html page. Assign this SVG as an object to svg
+      var svg = d3.select("body").append("svg")
+          .attr("width", width)
+          .attr("height", height);
 
-        //diferente agrupamiento de nodos
-        updateCenters = function(artists) {
-          if (layout === "radial") {
-            return groupCenters = RadialPlacement().center({
-              "x": width / 2,
-              "y": height / 2 - 100
-            }).radius(300).increment(18).keys(artists);
+      //Read the data from the mis element - lee datos de los json para armar los nodos
+      //var mis = document.getElementById('mis').innerHTML;
+      //graph = JSON.parse(mis);
+      var graph = {
+        nodes: [
+          {
+            name: 'Disco D',
+            group: '5749c43b06699a810a999c52'
+          },
+          {
+            //id: '',
+            name: 'Disco C',
+            group: '5749c3ef06699a810a999c51'
+          },
+          {
+            name: 'Disco A',
+            group: '5749c3ef06699a810a999c51'
           }
-        };
-        radialTick = function(e) {
-          node.each(moveToRadialLayout(e.alpha));
-          node.attr("cx", function(d) {
-            return d.x;
-          }).attr("cy", function(d) {
-            return d.y;
-          });
-          if (e.alpha < 0.03) {
-            force.stop();
-            return updateLinks();
-          }
-        };
-        moveToRadialLayout = function(alpha) {
-          var k;
-          k = alpha * 0.1;
-          return function(d) {
-            var centerNode;
-            centerNode = groupCenters(d.artist);
-            d.x += (centerNode.x - d.x) * k;
-            return d.y += (centerNode.y - d.y) * k;
-          };
-        };
-        filterNodes = function(allNodes) {
-          var cutoff, filteredNodes, playcounts;
-          filteredNodes = allNodes;
-          if (filter === "popular" || filter === "obscure") {
-            playcounts = allNodes.map(function(d) {
-              return d.playcount;
-            }).sort(d3.ascending);
-            cutoff = d3.quantile(playcounts, 0.5);
-            filteredNodes = allNodes.filter(function(n) {
-              if (filter === "popular") {
-                return n.playcount > cutoff;
-              } else if (filter === "obscure") {
-                return n.playcount <= cutoff;
-              }
-            });
-          }
-          return filteredNodes;
-        };
-      }
+        ],
+        links: [
+          {
+            source: '1',
+            target: '0',
+            value: '3'
+          },
+          {
+            source: '2',
+            target: '0',
+            value: '3'
+          },
 
-      RadialPlacement = function() {
-        var center, current, increment, place, placement, radialLocation, radius, setKeys, start, values;
-        values = d3.map();
-        increment = 20;
-        radius = 200;
-        center = {
-          "x": 0,
-          "y": 0
-        };
-        start = -120;
-        current = start;
-        radialLocation = function(center, angle, radius) {
-          var x, y;
-          x = center.x + radius * Math.cos(angle * Math.PI / 180);
-          y = center.y + radius * Math.sin(angle * Math.PI / 180);
-          return {
-            "x": x,
-            "y": y
-          };
-        };
-        placement = function(key) {
-          var value;
-          value = values.get(key);
-          if (!values.has(key)) {
-            value = place(key);
-          }
-          return value;
-        };
-        place = function(key) {
-          var value;
-          value = radialLocation(center, current, radius);
-          values.set(key, value);
-          current += increment;
-          return value;
-        };
-        setKeys = function(keys) {
-          var firstCircleCount, firstCircleKeys, secondCircleKeys;
-          values = d3.map();
-          firstCircleCount = 360 / increment;
-          if (keys.length < firstCircleCount) {
-            increment = 360 / keys.length;
-          }
-          firstCircleKeys = keys.slice(0, firstCircleCount);
-          firstCircleKeys.forEach(function(k) {
-            return place(k);
-          });
-          secondCircleKeys = keys.slice(firstCircleCount);
-          radius = radius + radius / 1.8;
-          increment = 360 / secondCircleKeys.length;
-          return secondCircleKeys.forEach(function(k) {
-            return place(k);
-          });
-        };
-        placement.keys = function(_) {
-          if (!arguments.length) {
-            return d3.keys(values);
-          }
-          setKeys(_);
-          return placement;
-        };
-        placement.center = function(_) {
-          if (!arguments.length) {
-            return center;
-          }
-          center = _;
-          return placement;
-        };
-        placement.radius = function(_) {
-          if (!arguments.length) {
-            return radius;
-          }
-          radius = _;
-          return placement;
-        };
-        placement.start = function(_) {
-          if (!arguments.length) {
-            return start;
-          }
-          start = _;
-          current = start;
-          return placement;
-        };
-        placement.increment = function(_) {
-          if (!arguments.length) {
-            return increment;
-          }
-          increment = _;
-          return placement;
-        };
-        return placement;
+        ]
       };
 
-      activate = function(group, link) {
-        d3.selectAll("#" + group + " a").classed("active", false);
-        return d3.select("#" + group + " #" + link).classed("active", true);
-      };
 
-      $(function() {
-        var myNetwork;
-        myNetwork = Network();
-        d3.selectAll("#layouts a").on("click", function(d) {
-          var newLayout;
-          newLayout = d3.select(this).attr("id");
-          activate("layouts", newLayout);
-          return myNetwork.toggleLayout(newLayout);
-        });
-        d3.selectAll("#filters a").on("click", function(d) {
-          var newFilter;
-          newFilter = d3.select(this).attr("id");
-          activate("filters", newFilter);
-          return myNetwork.toggleFilter(newFilter);
-        });
-        d3.selectAll("#sorts a").on("click", function(d) {
-          var newSort;
-          newSort = d3.select(this).attr("id");
-          activate("sorts", newSort);
-          return myNetwork.toggleSort(newSort);
-        });
-        $("#song_select").on("change", function(e) {
-          var songFile;
-          songFile = $(this).val();
-          return d3.json("data/" + songFile, function(json) {
-            return myNetwork.updateData(json);
-          });
-        });
-        $("#search").keyup(function() {
-          var searchTerm;
-          searchTerm = $(this).val();
-          return myNetwork.updateSearch(searchTerm);
-        });
-        return d3.json("data/call_me_al.json", function(json) {
-          return myNetwork("#vis", json);
-        });
+
+      //Creates the graph data structure out of the json data
+      force.nodes(graph.nodes)
+          .links(graph.links)
+          .start();
+
+      //Create all the line svgs but without locations yet
+      var link = svg.selectAll(".link")
+          .data(graph.links)
+          .enter().append("line")
+          .attr("class", "link")
+          .style("stroke-width", function (d) {
+          return Math.sqrt(d.value);
       });
-    }
+
+      //Do the same with the circles for the nodes - no
+      var node = svg.selectAll(".node")
+          .data(graph.nodes)
+          .enter().append("circle")
+          .attr("class", "node")
+          .attr("r", 8)
+          .style("fill", function (d) {
+          return color(d.group);
+      })
+          .call(force.drag);
+
+
+      //Now we are giving the SVGs co-ordinates - the force layout is generating the co-ordinates which this code is using to update the attributes of the SVG elements
+      force.on("tick", function () {
+          link.attr("x1", function (d) {
+              return d.source.x;
+          })
+              .attr("y1", function (d) {
+              return d.source.y;
+          })
+              .attr("x2", function (d) {
+              return d.target.x;
+          })
+              .attr("y2", function (d) {
+              return d.target.y;
+          });
+
+          node.attr("cx", function (d) {
+              return d.x;
+          })
+              .attr("cy", function (d) {
+              return d.y;
+          });
+      });
+    };
+
+    //$scope.relationGraph();
+
+    // $scope.relationGraph = function() {
+    //   var Network, RadialPlacement, activate, root;
+    //
+    //   root = typeof exports !== "undefined" && exports !== null ? exports : this;
+    //
+    //   Network = function () {
+    //     var allData, charge, curLinksData, curNodesData, filter, filterLinks, filterNodes, force, forceTick, groupCenters, height, hideDetails, layout, link, linkedByIndex, linksG, mapNodes, moveToRadialLayout, neighboring, network, node, nodeColors, nodeCounts, nodesG, radialTick, setFilter, setLayout, setSort, setupData, showDetails, sort, sortedArtists, strokeFor, tooltip, update, updateCenters, updateLinks, updateNodes, width;
+    //     width = 960;
+    //     height = 800;
+    //     allData = [];
+    //     curLinksData = [];
+    //     curNodesData = [];
+    //     linkedByIndex = {};
+    //     nodesG = null;
+    //     linksG = null;
+    //     node = null;
+    //     link = null;
+    //     layout = "force";
+    //     filter = "all";
+    //     sort = "songs";
+    //     groupCenters = null;
+    //     force = d3.layout.force();
+    //     nodeColors = d3.scale.category20();
+    //     tooltip = Tooltip("vis-tooltip", 230);
+    //
+    //     //funcionamiento básico
+    //     network = function(selection, data) {
+    //       var vis;
+    //       allData = setupData(data);
+    //       vis = d3.select(selection).append("svg").attr("width", width).attr("height", height);
+    //       linksG = vis.append("g").attr("id", "links");
+    //       nodesG = vis.append("g").attr("id", "nodes");
+    //       force.size([width, height]);
+    //       setLayout("force");
+    //       setFilter("all");
+    //       return update();
+    //     };
+    //     network.toggleLayout = function(newLayout) {
+    //       force.stop();
+    //       setLayout(newLayout);
+    //       return update();
+    //     };
+    //     network.toggleFilter = function(newFilter) {
+    //       force.stop();
+    //       setFilter(newFilter);
+    //       return update();
+    //     };
+    //     network.toggleSort = function(newSort) {
+    //       force.stop();
+    //       setSort(newSort);
+    //       return update();
+    //     };
+    //     network.updateSearch = function(searchTerm) {
+    //       var searchRegEx;
+    //       searchRegEx = new RegExp(searchTerm.toLowerCase());
+    //       return node.each(function(d) {
+    //         var element, match;
+    //         element = d3.select(this);
+    //         match = d.name.toLowerCase().search(searchRegEx);
+    //         if (searchTerm.length > 0 && match >= 0) {
+    //           element.style("fill", "#F38630").style("stroke-width", 2.0).style("stroke", "#555");
+    //           return d.searched = true;
+    //         } else {
+    //           d.searched = false;
+    //           return element.style("fill", function(d) {
+    //             return nodeColors(d.artist);
+    //           }).style("stroke-width", 1.0);
+    //         }
+    //       });
+    //     };
+    //     network.updateData = function(newData) {
+    //       allData = setupData(newData);
+    //       link.remove();
+    //       node.remove();
+    //       return update();
+    //     };
+    //     charge = function(node) {
+    //       return -Math.pow(node.radius, 2.0) / 2;
+    //     };
+    //     update = function() {
+    //       var artists;
+    //       //filter data to show based on current filter settings.
+    //       curNodesData = filterNodes(allData.nodes);
+    //       curLinksData = filterLinks(allData.links, curNodesData);
+    //
+    //       if (layout === "radial") {
+    //         artists = sortedArtists(curNodesData, curLinksData);
+    //         updateCenters(artists);
+    //       }
+    //       force.nodes(curNodesData);
+    //       updateNodes();
+    //       if (layout === "force") {
+    //         force.links(curLinksData);
+    //         updateLinks();
+    //       } else {
+    //         force.links([]);
+    //         if (link) {
+    //           link.data([]).exit().remove();
+    //           link = null;
+    //         }
+    //       }
+    //       return force.start();
+    //     };
+    //     updateNodes = function() {
+    //       node = nodesG.selectAll("circle.node").data(curNodesData, function(d) {
+    //         return d.id;
+    //       });
+    //       node.enter().append("circle").attr("class", "node").attr("cx", function(d) {
+    //         return d.x;
+    //       }).attr("cy", function(d) {
+    //         return d.y;
+    //       }).attr("r", function(d) {
+    //         return d.radius;
+    //       }).style("fill", function(d) {
+    //         return nodeColors(d.artist);
+    //       }).style("stroke", function(d) {
+    //         return strokeFor(d);
+    //       }).style("stroke-width", 1.0);
+    //       node.on("mouseover", showDetails).on("mouseout", hideDetails);
+    //       return node.exit().remove();
+    //     };
+    //     setLayout = function(newLayout) {
+    //       layout = newLayout;
+    //       if (layout === "force") {
+    //         return force.on("tick", forceTick).charge(-200).linkDistance(50);
+    //       } else if (layout === "radial") {
+    //         return force.on("tick", radialTick).charge(charge);
+    //       }
+    //     };
+    //     forceTick = function(e) {
+    //       node.attr("cx", function(d) {
+    //         return d.x;
+    //       }).attr("cy", function(d) {
+    //         return d.y;
+    //       });
+    //       return link.attr("x1", function(d) {
+    //         return d.source.x;
+    //       }).attr("y1", function(d) {
+    //         return d.source.y;
+    //       }).attr("x2", function(d) {
+    //         return d.target.x;
+    //       }).attr("y2", function(d) {
+    //         return d.target.y;
+    //       });
+    //     };
+    //     setupData = function(data) {
+    //       var circleRadius, countExtent, nodesMap;
+    //       countExtent = d3.extent(data.nodes, function(d) {
+    //         return d.playcount;
+    //       });
+    //       circleRadius = d3.scale.sqrt().range([3, 12]).domain(countExtent);
+    //       data.nodes.forEach(function(n) {
+    //         var randomnumber;
+    //         n.x = randomnumber = Math.floor(Math.random() * width);
+    //         n.y = randomnumber = Math.floor(Math.random() * height);
+    //         return n.radius = circleRadius(n.playcount);
+    //       });
+    //       nodesMap = mapNodes(data.nodes);
+    //       data.links.forEach(function(l) {
+    //         l.source = nodesMap.get(l.source);
+    //         l.target = nodesMap.get(l.target);
+    //         return linkedByIndex[l.source.id + "," + l.target.id] = 1;
+    //       });
+    //       return data;
+    //     };
+    //
+    //     //diferente agrupamiento de nodos
+    //     updateCenters = function(artists) {
+    //       if (layout === "radial") {
+    //         return groupCenters = RadialPlacement().center({
+    //           "x": width / 2,
+    //           "y": height / 2 - 100
+    //         }).radius(300).increment(18).keys(artists);
+    //       }
+    //     };
+    //     radialTick = function(e) {
+    //       node.each(moveToRadialLayout(e.alpha));
+    //       node.attr("cx", function(d) {
+    //         return d.x;
+    //       }).attr("cy", function(d) {
+    //         return d.y;
+    //       });
+    //       if (e.alpha < 0.03) {
+    //         force.stop();
+    //         return updateLinks();
+    //       }
+    //     };
+    //     moveToRadialLayout = function(alpha) {
+    //       var k;
+    //       k = alpha * 0.1;
+    //       return function(d) {
+    //         var centerNode;
+    //         centerNode = groupCenters(d.artist);
+    //         d.x += (centerNode.x - d.x) * k;
+    //         return d.y += (centerNode.y - d.y) * k;
+    //       };
+    //     };
+    //     filterNodes = function(allNodes) {
+    //       var cutoff, filteredNodes, playcounts;
+    //       filteredNodes = allNodes;
+    //       if (filter === "popular" || filter === "obscure") {
+    //         playcounts = allNodes.map(function(d) {
+    //           return d.playcount;
+    //         }).sort(d3.ascending);
+    //         cutoff = d3.quantile(playcounts, 0.5);
+    //         filteredNodes = allNodes.filter(function(n) {
+    //           if (filter === "popular") {
+    //             return n.playcount > cutoff;
+    //           } else if (filter === "obscure") {
+    //             return n.playcount <= cutoff;
+    //           }
+    //         });
+    //       }
+    //       return filteredNodes;
+    //     };
+    //   }
+    //
+    //   RadialPlacement = function() {
+    //     var center, current, increment, place, placement, radialLocation, radius, setKeys, start, values;
+    //     values = d3.map();
+    //     increment = 20;
+    //     radius = 200;
+    //     center = {
+    //       "x": 0,
+    //       "y": 0
+    //     };
+    //     start = -120;
+    //     current = start;
+    //     radialLocation = function(center, angle, radius) {
+    //       var x, y;
+    //       x = center.x + radius * Math.cos(angle * Math.PI / 180);
+    //       y = center.y + radius * Math.sin(angle * Math.PI / 180);
+    //       return {
+    //         "x": x,
+    //         "y": y
+    //       };
+    //     };
+    //     placement = function(key) {
+    //       var value;
+    //       value = values.get(key);
+    //       if (!values.has(key)) {
+    //         value = place(key);
+    //       }
+    //       return value;
+    //     };
+    //     place = function(key) {
+    //       var value;
+    //       value = radialLocation(center, current, radius);
+    //       values.set(key, value);
+    //       current += increment;
+    //       return value;
+    //     };
+    //     setKeys = function(keys) {
+    //       var firstCircleCount, firstCircleKeys, secondCircleKeys;
+    //       values = d3.map();
+    //       firstCircleCount = 360 / increment;
+    //       if (keys.length < firstCircleCount) {
+    //         increment = 360 / keys.length;
+    //       }
+    //       firstCircleKeys = keys.slice(0, firstCircleCount);
+    //       firstCircleKeys.forEach(function(k) {
+    //         return place(k);
+    //       });
+    //       secondCircleKeys = keys.slice(firstCircleCount);
+    //       radius = radius + radius / 1.8;
+    //       increment = 360 / secondCircleKeys.length;
+    //       return secondCircleKeys.forEach(function(k) {
+    //         return place(k);
+    //       });
+    //     };
+    //     placement.keys = function(_) {
+    //       if (!arguments.length) {
+    //         return d3.keys(values);
+    //       }
+    //       setKeys(_);
+    //       return placement;
+    //     };
+    //     placement.center = function(_) {
+    //       if (!arguments.length) {
+    //         return center;
+    //       }
+    //       center = _;
+    //       return placement;
+    //     };
+    //     placement.radius = function(_) {
+    //       if (!arguments.length) {
+    //         return radius;
+    //       }
+    //       radius = _;
+    //       return placement;
+    //     };
+    //     placement.start = function(_) {
+    //       if (!arguments.length) {
+    //         return start;
+    //       }
+    //       start = _;
+    //       current = start;
+    //       return placement;
+    //     };
+    //     placement.increment = function(_) {
+    //       if (!arguments.length) {
+    //         return increment;
+    //       }
+    //       increment = _;
+    //       return placement;
+    //     };
+    //     return placement;
+    //   };
+    //
+    //   activate = function(group, link) {
+    //     d3.selectAll("#" + group + " a").classed("active", false);
+    //     return d3.select("#" + group + " #" + link).classed("active", true);
+    //   };
+    //
+    //   $(function() {
+    //     var myNetwork;
+    //     myNetwork = Network();
+    //     d3.selectAll("#layouts a").on("click", function(d) {
+    //       var newLayout;
+    //       newLayout = d3.select(this).attr("id");
+    //       activate("layouts", newLayout);
+    //       return myNetwork.toggleLayout(newLayout);
+    //     });
+    //     d3.selectAll("#filters a").on("click", function(d) {
+    //       var newFilter;
+    //       newFilter = d3.select(this).attr("id");
+    //       activate("filters", newFilter);
+    //       return myNetwork.toggleFilter(newFilter);
+    //     });
+    //     d3.selectAll("#sorts a").on("click", function(d) {
+    //       var newSort;
+    //       newSort = d3.select(this).attr("id");
+    //       activate("sorts", newSort);
+    //       return myNetwork.toggleSort(newSort);
+    //     });
+    //     $("#song_select").on("change", function(e) {
+    //       var songFile;
+    //       songFile = $(this).val();
+    //       return d3.json("data/" + songFile, function(json) {
+    //         return myNetwork.updateData(json);
+    //       });
+    //     });
+    //     $("#search").keyup(function() {
+    //       var searchTerm;
+    //       searchTerm = $(this).val();
+    //       return myNetwork.updateSearch(searchTerm);
+    //     });
+    //     return d3.json("data/call_me_al.json", function(json) {
+    //       return myNetwork("#vis", json);
+    //     });
+    //   });*/
+    // }
+
 
 
     //-----------Assets-----------//
