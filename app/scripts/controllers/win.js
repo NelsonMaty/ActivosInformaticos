@@ -243,7 +243,7 @@ angular.module('activosInformaticosApp')
       });
     };
 
-    //$scope.relationGraph();
+    $scope.relationGraph();
 
     // $scope.relationGraph = function() {
     //   var Network, RadialPlacement, activate, root;
