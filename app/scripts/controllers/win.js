@@ -632,6 +632,10 @@ angular.module('activosInformaticosApp')
 
           });
 
+          dataFactory.getActualStateGraph( $scope.sel_asset._id, function (response) {
+            $scope.lifeCycleGraph = response;
+            //console.log($scope.lifeCycleGraph);
+          });
 
           //console.log($scope.sel_asset);
         };

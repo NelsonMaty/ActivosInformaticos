@@ -58,6 +58,7 @@ angular
     var urlWS = 'http://localhost:10010/'
     var dataFactory = {};
 
+    //---------Graph---------//
 
       dataFactory.getLifeCycleGraph = function(typeid,callback){
 
@@ -70,6 +71,16 @@ angular
         });
       };
 
+      dataFactory.getActualStateGraph = function(assetId,callback){
+
+        $http.get(urlWS + 'assets/' + assetId + '/LifeCycle/Graph')
+          .then(function(response){
+            //console.log(response);
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
+      };
 
 
     //----------Types---------//
