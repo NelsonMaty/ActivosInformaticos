@@ -1183,6 +1183,7 @@ angular.module('activosInformaticosApp')
         $scope.asset_type = {};
         $scope.listas = [];
         $scope.volverInicial = false;
+        $scope.actualStateGraph = {};
         //$scope.adjuntos = [];
         //$scope.adjuntos = $.extend([],asset.attached);
 
@@ -1462,6 +1463,11 @@ angular.module('activosInformaticosApp')
           }
         });
 
+        dataFactory.getActualStateGraph( $scope.update_asset._id, function (response) {
+          $scope.actualStateGraph = response;
+          //console.log($scope.lifeCycleGraph);
+        });
+
         $scope.nextSelect = function () {
           ++$scope.etapa;
           if ($scope.etapa == 5) {
@@ -1529,9 +1535,6 @@ angular.module('activosInformaticosApp')
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
-
-
-
 
       };
 
