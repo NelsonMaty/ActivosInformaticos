@@ -807,6 +807,7 @@ angular.module('activosInformaticosApp')
 
           });
 
+        console.log($scope.keys);
 
         $scope.hide = function() {
           $mdDialog.hide();
@@ -1265,9 +1266,10 @@ angular.module('activosInformaticosApp')
 
             switch(atributos[i].type) {
               case 'Date':
-                //var fecha = Date.parse($scope.update_asset[atributos[i].name]);
-                //$scope.update_asset[atributos[i].name] = fecha;
-                $scope.update_asset[atributos[i].name] = '';
+                var fecha = new Date($scope.update_asset[atributos[i].name]);
+                console.log(fecha);
+                $scope.update_asset[atributos[i].name] = fecha;
+                //$scope.update_asset[atributos[i].name] = '';
                 if (atributos[i].required == true) {
                   aux = {
                     key: atributos[i].name,

@@ -298,7 +298,7 @@ angular.module('activosInformaticosApp')
         $scope.etapa = 1;
         $scope.listaNombreNodos = [];
         $scope.hayFinal = false;
-        //$scope.estados = [];
+        $scope.previewGraph = {};
         $scope.nombreDuplicado = false;
         $scope.nombreAtributoDuplicado = false;
 
@@ -426,10 +426,11 @@ angular.module('activosInformaticosApp')
         $scope.pedirGraphviz = function () {
           $scope.graphLifeCycle = $scope.nodes;
           $scope.stateGraph = ' ';
+
           var auxGraph = $scope.graphLifeCycle[0].name.replace(" ","_");
 
 
-          $scope.confGraph = 'digraph life_cycle { rankdir=LR; node [shape = doublecircle]; '+auxGraph+' '
+          $scope.confGraph = 'digraph life_cycle {  node [shape = doublecircle]; '+auxGraph+' '
           for (i=0;i<$scope.graphLifeCycle.length;i++) {
             if ($scope.graphLifeCycle[i].isFinal) {
 
@@ -447,8 +448,13 @@ angular.module('activosInformaticosApp')
           }
           $scope.stateGraph += " }";
           $scope.confGraph += $scope.stateGraph;
-          console.log($scope.confGraph);
-        }
+
+          dataFactory.getPreviewGraph($scope.confGraph, function(response) {
+
+            $scope.previewGraph = response;
+
+          });
+        };
 
         $scope.hide = function() {
           $mdDialog.hide();

@@ -185,7 +185,7 @@
 					<div flex="grow" layout="column"  style="padding-top: 18px; margin-left: 20px; ">
 						<!-- <h2 >Gráfico de ciclo de vida</h2> -->
 
-						<div class="" flex>
+						<div class="" flex layout="row" layout-align="center center">
 								<img data-ng-src="data:image/png;base64,{{actualStateGraph.graph}}"> </img>
 						</div>
 						<md-dialog-actions layout="row">
@@ -199,7 +199,7 @@
 							<md-button ng-click="confirmFinalAsset($event,update_asset)" ng-disabled="editar.$invalid" ng-show="siguienteEstado == estadoFinal">
 								Aplicar
 							</md-button>
-							<md-button ng-click="cancel()" style="margin-right:10px;">
+							<md-button ng-click="cancel()" style="margin-right:20px;">
 								Cancelar
 							</md-button>
 							<md-button class="md-icon-button" ng-click="callDelete(indice)">
@@ -208,7 +208,7 @@
 							</md-button>
 						</md-dialog-actions>
 					</div>
+				</div>
 			</div>
-		</div>
 	</form>
 </md-dialog>

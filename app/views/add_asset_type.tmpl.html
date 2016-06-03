@@ -10,7 +10,7 @@
       </div>
     </md-toolbar>
 
-    <div ng-switch="etapa">
+    <div ng-switch="etapa" style="overflow:auto;">
 
       <div ng-switch-when="1">
         <md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
@@ -81,9 +81,7 @@
 
       <div layout="row" ng-switch-when="2">
 
-
-
-        <div layout="column"  style="padding-top: 18px; margin-left: 20px; ">
+        <div layout="column"  style="padding-top: 18px; margin-left: 20px; margin-right: 20px;">
 
             <h1 class="md-display-2">Ciclo de vida</h1>
 
@@ -91,7 +89,7 @@
               <p style="padding-left: 30px; padding-bottom: 10px; padding-right: 30px;"> Inserte los estados posibles para su tipo de activo </p>
             </div>
 
-            <div layout="column" ng-repeat="nodo in nodes" style="min-height: 82px;">
+            <div layout="column" ng-repeat="nodo in nodes" style="min-height: 82px; ">
 
               <div layout="row" style="margin-top: 18px;">
 
@@ -133,7 +131,7 @@
 
               </div>
 
-              <md-divider ng-if="!$last"></md-divider>
+              <md-divider ng-if="!$last" ></md-divider>
 
             </div>
 
@@ -146,22 +144,21 @@
               <md-button ng-click="nextSelect()" ng-disabled="addAssetType.$invalid || !hayFinal || nombreDuplicado">
                   Siguiente
               </md-button>
-              <md-button ng-click="cancel()" style="margin-right:10px;">
+              <md-button ng-click="cancel()" style="margin-right:20px;">
                   Cancelar
               </md-button>
             </md-dialog-actions>
           </div>
-      </div>
+        </div>
 
-      <div layout="row" ng-switch-when="3">
+      <div flex="grow" layout="column" ng-switch-when="3" style="overflow:auto;">
+        <h1 class="md-display-2" style="padding-left:20px;">Transición de estados</h1>
+        <div layout="row"  style="min-height: 82px; margin-top: 18px;">
+          <p style="padding-left: 30px; padding-bottom: 10px; padding-right: 30px;"> Elija los estados destino para cada estado del ciclo </p>
+        </div>
+        <div layout="row" class="">
 
-          <div layout="column"  style="padding-top: 18px; margin-left: 20px; ">
-
-            <h1 class="md-display-2">Transición de estados</h1>
-
-            <div layout="row"  style="min-height: 82px; margin-top: 18px;">
-              <p style="padding-left: 30px; padding-bottom: 10px; padding-right: 30px;"> Elija los estados destino para cada estado del ciclo </p>
-            </div>
+          <div layout="column"  style="padding-top: 18px; padding-right: 50px; padding-bottom: 50px; margin-left: 20px; min-width:390px;">
 
             <div ng-if="nodes.length == 1" style="margin-top: 18px;">
               <p style="padding-left: 30px; padding-bottom: 10px;">  No existen transiciones de estados disponibles </p>
@@ -177,8 +174,6 @@
                     <div>
                       <h3 style="padding-left: 30px;">Estado {{nodo.name}}</h3>
                     </div>
-
-
                 </md-input-container>
 
               </div>
@@ -188,7 +183,7 @@
                 <md-input-container style="left: 35px;">
                   <md-icon md-font-set="material-icons" >directions</md-icon>
 
-                  <md-select ng-model="nodo.adjacents[$index]" ng-required="true"  aria-label="nombre nodos">
+                  <md-select ng-model="nodo.adjacents[$index]" ng-required="true"  aria-label="nombre nodos" md-on-close="pedirGraphviz()">
                     <md-option ng-repeat="estado in nodes" value="{{estado.name}}" ng-hide="listaNombreNodos[$parent.$parent.$parent.$index] == estado.name ">
                         Estado {{estado.name}}
                     </md-option>
@@ -212,7 +207,13 @@
               <md-divider ng-if="!$last"></md-divider>
 
             </div>
+          </div>
 
+          <div layout="column" flex="grow" style="padding-top: 18px; margin-left: 20px; ">
+            <!-- <h1 class="md-display-2">Vista previa</h1> -->
+            <div class="" layout="row" layout-align="center center" flex style="padding-right:40px; padding-bottom:40px;">
+								<img data-ng-src="data:image/png;base64,{{previewGraph.img}}" ng-show="previewGraph.img"> </img>
+						</div>
             <md-dialog-actions layout="row">
               <span flex></span>
               <md-button ng-click="prevSelect()">
@@ -221,22 +222,14 @@
               <md-button ng-click="answer('TipoActivo',asset_type)" ng-disabled="addAssetType.$invalid">
                   Crear
               </md-button>
-              <!--md-button ng-click="nextSelect()" ng-disabled="addAssetType.$invalid">
-                  Siguiente
-              </md-button-->
-              <md-button ng-click="cancel()" style="margin-right:10px;">
+              <md-button ng-click="cancel()" style="margin-right:20px;">
                   Cancelar
               </md-button>
             </md-dialog-actions>
           </div>
-
-          <div layout="column"  style="padding-top: 18px; margin-left: 20px; ">
-
-          </div>
+        </div>
       </div>
 
-
     </div>
-
   </form>
 </md-dialog>
