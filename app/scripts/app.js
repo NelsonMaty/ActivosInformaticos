@@ -82,6 +82,47 @@ angular
         });
       };
 
+      dataFactory.getPreviewGraph = function(confGraph,callback){
+
+        // $http.get(urlWS + '/graph')
+        //   .then(function(response){
+        //     //console.log(response);
+        //     callback(response.data);
+        //   },function(err){
+        //     console.log(err);
+        // });
+
+        $http({
+          method:"post",
+          url:urlWS + 'graph',
+          data: {
+
+              
+          }
+
+        })
+          .success(function(data){
+            //alert("El usuario fue creado con éxito");
+            // $mdToast.show(
+            //   $mdToast.simple()
+            //     .content('Se ha agregado el tipo de activo ' + type.name + ' a la base de datos')
+            //     .position('top right')
+            //     .hideDelay(3000)
+            // );
+
+            callback();
+        })
+          .error(function(err){
+            console.log(err);
+
+            // $mdToast.show(
+            //   $mdToast.simple()
+            //     .content('No se pudo agregar el tipo de activo a la base de datos')
+            //     .position('top right')
+            //     .hideDelay(3000)
+            // );
+        });
+      };
 
     //----------Types---------//
 
