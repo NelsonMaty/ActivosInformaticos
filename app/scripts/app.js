@@ -82,6 +82,17 @@ angular
         });
       };
 
+      dataFactory.getRelationMap = function(assetId,callback){
+
+        $http.get(urlWS + 'assets/' + assetId + '/relationsTree')
+          .then(function(response){
+            //console.log(response);
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
+      };
+
       dataFactory.getPreviewGraph = function(confGraph,callback){
 
         $http({

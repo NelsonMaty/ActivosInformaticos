@@ -134,7 +134,8 @@ angular.module('activosInformaticosApp')
     };
 
 
-    $scope.relationGraph = function () {
+
+    $scope.relationGraph = function (jsonMap) {
       //Constants for the SVG
 
       var width = 900,
@@ -146,11 +147,12 @@ angular.module('activosInformaticosApp')
       //Set up the force layout
       var force = d3.layout.force()
           .charge(-120)
-          .linkDistance(50)
+          .linkDistance(80)
           .size([width, height]);
 
       //Append a SVG to the body of the html page. Assign this SVG as an object to svg
       //var svg = d3.select("body").append("svg")
+      $("#relGraph").empty();
       var svg = d3.select("#relGraph").append("svg")
           .attr("width", width)
           .attr("height", height);
@@ -158,43 +160,68 @@ angular.module('activosInformaticosApp')
       //Read the data from the mis element - lee datos de los json para armar los nodos
       //var mis = document.getElementById('mis').innerHTML;
       //graph = JSON.parse(mis);
+
+      // var graph = {
+      //   nodes: [
+      //     {
+      //       name: 'Disco D',
+      //       group: '5749c43b06699a810a999c52'
+      //     },
+      //     {
+      //       //id: '',
+      //       name: 'Disco C',
+      //       group: '5749c3ef06699a810a999c51'
+      //     },
+      //     {
+      //       name: 'Disco A',
+      //       group: '5749c3ef06699a810a999c51'
+      //     }
+      //   ],
+      //   links: [
+      //     {
+      //       source: 0,
+      //       target: 1,
+      //       value: 3
+      //     },
+      //     {
+      //       source: 1,
+      //       target: 0,
+      //       value: 3
+      //     },
+      //     {
+      //       source: 2,
+      //       target: 0,
+      //       value: 3
+      //     },
+      //
+      //   ]
+      // };
+
       var graph = {
         nodes: [
           {
-            name: 'Disco D',
-            group: '5749c43b06699a810a999c52'
-          },
-          {
-            //id: '',
-            name: 'Disco C',
-            group: '5749c3ef06699a810a999c51'
-          },
-          {
-            name: 'Disco A',
-            group: '5749c3ef06699a810a999c51'
+            name: jsonMap.name,
+            group: jsonMap.assetType._id
           }
+
         ],
         links: [
           {
-            source: 0,
-            target: 1,
-            value: 3
-          },
-          {
-            source: 1,
-            target: 0,
-            value: 3
-          },
-          {
-            source: 2,
-            target: 0,
-            value: 3
-          },
-
+             source: 0,
+             target: 1,
+             value: 3
+          }
         ]
       };
 
-      //console.log(graph);
+      for (i=0;i<jsonMap.relations.length;i++) {
+        graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
+        if (i > 0 ) {
+          console.log("a");
+          graph.links.push({ source: i, target: 0, value: 3 });
+        }
+
+      }
 
       //Creates the graph data structure out of the json data
       force.nodes(graph.nodes)
@@ -251,29 +278,12 @@ angular.module('activosInformaticosApp')
     // }, 1000);
 
     $scope.goToMap = function (selected) {
-      //$scope.selected_asset = selected;
-      $scope.links = [];
-      $scope.nodos = [];
-      $scope.nodos[0] = selected;
-
-      dataFactory.getAssetRelations(selected_asset._id, function (response) {
-
-          $scope.assetRelationsN1 = response;
-          $scope.labels = [];
-
-          for (i=0;i<$scope.assetRelationsN1.length;i++) {
-
-            // dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
-            //
-            //   $scope.labels.push(response);
-            //
-            // });
-            //$scope
-            //dataFactory.getAnAsset = function(id,callback)
-
-          }
+      dataFactory.getRelationMap(selected._id, function (response) {
+        //$scope.jsonMap = response;
+        console.log(response);
+        $scope.relationGraph(response);
       });
-    }
+    };
 
     //-----------Assets-----------//
 
@@ -807,7 +817,7 @@ angular.module('activosInformaticosApp')
 
           });
 
-        console.log($scope.keys);
+        //console.log($scope.keys);
 
         $scope.hide = function() {
           $mdDialog.hide();
