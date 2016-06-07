@@ -161,41 +161,7 @@ angular.module('activosInformaticosApp')
       //var mis = document.getElementById('mis').innerHTML;
       //graph = JSON.parse(mis);
 
-      // var graph = {
-      //   nodes: [
-      //     {
-      //       name: 'Disco D',
-      //       group: '5749c43b06699a810a999c52'
-      //     },
-      //     {
-      //       //id: '',
-      //       name: 'Disco C',
-      //       group: '5749c3ef06699a810a999c51'
-      //     },
-      //     {
-      //       name: 'Disco A',
-      //       group: '5749c3ef06699a810a999c51'
-      //     }
-      //   ],
-      //   links: [
-      //     {
-      //       source: 0,
-      //       target: 1,
-      //       value: 3
-      //     },
-      //     {
-      //       source: 1,
-      //       target: 0,
-      //       value: 3
-      //     },
-      //     {
-      //       source: 2,
-      //       target: 0,
-      //       value: 3
-      //     },
-      //
-      //   ]
-      // };
+
 
       var graph = {
         nodes: [
@@ -217,7 +183,7 @@ angular.module('activosInformaticosApp')
       for (i=0;i<jsonMap.relations.length;i++) {
         graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
         if (i > 0 ) {
-          console.log("a");
+          //console.log("a");
           graph.links.push({ source: i, target: 0, value: 3 });
         }
 
@@ -240,14 +206,22 @@ angular.module('activosInformaticosApp')
       //Do the same with the circles for the nodes - no
       var node = svg.selectAll(".node")
           .data(graph.nodes)
-          .enter().append("circle")
+          //.enter().append("circle")
+          .enter().append("g")
           .attr("class", "node")
+          .call(force.drag);
+      node.append("circle")
           .attr("r", 12)
           .style("fill", function (d) {
           return color(d.group);
       })
-          .call(force.drag);
 
+
+      node.append("text")
+          .attr("dx", 14)
+          .attr("dy", ".35em")
+          .text(function(d) { return d.name })
+          .style("stroke", "gray");
 
       //Now we are giving the SVGs co-ordinates - the force layout is generating the co-ordinates which this code is using to update the attributes of the SVG elements
       force.on("tick", function () {
@@ -264,10 +238,18 @@ angular.module('activosInformaticosApp')
               return d.target.y;
           });
 
-          node.attr("cx", function (d) {
+          //node.attr("cx", function (d) {
+          d3.selectAll("circle").attr("cx", function (d) {
               return d.x;
           })
               .attr("cy", function (d) {
+              return d.y;
+          });
+
+          d3.selectAll("text").attr("x", function (d) {
+              return d.x;
+          })
+              .attr("y", function (d) {
               return d.y;
           });
       });

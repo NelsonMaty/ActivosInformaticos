@@ -23,6 +23,10 @@
     stroke-opacity: .6;
 }
 
+.node text {
+  font: 16px helvetica;
+}
+
 md-input-container.md-select {
   margin-top: 10px;
   margin-bottom: 10px;
