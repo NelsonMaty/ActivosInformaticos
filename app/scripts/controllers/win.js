@@ -135,7 +135,7 @@ angular.module('activosInformaticosApp')
 
 
 
-    $scope.relationGraph = function (jsonMap) {
+    $scope.relationGraph = function ($scope,jsonMap,indice) {
       //Constants for the SVG
 
       var width = 900,
@@ -146,8 +146,8 @@ angular.module('activosInformaticosApp')
 
       //Set up the force layout
       var force = d3.layout.force()
-          .charge(-120)
-          .linkDistance(80)
+          .charge(-190)
+          .linkDistance(110)
           .size([width, height]);
 
       //Append a SVG to the body of the html page. Assign this SVG as an object to svg
@@ -161,8 +161,6 @@ angular.module('activosInformaticosApp')
       //var mis = document.getElementById('mis').innerHTML;
       //graph = JSON.parse(mis);
 
-
-
       var graph = {
         nodes: [
           {
@@ -173,22 +171,46 @@ angular.module('activosInformaticosApp')
         ],
         links: [
           {
-             source: 0,
-             target: 1,
-             value: 3
+              source: 0,
+              target: 1,
+              value: 3
           }
         ]
       };
 
       for (i=0;i<jsonMap.relations.length;i++) {
         graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
-        if (i > 0 ) {
-          //console.log("a");
-          graph.links.push({ source: i, target: 0, value: 3 });
-        }
+        //if (i > 0 ) {
+          //console.log(i);
+          graph.links.push({ source: (i+1), target: 0, value: 3 });
+        //}
 
       }
 
+      var llamarActivo = function () {
+        var asset = {};
+        d = d3.select(this).node().__data__;
+        if (d.name == jsonMap.name) {
+          dataFactory.getAnAsset(jsonMap._id, function (response) {
+            asset = response;
+            var ev = {};
+            console.log(indice);
+            //$scope.goAsset(ev,asset,indice);
+            angular.element(document.getElementById('win')).scope().goAsset({},asset,indice);
+          });
+        } else {
+          for (i=0;i<jsonMap.relations.length;i++) {
+            if (d.name == jsonMap.relations[i].relatedAsset.name) {
+              dataFactory.getAnAsset(jsonMap.relations[i].relatedAsset._id, function (response) {
+                asset = response;
+                console.log(indice);
+                angular.element(document.getElementById('win')).scope().goAsset({},asset,indice);
+                //$scope.goToAsset({},asset,indice);
+              });
+            }
+          }
+        }
+      };
       //Creates the graph data structure out of the json data
       force.nodes(graph.nodes)
           .links(graph.links)
@@ -209,19 +231,49 @@ angular.module('activosInformaticosApp')
           //.enter().append("circle")
           .enter().append("g")
           .attr("class", "node")
-          .call(force.drag);
+          .call(force.drag)
+          .on('dblclick', llamarActivo); //Added code
+
       node.append("circle")
-          .attr("r", 12)
+          .attr("r", 14)
           .style("fill", function (d) {
           return color(d.group);
       })
-
 
       node.append("text")
           .attr("dx", 14)
           .attr("dy", ".35em")
           .text(function(d) { return d.name })
           .style("stroke", "gray");
+
+      var padding = 3, // separation between circles
+        radius=8;
+      function collide(alpha) {
+        var quadtree = d3.geom.quadtree(graph.nodes);
+        return function(d) {
+          var rb = 2*radius + padding,
+              nx1 = d.x - rb,
+              nx2 = d.x + rb,
+              ny1 = d.y - rb,
+              ny2 = d.y + rb;
+          quadtree.visit(function(quad, x1, y1, x2, y2) {
+            if (quad.point && (quad.point !== d)) {
+              var x = d.x - quad.point.x,
+                  y = d.y - quad.point.y,
+                  l = Math.sqrt(x * x + y * y);
+                if (l < rb) {
+                l = (l - rb) / l * alpha;
+                d.x -= x *= l;
+                d.y -= y *= l;
+                quad.point.x += x;
+                quad.point.y += y;
+              }
+            }
+            return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+          });
+        };
+      }
+
 
       //Now we are giving the SVGs co-ordinates - the force layout is generating the co-ordinates which this code is using to update the attributes of the SVG elements
       force.on("tick", function () {
@@ -238,13 +290,15 @@ angular.module('activosInformaticosApp')
               return d.target.y;
           });
 
-          //node.attr("cx", function (d) {
+
           d3.selectAll("circle").attr("cx", function (d) {
               return d.x;
           })
               .attr("cy", function (d) {
               return d.y;
           });
+
+          node.each(collide(0.5)); //Added
 
           d3.selectAll("text").attr("x", function (d) {
               return d.x;
@@ -259,11 +313,11 @@ angular.module('activosInformaticosApp')
     //   $scope.relationGraph();
     // }, 1000);
 
-    $scope.goToMap = function (selected) {
+    $scope.goToMap = function (selected,indice) {
       dataFactory.getRelationMap(selected._id, function (response) {
         //$scope.jsonMap = response;
         console.log(response);
-        $scope.relationGraph(response);
+        $scope.relationGraph($scope,response,indice);
       });
     };
 
