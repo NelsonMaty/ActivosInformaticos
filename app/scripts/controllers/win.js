@@ -182,7 +182,8 @@ angular.module('activosInformaticosApp')
         graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
         //if (i > 0 ) {
           //console.log(i);
-          graph.links.push({ source: (i+1), target: 0, value: 3 });
+        graph.links.push({ source: (i+1), target: 0, value: 3 });
+        graph.links.push({ source: 0, target: (i+1), value: 3 });
         //}
 
       }
@@ -194,7 +195,7 @@ angular.module('activosInformaticosApp')
           dataFactory.getAnAsset(jsonMap._id, function (response) {
             asset = response;
             var ev = {};
-            console.log(indice);
+            //console.log(indice);
             //$scope.goAsset(ev,asset,indice);
             angular.element(document.getElementById('win')).scope().goAsset({},asset,indice);
           });
@@ -203,14 +204,48 @@ angular.module('activosInformaticosApp')
             if (d.name == jsonMap.relations[i].relatedAsset.name) {
               dataFactory.getAnAsset(jsonMap.relations[i].relatedAsset._id, function (response) {
                 asset = response;
-                console.log(indice);
-                angular.element(document.getElementById('win')).scope().goAsset({},asset,indice);
+                //console.log(indice);
+                angular.element(document.getElementById('win')).scope().goAsset({},asset,i-1);
                 //$scope.goToAsset({},asset,indice);
               });
             }
           }
         }
       };
+
+      //Toggle stores whether the highlighting is on
+      var toggle = 0;
+      //Create an array logging what is connected to what
+      var linkedByIndex = {};
+      for (i = 0; i < graph.nodes.length; i++) {
+          linkedByIndex[i + "," + i] = 1;
+      };
+      graph.links.forEach(function (d) {
+          linkedByIndex[d.source + "," + d.target] = 1;
+      });
+      //This function looks up whether a pair are neighbours
+      function neighboring(a, b) {
+          return linkedByIndex[a.index + "," + b.index];
+      }
+      function connectedNodes() {
+          if (toggle == 0) {
+              //Reduce the opacity of all but the neighbouring nodes
+              d = d3.select(this).node().__data__;
+              node.style("opacity", function (o) {
+                  return neighboring(d, o) | neighboring(o, d) ? 1 : 0.1;
+              });
+              link.style("opacity", function (o) {
+                  return d.index==o.source.index | d.index==o.target.index ? 1 : 0.1;
+              });
+              //Reduce the op
+              toggle = 1;
+          } else {
+              //Put them back to opacity=1
+              node.style("opacity", 1);
+              link.style("opacity", 1);
+              toggle = 0;
+          }
+      }
       //Creates the graph data structure out of the json data
       force.nodes(graph.nodes)
           .links(graph.links)
@@ -232,7 +267,8 @@ angular.module('activosInformaticosApp')
           .enter().append("g")
           .attr("class", "node")
           .call(force.drag)
-          .on('dblclick', llamarActivo); //Added code
+          .on('dblclick', llamarActivo) //Added code
+          .on('click', connectedNodes); //Added code
 
       node.append("circle")
           .attr("r", 14)
@@ -317,6 +353,7 @@ angular.module('activosInformaticosApp')
       dataFactory.getRelationMap(selected._id, function (response) {
         //$scope.jsonMap = response;
         console.log(response);
+
         $scope.relationGraph($scope,response,indice);
       });
     };
