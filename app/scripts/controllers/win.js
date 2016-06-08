@@ -133,8 +133,6 @@ angular.module('activosInformaticosApp')
       }
     };
 
-
-
     $scope.relationGraph = function ($scope,jsonMap,indice) {
       //Constants for the SVG
 
@@ -165,7 +163,8 @@ angular.module('activosInformaticosApp')
         nodes: [
           {
             name: jsonMap.name,
-            group: jsonMap.assetType._id
+            group: jsonMap.assetType._id,
+
           }
 
         ],
@@ -173,7 +172,8 @@ angular.module('activosInformaticosApp')
           {
               source: 0,
               target: 1,
-              value: 3
+              value: 9,
+              label: ''
           }
         ]
       };
@@ -182,8 +182,8 @@ angular.module('activosInformaticosApp')
         graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
         //if (i > 0 ) {
           //console.log(i);
-        graph.links.push({ source: (i+1), target: 0, value: 3 });
-        graph.links.push({ source: 0, target: (i+1), value: 3 });
+        //graph.links.push({ source: (i+1), target: 0, value: 9, label: jsonMap.relations[i].relationLabel  });
+        graph.links.push({ source: 0, target: (i+1), value: 9, label: jsonMap.relations[i].relationLabel });
         //}
 
       }
@@ -251,11 +251,23 @@ angular.module('activosInformaticosApp')
           .links(graph.links)
           .start();
 
+          //Set up tooltip
+      var tip = d3.tip()
+          .attr('class', 'd3-tip')
+          .offset([-16, 0])
+          .html(function (d) {
+          return  d.label + "";
+      })
+      svg.call(tip);
+
       //Create all the line svgs but without locations yet
       var link = svg.selectAll(".link")
           .data(graph.links)
           .enter().append("line")
           .attr("class", "link")
+          .on('mouseover', tip.show) //Added
+          .on('mouseout', tip.hide) //Added
+          .style("marker-end",  "url(#suit)") // Modified line
           .style("stroke-width", function (d) {
           return Math.sqrt(d.value);
       });
@@ -267,6 +279,7 @@ angular.module('activosInformaticosApp')
           .enter().append("g")
           .attr("class", "node")
           .call(force.drag)
+
           .on('dblclick', llamarActivo) //Added code
           .on('click', connectedNodes); //Added code
 
@@ -282,7 +295,22 @@ angular.module('activosInformaticosApp')
           .text(function(d) { return d.name })
           .style("stroke", "gray");
 
-      var padding = 3, // separation between circles
+      svg.append("defs").selectAll("marker")
+        .data(["suit", "licensing", "resolved"])
+      .enter().append("marker")
+        .attr("id", function(d) { return d; })
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 25)
+        .attr("refY", 0)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+      .append("path")
+        .attr("d", "M0,-5L10,0L0,5 L10,0 L0, -5")
+        .style("stroke", "#4679BD")
+        .style("opacity", "0.6");
+
+      var padding = 5, // separation between circles
         radius=8;
       function collide(alpha) {
         var quadtree = d3.geom.quadtree(graph.nodes);
@@ -345,9 +373,6 @@ angular.module('activosInformaticosApp')
       });
     };
 
-    // setTimeout(function () {
-    //   $scope.relationGraph();
-    // }, 1000);
 
     $scope.goToMap = function (selected,indice) {
       dataFactory.getRelationMap(selected._id, function (response) {
