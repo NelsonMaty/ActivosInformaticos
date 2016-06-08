@@ -132,7 +132,7 @@ angular.module('activosInformaticosApp')
 
       $scope.editAssetType = function (ev,type,$index) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-          console.log($index);
+
           $mdDialog.show({
             locals: {
               type: type,
@@ -542,7 +542,9 @@ angular.module('activosInformaticosApp')
 
         $scope.nextSelect = function () {
           ++$scope.etapa;
-
+          if ($scope.etapa == 3) {
+            $scope.pedirGraphviz();
+          }
         }
 
         $scope.prevSelect = function () {
@@ -582,6 +584,38 @@ angular.module('activosInformaticosApp')
             }
           } return false;
         }
+
+        $scope.pedirGraphviz = function () {
+          $scope.graphLifeCycle = $scope.update_type.lifeCycle;
+          $scope.stateGraph = ' ';
+
+          var auxGraph = $scope.graphLifeCycle[0].name.replace(" ","_");
+
+          $scope.confGraph = 'digraph life_cycle {  node [shape = doublecircle]; '+auxGraph+' '
+          for (i=0;i<$scope.graphLifeCycle.length;i++) {
+            if ($scope.graphLifeCycle[i].isFinal) {
+
+              auxGraph = $scope.graphLifeCycle[i].name.replace(" ","_");
+              $scope.confGraph += auxGraph+'; node [shape = circle]; ';
+            }
+            for (j=0;j<$scope.graphLifeCycle[i].adjacents.length;j++) {
+              if (!$scope.graphLifeCycle[i].isFinal) {
+                auxGraph = $scope.graphLifeCycle[i].name.replace(" ","_");
+                var auxGraph2 = $scope.graphLifeCycle[i].adjacents[j].replace(" ","_");
+
+                $scope.stateGraph += auxGraph+' -> '+auxGraph2+'; ';
+              }
+            }
+          }
+          $scope.stateGraph += " }";
+          $scope.confGraph += $scope.stateGraph;
+
+          dataFactory.getPreviewGraph($scope.confGraph, function(response) {
+            
+            $scope.previewGraph = response;
+
+          });
+        };
 
         $scope.hide = function() {
           $mdDialog.hide();
