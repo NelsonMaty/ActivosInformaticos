@@ -164,9 +164,23 @@
                         </md-list-item>
                       </md-list>
                     </md-sidenav>
-                    <div id="relGraph">
+                    <div class="">
+
+                      <div class="" layout-align="end end" layout="row" style="">
+                        <md-input-container class="" ng-show="svgExist" style="margin-bottom:0px;height:40px;">
+
+                          <input id="search" ng-model="buscado2" type="text" placeholder="Ingrese nombre de activo" >
+                        </md-input-container>
+
+                        <!-- < <input id="search"> -->
+                        <md-button type="button" style="margin-bottom:0px;" ng-show="svgExist" ng-click="searchNode()">Busqueda</md-button>
+                      </div>
+                      <div id="relGraph">
+
+                      </div>
 
                     </div>
+
                   </div>
                 </md-content>
               </md-tab>

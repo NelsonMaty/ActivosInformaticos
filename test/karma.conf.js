@@ -38,6 +38,8 @@ module.exports = function(config) {
       'bower_components/ng-file-upload/ng-file-upload.js',
       'bower_components/formlyMaterialTemplate/index.all.js',
       'bower_components/d3/d3.js',
+      'bower_components/d3-tip/index.js',
+      'bower_components/jquery-ui/jquery-ui.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

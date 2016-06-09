@@ -133,9 +133,35 @@ angular.module('activosInformaticosApp')
       }
     };
 
+    $scope.searchNode = function(svgAnterior) {
+        //find the node
+        if (svgAnterior) {
+            svg = svgAnterior
+        }
+
+        var selectedVal = document.getElementById('search').value;
+        var node = svg.selectAll(".node");
+        if (selectedVal == "none") {
+            node.style("stroke", "white").style("stroke-width", "1");
+        } else {
+            var selected = node.filter(function (d, i) {
+                return d.name != selectedVal;
+            });
+            selected.style("opacity", "0");
+            var link = svg.selectAll(".link")
+            link.style("opacity", "0");
+            d3.selectAll(".node, .link").transition()
+                .duration(5000)
+                .style("opacity", 1);
+        }
+    };
+
+    var svg = null;
+    $scope.svgExist = false;
+
     $scope.relationGraph = function ($scope,jsonMap,indice) {
       //Constants for the SVG
-
+      $scope.svgExist = true;
       var width = 900,
           height = 600;
 
@@ -144,9 +170,10 @@ angular.module('activosInformaticosApp')
 
       //Set up the force layout
       var force = d3.layout.force()
-          .charge(-190)
-          .linkDistance(110)
+          .charge(-230)
+          .linkDistance(160)
           .size([width, height]);
+
 
       //Append a SVG to the body of the html page. Assign this SVG as an object to svg
       //var svg = d3.select("body").append("svg")
@@ -246,6 +273,20 @@ angular.module('activosInformaticosApp')
               toggle = 0;
           }
       }
+
+      var optArray = [];
+      for (var i = 0; i < graph.nodes.length - 1; i++) {
+          optArray.push(graph.nodes[i].name);
+      }
+      optArray = optArray.sort();
+      $(function () {
+          $("#search").autocomplete({
+              source: optArray
+          });
+      });
+
+      $scope.searchNode(svg);
+
       //Creates the graph data structure out of the json data
       force.nodes(graph.nodes)
           .links(graph.links)
@@ -310,7 +351,7 @@ angular.module('activosInformaticosApp')
         .style("stroke", "#4679BD")
         .style("opacity", "0.6");
 
-      var padding = 5, // separation between circles
+      var padding = 12, // separation between circles
         radius=8;
       function collide(alpha) {
         var quadtree = d3.geom.quadtree(graph.nodes);
