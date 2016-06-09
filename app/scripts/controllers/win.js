@@ -162,7 +162,7 @@ angular.module('activosInformaticosApp')
     $scope.relationGraph = function ($scope,jsonMap,indice) {
       //Constants for the SVG
       $scope.svgExist = true;
-      var width = 900,
+      var width = 1200,
           height = 600;
 
       //Set up the colour scale
