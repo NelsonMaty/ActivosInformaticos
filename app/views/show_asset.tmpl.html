@@ -15,83 +15,102 @@
 	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
 	  </md-button>
 	</md-toolbar>
-	<div style="overflow: auto;">
 
-		<h1 class="md-display-2" style="padding-left: 20px;">Comentarios</h1>
-	    <p style="padding-left: 20px; padding-bottom: 30px;"> {{asset.comment}} </p>
-	    <md-divider ></md-divider>
-	    <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
+	<div layout="column" flex id="content">
+		<md-content layout="column" flex class="md-padding">
 
-	    <md-list-item ng-repeat="key in keys" >
-	    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
-	        <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong>
-	        <p style="padding-left: 20px; padding-bottom: 20px;">{{asset[key]}} </p>
+					<md-tabs md-dynamic-height="" md-border-bottom="">
+						<md-tab label="Descripción">
 
-	    </md-list-item>
-			<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
-	    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">settings_input_component</md-icon>
-	    	<strong style="padding-left: 20px;">Estado actual: </strong>
-	    	<p style="padding-left: 20px; ">{{asset.estadoActual}}</p>
-	    </div>
+							<div style="overflow: auto;">
 
-	    <div layout="column" ng-repeat="lista in listas" style=" overflow: auto;">
+								<h1 class="md-display-2" style="padding-left: 20px;">Comentarios</h1>
+							    <p style="padding-left: 20px; padding-bottom: 30px;"> {{asset.comment}} </p>
+							    <md-divider ></md-divider>
+							    <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
 
-			    <md-divider></md-divider>
-			    <!--div style="padding-left: 16px; padding-top: 10px;"-->
-			    	<h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>
-			    <!--/div-->
+							    <md-list-item ng-repeat="key in keys" >
+							    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
+							        <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong>
+							        <p style="padding-left: 20px; padding-bottom: 20px;">{{asset[key]}} </p>
 
-			    <!--div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;"-->
-			    <div style="min-height: 100px;">
-					<md-list-item ng-repeat="element in lista.elements"  >
-					    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">list</md-icon>
-					        <p style="padding-left: 20px; padding-bottom: 20px;">{{element.content}} </p>
-					</md-list-item>
-				<!--/div-->
-				</div>
-		</div>
+							    </md-list-item>
+									<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
+							    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">settings_input_component</md-icon>
+							    	<strong style="padding-left: 20px;">Estado actual: </strong>
+							    	<p style="padding-left: 20px; ">{{asset.estadoActual}}</p>
+							    </div>
 
-		<md-divider></md-divider>
-		<h1 class="md-display-2" style="padding-left: 20px;">Tags</h1>
-		<div style="padding-left: 16px; padding-top: 10px; ">
-			<md-chips ng-model="asset.tags" readonly="true" style="padding-bottom: 30px;"></md-chips>
-		</div>
+							    <div layout="column" ng-repeat="lista in listas" style=" overflow: auto;">
 
-		<md-divider></md-divider>
-		<h1 class="md-display-2" style="padding-left: 20px;">Contacto</h1>
-		<div layout="row" style="padding-bottom: 30px; padding-top: 14px;">
-		    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">person</md-icon>
-		    <strong style="padding-left: 20px; ">Nombre: </strong>
-		    <p style="padding-left: 20px; "> {{asset.stakeholders.name}}</p>
-	    </div>
-	    <div layout="row" style="padding-bottom: 30px;">
-		    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">email</md-icon>
-		    <strong style="padding-left: 20px; ">Email: </strong>
-		    <p style="padding-left: 20px; "> {{asset.stakeholders.email}}</p>
-	    </div>
+									    <md-divider></md-divider>
+									    <!--div style="padding-left: 16px; padding-top: 10px;"-->
+									    	<h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>
+									    <!--/div-->
 
-		<md-divider></md-divider>
-		<h1 class="md-display-2" style="padding-left: 20px;">Informacion Adjunta</h1>
+									    <!--div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;"-->
+									    <div style="min-height: 100px;">
+											<md-list-item ng-repeat="element in lista.elements"  >
+											    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">list</md-icon>
+											        <p style="padding-left: 20px; padding-bottom: 20px;">{{element.content}} </p>
+											</md-list-item>
+										<!--/div-->
+										</div>
+								</div>
 
-		<md-list-item ng-repeat="link in asset.attached" >
-		    <!--{{ d.label}}-->
-		      	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px; margin-left: 0px;">attach_file</md-icon>
-		        <a href="{{link}}" style="padding-left: 20px; padding-bottom: 20px;">{{link}} </a>
+								<md-divider></md-divider>
+								<h1 class="md-display-2" style="padding-left: 20px;">Tags</h1>
+								<div style="padding-left: 16px; padding-top: 10px; ">
+									<md-chips ng-model="asset.tags" readonly="true" style="padding-bottom: 30px;"></md-chips>
+								</div>
 
-		</md-list-item>
+								<md-divider></md-divider>
+								<h1 class="md-display-2" style="padding-left: 20px;">Contacto</h1>
+								<div layout="row" style="padding-bottom: 30px; padding-top: 14px;">
+								    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">person</md-icon>
+								    <strong style="padding-left: 20px; ">Nombre: </strong>
+								    <p style="padding-left: 20px; "> {{asset.stakeholders.name}}</p>
+							    </div>
+							    <div layout="row" style="padding-bottom: 30px;">
+								    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">email</md-icon>
+								    <strong style="padding-left: 20px; ">Email: </strong>
+								    <p style="padding-left: 20px; "> {{asset.stakeholders.email}}</p>
+							    </div>
 
-	    <!--md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
-	    <strong style="padding-left: 20px; padding-bottom: 20px;"> Tipo: </strong>
-	    <p style="padding-left: 20px; padding-bottom: 20px;">{{type_name}} </p-->
+								<md-divider></md-divider>
+								<h1 class="md-display-2" style="padding-left: 20px;">Informacion Adjunta</h1>
 
+								<md-list-item ng-repeat="link in asset.attached" >
+								    <!--{{ d.label}}-->
+								      	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px; margin-left: 0px;">attach_file</md-icon>
+								        <a href="{{link}}" style="padding-left: 20px; padding-bottom: 20px;">{{link}} </a>
+
+								</md-list-item>
+
+
+
+							</div>
+
+						</md-tab>
+						<md-tab label="Relaciones">
+
+						</md-tab>
+						<md-tab label="Ciclo de vida">
+							<md-content class="md-padding">
+								<h1 class="md-display-2">Ciclo de vida</h1>
+								<div class="">
+									<img data-ng-src="data:image/png;base64,{{lifeCycleGraph.graph}}"> </img>
+								</div>
+							</md-content>
+						</md-tab>
+					</md-tabs>
+
+		</md-content>
 	</div>
 	<md-dialog-actions layout="row">
 		<md-button ng-click="hide()">
 			Aceptar
 		</md-button>
-		<!--md-button ng-click="cancel()" style="margin-right:20px;">
-			Cancelar
-		</md-button-->
 
 	</md-dialog-actions>
 </md-dialog>

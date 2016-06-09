@@ -965,6 +965,11 @@ angular.module('activosInformaticosApp')
           $mdDialog.cancel();
         };
 
+        dataFactory.getActualStateGraph( $scope.asset._id, function (response) {
+          $scope.lifeCycleGraph = response;
+          //console.log($scope.lifeCycleGraph);
+        });
+
       };
 
       function SelectTypeCtrl(assettypes, showformly, $scope, $mdDialog, $mdToast) {
