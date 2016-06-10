@@ -207,12 +207,19 @@ angular.module('activosInformaticosApp')
 
       for (i=0;i<jsonMap.relations.length;i++) {
         graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
-        //if (i > 0 ) {
-          //console.log(i);
-        //graph.links.push({ source: (i+1), target: 0, value: 9, label: jsonMap.relations[i].relationLabel  });
         graph.links.push({ source: 0, target: (i+1), value: 9, label: jsonMap.relations[i].relationLabel });
-        //}
-
+      }
+      for (i=0;i<jsonMap.incomingRelations.length;i++) {
+        var existeNodo=false;
+        for (j=0;j<jsonMap.relations.length;j++) {
+          if (jsonMap.incomingRelations[i].relatedAsset.name == jsonMap.relations[j].relatedAsset.name){
+            existeNodo =true;
+          }
+        }
+        if (!existeNodo) {
+            graph.nodes.push({ name: jsonMap.incomingRelations[i].relatedAsset.name, group: jsonMap.incomingRelations[i].relatedAsset.assetType._id});
+        }
+        graph.links.push({ source: (i+jsonMap.relations.length), target: 0, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
       }
 
       var llamarActivo = function () {

@@ -22,21 +22,21 @@
 					<md-tabs md-dynamic-height="" md-border-bottom="">
 						<md-tab label="Descripción">
 
-							<div style="overflow: auto;">
-
+							<!-- <div style="overflow: auto;"> -->
+							<div >
 								<h1 class="md-display-2" style="padding-left: 20px;">Comentarios</h1>
 							    <p style="padding-left: 20px; padding-bottom: 30px;"> {{asset.comment}} </p>
 							    <md-divider ></md-divider>
 							    <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
 
-							    <md-list-item ng-repeat="key in keys" >
+							    <md-list-item ng-repeat="key in keys" style="height:60px;">
 							    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
 							        <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong>
 							        <p style="padding-left: 20px; padding-bottom: 20px;">{{asset[key]}} </p>
 
 							    </md-list-item>
 									<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
-							    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">settings_input_component</md-icon>
+							    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">panorama_fish_eye</md-icon>
 							    	<strong style="padding-left: 20px;">Estado actual: </strong>
 							    	<p style="padding-left: 20px; ">{{asset.estadoActual}}</p>
 							    </div>
@@ -44,17 +44,15 @@
 							    <div layout="column" ng-repeat="lista in listas" style=" overflow: auto;">
 
 									    <md-divider></md-divider>
-									    <!--div style="padding-left: 16px; padding-top: 10px;"-->
-									    	<h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>
-									    <!--/div-->
 
-									    <!--div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;"-->
+									    	<h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>
+
 									    <div style="min-height: 100px;">
-											<md-list-item ng-repeat="element in lista.elements"  >
+											<md-list-item ng-repeat="element in lista.elements" style="height:60px;" >
 											    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">list</md-icon>
 											        <p style="padding-left: 20px; padding-bottom: 20px;">{{element.content}} </p>
 											</md-list-item>
-										<!--/div-->
+
 										</div>
 								</div>
 
@@ -68,19 +66,19 @@
 								<h1 class="md-display-2" style="padding-left: 20px;">Contacto</h1>
 								<div layout="row" style="padding-bottom: 30px; padding-top: 14px;">
 								    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">person</md-icon>
-								    <strong style="padding-left: 20px; ">Nombre: </strong>
-								    <p style="padding-left: 20px; "> {{asset.stakeholders.name}}</p>
+								    <strong style="padding-left: 20px; padding-top: 4px;">Nombre: </strong>
+								    <p style="padding-left: 20px; padding-top: 4px;"> {{asset.stakeholders.name}}</p>
 							    </div>
 							    <div layout="row" style="padding-bottom: 30px;">
 								    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">email</md-icon>
-								    <strong style="padding-left: 20px; ">Email: </strong>
-								    <p style="padding-left: 20px; "> {{asset.stakeholders.email}}</p>
+								    <strong style="padding-left: 20px; padding-top: 4px;">Email: </strong>
+								    <p style="padding-left: 20px; padding-top: 4px;"> {{asset.stakeholders.email}}</p>
 							    </div>
 
 								<md-divider></md-divider>
 								<h1 class="md-display-2" style="padding-left: 20px;">Informacion Adjunta</h1>
 
-								<md-list-item ng-repeat="link in asset.attached" >
+								<md-list-item ng-repeat="link in asset.attached" style="height:60px;" >
 								    <!--{{ d.label}}-->
 								      	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px; margin-left: 0px;">attach_file</md-icon>
 								        <a href="{{link}}" style="padding-left: 20px; padding-bottom: 20px;">{{link}} </a>
@@ -93,12 +91,12 @@
 
 						</md-tab>
 						<md-tab label="Relaciones">
-
+							<h1 class="md-display-2" style="padding-left: 20px;">Relaciones</h1>
 						</md-tab>
 						<md-tab label="Ciclo de vida">
 							<md-content class="md-padding">
 								<h1 class="md-display-2">Ciclo de vida</h1>
-								<div class="">
+								<div class="" layout="row" flex layout-align="center center">
 									<img data-ng-src="data:image/png;base64,{{lifeCycleGraph.graph}}"> </img>
 								</div>
 							</md-content>

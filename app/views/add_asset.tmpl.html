@@ -43,7 +43,7 @@
                 <md-tab label="Atributos">
                   <md-content class="md-padding">
                     <h1 class="md-display-2">Atributos</h1>
-                    <md-list-item ng-repeat="atributo in sel_type.properties">
+                    <md-list-item ng-repeat="atributo in sel_type.properties" style="height:60px;">
                       <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
                       <strong style="padding-left: 20px; padding-bottom: 20px;"> Nombre: </strong>
                       <p style="padding-left: 20px; padding-bottom: 20px;">{{atributo.name}} </p>
@@ -58,7 +58,7 @@
                 <md-tab label="Ciclo de vida">
                   <md-content class="md-padding">
                     <h1 class="md-display-2">Ciclo de vida</h1>
-                    <div class="">
+                    <div class="" flex layout-align="center center" layout="row">
                       <img data-ng-src="data:image/png;base64,{{lifeCycleGraph.graph}}"> </img>
                     </div>
                   </md-content>

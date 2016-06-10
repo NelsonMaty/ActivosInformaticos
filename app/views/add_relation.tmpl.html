@@ -64,14 +64,15 @@
                     <md-tab label="Atributos">
                       <md-content class="md-padding">
 
-                        <div style="overflow: auto;">
+                        <!-- <div style="overflow: auto;"> -->
+                        <div >
 
                           <h1 class="md-display-2" style="padding-left: 20px;">Comentarios</h1>
                             <p style="padding-left: 20px; padding-bottom: 30px;"> {{sel_asset.comment}} </p>
                             <md-divider ></md-divider>
                             <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
 
-                            <md-list-item ng-repeat="key in keys" >
+                            <md-list-item ng-repeat="key in keys" style="height:60px;">
                               <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
                                 <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong>
                                 <p style="padding-left: 20px; padding-bottom: 20px;">{{sel_asset[key]}} </p>
@@ -90,7 +91,7 @@
                                   <h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>
 
                                 <div style="min-height: 100px;">
-                                <md-list-item ng-repeat="element in lista.elements"  >
+                                <md-list-item ng-repeat="element in lista.elements"  style="height:60px;">
                                       <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">list</md-icon>
                                         <p style="padding-left: 20px; padding-bottom: 20px;">{{element.content}} </p>
                                 </md-list-item>
@@ -120,7 +121,7 @@
                           <md-divider></md-divider>
                           <h1 class="md-display-2" style="padding-left: 20px;">Informacion Adjunta</h1>
 
-                          <md-list-item ng-repeat="link in sel_asset.attached" >
+                          <md-list-item ng-repeat="link in sel_asset.attached" style="height:60px;">
 
                                   <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px; margin-left: 0px;">link</md-icon>
                                   <a href="{{link.url}}" style="padding-left: 20px; padding-bottom: 20px;">{{link.url}} </a>
@@ -191,14 +192,14 @@
                     <md-tab label="Atributos">
                       <md-content class="md-padding">
 
-                        <div style="overflow: auto;">
-
+                        <!-- <div style="overflow: auto;"> -->
+                        <div >
                           <h1 class="md-display-2" style="padding-left: 20px;">Comentarios</h1>
                             <p style="padding-left: 20px; padding-bottom: 30px;"> {{sel_asset.comment}} </p>
                             <md-divider ></md-divider>
                             <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
 
-                            <md-list-item ng-repeat="key in keys" >
+                            <md-list-item ng-repeat="key in keys" style="height:60px;">
                               <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
                                 <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong>
                                 <p style="padding-left: 20px; padding-bottom: 20px;">{{sel_asset[key]}} </p>
@@ -217,7 +218,7 @@
                                   <h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>
 
                                 <div style="min-height: 100px;">
-                                <md-list-item ng-repeat="element in lista.elements"  >
+                                <md-list-item ng-repeat="element in lista.elements" style="height:60px;" >
                                       <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">list</md-icon>
                                         <p style="padding-left: 20px; padding-bottom: 20px;">{{element.content}} </p>
                                 </md-list-item>
@@ -247,7 +248,7 @@
                           <md-divider></md-divider>
                           <h1 class="md-display-2" style="padding-left: 20px;">Informacion Adjunta</h1>
 
-                          <md-list-item ng-repeat="link in sel_asset.attached" >
+                          <md-list-item ng-repeat="link in sel_asset.attached" style="height:60px;">
 
                                   <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px; margin-left: 0px;">link</md-icon>
                                   <a href="{{link.url}}" style="padding-left: 20px; padding-bottom: 20px;">{{link.url}} </a>
