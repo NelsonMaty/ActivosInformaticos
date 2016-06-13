@@ -185,29 +185,37 @@ angular.module('activosInformaticosApp')
       //Read the data from the mis element - lee datos de los json para armar los nodos
       //var mis = document.getElementById('mis').innerHTML;
       //graph = JSON.parse(mis);
+      var salientes = true;
+      if (jsonMap.relations.length == 0) {
+        salientes = false;
+        var graph = {
+          nodes: [],
+          links: []
+        };
+      } else {
+        var graph = {
+          nodes: [
+            {
+              name: jsonMap.name,
+              group: jsonMap.assetType._id,
 
-      var graph = {
-        nodes: [
-          {
-            name: jsonMap.name,
-            group: jsonMap.assetType._id,
+            }
 
-          }
-
-        ],
-        links: [
-          {
-              source: 0,
-              target: 1,
-              value: 9,
-              label: ''
-          }
-        ]
-      };
-
+          ],
+          links: [
+            // {
+            //     source: 0,
+            //     target: 1,
+            //     value: 9,
+            //     label: ''
+            // }
+          ]
+        };
+      }
       for (i=0;i<jsonMap.relations.length;i++) {
         graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
         graph.links.push({ source: 0, target: (i+1), value: 9, label: jsonMap.relations[i].relationLabel });
+
       }
       for (i=0;i<jsonMap.incomingRelations.length;i++) {
         var existeNodo=false;
@@ -219,8 +227,18 @@ angular.module('activosInformaticosApp')
         if (!existeNodo) {
             graph.nodes.push({ name: jsonMap.incomingRelations[i].relatedAsset.name, group: jsonMap.incomingRelations[i].relatedAsset.assetType._id});
         }
-        graph.links.push({ source: (i+jsonMap.relations.length), target: 0, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+        if (salientes) {
+          graph.links.push({ source: (i+jsonMap.relations.length+1), target: 0, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+        } else {
+
+          graph.links.push({ source: i, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+        }
       }
+      if (!salientes){
+        graph.nodes.push({ name: jsonMap.name, group: jsonMap.assetType._id});
+
+      }
+    
 
       var llamarActivo = function () {
         var asset = {};
