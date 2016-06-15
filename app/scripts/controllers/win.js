@@ -1,6 +1,6 @@
 
 angular.module('activosInformaticosApp')
-  .controller('AppController', function ($scope, $mdDialog, $location, $mdMedia, $mdToast, dataFactory) {
+  .controller('AppController', function ($scope, $mdDialog, $location, $mdMedia, $mdToast, dataFactory, NgTableParams) {
 
 
     $scope.toggleSidenav = function(menuId) {
@@ -1027,6 +1027,9 @@ angular.module('activosInformaticosApp')
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
+
+        var data = [{name: "Moroni", age: 50} /*,*/];
+        $scope.tableParams = new NgTableParams({}, { dataset: data});
 
         dataFactory.getActualStateGraph( $scope.asset._id, function (response) {
           $scope.lifeCycleGraph = response;

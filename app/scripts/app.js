@@ -17,7 +17,8 @@ angular
     'ngMessages',
     'formly',
     'formlyMaterialTemplate',
-    'ng-mfb'
+    'ng-mfb',
+    'ngTable'
   ])
   .config(function ($routeProvider, $httpProvider) {
     $routeProvider

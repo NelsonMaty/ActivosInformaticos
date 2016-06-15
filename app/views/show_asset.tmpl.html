@@ -92,6 +92,16 @@
 						</md-tab>
 						<md-tab label="Relaciones">
 							<h1 class="md-display-2" style="padding-left: 20px;">Relaciones</h1>
+							<table ng-table="tableParams" class="table" show-filter="true" style="padding-top:20px;">
+						    <tr ng-repeat="user in $data">
+						        <td title="'Relación'" filter="{ name: 'text'}" sortable="'name'">
+						            {{user.name}}</td>
+						        <td title="'Activo relacionado'" filter="{ age: 'number'}" sortable="'age'">
+						            {{user.age}}</td>
+										<!-- <td title="'Crítico'" filter="{ isCritical: 'bool'}" sortable="'isCritical'">
+								        {{user.age}}</td> -->
+						    </tr>
+							</table>
 						</md-tab>
 						<md-tab label="Ciclo de vida">
 							<md-content class="md-padding">
