@@ -212,33 +212,61 @@ angular.module('activosInformaticosApp')
           ]
         };
       }
+      //Creacion de nodos y relaciones salientes
       for (i=0;i<jsonMap.relations.length;i++) {
         graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
         graph.links.push({ source: 0, target: (i+1), value: 9, label: jsonMap.relations[i].relationLabel });
 
       }
+
+      //Creacion de relaciones entrantes
       for (i=0;i<jsonMap.incomingRelations.length;i++) {
         var existeNodo=false;
-        for (j=0;j<jsonMap.relations.length;j++) {
-          if (jsonMap.incomingRelations[i].relatedAsset.name == jsonMap.relations[j].relatedAsset.name){
+        var source = null;
+        // for (j=0;j<jsonMap.relations.length;j++) {
+        for (j=0;j<graph.nodes.length;j++) {
+          // if (jsonMap.incomingRelations[i].relatedAsset.name == jsonMap.relations[j].relatedAsset.name){
+          if (jsonMap.incomingRelations[i].relatedAsset.name == graph.nodes[j].name){
             existeNodo =true;
+            indiceExistente = j;
           }
         }
+        // Agrego nodo si este no existe
         if (!existeNodo) {
+            //console.log("Agrego nodo que no existe");
             graph.nodes.push({ name: jsonMap.incomingRelations[i].relatedAsset.name, group: jsonMap.incomingRelations[i].relatedAsset.assetType._id});
         }
-        if (salientes) {
-          graph.links.push({ source: (i+jsonMap.relations.length+1), target: 0, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
-        } else {
 
-          graph.links.push({ source: i, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+        //Si hay relaciones salientes
+        if (salientes) {
+          //console.log("Hay relaciones salientes");
+          if (existeNodo) {
+              //console.log("Creo relacion entrante con nodo existente, indice: "+ indiceExistente);
+              graph.links.push({ source: indiceExistente, target: 0, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+          } else {
+              //console.log("Creo relacion entrante con nodo nuevo, indice: "+(graph.nodes.length-1));
+              // graph.links.push({ source: (i+jsonMap.relations.length+1), target: 0, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+              graph.links.push({ source: (graph.nodes.length-1), target: 0, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+          }
+
+        } else {
+          //console.log("no hay relaciones salientes");
+          if (existeNodo) {
+              //console.log("Creo relacion con nodo existente, indice: "+indiceExistente);
+              graph.links.push({ source: indiceExistente, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+          } else {
+              //console.log("Creo relacion entrante con nodo nuevo, indice: "+i);
+              graph.links.push({ source: i, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+          }
+
         }
       }
+
       if (!salientes){
         graph.nodes.push({ name: jsonMap.name, group: jsonMap.assetType._id});
 
       }
-    
+      console.log(graph);
 
       var llamarActivo = function () {
         var asset = {};
