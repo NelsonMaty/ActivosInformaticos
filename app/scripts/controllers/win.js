@@ -290,6 +290,16 @@ angular.module('activosInformaticosApp')
               });
             }
           }
+          for (i=0;i<jsonMap.incomingRelations.length;i++) {
+            if (d.name == jsonMap.incomingRelations[i].relatedAsset.name) {
+              dataFactory.getAnAsset(jsonMap.incomingRelations[i].relatedAsset._id, function (response) {
+                asset = response;
+                //console.log(indice);
+                angular.element(document.getElementById('win')).scope().goAsset({},asset,i-1);
+                //$scope.goToAsset({},asset,indice);
+              });
+            }
+          }
         }
       };
 
