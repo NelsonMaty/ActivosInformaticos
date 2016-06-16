@@ -502,7 +502,7 @@ angular
       };
 
       dataFactory.createRelation = function(callback,relation,added,$mdDialog,$mdToast){
-        console.log(relation);
+        //console.log(relation);
 
         $http({
           method:"post",
@@ -536,7 +536,7 @@ angular
       };
 
       dataFactory.editRelation = function(callback,relation,sourceId,$mdDialog,$mdToast){
-        console.log(relation);
+        //console.log(relation);
 
         $http({
           method:"put",
@@ -549,7 +549,8 @@ angular
             //alert("El usuario fue creado con éxito");
             $mdToast.show(
               $mdToast.simple()
-                .content('Se ha modificado la relacion ' + relation.name + ' en la base de datos')
+                //.content('Se ha modificado la relacion ' + relation.name + ' en la base de datos')
+                .content('Se ha modificado la relación exitosamente')
                 .position('top right')
                 .hideDelay(3000)
             );
@@ -561,7 +562,7 @@ angular
 
             $mdToast.show(
               $mdToast.simple()
-                .content('No se pudo modificar la relacion en la base de datos')
+                .content('No se pudo modificar la relación')
                 .position('top right')
                 .hideDelay(3000)
             );
@@ -598,7 +599,7 @@ angular
 
             $mdToast.show(
               $mdToast.simple()
-                .content('No se pudo borrar el activo en base de datos')
+                .content('No se pudo borrar la relación')
                 .position('top right')
                 .hideDelay(3000)
             );

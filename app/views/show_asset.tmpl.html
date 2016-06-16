@@ -91,17 +91,51 @@
 
 						</md-tab>
 						<md-tab label="Relaciones">
-							<h1 class="md-display-2" style="padding-left: 20px;">Relaciones</h1>
-							<table ng-table="tableParams" class="table" show-filter="true" style="padding-top:20px;">
-						    <tr ng-repeat="user in $data">
-						        <td title="'Relación'" filter="{ name: 'text'}" sortable="'name'">
-						            {{user.name}}</td>
-						        <td title="'Activo relacionado'" filter="{ age: 'number'}" sortable="'age'">
-						            {{user.age}}</td>
-										<!-- <td title="'Crítico'" filter="{ isCritical: 'bool'}" sortable="'isCritical'">
-								        {{user.age}}</td> -->
-						    </tr>
-							</table>
+							<h1 class="md-display-2" style="padding-left: 20px;" ng-show="!direccionRelaciones">Relaciones salientes</h1>
+							<h1 class="md-display-2" style="padding-left: 20px;" ng-show="direccionRelaciones">Relaciones entrantes</h1>
+							<md-input-container style="margin-top:0px; left:20px;">
+								<md-switch ng-model="direccionRelaciones">Relaciones salientes/entrantes</md-switch>
+							</md-input-container>
+							<!-- <table ng-table="tableParams" class="table" show-filter="true" style="padding-top:20px;"> -->
+							<div style="padding-top:20px; " ng-show="!direccionRelaciones" layout="row" flex layout-align="center center">
+								<table>
+									<tr>
+										<td style="width:200px;"> <strong> Relación <strong> </td>
+										<td style="width:200px;"> <strong> Activo relacionado</strong> </td>
+										<td style="width:200px;"><strong>Crítica</strong></td>
+									</tr>
+							    <tr ng-repeat="relation in relationsTree.relations">
+							        <td  style="width:200px;">
+							            {{relation.relationLabel}}</td>
+							        <td  style="width:200px;">
+							            {{relation.relatedAsset.name}}</td>
+											<td  style="width:200px;">
+									        {{criticos[$index]}}</td>
+											<!-- <td title="'Crítico'" filter="{ isCritical: 'bool'}" sortable="'isCritical'">
+									        {{user.age}}</td> -->
+							    </tr>
+								</table>
+							</div>
+							<div style="padding-top:20px; " ng-show="direccionRelaciones" layout="row" flex layout-align="center center">
+								<table>
+									<tr>
+										<td style="width:200px;"> <strong> Relación <strong> </td>
+										<td style="width:200px;"> <strong> Activo relacionado</strong> </td>
+										<td style="width:200px;"><strong>Crítica</strong></td>
+									</tr>
+							    <tr ng-repeat="relation in relationsTree.incomingRelations">
+							        <td  style="width:200px;">
+							            {{relation.relationLabel}}</td>
+							        <td  style="width:200px;">
+							            {{relation.relatedAsset.name}}</td>
+											<td  style="width:200px;">
+									        {{criticos[$index]}}</td>
+											<!-- <td title="'Crítico'" filter="{ isCritical: 'bool'}" sortable="'isCritical'">
+									        {{user.age}}</td> -->
+							    </tr>
+								</table>
+							</div>
+
 						</md-tab>
 						<md-tab label="Ciclo de vida">
 							<md-content class="md-padding">

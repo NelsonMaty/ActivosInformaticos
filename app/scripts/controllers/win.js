@@ -961,6 +961,9 @@ angular.module('activosInformaticosApp')
         $scope.assets = myassets;
         $scope.indice = indice;
         $scope.editAsset = editAsset;
+        $scope.direccionRelaciones = false;
+        $scope.relationsTree = {};
+        $scope.criticos = [];
         $scope.ev = {};
         $scope.asset_type = {};
         $scope.names_list = [];
@@ -1028,8 +1031,36 @@ angular.module('activosInformaticosApp')
           $mdDialog.cancel();
         };
 
-        var data = [{name: "Moroni", age: 50} /*,*/];
-        $scope.tableParams = new NgTableParams({}, { dataset: data});
+        // var data = [{name: "Moroni", age: 50} /*,*/];
+        // $scope.tableParams = new NgTableParams({}, { dataset: data});
+        dataFactory.getRelationMap($scope.asset._id, function (response) {
+          $scope.relationsTree = response;
+        });
+
+        if (!$scope.direccionRelaciones) {
+          dataFactory.getAssetRelations($scope.asset._id, function (response) {
+            for (i=0;i<response.length;i++) {
+              if (response[i].isCritical) {
+                $scope.criticos.push("Sí");
+              } else {
+                $scope.criticos.push("No");
+              }
+
+            }
+          });
+        } else {
+          dataFactory.getIncomingAssetRelations($scope.asset._id, function (response) {
+            for (i=0;i<response.length;i++) {
+              if (response[i].isCritical) {
+                $scope.criticos.push("Sí");
+              } else {
+                $scope.criticos.push("No");
+              }
+
+            }
+          });
+        }
+
 
         dataFactory.getActualStateGraph( $scope.asset._id, function (response) {
           $scope.lifeCycleGraph = response;
