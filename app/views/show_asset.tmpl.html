@@ -105,12 +105,12 @@
 										<td style="width:200px;"><strong>Crítica</strong></td>
 									</tr>
 							    <tr ng-repeat="relation in relationsTree.relations">
-							        <td  style="width:200px;">
-							            {{relation.relationLabel}}</td>
-							        <td  style="width:200px;">
-							            {{relation.relatedAsset.name}}</td>
-											<td  style="width:200px;">
-									        {{criticos[$index]}}</td>
+							        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="goRelation($event,relationsOut[$index],asset._id,$index)">
+							            <a>{{relation.relationLabel}}</a></td>
+							        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="callGoAsset($event,relation.relatedAsset)">
+							            <a>{{relation.relatedAsset.name}}</a></td>
+											<td  style="width:200px;" ng-class="{'critico': criticosOut[$index].valor }">
+									        {{criticosOut[$index].texto}}</td>
 											<!-- <td title="'Crítico'" filter="{ isCritical: 'bool'}" sortable="'isCritical'">
 									        {{user.age}}</td> -->
 							    </tr>
@@ -124,12 +124,12 @@
 										<td style="width:200px;"><strong>Crítica</strong></td>
 									</tr>
 							    <tr ng-repeat="relation in relationsTree.incomingRelations">
-							        <td  style="width:200px;">
-							            {{relation.relationLabel}}</td>
-							        <td  style="width:200px;">
-							            {{relation.relatedAsset.name}}</td>
-											<td  style="width:200px;">
-									        {{criticos[$index]}}</td>
+							        <td  style="width:200px; cursor:pointer; cursor:hand" ng-click="goRelation($event,relationsIn[$index],asset._id,$index)">
+							            <a>{{relation.relationLabel}}</a></td>
+							        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="callGoAsset($event,relation.relatedAsset)">
+							            <a>{{relation.relatedAsset.name}}</a></td>
+											<td  style="width:200px;"  ng-class="{'critico': criticosIn[$index].valor}">
+									        {{criticosIn[$index].texto}}</td>
 											<!-- <td title="'Crítico'" filter="{ isCritical: 'bool'}" sortable="'isCritical'">
 									        {{user.age}}</td> -->
 							    </tr>

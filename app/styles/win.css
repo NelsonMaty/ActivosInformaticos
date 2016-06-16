@@ -33,6 +33,14 @@ d3-tip {
     font: 16px helvetica;
 }
 
+a:hover {
+    color: blue;
+}
+
+.critico {
+  color: red;
+}
+
 table, th , td {
   border: 1px solid grey;
   border-collapse: collapse;

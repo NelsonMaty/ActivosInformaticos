@@ -548,7 +548,8 @@ angular.module('activosInformaticosApp')
             asset: asset,
             myassets: $scope.myassets,
             indice: $index,
-            editAsset: $scope.editAsset
+            editAsset: $scope.editAsset,
+            goRelation: $scope.goRelation
 
           },
           controller: ShowAssetCtrl,
@@ -558,8 +559,12 @@ angular.module('activosInformaticosApp')
           clickOutsideToClose:false,
           fullscreen: useFullScreen
         })
-        .then(function() {
+        .then(function(data) {
+          //console.log(data);
 
+          if (data) {
+            $scope.goAsset(data.evento, data.activo, data.indice);
+          }
 
         });
       };
@@ -956,14 +961,19 @@ angular.module('activosInformaticosApp')
 
       };
 
-      function ShowAssetCtrl(asset, myassets, indice, editAsset, $scope, $mdDialog, $mdToast){
+      function ShowAssetCtrl(asset, myassets, indice, editAsset, goRelation, $scope, $mdDialog, $mdToast){
         $scope.asset = asset;
         $scope.assets = myassets;
+
         $scope.indice = indice;
         $scope.editAsset = editAsset;
+        $scope.goRelation = goRelation;
         $scope.direccionRelaciones = false;
         $scope.relationsTree = {};
-        $scope.criticos = [];
+        $scope.criticosOut = [];
+        $scope.relationsOut = [];
+        $scope.criticosIn = [];
+        $scope.relationsIn = [];
         $scope.ev = {};
         $scope.asset_type = {};
         $scope.names_list = [];
@@ -1037,29 +1047,40 @@ angular.module('activosInformaticosApp')
           $scope.relationsTree = response;
         });
 
-        if (!$scope.direccionRelaciones) {
+        $scope.callGoAsset = function (event, relatedAsset) {
+          for (i=0;i<$scope.assets.length;i++) {
+            if ($scope.assets[i]._id == relatedAsset._id) {
+              //$scope.goAsset(event, $scope.assets[i], i);
+              var data = { evento:event, activo:$scope.assets[i], indice: i }
+              $mdDialog.hide(data);
+            }
+          }
+        }
+
           dataFactory.getAssetRelations($scope.asset._id, function (response) {
             for (i=0;i<response.length;i++) {
+              $scope.relationsOut.push(response[i]);
               if (response[i].isCritical) {
-                $scope.criticos.push("Sí");
+                $scope.criticosOut.push({texto: "Sí", valor:true});
               } else {
-                $scope.criticos.push("No");
+                $scope.criticosOut.push({texto: "No", valor:false});
               }
 
             }
           });
-        } else {
+
           dataFactory.getIncomingAssetRelations($scope.asset._id, function (response) {
             for (i=0;i<response.length;i++) {
+              $scope.relationsIn.push(response[i]);
               if (response[i].isCritical) {
-                $scope.criticos.push("Sí");
+                $scope.criticosIn.push({texto: "Sí", valor:true});
               } else {
-                $scope.criticos.push("No");
+                $scope.criticosIn.push({texto: "No", valor:false});
               }
 
             }
           });
-        }
+
 
 
         dataFactory.getActualStateGraph( $scope.asset._id, function (response) {
