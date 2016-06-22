@@ -474,6 +474,17 @@ angular
 
       };
 
+      dataFactory.getAssetVersions = function(id,callback){
+
+        $http.get(urlWS + 'assets/' + id +'/versions')
+          .then(function(response){
+            //console.log(response);
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
+
+      };
 
     //----------Relations---------//
 

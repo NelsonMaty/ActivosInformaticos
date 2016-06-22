@@ -145,6 +145,25 @@
 								</div>
 							</md-content>
 						</md-tab>
+						<md-tab label="Historial">
+							<md-content class="md-padding">
+								<h1 class="md-display-2">Historial de versiones</h1>
+								<div style="padding-top:20px; " ng-show="!showVersion">
+									<md-list-item ng-repeat="version in assetVersions" ng-click="goToVersion(version.idVersion,$event)">
+										<md-icon md-font-set="material-icons" style="margin-bottom:16px;">receipt</md-icon>
+										<!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
+										<p>Versión: {{ version.idVersion }} - Fecha: {{ version.date }}</p>
+										<md-icon md-font-set="material-icons" aria-label="Open Chat" class="md-secondary md-hue-3" style="top:10px;">edit</md-icon>
+										<md-divider ng-if="!$last"></md-divider>
+									</md-list-item>
+								</div>
+
+								<div style="padding-top:20px; " ng-show="showVersion">
+
+								</div>
+
+							</md-content>
+						</md-tab>
 					</md-tabs>
 
 		</md-content>

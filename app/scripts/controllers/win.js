@@ -964,7 +964,7 @@ angular.module('activosInformaticosApp')
       function ShowAssetCtrl(asset, myassets, indice, editAsset, goRelation, $scope, $mdDialog, $mdToast){
         $scope.asset = asset;
         $scope.assets = myassets;
-
+        $scope.assetVersions = [];
         $scope.indice = indice;
         $scope.editAsset = editAsset;
         $scope.goRelation = goRelation;
@@ -978,7 +978,7 @@ angular.module('activosInformaticosApp')
         $scope.asset_type = {};
         $scope.names_list = [];
         $scope.listas = [];
-
+        $scope.showVersion = false;
         $scope.keys = Object.keys(asset);
 
         $scope.keys.splice($scope.keys.indexOf("name"),1);
@@ -1034,12 +1034,22 @@ angular.module('activosInformaticosApp')
 
         //console.log($scope.keys);
 
+        $scope.goToVersion = function(idVersion, event) {
+          $scope.showVersion = true;
+          
+        }
+
         $scope.hide = function() {
           $mdDialog.hide();
         };
         $scope.cancel = function() {
           $mdDialog.cancel();
         };
+
+        dataFactory.getAssetVersions($scope.asset._id, function (response) {
+          $scope.assetVersions = response;
+          console.log($scope.assetVersions);
+        });
 
         // var data = [{name: "Moroni", age: 50} /*,*/];
         // $scope.tableParams = new NgTableParams({}, { dataset: data});
@@ -1057,31 +1067,27 @@ angular.module('activosInformaticosApp')
           }
         }
 
-          dataFactory.getAssetRelations($scope.asset._id, function (response) {
-            for (i=0;i<response.length;i++) {
-              $scope.relationsOut.push(response[i]);
-              if (response[i].isCritical) {
-                $scope.criticosOut.push({texto: "Sí", valor:true});
-              } else {
-                $scope.criticosOut.push({texto: "No", valor:false});
-              }
-
+        dataFactory.getAssetRelations($scope.asset._id, function (response) {
+          for (i=0;i<response.length;i++) {
+            $scope.relationsOut.push(response[i]);
+            if (response[i].isCritical) {
+              $scope.criticosOut.push({texto: "Sí", valor:true});
+            } else {
+              $scope.criticosOut.push({texto: "No", valor:false});
             }
-          });
+          }
+        });
 
-          dataFactory.getIncomingAssetRelations($scope.asset._id, function (response) {
-            for (i=0;i<response.length;i++) {
-              $scope.relationsIn.push(response[i]);
-              if (response[i].isCritical) {
-                $scope.criticosIn.push({texto: "Sí", valor:true});
-              } else {
-                $scope.criticosIn.push({texto: "No", valor:false});
-              }
-
+        dataFactory.getIncomingAssetRelations($scope.asset._id, function (response) {
+          for (i=0;i<response.length;i++) {
+            $scope.relationsIn.push(response[i]);
+            if (response[i].isCritical) {
+              $scope.criticosIn.push({texto: "Sí", valor:true});
+            } else {
+              $scope.criticosIn.push({texto: "No", valor:false});
             }
-          });
-
-
+          }
+        });
 
         dataFactory.getActualStateGraph( $scope.asset._id, function (response) {
           $scope.lifeCycleGraph = response;
