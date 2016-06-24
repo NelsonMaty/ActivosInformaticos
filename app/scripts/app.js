@@ -405,7 +405,7 @@ angular
             //alert("El usuario fue creado con éxito");
             $mdToast.show(
               $mdToast.simple()
-                .content('Se ha modificado el activo ' + asset.name + ' en la base de datos')
+                .content('Se ha modificado el activo ' + asset.name + ' exitosamente')
                 .position('top right')
                 .hideDelay(3000)
             );
@@ -417,7 +417,7 @@ angular
 
             $mdToast.show(
               $mdToast.simple()
-                .content('No se pudo modificar el activo en la base de datos')
+                .content('No se pudo modificar el activo')
                 .position('top right')
                 .hideDelay(3000)
             );

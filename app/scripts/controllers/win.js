@@ -963,7 +963,7 @@ angular.module('activosInformaticosApp')
 
       function ShowAssetCtrl(asset, myassets, indice, editAsset, goRelation, $scope, $mdDialog, $mdToast){
         $scope.asset = asset;
-        $scope.assets = myassets;
+        $scope.myassets = myassets;
         $scope.assetVersions = [];
         $scope.indice = indice;
         $scope.editAsset = editAsset;
@@ -1036,9 +1036,9 @@ angular.module('activosInformaticosApp')
 
         //console.log($scope.keys);
 
-        $scope.goToVersion = function(idVersion, indice) {
+        $scope.goToVersion = function(idVersion, indiceVersion) {
           $scope.showVersion = true;
-          $scope.sel_version = $scope.assetVersions[indice];
+          $scope.sel_version = $scope.assetVersions[indiceVersion];
 
           $scope.versionKeys = Object.keys($scope.sel_version.asset);
 
@@ -1098,6 +1098,14 @@ angular.module('activosInformaticosApp')
             });
         };
 
+        $scope.restoreVersion = function (asset) {
+          dataFactory.editAsset (function (){
+              $mdDialog.hide(asset);
+              $scope.myassets.splice($scope.indice,1,asset);
+
+            }, asset, $mdDialog, $mdToast);
+        };
+
         $scope.hide = function() {
           $mdDialog.hide();
         };
@@ -1107,7 +1115,7 @@ angular.module('activosInformaticosApp')
 
         dataFactory.getAssetVersions($scope.asset._id, function (response) {
           $scope.assetVersions = response;
-          console.log($scope.assetVersions);
+          //console.log($scope.assetVersions);
         });
 
         // var data = [{name: "Moroni", age: 50} /*,*/];
