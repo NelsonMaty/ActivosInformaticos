@@ -969,6 +969,7 @@ angular.module('activosInformaticosApp')
         $scope.editAsset = editAsset;
         $scope.goRelation = goRelation;
         $scope.direccionRelaciones = false;
+        $scope.sel_version = {};
         $scope.relationsTree = {};
         $scope.criticosOut = [];
         $scope.relationsOut = [];
@@ -978,6 +979,7 @@ angular.module('activosInformaticosApp')
         $scope.asset_type = {};
         $scope.names_list = [];
         $scope.listas = [];
+        $scope.versionListas = [];
         $scope.showVersion = false;
         $scope.keys = Object.keys(asset);
 
@@ -1034,10 +1036,67 @@ angular.module('activosInformaticosApp')
 
         //console.log($scope.keys);
 
-        $scope.goToVersion = function(idVersion, event) {
+        $scope.goToVersion = function(idVersion, indice) {
           $scope.showVersion = true;
-          
+          $scope.sel_version = $scope.assetVersions[indice];
+
+          $scope.versionKeys = Object.keys($scope.sel_version.asset);
+
+          $scope.versionKeys.splice($scope.versionKeys.indexOf("name"),1);
+          $scope.versionKeys.splice($scope.versionKeys.indexOf("tags"),1);
+          $scope.versionKeys.splice($scope.versionKeys.indexOf("estadoActual"),1);
+          $scope.versionKeys.splice($scope.versionKeys.indexOf("stakeholders"),1);
+          $scope.versionKeys.splice($scope.versionKeys.indexOf("comment"),1);
+          $scope.versionKeys.splice($scope.versionKeys.indexOf("$$hashKey"),1);
+          $scope.versionKeys.splice($scope.versionKeys.indexOf("attached"),1);
+
+          if ($scope.versionKeys.indexOf("__v")>=0) {
+            $scope.b =$scope.versionKeys.indexOf("__v");
+            $scope.versionKeys.splice($scope.b,1);
+          }
+
+          if ($scope.versionKeys.indexOf("deleted")>=0) {
+            $scope.a =$scope.versionKeys.indexOf("deleted");
+            $scope.versionKeys.splice($scope.a,1);
+          }
+
+          for (i=0;i<$scope.names_list.length;i++) {
+            for (j=0;j<$scope.versionKeys.length;j++) {
+                if($scope.names_list[i] == $scope.versionKeys[j]) {
+
+                  $scope.versionListas.push({
+                    name: $scope.names_list[i],
+                    elements: $scope.sel_version.asset[$scope.versionKeys[j]]
+                  });
+                  $scope.versionKeys.splice(j,1);
+
+                }
+              }
+            }
+
         }
+
+        $scope.closeVersion = function() {
+          $scope.showVersion = false;
+          $scope.sel_version = {};
+        }
+
+        $scope.confirmRestoreVersion = function(ev, asset) {
+          var confirm = $mdDialog.confirm()
+              .title('¿Está seguro que desea restaurar el activo a la versión seleccionada?')
+              .ariaLabel('Restaurar activo')
+              .targetEvent(ev)
+              .ok('Aceptar')
+              .cancel('Cancelar');
+          $mdDialog.show(confirm)
+            .then(function() {
+              //console.log(asset);
+              $scope.restoreVersion(asset);
+
+            }, function() {
+              $scope.status = 'No se realizaron cambios';
+            });
+        };
 
         $scope.hide = function() {
           $mdDialog.hide();
