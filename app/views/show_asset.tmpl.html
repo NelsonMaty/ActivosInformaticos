@@ -154,7 +154,7 @@
 									<div class="" >
 										<md-button class="md-icon-button" style="top: 7px;" ng-click="confirmRestoreVersion($event,sel_version.asset)">
 											<md-tooltip md-direction="bottom"> Restaurar </md-tooltip>
-											<md-icon md-font-set="material-icons" aria-label="restore">restore</md-icon>
+											<md-icon md-font-set="material-icons" class="select-activo" aria-label="restore">restore</md-icon>
 										</md-button>
 										<md-button class="md-icon-button" style="top: 7px;" ng-click="closeVersion()">
 											<md-tooltip md-direction="bottom"> Volver </md-tooltip>
@@ -170,7 +170,8 @@
 									<md-list-item ng-repeat="version in assetVersions" ng-click="goToVersion(version.idVersion,$index)">
 										<md-icon md-font-set="material-icons" style="margin-bottom:16px;">receipt</md-icon>
 										<!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
-										<p>Versión: {{ version.idVersion }} - Fecha: {{ version.date }}</p>
+										<p ng-show="$index != 0">Versión: {{ version.idVersion }} - Fecha: {{ version.date }}</p>
+										<p ng-show="$index == 0">Versión actual - Fecha: {{ version.date }}</p>
 										<!-- <md-icon md-font-set="material-icons" aria-label="Open Chat" class="md-secondary md-hue-3" style="top:10px;" ng-click="confirmRestoreVersion($event,sel_version.asset)">restore_page</md-icon> -->
 										<md-divider ng-if="!$last"></md-divider>
 									</md-list-item>
