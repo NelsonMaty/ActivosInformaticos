@@ -976,6 +976,8 @@ angular.module('activosInformaticosApp')
         $scope.criticosIn = [];
         $scope.relationsIn = [];
         $scope.ev = {};
+        $scope.esFinal = false;
+        $scope.estadoVersionFinal = false;
         $scope.asset_type = {};
         $scope.names_list = [];
         $scope.listas = [];
@@ -1032,9 +1034,16 @@ angular.module('activosInformaticosApp')
             }
           }
 
-          });
+          for (i=0;i<response.lifeCycle.length;i++) {
+            if (response.lifeCycle[i].name == $scope.asset.estadoActual) {
+              $scope.esFinal = response.lifeCycle[i].isFinal;
+            }
+          }
+
+        });
 
         //console.log($scope.keys);
+
 
         $scope.goToVersion = function(idVersion, indiceVersion) {
           $scope.showVersion = true;
@@ -1071,8 +1080,14 @@ angular.module('activosInformaticosApp')
                   $scope.versionKeys.splice(j,1);
 
                 }
-              }
             }
+          }
+
+          for (i=0;i<$scope.asset_type.lifeCycle.length;i++) {
+            if ($scope.asset_type.lifeCycle[i].name == $scope.sel_version.asset.estadoActual) {
+              $scope.estadoVersionFinal = $scope.asset_type.lifeCycle[i].isFinal;
+            }
+          }
 
         }
 
