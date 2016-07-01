@@ -203,12 +203,7 @@ angular.module('activosInformaticosApp')
 
           ],
           links: [
-            // {
-            //     source: 0,
-            //     target: 1,
-            //     value: 9,
-            //     label: ''
-            // }
+
           ]
         };
       }

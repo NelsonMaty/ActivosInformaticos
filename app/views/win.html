@@ -185,20 +185,31 @@
                 </md-content>
               </md-tab>
               <md-tab label="Buscador">
-                <md-content class="md-padding" style="top: 70%; left: 33%; " >
-                    <h1 class="md-display-2" style="padding-left: 56px; padding-top: 56px;">Buscador de activos</h1>
+                <div layout="row" layout-align="space-between center">
 
-                    <div style=" width: 500px; padding-top: 30px;">
-                      <md-input-container class=" md-block" >
+                    <div class="">
+
+                <md-content class="md-padding">
+                  <h1 class="md-display-2" >Buscador de activos</h1>
+                  <div class="" layout="row" layout-align="space-between center ">
+                    <div layout="row" style="  padding-top: 30px;">
+                      <md-input-container class=" md-block" style="width: 400px;">
                         <md-icon md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
                         <input ng-model="buscado" type="text" placeholder="Ingrese nombre de activo" >
                       </md-input-container>
+                      <div class="">
+                        <md-button ng-click="" ng-disabled="userForm.$invalid">
+                          Buscar
+                        </md-button>
+                      </div>
+                      <md-input-container style="bottom: 8px; margin-top: 0px;">
+                        <md-switch ng-model="busquedaAvanzada">Busqueda avanzada</md-switch>
+                      </md-input-container>
+
                     </div>
 
-                    <md-input-container>
-                      <md-switch ng-model="busquedaAvanzada">Busqueda avanzada</md-switch>
-                    </md-input-container>
-                    <div class="" layout="column">
+                  </div>
+                  <!--  <div class="" layout="column">
                       <div layout="row" ng-show="busquedaAvanzada">
                         <div >
                           <md-radio-group ng-model="opcionBusqueda">
@@ -241,19 +252,32 @@
                         </div>
                       </div>
 
-                    </div>
-
-                    <div class="" style="padding-left: 160px;">
-                      <md-button ng-click="" ng-disabled="userForm.$invalid">
-                        Buscar
-                      </md-button>
-                      <!-- <md-button ng-click="" style="margin-right:20px;">
-                        Avanzado
-                      </md-button> -->
-                    </div>
-
+                    </div> -->
 
                 </md-content>
+
+              </div>
+              <div>
+                <md-sidenav  class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" md-is-locked-open="busquedaAvanzada && $mdMedia('gt-md')" md-disable-backdrop style="min-width: 500px; ">
+                  <md-toolbar class="md-theme-light">
+                    <h1 class="md-toolbar-tools">Sidenav Right</h1>
+                  </md-toolbar>
+                  <md-content layout-padding="">
+                    <form>
+                      <span flex></span>
+                      <md-input-container>
+                        <label for="testInput">Test input</label>
+                        <input type="text" id="testInput" ng-model="data" md-autofocus="">
+                      </md-input-container>
+                    </form>
+                    <md-button ng-click="close()" class="md-primary">
+                      Close Sidenav Right
+                    </md-button>
+                  </md-content>
+                </md-sidenav>
+              </div>
+
+            </div>
               </md-tab>
             </md-tabs>
           </md-content>
