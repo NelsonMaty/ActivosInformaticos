@@ -12,7 +12,7 @@ angular.module('activosInformaticosApp')
     $scope.clicked_index = {};
     $scope.clicked = false;
     $scope.busquedaAvanzada = false;
-    $scope.opcionBusqueda = null;
+    $scope.opcionBusqueda = "tipo";
     $scope.busquedaTag = [];
     $scope.direccionRelaciones = false;
 
@@ -57,6 +57,7 @@ angular.module('activosInformaticosApp')
         $mdSidenav(navID)
           .toggle()
           .then(function () {
+
             //$log.debug("toggle " + navID + " is done");
           });
       }
