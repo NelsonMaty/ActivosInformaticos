@@ -1,6 +1,6 @@
 
 angular.module('activosInformaticosApp')
-  .controller('AppController', function ($scope, $mdDialog, $location, $mdMedia, $mdToast, dataFactory, NgTableParams) {
+  .controller('AppController', function ($scope, $mdDialog, $mdSidenav, $timeout, $location, $mdMedia, $mdToast, dataFactory, NgTableParams) {
 
 
     $scope.toggleSidenav = function(menuId) {
@@ -34,6 +34,43 @@ angular.module('activosInformaticosApp')
       originatorEv = ev;
       $mdOpenMenu(ev);
     };
+
+
+
+    function debounce(func, wait, context) {
+      var timer;
+
+      return function debounced() {
+        var context = $scope,
+            args = Array.prototype.slice.call(arguments);
+        $timeout.cancel(timer);
+        timer = $timeout(function() {
+          timer = undefined;
+          func.apply(context, args);
+        }, wait || 10);
+      };
+    }
+
+    function buildToggler(navID) {
+      return function() {
+        // Component lookup should always be available since we are not using `ng-if`
+        $mdSidenav(navID)
+          .toggle()
+          .then(function () {
+            //$log.debug("toggle " + navID + " is done");
+          });
+      }
+    }
+
+    $scope.cerrarAvanzado = function () {
+      $scope.busquedaAvanzada = false;
+      $mdSidenav('right').close()
+        .then(function () {
+          //$log.debug("close RIGHT is done");
+        });
+    }
+
+    $scope.toggleRight = buildToggler('right');
 
     $scope.go = function(path) {
       //location.href = "0.0.0.0:9000/#/admin";

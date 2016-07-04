@@ -22,6 +22,10 @@
   color: red;
 }
 
+md-backdrop.md-sidenav-backdrop{
+    display:none
+}
+
 .node {
     stroke: #fff;
     stroke-width: 1.5px;
