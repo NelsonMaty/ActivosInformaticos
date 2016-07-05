@@ -6,7 +6,7 @@ angular.module('activosInformaticosApp')
     $scope.toggleSidenav = function(menuId) {
     	//$mdSidenav(menuId).toggle();
     };
-
+    //$scope.buscando = false;
     $scope.clicked_asset = {};
     $scope.clicked_relation = {};
     $scope.clicked_index = {};
@@ -15,6 +15,8 @@ angular.module('activosInformaticosApp')
     $scope.opcionBusqueda = "tipo";
     $scope.busquedaTag = [];
     $scope.direccionRelaciones = false;
+    $scope.buscadoString = "";
+    $scope.indicesBusqueda = [];
 
 
     var animationMenuExit = function(trigger, element){
@@ -34,8 +36,6 @@ angular.module('activosInformaticosApp')
       originatorEv = ev;
       $mdOpenMenu(ev);
     };
-
-
 
     function debounce(func, wait, context) {
       var timer;
@@ -519,6 +519,23 @@ angular.module('activosInformaticosApp')
         $scope.relationGraph($scope,response,indice);
       });
     };
+
+
+    $scope.busquedaString = function (string) {
+      $scope.indicesBusqueda = [];
+      //$scope.buscando = true;
+      dataFactory.searchString(string, function (response) {
+        $scope.resultadoBusqueda = response;
+
+        for (i=0; i<$scope.resultadoBusqueda.length;i++) {
+          for (j=0; j<$scope.myassets.length;j++) {
+              if ($scope.resultadoBusqueda[i].name == $scope.myassets[j].name ) {
+                $scope.indicesBusqueda.push(j);
+              }
+          }
+        }
+      });
+    }
 
     //-----------Assets-----------//
 

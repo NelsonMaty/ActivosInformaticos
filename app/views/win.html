@@ -203,15 +203,26 @@
                           <div layout="row" >
                             <md-input-container class=" md-block" style="width: 400px;">
                               <md-icon md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
-                              <input ng-model="buscado" type="text" placeholder="Ingrese valor a buscar" >
+                              <input ng-model="buscadoString" type="text" placeholder="Ingrese valor a buscar" >
                             </md-input-container>
                             <div class="">
-                              <md-button ng-click="" ng-disabled="busquedaAvanzada">
+                              <md-button ng-click="busquedaString(buscadoString)" ng-disabled="busquedaAvanzada">
                                 Buscar
                               </md-button>
                             </div>
                           </div>
                         </div>
+                        <p class="md-block" ng-if="resultadoBusqueda.length==0" style="margin-top:20px; margin-bottom:20px;"> No se encontraron resultados </p>
+                        <md-list ng-cloak>
+
+                          <md-list-item ng-repeat="resultado in resultadoBusqueda" ng-click="goAsset($event,resultado,indicesBusqueda[$index])">
+                            <md-icon md-font-set="material-icons">receipt</md-icon>
+
+                            <p>{{ resultado.name }}</p>
+
+                            <md-divider ng-if="!$last"></md-divider>
+                          </md-list-item>
+                        </md-list>
                       </div>
                     </md-content>
                   </div>

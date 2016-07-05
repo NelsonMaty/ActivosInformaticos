@@ -59,6 +59,17 @@ angular
     var urlWS = 'http://localhost:10010/'
     var dataFactory = {};
 
+    //---------Busqueda------//
+
+      dataFactory.searchString = function(string, callback) {
+        $http.get(urlWS + 'assets?elasticSearch=%22' + string + '%22' )
+          .then(function(response){
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
+      };
+
     //---------Graph---------//
 
       dataFactory.getLifeCycleGraph = function(typeid,callback){
