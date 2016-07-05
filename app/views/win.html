@@ -207,12 +207,12 @@
                             </md-input-container>
                             <div class="">
                               <md-button ng-click="busquedaString(buscadoString)" ng-disabled="busquedaAvanzada">
-                                Buscar
+                                Buscar 
                               </md-button>
                             </div>
                           </div>
                         </div>
-                        <p class="md-block" ng-if="resultadoBusqueda.length==0" style="margin-top:20px; margin-bottom:20px;"> No se encontraron resultados </p>
+                        <p class="md-block" ng-if="resultadoBusqueda.length==0 " style="margin-top:20px; margin-bottom:20px; padding-left:35px;"> No se encontraron resultados </p>
                         <md-list ng-cloak>
 
                           <md-list-item ng-repeat="resultado in resultadoBusqueda" ng-click="goAsset($event,resultado,indicesBusqueda[$index])">
@@ -240,7 +240,8 @@
                         <div ng-switch-when="tipo">
                           <md-input-container >
                             <md-icon md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
-                            <input type="text" ng-model="busquedaTipo"  placeholder="Ingrese tipo de activo">
+                            <input type="text" ng-model="buscadoTipo"  placeholder="Ingrese tipo de activo">
+                            {{buscadoTipo}}
                           </md-input-container>
                         </div>
                         <div ng-switch-when="params" >
@@ -297,7 +298,10 @@
                           </div>
 
                         </div>
-                      <md-button ng-click="close()" class="md-primary">
+                      <md-button ng-click="busquedaString(buscadoString,buscadoTipo)" ng-if="opcionBusqueda=='tipo'" class="md-primary">
+                        Buscar
+                      </md-button>
+                      <md-button ng-click="busquedaParams(atributo,valor)" ng-if="opcionBusqueda!='tipo'" class="md-primary">
                         Buscar
                       </md-button>
                     </md-content>

@@ -13,9 +13,10 @@ angular.module('activosInformaticosApp')
     $scope.clicked = false;
     $scope.busquedaAvanzada = false;
     $scope.opcionBusqueda = "tipo";
-    $scope.busquedaTag = [];
+    //$scope.busquedaTag = [];
     $scope.direccionRelaciones = false;
     $scope.buscadoString = "";
+    //$scope.buscadoTipo = "";
     $scope.indicesBusqueda = [];
 
 
@@ -521,10 +522,12 @@ angular.module('activosInformaticosApp')
     };
 
 
-    $scope.busquedaString = function (string) {
+    $scope.busquedaString = function (string,tipo) {
       $scope.indicesBusqueda = [];
+      console.log(string);
+      console.log(tipo);
       //$scope.buscando = true;
-      dataFactory.searchString(string, function (response) {
+      dataFactory.searchString(string, tipo, function (response) {
         $scope.resultadoBusqueda = response;
 
         for (i=0; i<$scope.resultadoBusqueda.length;i++) {

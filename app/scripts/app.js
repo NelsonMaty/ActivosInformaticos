@@ -61,13 +61,23 @@ angular
 
     //---------Busqueda------//
 
-      dataFactory.searchString = function(string, callback) {
-        $http.get(urlWS + 'assets?elasticSearch=%22' + string + '%22' )
-          .then(function(response){
-            callback(response.data);
-          },function(err){
-            console.log(err);
-        });
+      dataFactory.searchString = function(string, tipo, callback) {
+        if (tipo != "") {
+          $http.get(urlWS + 'assets?elasticSearch=' + string + '&assetTypeName=' + tipo )
+            .then(function(response){
+              callback(response.data);
+            },function(err){
+              console.log(err);
+          });
+        } else {
+          $http.get(urlWS + 'assets?elasticSearch=' + string )
+            .then(function(response){
+              callback(response.data);
+            },function(err){
+              console.log(err);
+          });
+        }
+
       };
 
     //---------Graph---------//
