@@ -203,18 +203,22 @@
                           <div layout="row" >
                             <md-input-container class=" md-block" style="width: 400px;">
                               <md-icon md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
-                              <input ng-model="buscadoString" type="text" placeholder="Ingrese valor a buscar" >
+                              <input ng-model="buscadoString" type="text" placeholder="Ingrese valor a buscar" ng-disabled="busquedaAvanzada">
                             </md-input-container>
                             <div class="">
-                              <md-button ng-click="busquedaString(buscadoString)" ng-disabled="busquedaAvanzada">
-                                Buscar 
+                              <md-button ng-click="busqueda(buscadoString)" ng-disabled="busquedaAvanzada">
+                                Buscar
                               </md-button>
                             </div>
                           </div>
                         </div>
                         <p class="md-block" ng-if="resultadoBusqueda.length==0 " style="margin-top:20px; margin-bottom:20px; padding-left:35px;"> No se encontraron resultados </p>
-                        <md-list ng-cloak>
 
+                        <div layout="row" layout-sm="column" layout-align="space-around" ng-if="buscando" >
+                          <md-progress-circular md-mode="indeterminate" md-diameter="106"></md-progress-circular>
+                        </div>
+
+                        <md-list ng-if="!buscando" ng-cloak>
                           <md-list-item ng-repeat="resultado in resultadoBusqueda" ng-click="goAsset($event,resultado,indicesBusqueda[$index])">
                             <md-icon md-font-set="material-icons">receipt</md-icon>
 
@@ -223,6 +227,7 @@
                             <md-divider ng-if="!$last"></md-divider>
                           </md-list-item>
                         </md-list>
+
                       </div>
                     </md-content>
                   </div>
@@ -240,19 +245,23 @@
                         <div ng-switch-when="tipo">
                           <md-input-container >
                             <md-icon md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
-                            <input type="text" ng-model="buscadoTipo"  placeholder="Ingrese tipo de activo">
-                            {{buscadoTipo}}
+                            <input type="text" ng-model="$parent.buscadoTipo"  placeholder="Ingrese tipo de activo">
+                          </md-input-container>
+                          <md-input-container >
+                            <md-icon md-font-set="material-icons" aria-label="valor buscado activo">search</md-icon>
+                            <input ng-model="$parent.buscadoString" type="text" placeholder="Ingrese valor a buscar">
                           </md-input-container>
                         </div>
                         <div ng-switch-when="params" >
                           <md-input-container >
                             <md-icon md-font-set="material-icons" aria-label="nombre atributo">search</md-icon>
-                            <input type="text" ng-model="atributo"placeholder="Ingrese nombre de atributo">
+                            <input type="text" ng-model="$parent.buscadoAtributo"placeholder="Ingrese nombre de atributo">
                           </md-input-container>
                           <md-input-container >
                             <md-icon md-font-set="material-icons" aria-label="valor">search</md-icon>
-                            <input type="text" ng-model="valor" placeholder="Ingrese valor a buscar">
+                            <input type="text" ng-model="$parent.buscadoValor" placeholder="Ingrese valor de atributo">
                           </md-input-container>
+
                         </div>
 
                       </form>
@@ -298,12 +307,14 @@
                           </div>
 
                         </div>
-                      <md-button ng-click="busquedaString(buscadoString,buscadoTipo)" ng-if="opcionBusqueda=='tipo'" class="md-primary">
+
+                      <md-button ng-click="busqueda(buscadoString,buscadoTipo)" ng-if="opcionBusqueda=='tipo'" class="md-primary">
                         Buscar
                       </md-button>
-                      <md-button ng-click="busquedaParams(atributo,valor)" ng-if="opcionBusqueda!='tipo'" class="md-primary">
+                      <md-button ng-click="busqueda(buscadoString,buscadoTipo,buscadoAtributo,buscadoValor,'params')" ng-if="opcionBusqueda=='params'" class="md-primary">
                         Buscar
                       </md-button>
+
                     </md-content>
                   </md-sidenav>
                   </div>

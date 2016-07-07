@@ -13,10 +13,12 @@ angular.module('activosInformaticosApp')
     $scope.clicked = false;
     $scope.busquedaAvanzada = false;
     $scope.opcionBusqueda = "tipo";
-    //$scope.busquedaTag = [];
+    $scope.buscando = false;
     $scope.direccionRelaciones = false;
     $scope.buscadoString = "";
-    //$scope.buscadoTipo = "";
+    $scope.buscadoTipo = "";
+    $scope.buscadoAtributo = "";
+    $scope.buscadoValor = "";
     $scope.indicesBusqueda = [];
 
 
@@ -522,14 +524,18 @@ angular.module('activosInformaticosApp')
     };
 
 
-    $scope.busquedaString = function (string,tipo) {
+    $scope.busqueda = function (string,nombreTipo,atributo,valor,tipoBusqueda) {
       $scope.indicesBusqueda = [];
-      console.log(string);
-      console.log(tipo);
-      //$scope.buscando = true;
-      dataFactory.searchString(string, tipo, function (response) {
-        $scope.resultadoBusqueda = response;
+      $scope.buscando = true;
+      //console.log(string);
+      //console.log(nombreTipo);
+      var soloTipo = false;
+      if (nombreTipo != "" && string == "") {
+        //console.log("soloTipo");
+        soloTipo = true;
+      }
 
+      var buscarIndices = function () {
         for (i=0; i<$scope.resultadoBusqueda.length;i++) {
           for (j=0; j<$scope.myassets.length;j++) {
               if ($scope.resultadoBusqueda[i].name == $scope.myassets[j].name ) {
@@ -537,8 +543,25 @@ angular.module('activosInformaticosApp')
               }
           }
         }
-      });
+      }
+
+      if (tipoBusqueda != 'params') {
+        dataFactory.searchString(string, nombreTipo, soloTipo, function (response) {
+
+          $scope.resultadoBusqueda = response;
+          buscarIndices();
+          $scope.buscando = false;
+        });
+      } else {
+        dataFactory.searchParams(atributo, valor, function (response) {
+          $scope.resultadoBusqueda = response;
+          buscarIndices();
+          $scope.buscando = false;
+        });
+      }
+
     }
+
 
     //-----------Assets-----------//
 

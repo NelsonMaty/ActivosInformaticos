@@ -61,23 +61,49 @@ angular
 
     //---------Busqueda------//
 
-      dataFactory.searchString = function(string, tipo, callback) {
-        if (tipo != "") {
+      dataFactory.searchString = function(string, tipo, soloTipo, callback) {
+
+        if (tipo != "" && !soloTipo) {
+          //console.log("tipo y string");
           $http.get(urlWS + 'assets?elasticSearch=' + string + '&assetTypeName=' + tipo )
             .then(function(response){
+              //console.log(soloTipo);
               callback(response.data);
             },function(err){
               console.log(err);
           });
         } else {
-          $http.get(urlWS + 'assets?elasticSearch=' + string )
-            .then(function(response){
-              callback(response.data);
-            },function(err){
-              console.log(err);
-          });
+          if (soloTipo) {
+            //console.log("solo tipo");
+            $http.get(urlWS + 'assets?assetTypeName=' + tipo )
+              .then(function(response){
+                //console.log(soloTipo);
+                callback(response.data);
+              },function(err){
+                console.log(err);
+            });
+          } else {
+            //console.log("solo string");
+            $http.get(urlWS + 'assets?elasticSearch=' + string )
+              .then(function(response){
+                //console.log(soloTipo);
+                callback(response.data);
+              },function(err){
+                console.log(err);
+            });
+          }
+
         }
 
+      };
+
+      dataFactory.searchParams = function(atributo, valor, callback) {
+        $http.get(urlWS + 'assets?elasticSearch=' + atributo + '&assetTypeName=' + valor )
+          .then(function(response){
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
       };
 
     //---------Graph---------//
