@@ -212,7 +212,9 @@
                             </div>
                           </div>
                         </div>
-                        <p class="md-block" ng-if="resultadoBusqueda.length==0 " style="margin-top:20px; margin-bottom:20px; padding-left:35px;"> No se encontraron resultados </p>
+                        <md-divider></md-divider>
+                        <h1 class="md-display-1" style="padding-top:20px;">Resultados</h1>
+                        <p class="md-block" ng-if="resultadoBusqueda.length==0 " style="margin-top:20px; margin-bottom:20px; padding-left:35px; padding-top:20px;"> No se encontraron resultados </p>
 
                         <div layout="row" layout-sm="column" layout-align="space-around" ng-if="buscando" >
                           <md-progress-circular md-mode="indeterminate" md-diameter="106"></md-progress-circular>
@@ -253,6 +255,15 @@
                           </md-input-container>
                         </div>
                         <div ng-switch-when="params" >
+                          <md-input-container style="margin-bottom:38px;">
+                            <label>Tipo de activo</label>
+                            <md-icon md-font-set="material-icons" >receipt</md-icon>
+                            <md-select ng-model="selectedType" aria-label="nombre nodos" md-on-close="">
+                              <md-option ng-repeat="tipo in assettypes" value="{{tipo._id}}" >
+                                  Tipo de activo {{tipo.name}}
+                              </md-option>
+                            </md-select>
+                          </md-input-container>
                           <md-input-container >
                             <md-icon md-font-set="material-icons" aria-label="nombre atributo">search</md-icon>
                             <input type="text" ng-model="$parent.buscadoAtributo"placeholder="Ingrese nombre de atributo">
@@ -273,37 +284,7 @@
                                 <md-radio-button value="params">Parametrizada</md-radio-button>
                               </md-radio-group>
                             </div>
-                            <!-- <div class="" layout="row" ng-switch="opcionBusqueda" style="padding-left: 50px;">
-                              <div ng-switch-when="tipo">
-                                <md-input-container class=" md-block" style="bottom:14px; margin-bottom:0px;">
-                                  <input ng-model="busquedaIdType" type="text" placeholder="Id de tipo de activo" >
-                                </md-input-container>
-                                <md-input-container class=" md-block" style="bottom:14px;">
-                                  <input ng-model="busquedaNameType" type="text" placeholder="Nombre de tipo de activo" >
-                                </md-input-container>
-                              </div>
-                              <div ng-switch-when="tag">
-                                <md-chips ng-model="busquedaTag" placeholder="Agregue tags a buscar" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
-                              </div>
-                              <div ng-switch-when="relacion">
-                                <md-input-container class=" md-block" style="bottom:14px; margin-bottom:0px;">
-                                  <input ng-model="busquedaIdRelation" type="text" placeholder="Id de relacion">
-                                </md-input-container>
-                                <md-input-container class=" md-block" style="bottom:14px; margin-bottom:0px; height:40px;">
-                                  <input ng-model="busquedaTypeRelation" type="text" placeholder="Tipo de relacion" >
-                                </md-input-container>
 
-                                  <label style="padding-left:2px;">Crítico</label>
-                        		      <md-checkbox ng-model="busquedaRelationIsCritical" aria-label="Checkbox 1">
-                        		      </md-checkbox>
-
-                              </div>
-                              <div ng-switch-when="estado">
-                                <md-input-container class=" md-block" style="bottom:14px;">
-                                  <input ng-model="busquedaEstadoActual" type="text" placeholder="Estado actual">
-                                </md-input-container>
-                              </div>
-                            </div> -->
                           </div>
 
                         </div>

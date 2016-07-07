@@ -7,6 +7,7 @@ angular.module('activosInformaticosApp')
     	//$mdSidenav(menuId).toggle();
     };
     //$scope.buscando = false;
+    $scope.assettypes = {};
     $scope.clicked_asset = {};
     $scope.clicked_relation = {};
     $scope.clicked_index = {};
@@ -20,6 +21,7 @@ angular.module('activosInformaticosApp')
     $scope.buscadoAtributo = "";
     $scope.buscadoValor = "";
     $scope.indicesBusqueda = [];
+    $scope.selectedType = {};
 
 
     var animationMenuExit = function(trigger, element){
@@ -64,6 +66,12 @@ angular.module('activosInformaticosApp')
             //$log.debug("toggle " + navID + " is done");
           });
       }
+    }
+
+    function traerAtributos (typeid) {
+      dataFactory.getAnAssetType(typeid, function(response) {
+
+      });
     }
 
     $scope.cerrarAvanzado = function () {
