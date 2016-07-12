@@ -21,7 +21,8 @@ angular.module('activosInformaticosApp')
     $scope.buscadoAtributo = "";
     $scope.buscadoValor = "";
     $scope.indicesBusqueda = [];
-    $scope.selectedType = {};
+    $scope.selectedType = "";
+    $scope.listaAtrib = [];
 
 
     var animationMenuExit = function(trigger, element){
@@ -68,10 +69,22 @@ angular.module('activosInformaticosApp')
       }
     }
 
-    function traerAtributos (typeid) {
-      dataFactory.getAnAssetType(typeid, function(response) {
-
+    $scope.listarAtributos = function () {
+      //$scope.listaAtrib = ["comment","estadoActual","tags",];
+      $scope.listaAtrib = [
+        { texto: "Comentarios", valor: "comment"},
+        { texto: "Estado Actual", valor: "estadoActual"},
+        { texto: "Tags", valor: "tags"},
+        { texto: "Nombre de contacto", valor: "stakeholders.name"},
+        { texto: "Email de contacto", valor: "stakeholders.email"},
+        { texto: "Adjunto", valor: "attached"},
+      ];
+      dataFactory.getAnAssetType($scope.selectedType,function (response) {
+        for (i=0;i<response.properties.length;i++) {
+          $scope.listaAtrib.push({texto: response.properties[i].name, valor: response.properties[i].name })
+        }
       });
+
     }
 
     $scope.cerrarAvanzado = function () {
@@ -99,6 +112,7 @@ angular.module('activosInformaticosApp')
       $scope.myassets = response;
 
     });
+
 
     $scope.searchRelations = function(id,nombreActivo) {
       $scope.sourceAssetId = id;

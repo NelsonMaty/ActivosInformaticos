@@ -258,15 +258,21 @@
                           <md-input-container style="margin-bottom:38px;">
                             <label>Tipo de activo</label>
                             <md-icon md-font-set="material-icons" >receipt</md-icon>
-                            <md-select ng-model="selectedType" aria-label="nombre nodos" md-on-close="">
+                            <md-select ng-model="$parent.selectedType" aria-label="nombre nodos" md-on-close="listarAtributos()">
                               <md-option ng-repeat="tipo in assettypes" value="{{tipo._id}}" >
                                   Tipo de activo {{tipo.name}}
                               </md-option>
                             </md-select>
                           </md-input-container>
-                          <md-input-container >
-                            <md-icon md-font-set="material-icons" aria-label="nombre atributo">search</md-icon>
-                            <input type="text" ng-model="$parent.buscadoAtributo"placeholder="Ingrese nombre de atributo">
+                          <md-input-container style="width:236px;">
+                            <label>Atributo a buscar</label>
+                            <md-icon md-font-set="material-icons" aria-label="seleccion atributo">settings_input_component</md-icon>
+                            <!-- <input type="text" ng-model="$parent.buscadoAtributo"placeholder="Ingrese nombre de atributo"> -->
+                            <md-select ng-model="$parent.buscadoAtributo" aria-label="nombre atributo" md-on-close="">
+                              <md-option ng-repeat="atributo in $parent.listaAtrib" value="{{atributo.valor}}" >
+                                  {{atributo.texto}}
+                              </md-option>
+                            </md-select>
                           </md-input-container>
                           <md-input-container >
                             <md-icon md-font-set="material-icons" aria-label="valor">search</md-icon>
