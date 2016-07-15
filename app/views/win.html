@@ -221,7 +221,7 @@
                         </div>
 
                         <md-list ng-if="!buscando" ng-cloak>
-                          <md-list-item ng-repeat="resultado in resultadoBusqueda" ng-click="goAsset($event,resultado,indicesBusqueda[$index])">
+                          <md-list-item ng-repeat="resultado in resultadoBusqueda" ng-click="goAsset($event,resultado,indicesBusqueda[$index],$index)">
                             <md-icon md-font-set="material-icons">receipt</md-icon>
 
                             <p>{{ resultado.name }}</p>
@@ -268,7 +268,7 @@
                             <label>Atributo a buscar</label>
                             <md-icon md-font-set="material-icons" aria-label="seleccion atributo">settings_input_component</md-icon>
                             <!-- <input type="text" ng-model="$parent.buscadoAtributo"placeholder="Ingrese nombre de atributo"> -->
-                            <md-select ng-model="$parent.buscadoAtributo" aria-label="nombre atributo" md-on-close="">
+                            <md-select ng-model="$parent.buscadoAtributo" aria-label="nombre atributo" ng-disabled="!$parent.selectedType">
                               <md-option ng-repeat="atributo in $parent.listaAtrib" value="{{atributo.valor}}" >
                                   {{atributo.texto}}
                               </md-option>
@@ -276,7 +276,7 @@
                           </md-input-container>
                           <md-input-container >
                             <md-icon md-font-set="material-icons" aria-label="valor">search</md-icon>
-                            <input type="text" ng-model="$parent.buscadoValor" placeholder="Ingrese valor de atributo">
+                            <input type="text" ng-model="$parent.buscadoValor" placeholder="Ingrese valor de atributo" ng-disabled="!$parent.buscadoAtributo">
                           </md-input-container>
 
                         </div>
@@ -298,7 +298,7 @@
                       <md-button ng-click="busqueda(buscadoString,buscadoTipo)" ng-if="opcionBusqueda=='tipo'" class="md-primary">
                         Buscar
                       </md-button>
-                      <md-button ng-click="busqueda(buscadoString,buscadoTipo,buscadoAtributo,buscadoValor,'params')" ng-if="opcionBusqueda=='params'" class="md-primary">
+                      <md-button ng-click="busqueda(buscadoString,buscadoTipo,buscadoAtributo,buscadoValor,'params')" ng-if="opcionBusqueda=='params'" class="md-primary" ng-disabled="!$parent.buscadoAtributo">
                         Buscar
                       </md-button>
 

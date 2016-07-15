@@ -560,7 +560,7 @@ angular.module('activosInformaticosApp')
       var buscarIndices = function () {
         for (i=0; i<$scope.resultadoBusqueda.length;i++) {
           for (j=0; j<$scope.myassets.length;j++) {
-              if ($scope.resultadoBusqueda[i].name == $scope.myassets[j].name ) {
+              if ($scope.resultadoBusqueda[i]._id == $scope.myassets[j]._id ) {
                 $scope.indicesBusqueda.push(j);
               }
           }
@@ -638,14 +638,16 @@ angular.module('activosInformaticosApp')
 
       };
 
-      $scope.goAsset = function(ev,asset,$index) {
+      $scope.goAsset = function(ev,asset,$index,indexBusqueda) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         //console.log(asset);
         $mdDialog.show({
           locals: {
             asset: asset,
             myassets: $scope.myassets,
+            resultadoBusqueda : $scope.resultadoBusqueda,
             indice: $index,
+            indexBusqueda: indexBusqueda,
             editAsset: $scope.editAsset,
             goRelation: $scope.goRelation
 
@@ -667,14 +669,16 @@ angular.module('activosInformaticosApp')
         });
       };
 
-      $scope.editAsset = function(ev,asset,$index) {
+      $scope.editAsset = function(ev,asset,$index,indexBusqueda) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         //console.log(asset);
         $mdDialog.show({
           locals: {
             asset: asset,
             myassets: $scope.myassets,
+            resultadoBusqueda: $scope.resultadoBusqueda,
             indice: $index,
+            indexBusqueda: indexBusqueda,
             deleteAsset: $scope.deleteAsset
 
           },
@@ -692,7 +696,7 @@ angular.module('activosInformaticosApp')
 
       };
 
-      $scope.deleteAsset = function(ev, asset, indice) {
+      $scope.deleteAsset = function(ev, asset, indice,indexBusqueda) {
         var confirm = $mdDialog.confirm()
             .title('¿Está seguro que desea borrar este activo?')
             .ariaLabel('Borrado de activo')
@@ -703,6 +707,9 @@ angular.module('activosInformaticosApp')
           .then(function() {
             dataFactory.deleteAsset(asset,$mdDialog,$mdToast);
             $scope.myassets.splice(indice,1);
+            if (indexBusqueda) {
+              $scope.resultadoBusqueda.splice(indexBusqueda,1);
+            }
           }, function() {
             $scope.status = 'No se realizaron cambios';
           });
@@ -1059,11 +1066,13 @@ angular.module('activosInformaticosApp')
 
       };
 
-      function ShowAssetCtrl(asset, myassets, indice, editAsset, goRelation, $scope, $mdDialog, $mdToast){
+      function ShowAssetCtrl(asset, myassets, resultadoBusqueda, indice, indexBusqueda, editAsset, goRelation, $scope, $mdDialog, $mdToast){
         $scope.asset = asset;
         $scope.myassets = myassets;
+        $scope.resultadoBusqueda = resultadoBusqueda;
         $scope.assetVersions = [];
         $scope.indice = indice;
+        $scope.indexBusqueda = indexBusqueda;
         $scope.editAsset = editAsset;
         $scope.goRelation = goRelation;
         $scope.direccionRelaciones = false;
@@ -1215,6 +1224,7 @@ angular.module('activosInformaticosApp')
           dataFactory.editAsset (function (){
               $mdDialog.hide(asset);
               $scope.myassets.splice($scope.indice,1,asset);
+              $scope.resultadoBusqueda.splice($scope.indexBusqueda,1,asset);
 
             }, asset, $mdDialog, $mdToast);
         };
@@ -1228,11 +1238,10 @@ angular.module('activosInformaticosApp')
 
         dataFactory.getAssetVersions($scope.asset._id, function (response) {
           $scope.assetVersions = response;
-          //console.log($scope.assetVersions);
+
         });
 
-        // var data = [{name: "Moroni", age: 50} /*,*/];
-        // $scope.tableParams = new NgTableParams({}, { dataset: data});
+
         dataFactory.getRelationMap($scope.asset._id, function (response) {
           $scope.relationsTree = response;
         });
@@ -1240,7 +1249,7 @@ angular.module('activosInformaticosApp')
         $scope.callGoAsset = function (event, relatedAsset) {
           for (i=0;i<$scope.assets.length;i++) {
             if ($scope.assets[i]._id == relatedAsset._id) {
-              //$scope.goAsset(event, $scope.assets[i], i);
+
               var data = { evento:event, activo:$scope.assets[i], indice: i }
               $mdDialog.hide(data);
             }
@@ -1271,7 +1280,7 @@ angular.module('activosInformaticosApp')
 
         dataFactory.getActualStateGraph( $scope.asset._id, function (response) {
           $scope.lifeCycleGraph = response;
-          //console.log($scope.lifeCycleGraph);
+
         });
 
       };
@@ -1627,24 +1636,25 @@ angular.module('activosInformaticosApp')
 
       };
 
-      function EditAssetCtrl(asset, myassets, indice, deleteAsset, $scope, $mdDialog, $mdToast) {
+      function EditAssetCtrl(asset, myassets, resultadoBusqueda, indice, indexBusqueda, deleteAsset, $scope, $mdDialog, $mdToast) {
 
         $scope.update_asset = $.extend(true,{},asset);
         $scope.indexEstadoActual = null;
         $scope.estadoFinal = null;
         $scope.estadoInicial = null;
         $scope.myassets = myassets;
+        $scope.resultadoBusqueda = resultadoBusqueda;
         $scope.deleteAsset = deleteAsset;
         $scope.etapa = 1;
         $scope.siguienteEstado = null;
         $scope.estadoInexistente = true;
         $scope.indice = indice;
+        $scope.indexBusqueda = indexBusqueda;
         $scope.asset_type = {};
         $scope.listas = [];
         $scope.volverInicial = false;
         $scope.actualStateGraph = {};
-        //$scope.adjuntos = [];
-        //$scope.adjuntos = $.extend([],asset.attached);
+
 
 
         $scope.addItem = function(answer,parent_index) {
@@ -1675,8 +1685,6 @@ angular.module('activosInformaticosApp')
         dataFactory.getAnAssetType ($scope.update_asset.typeId, function (response) {
 
           $scope.asset_type = response;
-
-
 
           $scope.fields = [
             {
@@ -1925,7 +1933,7 @@ angular.module('activosInformaticosApp')
 
         dataFactory.getActualStateGraph( $scope.update_asset._id, function (response) {
           $scope.actualStateGraph = response;
-          //console.log($scope.lifeCycleGraph);
+
         });
 
         $scope.nextSelect = function () {
@@ -1963,7 +1971,7 @@ angular.module('activosInformaticosApp')
 
         $scope.callDelete = function(indice) {
           ev = {};
-          deleteAsset(ev,asset,indice);
+          deleteAsset(ev,asset,indice,$scope.indexBusqueda);
         }
 
         $scope.updateAsset = function (asset) {
@@ -1984,6 +1992,10 @@ angular.module('activosInformaticosApp')
           dataFactory.editAsset (function (){
               $mdDialog.hide(asset);
               $scope.myassets.splice(indice,1,asset);
+              //console.log($scope.indexBusqueda);
+              //if ($scope.indexBusqueda) {
+                $scope.resultadoBusqueda.splice($scope.indexBusqueda,1,asset);
+              //}
 
             }, asset, $mdDialog, $mdToast);
 
