@@ -98,8 +98,15 @@
                     <div layout="row" layout-align="space-between center">
                       <h1 class="md-display-2" ng-show="!direccionRelaciones">Relaciones salientes</h1>
                       <h1 class="md-display-2" ng-show="direccionRelaciones">Relaciones entrantes</h1>
-                      <md-input-container style="margin-top:0px;">
-                        <md-switch ng-model="direccionRelaciones" ng-change="searchRelations(select_asset._id,select_asset.name)">Relaciones salientes/entrantes</md-switch>
+                      <md-input-container style="margin-top:0px; margin-bottom:0px; top:8px; padding-right:36px; width:280px;">
+                        <!-- <md-switch ng-model="direccionRelaciones" ng-change="searchRelations(select_asset._id,select_asset.name)">Relaciones salientes/entrantes</md-switch> -->
+                        <label>Filtro de relaciones</label>
+                        <md-icon md-font-set="material-icons" >filter_list</md-icon>
+                        <md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" md-on-close="searchRelations(select_asset._id,select_asset.name)">
+                          <md-option ng-repeat="filtro in filtros" value="{{filtro}}" >
+                              {{filtro}}
+                          </md-option>
+                        </md-select>
                       </md-input-container>
                     </div>
 
@@ -114,10 +121,10 @@
                           <input type="search" ng-model="buscado" placeholder="Activos" aria-label="filter assets" />
                         </md-input-container>
                         <md-list ng-cloak>
-                          <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
+
                           <md-list-item ng-repeat="asset in myassets | filter:buscado" ng-click="searchRelations(asset._id,asset.name)" ng-class="{'select-activo animated pulse': clickedIcon($index) }">
 
-                            <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
+
                             <p>{{ asset.name }}</p>
 
                             <md-divider ng-if="!$last"></md-divider>
@@ -130,7 +137,6 @@
 
                           <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
                           <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-click="clickRelation(relation, $index);  $event.stopPropagation();" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
-                                   <!--img src="images/nota.svg"/-->
                             <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-relacion animated pulse': clickedRelacionIcon($index) }"  md-font-set="material-icons">link</md-icon>
                             <div style="text-align: center" ng-show="!direccionRelaciones"> {{labels[$index].outLabel || relation.relationTypeId }} </div>
                             <div style="text-align: center" ng-show="direccionRelaciones"> {{labels[$index].inLabel || relation.relationTypeId }} </div>
@@ -154,10 +160,9 @@
                         <input type="search" ng-model="buscado" placeholder="Activos" aria-label="filter" />
                       </md-input-container>
                       <md-list ng-cloak>
-                        <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
+
                         <md-list-item ng-repeat="asset in myassets | filter:buscado" ng-click="goToMap(asset,$index)" ng-class="{'select-activo animated pulse': clickedIcon($index) }">
 
-                          <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
                           <p>{{ asset.name }}</p>
 
                           <md-divider ng-if="!$last"></md-divider>

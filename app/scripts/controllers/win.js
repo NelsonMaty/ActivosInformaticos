@@ -15,6 +15,7 @@ angular.module('activosInformaticosApp')
     $scope.busquedaAvanzada = false;
     $scope.opcionBusqueda = "tipo";
     $scope.buscando = false;
+    $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
     $scope.direccionRelaciones = false;
     $scope.buscadoString = "";
     $scope.buscadoTipo = "";
@@ -63,8 +64,6 @@ angular.module('activosInformaticosApp')
         $mdSidenav(navID)
           .toggle()
           .then(function () {
-
-            //$log.debug("toggle " + navID + " is done");
           });
       }
     }
@@ -91,7 +90,6 @@ angular.module('activosInformaticosApp')
       $scope.busquedaAvanzada = false;
       $mdSidenav('right').close()
         .then(function () {
-          //$log.debug("close RIGHT is done");
         });
     }
 
@@ -104,7 +102,6 @@ angular.module('activosInformaticosApp')
 
     dataFactory.getAssetTypes( function (response) {
       $scope.assettypes = response;
-
     });
 
     dataFactory.getAssets( function (response) {
@@ -112,7 +109,6 @@ angular.module('activosInformaticosApp')
       $scope.myassets = response;
 
     });
-
 
     $scope.searchRelations = function(id,nombreActivo) {
       $scope.sourceAssetId = id;
@@ -126,7 +122,6 @@ angular.module('activosInformaticosApp')
             //console.log(response);
             $scope.assetRelations = response;
             $scope.labels = [];
-            //console.log($scope.assetRelations.length);
             for (i=0;i<$scope.assetRelations.length;i++) {
               //console.log($scope.assetRelations[i].relationTypeId);
               dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
@@ -549,11 +544,10 @@ angular.module('activosInformaticosApp')
     $scope.busqueda = function (string,nombreTipo,atributo,valor,tipoBusqueda) {
       $scope.indicesBusqueda = [];
       $scope.buscando = true;
-      //console.log(string);
-      //console.log(nombreTipo);
+
       var soloTipo = false;
       if (nombreTipo != "" && string == "") {
-        //console.log("soloTipo");
+
         soloTipo = true;
       }
 
