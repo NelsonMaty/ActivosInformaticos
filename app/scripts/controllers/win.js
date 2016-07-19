@@ -6,7 +6,7 @@ angular.module('activosInformaticosApp')
     $scope.toggleSidenav = function(menuId) {
     	//$mdSidenav(menuId).toggle();
     };
-    //$scope.buscando = false;
+
     $scope.assettypes = {};
     $scope.clicked_asset = {};
     $scope.clicked_relation = {};
@@ -197,14 +197,12 @@ angular.module('activosInformaticosApp')
       $scope.clicked_asset = asset;
       $scope.clicked_index = indice;
       $scope.clicked = true;
-      //console.log($scope.clicked);
     };
 
     $scope.clickRelation = function(relation,indice) {
       $scope.clicked_relation = relation;
       $scope.clicked_RelationIndex = indice;
       $scope.clickedR = true;
-      //console.log($scope.clicked);
     };
 
     $scope.clickedIcon= function(indice) {
@@ -572,9 +570,7 @@ angular.module('activosInformaticosApp')
 
     $scope.goToMap = function (selected,indice) {
       dataFactory.getRelationMap(selected._id, function (response) {
-        //$scope.jsonMap = response;
-        console.log(response);
-
+        
         $scope.relationGraph($scope,response,indice);
       });
     };
@@ -586,7 +582,6 @@ angular.module('activosInformaticosApp')
 
       var soloTipo = false;
       if (nombreTipo != "" && string == "") {
-
         soloTipo = true;
       }
 
@@ -1016,7 +1011,6 @@ angular.module('activosInformaticosApp')
         });
 
         $scope.selectRelationType = function () {
-          //console.log($scope.relationTypes);
           for (i=0;i<$scope.relationTypes.length;i++) {
             if ($scope.relationTypes[i]._id == $scope.update_relation.relationTypeId) {
               $scope.relationTypeSelected = $scope.relationTypes[i];
@@ -1042,12 +1036,11 @@ angular.module('activosInformaticosApp')
         }
 
         $scope.updateRelation = function (relation) {
-          //asset.attached = $scope.adjuntos;
-          //console.log($scope.sourceAssetId);
+
           dataFactory.editRelation (function (){
               $mdDialog.hide(relation);
               $scope.assetRelations.splice(indice,1,relation);
-              //location.reload();
+
             }, relation, $scope.sourceAssetId, $mdDialog, $mdToast);
 
         };
@@ -1059,13 +1052,10 @@ angular.module('activosInformaticosApp')
           $mdDialog.cancel();
         };
 
-
-        //keys = Object.keys(update_asset);
-
       };
 
       function ShowRelationCtrl(relation, sourceAssetId, indice, editRelation, $scope, $mdDialog, $mdToast){
-        //console.log(relation);
+
         $scope.relation = relation;
         $scope.sourceAssetId = sourceAssetId;
         $scope.indice = indice;
