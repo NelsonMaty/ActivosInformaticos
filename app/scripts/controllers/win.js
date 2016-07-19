@@ -16,7 +16,7 @@ angular.module('activosInformaticosApp')
     $scope.opcionBusqueda = "tipo";
     $scope.buscando = false;
     $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
-    $scope.direccionRelaciones = false;
+    $scope.direccionRelaciones = 'Todas';
     $scope.buscadoString = "";
     $scope.buscadoTipo = "";
     $scope.buscadoAtributo = "";
@@ -117,41 +117,96 @@ angular.module('activosInformaticosApp')
       $scope.select_asset.name = nombreActivo;
       $scope.clicked_RelationIndex = null;
 
-      if (!$scope.direccionRelaciones) {
-        dataFactory.getAssetRelations(id, function (response) {
-            //console.log(response);
+      switch ($scope.direccionRelaciones) {
+        case 'Todas':
+          dataFactory.getAssetRelations(id, function (response) {
             $scope.assetRelations = response;
             $scope.labels = [];
-            for (i=0;i<$scope.assetRelations.length;i++) {
-              //console.log($scope.assetRelations[i].relationTypeId);
-              dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
-                //console.log(response);
-                $scope.labels.push(response);
+            dataFactory.getIncomingAssetRelations(id, function (response) {
+              for (i=0;i<response.length;i++) {
+                $scope.assetRelations.push(response[i]);
+              }
+              dataFactory.getRelationMap(id, function (response) {
+                //console.log(response.relations);
+                for (i=0;i<response.relations.length;i++) {
+                  $scope.labels.push(response.relations[i].relationLabel);
+                }
+                //console.log(response.incomingRelations);
+                for (i=0;i<response.incomingRelations.length;i++) {
+                  $scope.labels.push(response.incomingRelations[i].relationLabel);
+                }
                 //console.log($scope.labels);
-
               });
-            }
-        });
-      } else {
-        dataFactory.getIncomingAssetRelations(id, function (response) {
+            });
+          });
+          break;
+        case 'Salientes':
+          dataFactory.getAssetRelations(id, function (response) {
+              $scope.assetRelations = response;
+              $scope.labels = [];
+              for (i=0;i<$scope.assetRelations.length;i++) {
+                dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
 
-            $scope.assetRelations = response;
-            $scope.labels = [];
+                  $scope.labels.push(response);
 
-            for (i=0;i<$scope.assetRelations.length;i++) {
+                });
+              }
+          });
+          break;
+        case 'Entrantes':
+          dataFactory.getIncomingAssetRelations(id, function (response) {
 
-              dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
+              $scope.assetRelations = response;
+              $scope.labels = [];
 
-                $scope.labels.push(response);
-                //console.log($scope.labels);
+              for (i=0;i<$scope.assetRelations.length;i++) {
 
+                dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
 
-              });
+                  $scope.labels.push(response);
 
-            }
+                });
+              }
+          });
+          break;
+        default:
+          break;
 
-        });
       }
+
+      //if (!$scope.direccionRelaciones) {
+        // dataFactory.getAssetRelations(id, function (response) {
+        //     $scope.assetRelations = response;
+        //     $scope.labels = [];
+        //     for (i=0;i<$scope.assetRelations.length;i++) {
+        //       dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
+        //
+        //         $scope.labels.push(response);
+        //
+        //       });
+        //     }
+        // });
+      //} else {
+        // dataFactory.getIncomingAssetRelations(id, function (response) {
+        //
+        //     $scope.assetRelations = response;
+        //     $scope.labels = [];
+        //
+        //     for (i=0;i<$scope.assetRelations.length;i++) {
+        //
+        //       dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
+        //
+        //         $scope.labels.push(response);
+        //         //console.log($scope.labels);
+        //
+        //
+        //       });
+        //
+        //     }
+        //
+        // });
+      //}
+
     }
 
     $scope.clickAsset = function(asset,indice) {
