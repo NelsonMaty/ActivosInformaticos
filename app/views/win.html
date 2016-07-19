@@ -96,13 +96,15 @@
                 <div >
                   <div layout="column">
                     <div layout="row" layout-align="space-between center" style="padding-top:20px;">
-                      <h1 class="md-display-2" ng-show="!direccionRelaciones">Relaciones salientes</h1>
-                      <h1 class="md-display-2" ng-show="direccionRelaciones">Relaciones entrantes</h1>
+                      <h1 class="md-display-2" ng-show="direccionRelaciones=='Todas'">Todas las relaciones</h1>
+                      <h1 class="md-display-2" ng-show="direccionRelaciones=='Salientes'">Relaciones salientes</h1>
+                      <h1 class="md-display-2" ng-show="direccionRelaciones=='Entrantes'">Relaciones entrantes</h1>
                       <md-input-container style="margin-top:0px; margin-bottom:0px; top:8px; padding-right:36px; width:280px;">
                         <!-- <md-switch ng-model="direccionRelaciones" ng-change="searchRelations(select_asset._id,select_asset.name)">Relaciones salientes/entrantes</md-switch> -->
                         <label>Filtro de relaciones</label>
                         <md-icon md-font-set="material-icons" >filter_list</md-icon>
-                        <md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" md-on-close="searchRelations(select_asset._id,select_asset.name)">
+                        <!-- <md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" md-on-close="searchRelations(select_asset._id,select_asset.name)"> -->
+                        <md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" ng-change="searchRelations(select_asset._id,select_asset.name)">
                           <md-option ng-repeat="filtro in filtros" value="{{filtro}}" >
                               {{filtro}}
                           </md-option>
@@ -120,10 +122,9 @@
                         <md-input-container class="md-icon-float md-block" style="top: 20px;">
                           <input type="search" ng-model="buscado" placeholder="Activos" aria-label="filter assets" />
                         </md-input-container>
+
                         <md-list ng-cloak>
-
                           <md-list-item ng-repeat="asset in myassets | filter:buscado" ng-click="searchRelations(asset._id,asset.name)" ng-class="{'select-activo animated pulse': clickedIcon($index) }">
-
 
                             <p>{{ asset.name }}</p>
 
@@ -133,13 +134,17 @@
                       </md-sidenav>
 
                       <div layout="column" flex id="content" style="width: 1000px; " >
+                        <div layout="row" layout-sm="column" layout-align="space-around" ng-if="buscando" >
+                          <md-progress-circular md-mode="indeterminate" md-diameter="106"></md-progress-circular>
+                        </div>
                         <div layout="row" layout-wrap layout-margin layout-align="start center" style="margin-left:20px; " >
 
                           <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
-                          <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-click="clickRelation(relation, $index);  $event.stopPropagation();" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
+                          <div ng-show="!buscando" style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-click="clickRelation(relation, $index);  $event.stopPropagation();" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
                             <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-relacion animated pulse': clickedRelacionIcon($index) }"  md-font-set="material-icons">link</md-icon>
-                            <div style="text-align: center" ng-show="!direccionRelaciones"> {{labels[$index].outLabel || relation.relationTypeId }} </div>
-                            <div style="text-align: center" ng-show="direccionRelaciones"> {{labels[$index].inLabel || relation.relationTypeId }} </div>
+                            <div style="text-align: center" ng-show="direccionRelaciones=='Todas'"> {{labels[$index] || relation.relationTypeId }} </div>
+                            <div style="text-align: center" ng-show="direccionRelaciones=='Salientes'"> {{labels[$index].outLabel || relation.relationTypeId }} </div>
+                            <div style="text-align: center" ng-show="direccionRelaciones=='Entrantes'"> {{labels[$index].inLabel || relation.relationTypeId }} </div>
                           </div>
                         </div>
                       </div>
@@ -263,7 +268,8 @@
                           <md-input-container style="margin-bottom:38px;">
                             <label>Tipo de activo</label>
                             <md-icon md-font-set="material-icons" >receipt</md-icon>
-                            <md-select ng-model="$parent.selectedType" aria-label="nombre nodos" md-on-close="listarAtributos()">
+                            <!-- <md-select ng-model="$parent.selectedType" aria-label="nombre nodos" md-on-close="listarAtributos()"> -->
+                            <md-select ng-model="$parent.selectedType" aria-label="nombre nodos" ng-change="listarAtributos()">
                               <md-option ng-repeat="tipo in assettypes" value="{{tipo._id}}" >
                                   Tipo de activo {{tipo.name}}
                               </md-option>

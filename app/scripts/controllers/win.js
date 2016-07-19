@@ -116,6 +116,7 @@ angular.module('activosInformaticosApp')
       $scope.select_asset._id = id;
       $scope.select_asset.name = nombreActivo;
       $scope.clicked_RelationIndex = null;
+      $scope.buscando = true;
 
       switch ($scope.direccionRelaciones) {
         case 'Todas':
@@ -135,6 +136,11 @@ angular.module('activosInformaticosApp')
                 for (i=0;i<response.incomingRelations.length;i++) {
                   $scope.labels.push(response.incomingRelations[i].relationLabel);
                 }
+                window.setTimeout( function(){
+                  $scope.buscando = false;
+                  $scope.$apply();
+                }, 500);
+
                 //console.log($scope.labels);
               });
             });
@@ -151,6 +157,12 @@ angular.module('activosInformaticosApp')
 
                 });
               }
+
+              //$scope.buscando = false;
+              window.setTimeout( function(){
+                $scope.buscando = false;
+                $scope.$apply();
+              }, 500);
           });
           break;
         case 'Entrantes':
@@ -167,45 +179,17 @@ angular.module('activosInformaticosApp')
 
                 });
               }
+              //$scope.buscando = false;
+              window.setTimeout( function(){
+                $scope.buscando = false;
+                $scope.$apply();
+              }, 500);
           });
           break;
         default:
           break;
 
       }
-
-      //if (!$scope.direccionRelaciones) {
-        // dataFactory.getAssetRelations(id, function (response) {
-        //     $scope.assetRelations = response;
-        //     $scope.labels = [];
-        //     for (i=0;i<$scope.assetRelations.length;i++) {
-        //       dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
-        //
-        //         $scope.labels.push(response);
-        //
-        //       });
-        //     }
-        // });
-      //} else {
-        // dataFactory.getIncomingAssetRelations(id, function (response) {
-        //
-        //     $scope.assetRelations = response;
-        //     $scope.labels = [];
-        //
-        //     for (i=0;i<$scope.assetRelations.length;i++) {
-        //
-        //       dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
-        //
-        //         $scope.labels.push(response);
-        //         //console.log($scope.labels);
-        //
-        //
-        //       });
-        //
-        //     }
-        //
-        // });
-      //}
 
     }
 
