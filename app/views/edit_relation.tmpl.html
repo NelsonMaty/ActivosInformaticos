@@ -10,24 +10,20 @@
 	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
 	  </md-button>
 	</md-toolbar>
-	<form name="editRelations"
+	<form name="editRelations">
 	<div style="overflow: auto;">
 		<h1 class="md-display-2" style="padding-left: 20px;"> Activos involucrados </h1>
-		<div layout="row" style="padding-bottom: 30px; padding-top: 20px;">
+		<div layout="row" style="padding-bottom: 30px;  padding-top: 16px;">
 			<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px; ">description</md-icon>
-			<p style="padding-left: 20px;" ng-click=""> {{sourceAsset.name}}   -   {{relatedAsset.name}}</p>
-			<!--p ng-click=""> {{relatedAsset.name}} y </p-->
+			<p style="padding-left: 20px; padding-top: 4px;" ng-click=""> {{sourceAsset.name}}</p>
+			<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; margin-right: 0px; padding-left: 20px; padding-right: 20px; ">trending_flat</md-icon>
+			<p style="padding-left: 20px; padding-top: 4px;" ng-click=""> {{relatedAsset.name}}</p>
 		</div>
 
 		<md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
-		  <!-- <div>
-		    <md-input-container class=" md-block" >
-		      <md-icon md-font-set="material-icons" class="name" aria-label="nombre relacion">link</md-icon>
-		      <input ng-model="update_relation.name" type="text" placeholder="* Nombre de relacion" ng-required="true">
-		    </md-input-container>
-		  </div> -->
+
 		  <div>
-		    <md-input-container class=" md-block" >
+		    <md-input-container class=" md-block" style="padding-top:0px;">
 		      <md-icon md-font-set="material-icons" class="comments" aria-label="Comentarios">comment</md-icon>
 		      <input ng-model="update_relation.comment" type="text" placeholder="Comentarios">
 		    </md-input-container>
@@ -47,16 +43,17 @@
 			</div>
 			<div layout="row" style="padding-bottom: 30px; padding-top: 16px;">
 				<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">label</md-icon>
-				<strong style="padding-left: 20px;">Relacion saliente: </strong>
-				<p style="padding-left: 20px; ">{{relationTypeSelected.outLabel}}</p>
+				<strong style="padding-left: 20px; padding-top: 4px;">Relacion saliente: </strong>
+				<p style="padding-left: 20px; padding-top: 4px;">{{relationTypeSelected.outLabel}}</p>
 			</div>
 			<div layout="row" style="padding-bottom: 30px;  padding-top: 16px;">
 				<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">label</md-icon>
-				<strong style="padding-left: 20px;">Relacion entrante: </strong>
-				<p style="padding-left: 20px; ">{{relationTypeSelected.inLabel}}</p>
+				<strong style="padding-left: 20px; padding-top: 4px;">Relacion entrante: </strong>
+				<p style="padding-left: 20px; padding-top: 4px;">{{relationTypeSelected.inLabel}}</p>
 			</div>
-		  <div >
-		    <label>Crítico</label>
+		  <div style="padding-bottom: 30px;  padding-top: 16px;">
+				<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">warning</md-icon>
+		    <label style="padding-left: 15px; padding-top: 2px;">Crítico</label>
 		    <md-checkbox ng-model="update_relation.isCritical" aria-label="Checkbox 1">
 
 		    </md-checkbox>
