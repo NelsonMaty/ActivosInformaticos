@@ -1286,10 +1286,10 @@ angular.module('activosInformaticosApp')
         });
 
         $scope.callGoAsset = function (event, relatedAsset) {
-          for (i=0;i<$scope.assets.length;i++) {
-            if ($scope.assets[i]._id == relatedAsset._id) {
+          for (i=0;i<$scope.myassets.length;i++) {
+            if ($scope.myassets[i]._id == relatedAsset._id) {
 
-              var data = { evento:event, activo:$scope.assets[i], indice: i }
+              var data = { evento:event, activo:$scope.myassets[i], indice: i }
               $mdDialog.hide(data);
             }
           }
