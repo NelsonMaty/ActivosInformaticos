@@ -104,7 +104,7 @@
                         <label>Filtro de relaciones</label>
                         <md-icon md-font-set="material-icons" >filter_list</md-icon>
                         <!-- <md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" md-on-close="searchRelations(select_asset._id,select_asset.name)"> -->
-                        <md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" ng-change="searchRelations(select_asset._id,select_asset.name)">
+                        <md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" ng-change="searchRelations(select_asset._id,select_asset.name)" ng-disabled="!select_asset">
                           <md-option ng-repeat="filtro in filtros" value="{{filtro}}" >
                               {{filtro}}
                           </md-option>
@@ -142,9 +142,10 @@
                           <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
                           <div ng-show="!buscando" style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-click="clickRelation(relation, $index);  $event.stopPropagation();" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
                             <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-relacion animated pulse': clickedRelacionIcon($index) }"  md-font-set="material-icons">link</md-icon>
-                            <div style="text-align: center" ng-show="direccionRelaciones=='Todas'"> {{labels[$index] || relation.relationTypeId }} </div>
-                            <div style="text-align: center" ng-show="direccionRelaciones=='Salientes'"> {{labels[$index].outLabel || relation.relationTypeId }} </div>
-                            <div style="text-align: center" ng-show="direccionRelaciones=='Entrantes'"> {{labels[$index].inLabel || relation.relationTypeId }} </div>
+                            <!-- <div style="text-align: center" ng-show="direccionRelaciones=='Todas'"> {{labels[$index] || relation.relationTypeId }} </div> -->
+                            <!-- <div style="text-align: center" ng-show="direccionRelaciones=='Salientes'"> {{labels[$index].outLabel || relation.relationTypeId }} </div> -->
+                            <div style="text-align: center" > {{labels[$index] || relation.relationTypeId }} {{relatedAssets[$index]}} </div>
+                            <!-- <div style="text-align: center" ng-show="direccionRelaciones=='Entrantes'"> {{labels[$index].inLabel || relation.relationTypeId }} </div> -->
                           </div>
                         </div>
                       </div>

@@ -112,9 +112,12 @@ angular.module('activosInformaticosApp')
 
     $scope.searchRelations = function(id,nombreActivo) {
       $scope.sourceAssetId = id;
-      $scope.select_asset = {};
-      $scope.select_asset._id = id;
-      $scope.select_asset.name = nombreActivo;
+      $scope.select_asset = {
+        _id: id,
+        name: nombreActivo
+      };
+      //$scope.select_asset._id = id;
+      //$scope.select_asset.name = nombreActivo;
       $scope.clicked_RelationIndex = null;
       $scope.buscando = true;
 
@@ -123,6 +126,7 @@ angular.module('activosInformaticosApp')
           dataFactory.getAssetRelations(id, function (response) {
             $scope.assetRelations = response;
             $scope.labels = [];
+            $scope.relatedAssets = [];
             dataFactory.getIncomingAssetRelations(id, function (response) {
               for (i=0;i<response.length;i++) {
                 $scope.assetRelations.push(response[i]);
@@ -131,10 +135,12 @@ angular.module('activosInformaticosApp')
                 //console.log(response.relations);
                 for (i=0;i<response.relations.length;i++) {
                   $scope.labels.push(response.relations[i].relationLabel);
+                  $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
                 }
                 //console.log(response.incomingRelations);
                 for (i=0;i<response.incomingRelations.length;i++) {
                   $scope.labels.push(response.incomingRelations[i].relationLabel);
+                  $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
                 }
                 window.setTimeout( function(){
                   $scope.buscando = false;
@@ -150,19 +156,24 @@ angular.module('activosInformaticosApp')
           dataFactory.getAssetRelations(id, function (response) {
               $scope.assetRelations = response;
               $scope.labels = [];
-              for (i=0;i<$scope.assetRelations.length;i++) {
-                dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
-
-                  $scope.labels.push(response);
-
-                });
-              }
-
-              //$scope.buscando = false;
-              window.setTimeout( function(){
-                $scope.buscando = false;
-                $scope.$apply();
-              }, 500);
+              $scope.relatedAssets = [];
+              // for (i=0;i<$scope.assetRelations.length;i++) {
+              //   dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
+              //
+              //     $scope.labels.push(response);
+              //
+              //   });
+              // }
+              dataFactory.getRelationMap(id, function (response) {
+                for (i=0;i<response.relations.length;i++) {
+                  $scope.labels.push(response.relations[i].relationLabel);
+                  $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
+                }
+                window.setTimeout( function(){
+                  $scope.buscando = false;
+                  $scope.$apply();
+                }, 500);
+              });
           });
           break;
         case 'Entrantes':
@@ -170,20 +181,25 @@ angular.module('activosInformaticosApp')
 
               $scope.assetRelations = response;
               $scope.labels = [];
-
-              for (i=0;i<$scope.assetRelations.length;i++) {
-
-                dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
-
-                  $scope.labels.push(response);
-
-                });
-              }
-              //$scope.buscando = false;
-              window.setTimeout( function(){
-                $scope.buscando = false;
-                $scope.$apply();
-              }, 500);
+              $scope.relatedAssets = [];
+              // for (i=0;i<$scope.assetRelations.length;i++) {
+              //
+              //   dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
+              //
+              //     $scope.labels.push(response);
+              //
+              //   });
+              // }
+              dataFactory.getRelationMap(id, function (response) {
+                for (i=0;i<response.incomingRelations.length;i++) {
+                  $scope.labels.push(response.incomingRelations[i].relationLabel);
+                  $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
+                }
+                window.setTimeout( function(){
+                  $scope.buscando = false;
+                  $scope.$apply();
+                }, 500);
+            });
           });
           break;
         default:
@@ -570,7 +586,7 @@ angular.module('activosInformaticosApp')
 
     $scope.goToMap = function (selected,indice) {
       dataFactory.getRelationMap(selected._id, function (response) {
-        
+
         $scope.relationGraph($scope,response,indice);
       });
     };
