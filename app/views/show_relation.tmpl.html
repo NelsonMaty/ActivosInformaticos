@@ -2,11 +2,11 @@
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
 
-	    <h1> Relacion {{relation.id}} &nbsp; </h1>
+	    <h1> Relación {{relation.id}} &nbsp; </h1>
 
 	  </div>
 
-      <md-button class="md-icon-button" style="top: 7px;" ng-click="editRelation(ev,relation,indice)">
+      <md-button class="md-icon-button" style="top: 7px;" ng-click="editRelation($event,relation,sourceAssetId,indice)">
       	<md-tooltip md-direction="bottom"> Editar </md-tooltip>
 	    <md-icon md-font-set="material-icons" aria-label="Edit relation">edit</md-icon>
 	  </md-button>

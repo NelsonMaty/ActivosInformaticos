@@ -682,7 +682,7 @@ angular.module('activosInformaticosApp')
 
       };
 
-      $scope.goAsset = function(ev,asset,$index,indexBusqueda) {
+      $scope.goAsset = function(ev,asset,indice,indexBusqueda) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         //console.log(asset);
         $mdDialog.show({
@@ -690,7 +690,7 @@ angular.module('activosInformaticosApp')
             asset: asset,
             myassets: $scope.myassets,
             resultadoBusqueda : $scope.resultadoBusqueda,
-            indice: $index,
+            indice: indice,
             indexBusqueda: indexBusqueda,
             editAsset: $scope.editAsset,
             goRelation: $scope.goRelation
@@ -713,7 +713,7 @@ angular.module('activosInformaticosApp')
         });
       };
 
-      $scope.editAsset = function(ev,asset,$index,indexBusqueda) {
+      $scope.editAsset = function(ev,asset,indice,indexBusqueda) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         //console.log(asset);
         $mdDialog.show({
@@ -721,7 +721,7 @@ angular.module('activosInformaticosApp')
             asset: asset,
             myassets: $scope.myassets,
             resultadoBusqueda: $scope.resultadoBusqueda,
-            indice: $index,
+            indice: indice,
             indexBusqueda: indexBusqueda,
             deleteAsset: $scope.deleteAsset
 
@@ -761,14 +761,16 @@ angular.module('activosInformaticosApp')
 
     //-----------Relations-----------//
 
-      $scope.goRelation = function(ev,relation,assetId,$index) {
+      $scope.goRelation = function(ev,relation,assetId,indice) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-        //console.log(asset);
+         //console.log(relation);
+         //console.log(assetId);
+         //console.log(indice);
         $mdDialog.show({
           locals: {
             relation: relation,
             sourceAssetId: assetId,
-            indice: $index,
+            indice: indice,
             editRelation: $scope.editRelation
 
           },
@@ -811,16 +813,16 @@ angular.module('activosInformaticosApp')
         });
       };
 
-      $scope.editRelation = function(ev,relation,$index) {
+      $scope.editRelation = function(ev,relation,sourceAssetId,indice) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-        //console.log(asset);
+        //console.log($scope.sourceAssetId);
         $mdDialog.show({
           locals: {
             relation: relation,
             assetRelations: $scope.assetRelations,
-            indice: $index,
+            indice: indice,
             deleteRelation: $scope.deleteRelation,
-            sourceAssetId: $scope.sourceAssetId
+            sourceAssetId: sourceAssetId
 
           },
           controller: EditRelationCtrl,
@@ -1008,7 +1010,7 @@ angular.module('activosInformaticosApp')
 
       };
 
-      function EditRelationCtrl(relation, assetRelations, indice, deleteRelation, sourceAssetId, $scope, $mdDialog, $mdToast) {
+      function EditRelationCtrl(relation, assetRelations,sourceAssetId, indice, deleteRelation, sourceAssetId, $scope, $mdDialog, $mdToast) {
 
         $scope.update_relation = $.extend({},relation);
         $scope.assetRelations = assetRelations;
