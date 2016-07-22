@@ -129,6 +129,7 @@ angular.module('activosInformaticosApp')
             $scope.relatedAssets = [];
             dataFactory.getIncomingAssetRelations(id, function (response) {
               for (i=0;i<response.length;i++) {
+                response[i].isIncoming = true;
                 $scope.assetRelations.push(response[i]);
               }
               dataFactory.getRelationMap(id, function (response) {
@@ -182,6 +183,9 @@ angular.module('activosInformaticosApp')
               $scope.assetRelations = response;
               $scope.labels = [];
               $scope.relatedAssets = [];
+              for(i=0;i<$scope.assetRelations.length;i++) {
+                $scope.assetRelations[i].isIncoming="true";
+              }
               // for (i=0;i<$scope.assetRelations.length;i++) {
               //
               //   dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
@@ -1310,6 +1314,7 @@ angular.module('activosInformaticosApp')
 
         dataFactory.getIncomingAssetRelations($scope.asset._id, function (response) {
           for (i=0;i<response.length;i++) {
+            response[i].isIncoming="true";
             $scope.relationsIn.push(response[i]);
             if (response[i].isCritical) {
               $scope.criticosIn.push({texto: "Sí", valor:true});

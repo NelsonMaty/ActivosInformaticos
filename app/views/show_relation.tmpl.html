@@ -20,8 +20,9 @@
 		<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
 			<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px; ">description</md-icon>
 			<p style="padding-left: 20px; padding-top: 4px;" ng-click=""> {{sourceAsset.name}}</p>
-			<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; margin-right: 0px; padding-left: 20px; padding-right: 20px; ">trending_flat</md-icon>
-			<p style="padding-left: 20px; padding-top: 4px;" ng-click=""> {{relatedAsset.name}}</p>
+			<md-icon ng-show="relation.isIncoming" md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; margin-right: 0px; padding-left: 20px; padding-right: 20px; ">arrow_back</md-icon>
+			<md-icon ng-show="!relation.isIncoming" md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; margin-right: 0px; padding-left: 20px; padding-right: 20px; ">arrow_forward</md-icon>
+			<p style="padding-left: 20px; padding-top: 5px;" ng-click=""> {{relatedAsset.name}}</p>
 		</div>
 
 		<md-divider ></md-divider>
