@@ -135,12 +135,12 @@ angular.module('activosInformaticosApp')
               dataFactory.getRelationMap(id, function (response) {
                 //console.log(response.relations);
                 for (i=0;i<response.relations.length;i++) {
-                  $scope.labels.push(response.relations[i].relationLabel);
+                  $scope.labels.push(response.relations[i].outLabel);
                   $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
                 }
                 //console.log(response.incomingRelations);
                 for (i=0;i<response.incomingRelations.length;i++) {
-                  $scope.labels.push(response.incomingRelations[i].relationLabel);
+                  $scope.labels.push(response.incomingRelations[i].inLabel);
                   $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
                 }
                 window.setTimeout( function(){
@@ -158,16 +158,10 @@ angular.module('activosInformaticosApp')
               $scope.assetRelations = response;
               $scope.labels = [];
               $scope.relatedAssets = [];
-              // for (i=0;i<$scope.assetRelations.length;i++) {
-              //   dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
-              //
-              //     $scope.labels.push(response);
-              //
-              //   });
-              // }
+
               dataFactory.getRelationMap(id, function (response) {
                 for (i=0;i<response.relations.length;i++) {
-                  $scope.labels.push(response.relations[i].relationLabel);
+                  $scope.labels.push(response.relations[i].outLabel);
                   $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
                 }
                 window.setTimeout( function(){
@@ -186,17 +180,10 @@ angular.module('activosInformaticosApp')
               for(i=0;i<$scope.assetRelations.length;i++) {
                 $scope.assetRelations[i].isIncoming="true";
               }
-              // for (i=0;i<$scope.assetRelations.length;i++) {
-              //
-              //   dataFactory.getARelationType($scope.assetRelations[i].relationTypeId, function (response) {
-              //
-              //     $scope.labels.push(response);
-              //
-              //   });
-              // }
+              
               dataFactory.getRelationMap(id, function (response) {
                 for (i=0;i<response.incomingRelations.length;i++) {
-                  $scope.labels.push(response.incomingRelations[i].relationLabel);
+                  $scope.labels.push(response.incomingRelations[i].inLabel);
                   $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
                 }
                 window.setTimeout( function(){
@@ -1286,9 +1273,9 @@ angular.module('activosInformaticosApp')
 
         });
 
-
         dataFactory.getRelationMap($scope.asset._id, function (response) {
           $scope.relationsTree = response;
+          //console.log(response);
         });
 
         $scope.callGoAsset = function (event, relatedAsset) {

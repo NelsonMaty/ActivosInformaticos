@@ -294,12 +294,7 @@
             </div>
 
             <md-content layout="column" flex style=" margin-left: 20px; padding-top: 20px;">
-              <!-- <div>
-                <md-input-container class=" md-block" style="padding-right: 28px;margin-bottom: 0px;">
-                  <md-icon md-font-set="material-icons" class="name" aria-label="nombre relacion">link</md-icon>
-                  <input ng-model="relation.name" type="text" placeholder="* Nombre de relacion" ng-required="true">
-                </md-input-container>
-              </div> -->
+
               <div>
                 <md-input-container class=" md-block" style="padding-right: 28px; margin-bottom: 0px;">
                   <md-icon md-font-set="material-icons" class="comments" aria-label="Comentarios">comment</md-icon>
@@ -332,7 +327,8 @@
               </div>
 
               <div style="padding-top:10px;">
-                <label>Crítico</label>
+                <md-icon md-font-set="material-icons" aria-label="tipo de relacion">warning</md-icon>
+                <label style="padding-left:47px;">Crítico</label>
                 <md-checkbox ng-model="relation.isCritical" aria-label="Checkbox 1">
 
                 </md-checkbox>
@@ -361,18 +357,7 @@
           <md-divider ></md-divider>
           <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
 
-          <!-- <md-list-item ng-repeat="key in rel_atributtes" >
-            <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
-            <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong>
-            <p style="padding-left: 20px; padding-bottom: 20px;">{{relation[key]}} </p>
 
-          </md-list-item> -->
-
-          <!-- <div layout="row" style="padding-bottom: 30px; padding-top: 14px;">
-      		  <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">settings_input_component</md-icon>
-      		  <strong style="padding-left: 20px; ">Nombre: </strong>
-      		  <p style="padding-left: 20px; "> {{relation.name}}</p>
-      	  </div> -->
       	  <div layout="row" style="padding-bottom: 30px; padding-top: 30px;">
       		  <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">settings_input_component</md-icon>
       		  <strong style="padding-left: 20px; padding-top: 4px;">Tipo: </strong>

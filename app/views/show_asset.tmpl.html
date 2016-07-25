@@ -106,7 +106,7 @@
 									</tr>
 							    <tr ng-repeat="relation in relationsTree.relations">
 							        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="goRelation($event,relationsOut[$index],asset._id,$index)">
-							            <a>{{relation.relationLabel}}</a></td>
+							            <a>{{relation.outLabel}}</a></td>
 							        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="callGoAsset($event,relation.relatedAsset)">
 							            <a>{{relation.relatedAsset.name}}</a></td>
 											<td  style="width:200px;" ng-class="{'critico': criticosOut[$index].valor }">
@@ -125,7 +125,7 @@
 									</tr>
 							    <tr ng-repeat="relation in relationsTree.incomingRelations">
 							        <td  style="width:200px; cursor:pointer; cursor:hand" ng-click="goRelation($event,relationsIn[$index],asset._id,$index)">
-							            <a>{{relation.relationLabel}}</a></td>
+							            <a>{{relation.inLabel}}</a></td>
 							        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="callGoAsset($event,relation.relatedAsset)">
 							            <a>{{relation.relatedAsset.name}}</a></td>
 											<td  style="width:200px;"  ng-class="{'critico': criticosIn[$index].valor}">
