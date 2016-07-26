@@ -41,9 +41,7 @@
 
       </div>
       <span flex=""></span>
-      <!-- <md-button class="md-icon-button" aria-label="Busqueda">
-        <md-icon md-font-set="material-icons">search</md-icon>
-      </md-button> -->
+
 
       <md-menu md-position-mode="target-right target">
         <md-button class="md-icon-button" aria-label="Opciones" ng-click="openMenu($mdOpenMenu, $event)">
@@ -167,7 +165,7 @@
                       </md-input-container>
                       <md-list ng-cloak>
 
-                        <md-list-item ng-repeat="asset in myassets | filter:buscado" ng-click="goToMap(asset,$index)" ng-class="{'select-activo animated pulse': clickedIcon($index) }">
+                        <md-list-item ng-repeat="asset in myassets | filter:buscado" ng-click="goToMap(asset,$index,profundidad)" ng-class="{'select-activo animated pulse': clickedIcon($index) }">
 
                           <p>{{ asset.name }}</p>
 
@@ -178,12 +176,14 @@
                     <div class="" flex>
 
                       <div class="" layout-align="end end" layout="row" style="">
-                        <md-input-container class="" ng-show="svgExist" style="margin-bottom:0px;height:40px;">
+                        <md-input-container class="" style="margin-bottom:0px;height:40px;padding-right:40px;padding-bottom:0px;">
+                          <input ng-model="profundidad" ng-pattern="/^[0-9]$/" type="number" placeholder="Ingrese profundidad" >
+                        </md-input-container>
+                        <!-- <md-button type="button" style="margin-bottom:0px;" ng-click="goToMap(asset,$inde)">Aplicar</md-button> -->
 
+                        <md-input-container class="" ng-show="svgExist" style="margin-bottom:0px;height:40px;">
                           <input id="search" ng-model="buscado2" type="text" placeholder="Ingrese nombre de activo" >
                         </md-input-container>
-
-                        <!-- < <input id="search"> -->
                         <md-button type="button" style="margin-bottom:0px;" ng-show="svgExist" ng-click="searchNode()">Buscar</md-button>
                       </div>
                       <div id="relGraph">

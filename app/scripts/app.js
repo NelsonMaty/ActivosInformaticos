@@ -130,15 +130,28 @@ angular
         });
       };
 
-      dataFactory.getRelationMap = function(assetId,callback){
+      dataFactory.getRelationMap = function(assetId,profundidad,callback){
+        //console.log(profundidad);
+        if (profundidad && profundidad>0) {
 
-        $http.get(urlWS + 'assets/' + assetId + '/relationsTree')
-          .then(function(response){
-            //console.log(response);
-            callback(response.data);
-          },function(err){
-            console.log(err);
-        });
+          $http.get(urlWS + 'assets/' + assetId + '/relationsTree?depth=' + profundidad )
+            .then(function(response){
+              //console.log(response);
+              callback(response.data);
+            },function(err){
+              console.log(err);
+          });
+        } else {
+          $http.get(urlWS + 'assets/' + assetId + '/relationsTree')
+            .then(function(response){
+
+              //console.log(response);
+              callback(response.data);
+            },function(err){
+              console.log(err);
+          });
+        }
+
       };
 
       dataFactory.getPreviewGraph = function(confGraph,callback){

@@ -6,7 +6,7 @@ angular.module('activosInformaticosApp')
     $scope.toggleSidenav = function(menuId) {
     	//$mdSidenav(menuId).toggle();
     };
-
+    $scope.profundidad = null;
     $scope.assettypes = {};
     $scope.clicked_asset = {};
     $scope.clicked_relation = {};
@@ -116,8 +116,7 @@ angular.module('activosInformaticosApp')
         _id: id,
         name: nombreActivo
       };
-      //$scope.select_asset._id = id;
-      //$scope.select_asset.name = nombreActivo;
+
       $scope.clicked_RelationIndex = null;
       $scope.buscando = true;
 
@@ -180,7 +179,7 @@ angular.module('activosInformaticosApp')
               for(i=0;i<$scope.assetRelations.length;i++) {
                 $scope.assetRelations[i].isIncoming="true";
               }
-              
+
               dataFactory.getRelationMap(id, function (response) {
                 for (i=0;i<response.incomingRelations.length;i++) {
                   $scope.labels.push(response.incomingRelations[i].inLabel);
@@ -261,7 +260,7 @@ angular.module('activosInformaticosApp')
     var svg = null;
     $scope.svgExist = false;
 
-    $scope.relationGraph = function ($scope,jsonMap,indice) {
+    $scope.relationGraph = function ($scope,jsonMap,indice,profundidad) {
       //Constants for the SVG
       $scope.svgExist = true;
       var width = 1200,
@@ -300,19 +299,16 @@ angular.module('activosInformaticosApp')
             {
               name: jsonMap.name,
               group: jsonMap.assetType._id,
-
             }
-
           ],
-          links: [
-
-          ]
+          links: []
         };
       }
+
       //Creacion de nodos y relaciones salientes
       for (i=0;i<jsonMap.relations.length;i++) {
         graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
-        graph.links.push({ source: 0, target: (i+1), value: 9, label: jsonMap.relations[i].relationLabel });
+        graph.links.push({ source: 0, target: (i+1), value: 9, label: jsonMap.relations[i].outLabel });
 
       }
 
@@ -320,9 +316,7 @@ angular.module('activosInformaticosApp')
       for (i=0;i<jsonMap.incomingRelations.length;i++) {
         var existeNodo=false;
         var source = null;
-        // for (j=0;j<jsonMap.relations.length;j++) {
         for (j=0;j<graph.nodes.length;j++) {
-          // if (jsonMap.incomingRelations[i].relatedAsset.name == jsonMap.relations[j].relatedAsset.name){
           if (jsonMap.incomingRelations[i].relatedAsset.name == graph.nodes[j].name){
             existeNodo =true;
             indiceExistente = j;
@@ -330,30 +324,21 @@ angular.module('activosInformaticosApp')
         }
         // Agrego nodo si este no existe
         if (!existeNodo) {
-            //console.log("Agrego nodo que no existe");
             graph.nodes.push({ name: jsonMap.incomingRelations[i].relatedAsset.name, group: jsonMap.incomingRelations[i].relatedAsset.assetType._id});
         }
 
         //Si hay relaciones salientes
         if (salientes) {
-          //console.log("Hay relaciones salientes");
           if (existeNodo) {
-              //console.log("Creo relacion entrante con nodo existente, indice: "+ indiceExistente);
-              graph.links.push({ source: indiceExistente, target: 0, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+              graph.links.push({ source: indiceExistente, target: 0, value: 9, label: jsonMap.incomingRelations[i].inLabel });
           } else {
-              //console.log("Creo relacion entrante con nodo nuevo, indice: "+(graph.nodes.length-1));
-              // graph.links.push({ source: (i+jsonMap.relations.length+1), target: 0, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
-              graph.links.push({ source: (graph.nodes.length-1), target: 0, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+              graph.links.push({ source: (graph.nodes.length-1), target: 0, value: 9, label: jsonMap.incomingRelations[i].inLabel });
           }
-
         } else {
-          //console.log("no hay relaciones salientes");
           if (existeNodo) {
-              //console.log("Creo relacion con nodo existente, indice: "+indiceExistente);
-              graph.links.push({ source: indiceExistente, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+              graph.links.push({ source: indiceExistente, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].inLabel });
           } else {
-              //console.log("Creo relacion entrante con nodo nuevo, indice: "+i);
-              graph.links.push({ source: i, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].relationLabel });
+              graph.links.push({ source: i, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].inLabel });
           }
 
         }
@@ -361,9 +346,36 @@ angular.module('activosInformaticosApp')
 
       if (!salientes){
         graph.nodes.push({ name: jsonMap.name, group: jsonMap.assetType._id});
-
       }
       console.log(graph);
+
+      var recorrerArbol = function (nodo,srcNumber,limit) {
+
+        var graph2 = {
+          nodes: [
+            { name: nodo.name, group: nodo.assetType._id }
+          ],
+          links: []
+        };
+
+          for (i=0;i<nodo.relations.length;i++) {
+            graph2.links.push({source: srcNumber, target: (srcNumber+i), value: 9, label: nodo.relations[i].outLabel});
+          }
+          for (;i<nodo.relations.length + nodo.incomingRelations.length;i++) {
+            graph2.links.push({source: i, target: srcNumber, value: 9, label: nodo.incomingRelations[i-node.relations.length].inLabel});
+            //recorrerArbol(nodo[i].incomingRelations[i]);
+          }
+          var limit = i;
+          for (i=0;i<nodo.relations.length;i++) {
+            recorrerArbol(nodo.relations[i].relatedAsset,srcNumber+i, limit);
+          }
+          for (;i<nodo.relations.length + nodo.incomingRelations.length;i++) {
+            graph2.links.push({source: i, target: srcNumber, value: 9, label: nodo.incomingRelations[i-node.relations.length].inLabel});
+            //recorrerArbol(nodo[i].incomingRelations[i]);
+          }
+          recorrerArbol(nodo.relations[i].relatedAsset,srcNumber+i);
+
+      }
 
       var llamarActivo = function () {
         var asset = {};
@@ -575,13 +587,12 @@ angular.module('activosInformaticosApp')
     };
 
 
-    $scope.goToMap = function (selected,indice) {
-      dataFactory.getRelationMap(selected._id, function (response) {
-
-        $scope.relationGraph($scope,response,indice);
+    $scope.goToMap = function (selected,indice,profundidad) {
+      dataFactory.getRelationMap(selected._id, profundidad, function (response) {
+        //console.log(response);
+        $scope.relationGraph($scope,response,indice,profundidad);
       });
     };
-
 
     $scope.busqueda = function (string,nombreTipo,atributo,valor,tipoBusqueda) {
       $scope.indicesBusqueda = [];
@@ -628,7 +639,7 @@ angular.module('activosInformaticosApp')
           locals: {
             assettypes: $scope.assettypes,
             showformly: $scope.showFormly
-            //fields: {}
+
           },
           controller: SelectTypeCtrl,
           templateUrl: '../../views/add_asset.tmpl.html',
@@ -638,8 +649,7 @@ angular.module('activosInformaticosApp')
           fullscreen: useFullScreen
         })
         .then(function() {
-          //console.log(user);
-          //$scope.showFormly(ev);
+
 
         });
 
@@ -661,11 +671,11 @@ angular.module('activosInformaticosApp')
           fullscreen: useFullScreen
         })
         .then(function(asset) {
-          //console.log("termine de agregar");
+
           if (asset) {
-            //console.log(asset);
+
             $scope.myassets.push(asset);
-            //console.log($scope.myassets);
+
           }
 
 
@@ -754,9 +764,7 @@ angular.module('activosInformaticosApp')
 
       $scope.goRelation = function(ev,relation,assetId,indice) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-         //console.log(relation);
-         //console.log(assetId);
-         //console.log(indice);
+
         $mdDialog.show({
           locals: {
             relation: relation,
