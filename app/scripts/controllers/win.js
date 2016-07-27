@@ -374,30 +374,58 @@ angular.module('activosInformaticosApp')
             //creo nodo actual de la cola
             if (!current.relations) current.relations = [];
             for (i=0;i<current.relations.length;i++) {
-              current.relations[i].relatedAsset.order = ordenGlobal;
-              cola.push(current.relations[i].relatedAsset);
-              graph.nodes.push({id: current.relations[i].relatedAsset._id, name: current.relations[i].relatedAsset.name, group: current.relations[i].relatedAsset.assetType._id, order: ++ordenGlobal});
-              graph.links.push({source: current.order, target: ordenGlobal, value: 9, label: current.relations[i].outLabel});
+              var existeNodo=false;
+              for (j=0;j<graph.nodes.length;j++) {
+                if (current.relations[i].relatedAsset._id == graph.nodes[j].id){
+                  existeNodo =true;
+                  indiceExistente = j;
+                }
+              }
+              if (existeNodo) {
+                current.relations[i+1].relatedAsset.order = ordenGlobal+1;
+                //cola.push(current.relations[i].relatedAsset);
+                graph.links.push({source: current.order, target: graph.nodes[indiceExistente].order, value: 9, label: current.relations[i].outLabel});
+                console.log("saliente repetido");
+                console.log(ordenGlobal);
+                console.log(current);
+                console.log(current.order + " -> " + graph.nodes[indiceExistente].order);
+              } else {
+                current.relations[i].relatedAsset.order = ordenGlobal;
+                cola.push(current.relations[i].relatedAsset);
+                graph.nodes.push({id: current.relations[i].relatedAsset._id, name: current.relations[i].relatedAsset.name, group: current.relations[i].relatedAsset.assetType._id, order: ++ordenGlobal});
+                graph.links.push({source: current.order, target: ordenGlobal, value: 9, label: current.relations[i].outLabel});
+                console.log(ordenGlobal);
+                console.log(current);
+                console.log(current.order + " -> " + ordenGlobal);
+              }
+
             }
             if (!current.incomingRelations) current.incomingRelations = [];
             for (i=0;i<current.incomingRelations.length;i++) {
               var existeNodo=false;
-              //var source = null;
               for (j=0;j<graph.nodes.length;j++) {
                 if (current.incomingRelations[i].relatedAsset._id == graph.nodes[j].id){
                   existeNodo =true;
                   indiceExistente = j;
-                  
                 }
               }
-              current.incomingRelations[i].relatedAsset.order = ordenGlobal;
-              cola.push(current.incomingRelations[i].relatedAsset);
+
               if (existeNodo) {
-                  graph.links.push({source: graph.nodes[indiceExistente].order, target: current.order, value: 9, label: current.incomingRelations[i].inLabel});
-                  //++ordenGlobal;
+                current.incomingRelations[i+1].relatedAsset.order = ordenGlobal+1;
+                //cola.push(current.incomingRelations[i].relatedAsset);
+                graph.links.push({source: graph.nodes[indiceExistente].order, target: current.order, value: 9, label: current.incomingRelations[i].inLabel});
+                console.log("repetido");
+                console.log(ordenGlobal);
+                console.log(current);
+                console.log(current.order + " <- " + graph.nodes[indiceExistente].order);
               } else {
-                  graph.nodes.push({id: current.incomingRelations[i].relatedAsset._id, name: current.incomingRelations[i].relatedAsset.name, group: current.incomingRelations[i].relatedAsset.assetType._id, order: ++ordenGlobal});
-                  graph.links.push({source: ordenGlobal, target: current.order, value: 9, label: current.incomingRelations[i].inLabel});
+                if (!current.incomingRelations[i].relatedAsset.order) current.incomingRelations[i].relatedAsset.order = ordenGlobal;
+                cola.push(current.incomingRelations[i].relatedAsset);
+                graph.nodes.push({id: current.incomingRelations[i].relatedAsset._id, name: current.incomingRelations[i].relatedAsset.name, group: current.incomingRelations[i].relatedAsset.assetType._id, order: ++ordenGlobal});
+                graph.links.push({source: ordenGlobal, target: current.order, value: 9, label: current.incomingRelations[i].inLabel});
+                console.log(ordenGlobal);
+                console.log(current);
+                console.log(current.order + " <- " + ordenGlobal);
               }
 
             }
