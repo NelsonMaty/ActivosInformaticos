@@ -131,7 +131,7 @@ angular.module('activosInformaticosApp')
                 response[i].isIncoming = true;
                 $scope.assetRelations.push(response[i]);
               }
-              dataFactory.getRelationMap(id, function (response) {
+              dataFactory.getRelationMap(id,null,function (response) {
                 //console.log(response.relations);
                 for (i=0;i<response.relations.length;i++) {
                   $scope.labels.push(response.relations[i].outLabel);
@@ -158,7 +158,7 @@ angular.module('activosInformaticosApp')
               $scope.labels = [];
               $scope.relatedAssets = [];
 
-              dataFactory.getRelationMap(id, function (response) {
+              dataFactory.getRelationMap(id, null,function (response) {
                 for (i=0;i<response.relations.length;i++) {
                   $scope.labels.push(response.relations[i].outLabel);
                   $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
@@ -180,7 +180,7 @@ angular.module('activosInformaticosApp')
                 $scope.assetRelations[i].isIncoming="true";
               }
 
-              dataFactory.getRelationMap(id, function (response) {
+              dataFactory.getRelationMap(id,null, function (response) {
                 for (i=0;i<response.incomingRelations.length;i++) {
                   $scope.labels.push(response.incomingRelations[i].inLabel);
                   $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
@@ -286,96 +286,128 @@ angular.module('activosInformaticosApp')
       //Read the data from the mis element - lee datos de los json para armar los nodos
       //var mis = document.getElementById('mis').innerHTML;
       //graph = JSON.parse(mis);
-      var salientes = true;
-      if (jsonMap.relations.length == 0) {
-        salientes = false;
+      // var salientes = true;
+      // if (jsonMap.relations.length == 0) {
+      //   salientes = false;
+      //   var graph = {
+      //     nodes: [],
+      //     links: []
+      //   };
+      // } else {
+      //   var graph = {
+      //     nodes: [
+      //       {
+      //         name: jsonMap.name,
+      //         group: jsonMap.assetType._id,
+      //       }
+      //     ],
+      //     links: []
+      //   };
+      // }
+      //
+      // //Creacion de nodos y relaciones salientes
+      // for (i=0;i<jsonMap.relations.length;i++) {
+      //   graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
+      //   graph.links.push({ source: 0, target: (i+1), value: 9, label: jsonMap.relations[i].outLabel });
+      //
+      // }
+      //
+      // //Creacion de relaciones entrantes
+      // for (i=0;i<jsonMap.incomingRelations.length;i++) {
+      //   var existeNodo=false;
+      //   var source = null;
+      //   for (j=0;j<graph.nodes.length;j++) {
+      //     if (jsonMap.incomingRelations[i].relatedAsset.name == graph.nodes[j].name){
+      //       existeNodo =true;
+      //       indiceExistente = j;
+      //     }
+      //   }
+      //   // Agrego nodo si este no existe
+      //   if (!existeNodo) {
+      //       graph.nodes.push({ name: jsonMap.incomingRelations[i].relatedAsset.name, group: jsonMap.incomingRelations[i].relatedAsset.assetType._id});
+      //   }
+      //
+      //   //Si hay relaciones salientes
+      //   if (salientes) {
+      //     if (existeNodo) {
+      //         graph.links.push({ source: indiceExistente, target: 0, value: 9, label: jsonMap.incomingRelations[i].inLabel });
+      //     } else {
+      //         graph.links.push({ source: (graph.nodes.length-1), target: 0, value: 9, label: jsonMap.incomingRelations[i].inLabel });
+      //     }
+      //   } else {
+      //     if (existeNodo) {
+      //         graph.links.push({ source: indiceExistente, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].inLabel });
+      //     } else {
+      //         graph.links.push({ source: i, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].inLabel });
+      //     }
+      //
+      //   }
+      // }
+      //
+      // if (!salientes){
+      //   graph.nodes.push({ name: jsonMap.name, group: jsonMap.assetType._id});
+      // }
+      // console.log(graph);
+
+
+      function recorrerGrafo(grafo) {
+
+        var ordenGlobal = 0;
+        var cola = [];
+        var current = {};
         var graph = {
-          nodes: [],
+          nodes: [{
+              id: grafo._id,
+              name: grafo.name,
+              group: grafo.assetType._id,
+              order: ordenGlobal
+            }],
           links: []
-        };
-      } else {
-        var graph = {
-          nodes: [
-            {
-              name: jsonMap.name,
-              group: jsonMap.assetType._id,
+        }
+        grafo.order = ordenGlobal;
+        cola.push(grafo);
+
+
+        while (cola.length!=0) {
+          current = cola.shift();
+          //console.log(current);
+            //creo nodo actual de la cola
+            if (!current.relations) current.relations = [];
+            for (i=0;i<current.relations.length;i++) {
+              current.relations[i].relatedAsset.order = ordenGlobal;
+              cola.push(current.relations[i].relatedAsset);
+              graph.nodes.push({id: current.relations[i].relatedAsset._id, name: current.relations[i].relatedAsset.name, group: current.relations[i].relatedAsset.assetType._id, order: ++ordenGlobal});
+              graph.links.push({source: current.order, target: ordenGlobal, value: 9, label: current.relations[i].outLabel});
             }
-          ],
-          links: []
-        };
-      }
+            if (!current.incomingRelations) current.incomingRelations = [];
+            for (i=0;i<current.incomingRelations.length;i++) {
+              var existeNodo=false;
+              //var source = null;
+              for (j=0;j<graph.nodes.length;j++) {
+                if (current.incomingRelations[i].relatedAsset._id == graph.nodes[j].id){
+                  existeNodo =true;
+                  indiceExistente = j;
+                  
+                }
+              }
+              current.incomingRelations[i].relatedAsset.order = ordenGlobal;
+              cola.push(current.incomingRelations[i].relatedAsset);
+              if (existeNodo) {
+                  graph.links.push({source: graph.nodes[indiceExistente].order, target: current.order, value: 9, label: current.incomingRelations[i].inLabel});
+                  //++ordenGlobal;
+              } else {
+                  graph.nodes.push({id: current.incomingRelations[i].relatedAsset._id, name: current.incomingRelations[i].relatedAsset.name, group: current.incomingRelations[i].relatedAsset.assetType._id, order: ++ordenGlobal});
+                  graph.links.push({source: ordenGlobal, target: current.order, value: 9, label: current.incomingRelations[i].inLabel});
+              }
 
-      //Creacion de nodos y relaciones salientes
-      for (i=0;i<jsonMap.relations.length;i++) {
-        graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
-        graph.links.push({ source: 0, target: (i+1), value: 9, label: jsonMap.relations[i].outLabel });
-
-      }
-
-      //Creacion de relaciones entrantes
-      for (i=0;i<jsonMap.incomingRelations.length;i++) {
-        var existeNodo=false;
-        var source = null;
-        for (j=0;j<graph.nodes.length;j++) {
-          if (jsonMap.incomingRelations[i].relatedAsset.name == graph.nodes[j].name){
-            existeNodo =true;
-            indiceExistente = j;
-          }
-        }
-        // Agrego nodo si este no existe
-        if (!existeNodo) {
-            graph.nodes.push({ name: jsonMap.incomingRelations[i].relatedAsset.name, group: jsonMap.incomingRelations[i].relatedAsset.assetType._id});
-        }
-
-        //Si hay relaciones salientes
-        if (salientes) {
-          if (existeNodo) {
-              graph.links.push({ source: indiceExistente, target: 0, value: 9, label: jsonMap.incomingRelations[i].inLabel });
-          } else {
-              graph.links.push({ source: (graph.nodes.length-1), target: 0, value: 9, label: jsonMap.incomingRelations[i].inLabel });
-          }
-        } else {
-          if (existeNodo) {
-              graph.links.push({ source: indiceExistente, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].inLabel });
-          } else {
-              graph.links.push({ source: i, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].inLabel });
-          }
+            }
 
         }
+        console.log(graph);
+        return graph;
       }
 
-      if (!salientes){
-        graph.nodes.push({ name: jsonMap.name, group: jsonMap.assetType._id});
-      }
-      console.log(graph);
-
-      var recorrerArbol = function (nodo,srcNumber,limit) {
-
-        var graph2 = {
-          nodes: [
-            { name: nodo.name, group: nodo.assetType._id }
-          ],
-          links: []
-        };
-
-          for (i=0;i<nodo.relations.length;i++) {
-            graph2.links.push({source: srcNumber, target: (srcNumber+i), value: 9, label: nodo.relations[i].outLabel});
-          }
-          for (;i<nodo.relations.length + nodo.incomingRelations.length;i++) {
-            graph2.links.push({source: i, target: srcNumber, value: 9, label: nodo.incomingRelations[i-node.relations.length].inLabel});
-            //recorrerArbol(nodo[i].incomingRelations[i]);
-          }
-          var limit = i;
-          for (i=0;i<nodo.relations.length;i++) {
-            recorrerArbol(nodo.relations[i].relatedAsset,srcNumber+i, limit);
-          }
-          for (;i<nodo.relations.length + nodo.incomingRelations.length;i++) {
-            graph2.links.push({source: i, target: srcNumber, value: 9, label: nodo.incomingRelations[i-node.relations.length].inLabel});
-            //recorrerArbol(nodo[i].incomingRelations[i]);
-          }
-          recorrerArbol(nodo.relations[i].relatedAsset,srcNumber+i);
-
-      }
+      var graph = recorrerGrafo(jsonMap);
 
       var llamarActivo = function () {
         var asset = {};
