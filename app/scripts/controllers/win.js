@@ -370,7 +370,7 @@ angular.module('activosInformaticosApp')
 
         while (cola.length!=0) {
           current = cola.shift();
-          //console.log(current);
+          console.log("cola: " + cola.length);
             //creo nodo actual de la cola
             if (!current.relations) current.relations = [];
             for (i=0;i<current.relations.length;i++) {
@@ -382,7 +382,7 @@ angular.module('activosInformaticosApp')
                 }
               }
               if (existeNodo) {
-                current.relations[i+1].relatedAsset.order = ordenGlobal+1;
+                if (current.relations[i+1]) current.relations[i+1].relatedAsset.order = ordenGlobal+1;
                 //cola.push(current.relations[i].relatedAsset);
                 graph.links.push({source: current.order, target: graph.nodes[indiceExistente].order, value: 9, label: current.relations[i].outLabel});
                 console.log("saliente repetido");
@@ -398,7 +398,6 @@ angular.module('activosInformaticosApp')
                 console.log(current);
                 console.log(current.order + " -> " + ordenGlobal);
               }
-
             }
             if (!current.incomingRelations) current.incomingRelations = [];
             for (i=0;i<current.incomingRelations.length;i++) {
@@ -409,9 +408,8 @@ angular.module('activosInformaticosApp')
                   indiceExistente = j;
                 }
               }
-
               if (existeNodo) {
-                current.incomingRelations[i+1].relatedAsset.order = ordenGlobal+1;
+                if (current.incomingRelations[i+1]) current.incomingRelations[i+1].relatedAsset.order = ordenGlobal+1;
                 //cola.push(current.incomingRelations[i].relatedAsset);
                 graph.links.push({source: graph.nodes[indiceExistente].order, target: current.order, value: 9, label: current.incomingRelations[i].inLabel});
                 console.log("repetido");
@@ -427,14 +425,13 @@ angular.module('activosInformaticosApp')
                 console.log(current);
                 console.log(current.order + " <- " + ordenGlobal);
               }
-
             }
 
         }
-        console.log(graph);
+        //console.log(graph);
         return graph;
       }
-
+      //console.log(jsonMap);
       var graph = recorrerGrafo(jsonMap);
 
       var llamarActivo = function () {
@@ -1341,7 +1338,7 @@ angular.module('activosInformaticosApp')
 
         });
 
-        dataFactory.getRelationMap($scope.asset._id, function (response) {
+        dataFactory.getRelationMap($scope.asset._id,null, function (response) {
           $scope.relationsTree = response;
           //console.log(response);
         });
