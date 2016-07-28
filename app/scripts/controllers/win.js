@@ -261,6 +261,7 @@ angular.module('activosInformaticosApp')
     $scope.svgExist = false;
 
     $scope.relationGraph = function ($scope,jsonMap,indice,profundidad) {
+      //console.log(indice);
       //Constants for the SVG
       $scope.svgExist = true;
       var width = 1200,
@@ -286,68 +287,7 @@ angular.module('activosInformaticosApp')
       //Read the data from the mis element - lee datos de los json para armar los nodos
       //var mis = document.getElementById('mis').innerHTML;
       //graph = JSON.parse(mis);
-      // var salientes = true;
-      // if (jsonMap.relations.length == 0) {
-      //   salientes = false;
-      //   var graph = {
-      //     nodes: [],
-      //     links: []
-      //   };
-      // } else {
-      //   var graph = {
-      //     nodes: [
-      //       {
-      //         name: jsonMap.name,
-      //         group: jsonMap.assetType._id,
-      //       }
-      //     ],
-      //     links: []
-      //   };
-      // }
-      //
-      // //Creacion de nodos y relaciones salientes
-      // for (i=0;i<jsonMap.relations.length;i++) {
-      //   graph.nodes.push({ name: jsonMap.relations[i].relatedAsset.name, group: jsonMap.relations[i].relatedAsset.assetType._id});
-      //   graph.links.push({ source: 0, target: (i+1), value: 9, label: jsonMap.relations[i].outLabel });
-      //
-      // }
-      //
-      // //Creacion de relaciones entrantes
-      // for (i=0;i<jsonMap.incomingRelations.length;i++) {
-      //   var existeNodo=false;
-      //   var source = null;
-      //   for (j=0;j<graph.nodes.length;j++) {
-      //     if (jsonMap.incomingRelations[i].relatedAsset.name == graph.nodes[j].name){
-      //       existeNodo =true;
-      //       indiceExistente = j;
-      //     }
-      //   }
-      //   // Agrego nodo si este no existe
-      //   if (!existeNodo) {
-      //       graph.nodes.push({ name: jsonMap.incomingRelations[i].relatedAsset.name, group: jsonMap.incomingRelations[i].relatedAsset.assetType._id});
-      //   }
-      //
-      //   //Si hay relaciones salientes
-      //   if (salientes) {
-      //     if (existeNodo) {
-      //         graph.links.push({ source: indiceExistente, target: 0, value: 9, label: jsonMap.incomingRelations[i].inLabel });
-      //     } else {
-      //         graph.links.push({ source: (graph.nodes.length-1), target: 0, value: 9, label: jsonMap.incomingRelations[i].inLabel });
-      //     }
-      //   } else {
-      //     if (existeNodo) {
-      //         graph.links.push({ source: indiceExistente, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].inLabel });
-      //     } else {
-      //         graph.links.push({ source: i, target: jsonMap.incomingRelations.length, value: 9, label: jsonMap.incomingRelations[i].inLabel });
-      //     }
-      //
-      //   }
-      // }
-      //
-      // if (!salientes){
-      //   graph.nodes.push({ name: jsonMap.name, group: jsonMap.assetType._id});
-      // }
-      // console.log(graph);
+
 
 
       function recorrerGrafo(grafo) {
@@ -370,7 +310,7 @@ angular.module('activosInformaticosApp')
 
         while (cola.length!=0) {
           current = cola.shift();
-          console.log("cola: " + cola.length);
+
             //creo nodo actual de la cola
             if (!current.relations) current.relations = [];
             for (i=0;i<current.relations.length;i++) {
@@ -385,18 +325,13 @@ angular.module('activosInformaticosApp')
                 if (current.relations[i+1]) current.relations[i+1].relatedAsset.order = ordenGlobal+1;
                 //cola.push(current.relations[i].relatedAsset);
                 graph.links.push({source: current.order, target: graph.nodes[indiceExistente].order, value: 9, label: current.relations[i].outLabel});
-                console.log("saliente repetido");
-                console.log(ordenGlobal);
-                console.log(current);
-                console.log(current.order + " -> " + graph.nodes[indiceExistente].order);
+
               } else {
                 current.relations[i].relatedAsset.order = ordenGlobal+1;
                 cola.push(current.relations[i].relatedAsset);
                 graph.nodes.push({id: current.relations[i].relatedAsset._id, name: current.relations[i].relatedAsset.name, group: current.relations[i].relatedAsset.assetType._id, order: ++ordenGlobal});
                 graph.links.push({source: current.order, target: ordenGlobal, value: 9, label: current.relations[i].outLabel});
-                console.log(ordenGlobal);
-                console.log(current);
-                console.log(current.order + " -> " + ordenGlobal);
+
               }
             }
             if (!current.incomingRelations) current.incomingRelations = [];
@@ -412,18 +347,13 @@ angular.module('activosInformaticosApp')
                 if (current.incomingRelations[i+1]) current.incomingRelations[i+1].relatedAsset.order = ordenGlobal+1;
                 //cola.push(current.incomingRelations[i].relatedAsset);
                 graph.links.push({source: graph.nodes[indiceExistente].order, target: current.order, value: 9, label: current.incomingRelations[i].inLabel});
-                console.log("repetido");
-                console.log(ordenGlobal);
-                console.log(current);
-                console.log(current.order + " <- " + graph.nodes[indiceExistente].order);
+
               } else {
                 if (!current.incomingRelations[i].relatedAsset.order) current.incomingRelations[i].relatedAsset.order = ordenGlobal+1;
                 cola.push(current.incomingRelations[i].relatedAsset);
                 graph.nodes.push({id: current.incomingRelations[i].relatedAsset._id, name: current.incomingRelations[i].relatedAsset.name, group: current.incomingRelations[i].relatedAsset.assetType._id, order: ++ordenGlobal});
                 graph.links.push({source: ordenGlobal, target: current.order, value: 9, label: current.incomingRelations[i].inLabel});
-                console.log(ordenGlobal);
-                console.log(current);
-                console.log(current.order + " <- " + ordenGlobal);
+
               }
             }
 
@@ -431,42 +361,36 @@ angular.module('activosInformaticosApp')
         //console.log(graph);
         return graph;
       }
-      //console.log(jsonMap);
+
+      
       var graph = recorrerGrafo(jsonMap);
 
       var llamarActivo = function () {
         var asset = {};
         d = d3.select(this).node().__data__;
-        if (d.name == jsonMap.name) {
+        if (d.id == jsonMap._id) {
           dataFactory.getAnAsset(jsonMap._id, function (response) {
             asset = response;
             var ev = {};
-            //console.log(indice);
-            //$scope.goAsset(ev,asset,indice);
+
             angular.element(document.getElementById('win')).scope().goAsset({},asset,indice);
           });
-        } else {
-          for (i=0;i<jsonMap.relations.length;i++) {
-            if (d.name == jsonMap.relations[i].relatedAsset.name) {
-              dataFactory.getAnAsset(jsonMap.relations[i].relatedAsset._id, function (response) {
+        } else  {
+          for (i=0;i<graph.nodes.length;i++) {
+            if (d.id == graph.nodes[i].id) {
+              dataFactory.getAnAsset(graph.nodes[i].id, function (response) {
                 asset = response;
-                //console.log(indice);
-                angular.element(document.getElementById('win')).scope().goAsset({},asset,i-1);
-                //$scope.goToAsset({},asset,indice);
-              });
-            }
-          }
-          for (i=0;i<jsonMap.incomingRelations.length;i++) {
-            if (d.name == jsonMap.incomingRelations[i].relatedAsset.name) {
-              dataFactory.getAnAsset(jsonMap.incomingRelations[i].relatedAsset._id, function (response) {
-                asset = response;
-                //console.log(indice);
-                angular.element(document.getElementById('win')).scope().goAsset({},asset,i-1);
-                //$scope.goToAsset({},asset,indice);
+                var ev = {};
+
+                for (i=0; i<$scope.myassets.length;i++) {
+                  if ($scope.myassets[i]._id == asset._id) angular.element(document.getElementById('win')).scope().goAsset({},asset,i);
+                }
+                // angular.element(document.getElementById('win')).scope().goAsset({},asset,indice);
               });
             }
           }
         }
+
       };
 
       //Toggle stores whether the highlighting is on
