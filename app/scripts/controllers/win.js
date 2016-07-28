@@ -390,7 +390,7 @@ angular.module('activosInformaticosApp')
                 console.log(current);
                 console.log(current.order + " -> " + graph.nodes[indiceExistente].order);
               } else {
-                current.relations[i].relatedAsset.order = ordenGlobal;
+                current.relations[i].relatedAsset.order = ordenGlobal+1;
                 cola.push(current.relations[i].relatedAsset);
                 graph.nodes.push({id: current.relations[i].relatedAsset._id, name: current.relations[i].relatedAsset.name, group: current.relations[i].relatedAsset.assetType._id, order: ++ordenGlobal});
                 graph.links.push({source: current.order, target: ordenGlobal, value: 9, label: current.relations[i].outLabel});
@@ -417,7 +417,7 @@ angular.module('activosInformaticosApp')
                 console.log(current);
                 console.log(current.order + " <- " + graph.nodes[indiceExistente].order);
               } else {
-                if (!current.incomingRelations[i].relatedAsset.order) current.incomingRelations[i].relatedAsset.order = ordenGlobal;
+                if (!current.incomingRelations[i].relatedAsset.order) current.incomingRelations[i].relatedAsset.order = ordenGlobal+1;
                 cola.push(current.incomingRelations[i].relatedAsset);
                 graph.nodes.push({id: current.incomingRelations[i].relatedAsset._id, name: current.incomingRelations[i].relatedAsset.name, group: current.incomingRelations[i].relatedAsset.assetType._id, order: ++ordenGlobal});
                 graph.links.push({source: ordenGlobal, target: current.order, value: 9, label: current.incomingRelations[i].inLabel});
