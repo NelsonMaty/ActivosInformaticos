@@ -215,9 +215,9 @@ angular.module('activosInformaticosApp')
       return($scope.clicked_index == indice);
     };
 
-    $scope.clickedRelacionIcon= function(indice) {
-      return($scope.clicked_RelationIndex == indice);
-    };
+    // $scope.clickedRelacionIcon= function(indice) {
+    //   return($scope.clicked_RelationIndex == indice);
+    // };
 
     $scope.clickClose = function () {
       if ($scope.clicked) {
@@ -227,12 +227,12 @@ angular.module('activosInformaticosApp')
 
     };
 
-    $scope.clickRelacionClose = function() {
-      if ($scope.clickedR) {
-        $scope.clicked_RelationIndex = null;
-        animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
-      }
-    };
+    // $scope.clickRelacionClose = function() {
+    //   if ($scope.clickedR) {
+    //     $scope.clicked_RelationIndex = null;
+    //     animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
+    //   }
+    // };
 
     $scope.searchNode = function(svgAnterior) {
         //find the node
@@ -362,7 +362,7 @@ angular.module('activosInformaticosApp')
         return graph;
       }
 
-      
+
       var graph = recorrerGrafo(jsonMap);
 
       var llamarActivo = function () {

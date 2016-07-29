@@ -5,7 +5,7 @@
     <div class="md-toolbar-tools" >
 
       <h1>Activos Informaticos &nbsp; </h1>
-      <div ng-show="clicked" class="cerrar-menu-activo" ng-class="{'mostrar-menu-activo animated bounceInLeft': clicked }">
+      <!-- <div ng-show="clicked" class="cerrar-menu-activo" ng-class="{'mostrar-menu-activo animated bounceInLeft': clicked }">
 
             <md-button aria-label="Abrir" class="md-icon-button" ng-click="goAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
               <md-tooltip md-direction="bottom"> Ver </md-tooltip>
@@ -39,8 +39,11 @@
               <md-icon md-font-set="material-icons">delete</md-icon>
             </md-button>
 
-      </div>
+      </div> -->
+
+
       <span flex=""></span>
+
 
 
       <md-menu md-position-mode="target-right target">
@@ -51,12 +54,10 @@
         <md-menu-content width="1">
           <md-menu-item>
             <md-button ng-click="go('/admin')">
-              <md-icon md-font-set="material-icons" md-menu-align-target="" >face</md-icon>
-              Administrar usuarios
+              <md-icon md-font-set="material-icons" md-menu-align-target="" >build</md-icon>
+              Administración
             </md-button>
           </md-menu-item>
-
-
         </md-menu-content>
 
       </md-menu>
@@ -75,7 +76,24 @@
 
               <md-tab label="Activos">
                 <md-content class="md-padding">
-                  <h1 class="md-display-2">Todos los activos</h1>
+
+                  <div class="" layout="row" layout-align="center center ">
+                    <div layout="row" >
+                      <md-input-container class=" md-block" style="width: 400px;">
+                        <md-icon style="bottom:28px;" md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
+                        <input ng-model="buscadoString" type="text" placeholder="Ingrese palabra a buscar" ng-disabled="busquedaAvanzada">
+                      </md-input-container>
+                      <div class="">
+                        <md-button ng-click="busqueda(buscadoString)">
+                          Buscar
+                        </md-button>
+                        <md-button ng-click="showAdvSearch($scope.myassets)">
+                          Avanzada
+                        </md-button>
+                      </div>
+                    </div>
+                  </div>
+
 
                   <div layout="row" layout-wrap layout-margin layout-align="start center" >
 
