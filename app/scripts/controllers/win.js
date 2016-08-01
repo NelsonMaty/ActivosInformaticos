@@ -21,7 +21,7 @@ angular.module('activosInformaticosApp')
     $scope.buscadoTipo = "";
     $scope.buscadoAtributo = "";
     $scope.buscadoValor = "";
-    $scope.indicesBusqueda = [];
+    //$scope.indicesBusqueda = [];
     $scope.selectedType = "";
     $scope.listaAtrib = [];
 
@@ -66,24 +66,6 @@ angular.module('activosInformaticosApp')
           .then(function () {
           });
       }
-    }
-
-    $scope.listarAtributos = function () {
-      //$scope.listaAtrib = ["comment","estadoActual","tags",];
-      $scope.listaAtrib = [
-        { texto: "Comentarios", valor: "comment"},
-        { texto: "Estado Actual", valor: "estadoActual"},
-        { texto: "Tags", valor: "tags"},
-        { texto: "Nombre de contacto", valor: "stakeholders.name"},
-        { texto: "Email de contacto", valor: "stakeholders.email"},
-        { texto: "Adjunto", valor: "attached"},
-      ];
-      dataFactory.getAnAssetType($scope.selectedType,function (response) {
-        for (i=0;i<response.properties.length;i++) {
-          $scope.listaAtrib.push({texto: response.properties[i].name, valor: response.properties[i].name })
-        }
-      });
-
     }
 
     $scope.cerrarAvanzado = function () {
@@ -205,11 +187,11 @@ angular.module('activosInformaticosApp')
       $scope.clicked = true;
     };
 
-    $scope.clickRelation = function(relation,indice) {
-      $scope.clicked_relation = relation;
-      $scope.clicked_RelationIndex = indice;
-      $scope.clickedR = true;
-    };
+    // $scope.clickRelation = function(relation,indice) {
+    //   $scope.clicked_relation = relation;
+    //   $scope.clicked_RelationIndex = indice;
+    //   $scope.clickedR = true;
+    // };
 
     $scope.clickedIcon= function(indice) {
       return($scope.clicked_index == indice);
@@ -575,44 +557,76 @@ angular.module('activosInformaticosApp')
       });
     };
 
-    $scope.busqueda = function (string,nombreTipo,atributo,valor,tipoBusqueda) {
-      $scope.indicesBusqueda = [];
+    $scope.busqueda = function (string,avanzada,nombreTipo,atributo,valor,tipoBusqueda) {
+
       $scope.buscando = true;
-
       var soloTipo = false;
-      if (nombreTipo != "" && string == "") {
-        soloTipo = true;
-      }
 
-      var buscarIndices = function () {
-        for (i=0; i<$scope.resultadoBusqueda.length;i++) {
-          for (j=0; j<$scope.myassets.length;j++) {
-              if ($scope.resultadoBusqueda[i]._id == $scope.myassets[j]._id ) {
-                $scope.indicesBusqueda.push(j);
-              }
-          }
+      if ( !avanzada ) {
+        if (!string || string == " ") {
+          dataFactory.getAssets( function (response) {
+            $scope.myassets = response;
+          });
+          $scope.buscando = false;
+        } else {
+          dataFactory.searchString(string, nombreTipo, soloTipo, function (response) {
+            //$scope.resultadoBusqueda = response;
+            $scope.myassets = response;
+            //buscarIndices();
+            $scope.buscando = false;
+          });
+        }
+      } else {
+        if (nombreTipo != "" && !string ) {
+          soloTipo = true;
+        }
+        if (tipoBusqueda != 'params') {
+          dataFactory.searchString(string, nombreTipo, soloTipo, function (response) {
+            //$scope.resultadoBusqueda = response;
+            $scope.myassets = response;
+            //buscarIndices();
+            $scope.buscando = false;
+          });
+        } else {
+          dataFactory.searchParams(atributo, valor, function (response) {
+            //$scope.resultadoBusqueda = response;
+            //buscarIndices();
+            $scope.myassets = response;
+            $scope.buscando = false;
+          });
         }
       }
 
-      if (tipoBusqueda != 'params') {
-        dataFactory.searchString(string, nombreTipo, soloTipo, function (response) {
-
-          $scope.resultadoBusqueda = response;
-          buscarIndices();
-          $scope.buscando = false;
-        });
-      } else {
-        dataFactory.searchParams(atributo, valor, function (response) {
-          $scope.resultadoBusqueda = response;
-          buscarIndices();
-          $scope.buscando = false;
-        });
-      }
 
     }
 
 
     //-----------Assets-----------//
+    $scope.showAdvSearch = function(ev) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      //console.log(asset);
+      $mdDialog.show({
+        locals: {
+          myassets: $scope.myassets,
+          assettypes: $scope.assettypes
+
+        },
+        controller: AdvSearchCtrl,
+        templateUrl: '../../views/show_advSearch.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:false,
+        fullscreen: useFullScreen
+      })
+      .then(function(data) {
+        //console.log(data);
+
+        if (data) {
+          $scope.goAsset(data.evento, data.activo, data.indice);
+        }
+
+      });
+    };
 
       $scope.showAddAsset = function(ev) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -2032,6 +2046,36 @@ angular.module('activosInformaticosApp')
 
       };
 
+      function AdvSearchCtrl(myassets, assettypes, $scope, $mdDialog, $mdToast) {
+        $scope.myassets = myassets;
+        $scope.assettypes = assettypes;
+
+        $scope.listarAtributos = function () {
+          //$scope.listaAtrib = ["comment","estadoActual","tags",];
+          $scope.listaAtrib = [
+            { texto: "Nombre", valor: "name"},
+            { texto: "Comentarios", valor: "comment"},
+            { texto: "Estado Actual", valor: "estadoActual"},
+            { texto: "Tags", valor: "tags"},
+            { texto: "Nombre de contacto", valor: "stakeholders.name"},
+            { texto: "Email de contacto", valor: "stakeholders.email"},
+            { texto: "Adjunto", valor: "attached"},
+          ];
+          dataFactory.getAnAssetType($scope.selectedType,function (response) {
+            for (i=0;i<response.properties.length;i++) {
+              $scope.listaAtrib.push({texto: response.properties[i].name, valor: response.properties[i].name })
+            }
+          });
+
+        }
+
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+      }
   })
 
   .filter('selected', function() {

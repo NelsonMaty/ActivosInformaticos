@@ -84,18 +84,23 @@
                         <input ng-model="buscadoString" type="text" placeholder="Ingrese palabra a buscar" ng-disabled="busquedaAvanzada">
                       </md-input-container>
                       <div class="">
-                        <md-button ng-click="busqueda(buscadoString)">
+                        <md-button ng-click="busqueda(buscadoString,false)">
                           Buscar
                         </md-button>
-                        <md-button ng-click="showAdvSearch($scope.myassets)">
+                        <md-button ng-click="showAdvSearch($event)">
                           Avanzada
                         </md-button>
                       </div>
                     </div>
                   </div>
 
+                  <div layout="row" layout-sm="column" layout-align="space-around" ng-if="buscando" >
+                    <md-progress-circular md-mode="indeterminate" md-diameter="106"></md-progress-circular>
+                  </div>
 
-                  <div layout="row" layout-wrap layout-margin layout-align="start center" >
+                  <p class="md-block" ng-if="myassets.length==0" style="margin-top:20px; margin-bottom:20px; padding-left:35px; padding-top:20px;"> No se encontraron resultados </p>
+
+                  <div layout="row" layout-wrap layout-margin layout-align="start center" ng-if="!buscando" ng-cloak>
 
                     <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
                     <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="clickAsset(asset, $index);  $event.stopPropagation();" ng-dblclick="goAsset($event, clicked_asset, clicked_index)">

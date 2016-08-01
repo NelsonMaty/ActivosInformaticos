@@ -1,0 +1,39 @@
+<md-dialog aria-label="Busqueda avanzada" ng-cloak style="width: 340px; height: 300px;">
+  <form name="searchForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Busqueda Avanzada</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-content style="padding-top: 20px; top: 10px; margin-left: 20px; width: 290px;">
+      <md-input-container class=" md-block" style="width: 400px;">
+        <md-icon md-font-set="material-icons" aria-label="nombre activo">receipt</md-icon>
+        <!-- <input ng-model="buscadoString" type="text" placeholder="Ingrese valor a buscar" ng-disabled="busquedaAvanzada" ng-pattern="/^[a-zA-Z0-9]*$/"> -->
+        <input ng-model="nombre" type="text" placeholder="Ingrese nombre de activo">
+      </md-input-container>
+      <md-input-container class="md-block">
+        <md-icon md-font-set="material-icons" class="comentario">comment</md-icon>
+        <input ng-model=".comment" type="textarea" placeholder="Comentarios">
+      </md-input-container>
+      <md-input-container class="md-block">
+        <md-icon md-font-set="material-icons" class="comentario">comment</md-icon>
+        <input ng-model="comment" type="text" placeholder="Comentarios">
+      </md-input-container>
+    </md-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer()" ng-disabled="userForm.$invalid">
+        Buscar
+      </md-button>
+      <md-button ng-click="cancel()" style="margin-right:20px;">
+        Cancelar
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
