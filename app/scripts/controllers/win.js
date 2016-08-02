@@ -270,8 +270,6 @@ angular.module('activosInformaticosApp')
       //var mis = document.getElementById('mis').innerHTML;
       //graph = JSON.parse(mis);
 
-
-
       function recorrerGrafo(grafo) {
 
         var ordenGlobal = 0;
@@ -596,37 +594,35 @@ angular.module('activosInformaticosApp')
           });
         }
       }
-
-
     }
 
 
     //-----------Assets-----------//
-    $scope.showAdvSearch = function(ev) {
-      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-      //console.log(asset);
-      $mdDialog.show({
-        locals: {
-          myassets: $scope.myassets,
-          assettypes: $scope.assettypes
+      $scope.showAdvSearch = function(ev) {
+        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+        //console.log(asset);
+        $mdDialog.show({
+          locals: {
+            myassets: $scope.myassets,
+            assettypes: $scope.assettypes
 
-        },
-        controller: AdvSearchCtrl,
-        templateUrl: '../../views/show_advSearch.tmpl.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:false,
-        fullscreen: useFullScreen
-      })
-      .then(function(data) {
-        //console.log(data);
+          },
+          controller: AdvSearchCtrl,
+          templateUrl: '../../views/show_advSearch.tmpl.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          clickOutsideToClose:false,
+          fullscreen: useFullScreen
+        })
+        .then(function(data) {
+          //console.log(data);
 
-        if (data) {
-          $scope.goAsset(data.evento, data.activo, data.indice);
-        }
+          if (data) {
+            $scope.goAsset(data.evento, data.activo, data.indice);
+          }
 
-      });
-    };
+        });
+      };
 
       $scope.showAddAsset = function(ev) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -2049,24 +2045,153 @@ angular.module('activosInformaticosApp')
       function AdvSearchCtrl(myassets, assettypes, $scope, $mdDialog, $mdToast) {
         $scope.myassets = myassets;
         $scope.assettypes = assettypes;
+        $scope.activoBuscado = {
+          tags: []
+        };
+        $scope.listas = [];
+        $scope.selectedType = {};
 
         $scope.listarAtributos = function () {
-          //$scope.listaAtrib = ["comment","estadoActual","tags",];
-          $scope.listaAtrib = [
-            { texto: "Nombre", valor: "name"},
-            { texto: "Comentarios", valor: "comment"},
-            { texto: "Estado Actual", valor: "estadoActual"},
-            { texto: "Tags", valor: "tags"},
-            { texto: "Nombre de contacto", valor: "stakeholders.name"},
-            { texto: "Email de contacto", valor: "stakeholders.email"},
-            { texto: "Adjunto", valor: "attached"},
-          ];
-          dataFactory.getAnAssetType($scope.selectedType,function (response) {
-            for (i=0;i<response.properties.length;i++) {
-              $scope.listaAtrib.push({texto: response.properties[i].name, valor: response.properties[i].name })
-            }
-          });
 
+          dataFactory.getAnAssetType($scope.selectedType,function (response) {
+            var sel_type = response;
+            function validateInt(value) {
+
+              return /^\-?(0|[1-9]\d*)$/.test(value);
+            }
+
+            fields = [];
+
+            //funciion para agregar dinamicamente los atributos al array fields
+            atributos = sel_type.properties;
+
+            for (var i=0; i<sel_type.properties.length;i++) {
+              //console.log(atributos[i].name);
+              switch(atributos[i].type) {
+                case 'Date':
+                  //console.log("case date");
+
+                    aux = {
+                      key: atributos[i].name,
+                      type: 'input',
+                      templateOptions: {
+                        type: 'date',
+                        label: atributos[i].name
+                      //datepickerPopup: 'dd-MMMM-yyyy'
+                      }
+                    };
+
+
+                  break;
+                case 'Boolean':
+                  //console.log("case boolean");
+
+                    aux = {
+                      key: atributos[i].name,
+                      type: 'select',
+                      templateOptions: {
+                        label: atributos[i].name,
+                        options: ["True","False"]
+
+                      }
+                    };
+
+
+                  break;
+                case 'Integer':
+                  //console.log("case boolean");
+
+                    aux = {
+                      key: atributos[i].name,
+                      type: 'input',
+                      templateOptions: {
+                        type: 'number',
+                        label: atributos[i].name,
+                        placeholder: ''
+
+                      },
+                      validators: {
+                        int: function($viewValue, $modelValue, scope) {
+                          var value = $modelValue || $viewValue;
+                          if (value) {
+                            return validateInt(value);
+                          } else {
+                            return true;
+                          }
+                        }
+                      }
+                    };
+
+                  break;
+                case 'Float':
+
+                    aux = {
+                      key: atributos[i].name,
+                      type: 'input',
+                      templateOptions: {
+                        type: 'number',
+                        label: atributos[i].name,
+                        placeholder: ''
+
+                      }
+                    };
+
+
+                  break;
+                case 'List':
+                  //console.log("case List");
+                  $scope.listas.push({
+                    name: atributos[i].name,
+                    elements: [{
+                      content: ''
+                    } ]
+                  })
+
+                  aux = {
+                    key: atributos[i].name,
+                    type: 'input',
+                    hide: true,
+                    templateOptions: {
+                      label: atributos[i].name,
+                      placeholder: ''
+                    }
+                  };
+                  break;
+
+                default:
+                  if (atributos[i].required == true) {
+                    aux = {
+                      key: atributos[i].name,
+                      type: 'input',
+                      templateOptions: {
+                        label: '' + atributos[i].name,
+                        placeholder: '',
+                        required: true
+                      }
+                    };
+                  } else {
+                    aux = {
+                      key: atributos[i].name,
+                      type: 'input',
+                      templateOptions: {
+                        label: atributos[i].name,
+                        placeholder: ''
+                      }
+                    };
+                  }
+
+                  break;
+              }
+              fields.push(aux);
+              //console.log(aux);
+            }
+            $scope.formly_fields = fields;
+
+          });
+        };
+        $scope.buscar = function() {
+          $mdDialog.hide();
+          console.log($scope.activoBuscado);
         }
 
         $scope.hide = function() {

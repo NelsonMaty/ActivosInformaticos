@@ -1,4 +1,4 @@
-<md-dialog aria-label="Busqueda avanzada" ng-cloak style="width: 340px; height: 300px;">
+<md-dialog aria-label="Busqueda avanzada" ng-cloak style="width: 600px; ">
   <form name="searchForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -10,20 +10,67 @@
       </div>
     </md-toolbar>
 
-    <md-content style="padding-top: 20px; top: 10px; margin-left: 20px; width: 290px;">
-      <md-input-container class=" md-block" style="width: 400px;">
-        <md-icon md-font-set="material-icons" aria-label="nombre activo">receipt</md-icon>
+    <md-content style="padding-top: 20px; padding-bottom: 20px; top: 10px; margin-left: 20px; ">
+      <md-input-container class=" md-block" style="width: 510px; margin-bottom:0px;">
+        <!-- <md-icon md-font-set="material-icons" aria-label="nombre activo">receipt</md-icon> -->
         <!-- <input ng-model="buscadoString" type="text" placeholder="Ingrese valor a buscar" ng-disabled="busquedaAvanzada" ng-pattern="/^[a-zA-Z0-9]*$/"> -->
-        <input ng-model="nombre" type="text" placeholder="Ingrese nombre de activo">
+        <input ng-model="activoBuscado.name" type="text" placeholder="Ingrese nombre de activo">
       </md-input-container>
-      <md-input-container class="md-block">
-        <md-icon md-font-set="material-icons" class="comentario">comment</md-icon>
-        <input ng-model=".comment" type="textarea" placeholder="Comentarios">
+      <!-- <md-input-container class="md-block" style="width: 510px;">
+        <md-icon md-font-set="material-icons">label_outline</md-icon>
+  			<md-chips ng-model="activoBuscado.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
+      </md-input-container> -->
+
+			<div class="md-block" style=" width: 510px;" >
+        <!-- <label>Tags</label> -->
+        <!-- <md-icon md-font-set="material-icons">label_outline</md-icon> -->
+        <md-chips ng-model="activoBuscado.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
+			</div>
+
+      <md-input-container class="md-block" style="width: 510px;margin-top:34px;">
+        <label>Tipo de activo</label>
+        <!-- <md-icon md-font-set="material-icons" >receipt</md-icon> -->
+        <md-select ng-model="selectedType" aria-label="tipo activo" ng-change="listarAtributos()">
+          <md-option ng-repeat="tipo in assettypes" value="{{tipo._id}}" >
+              Tipo de activo {{tipo.name}}
+          </md-option>
+        </md-select>
       </md-input-container>
-      <md-input-container class="md-block">
-        <md-icon md-font-set="material-icons" class="comentario">comment</md-icon>
-        <input ng-model="comment" type="text" placeholder="Comentarios">
-      </md-input-container>
+
+    <div ng-show="formly_fields">
+  		<formly-form model="activoBuscado" fields="formly_fields" form="create_form">
+
+  			<div layout="column" ng-repeat="lista in listas" style="min-height: 82px;">
+
+  				<md-divider></md-divider>
+  				<div style="padding-left: 16px; padding-top: 10px;">
+  					<h2>Lista: {{lista.name}} </h2>
+  				</div>
+
+  				<div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
+
+  					<md-input-container  class=" md-block" style="padding-right: 6px; ">
+  							<input ng-model="element.content" type="text" placeholder="" aria-label="lista" ng-required="lista.required">
+  					</md-input-container>
+
+  					<div layout-gt-sm="row" >
+  						<md-button  aria-label="Quitar columna" ng-click="removeItem('lista',$parent.$index,$index)" style=" bottom: 14px;">
+  							<md-icon md-font-set="material-icons">remove_circle</md-icon>
+  						</md-button>
+  					</div>
+
+  					<div layout-gt-sm="row" >
+  						<md-button  aria-label="Añadir columna" ng-click="addItem('lista',$parent.$index)" style=" bottom: 14px;">
+  							<md-icon md-font-set="material-icons">add_circle</md-icon>
+  						</md-button>
+  					</div>
+
+  				</div>
+  			</div>
+
+  		</formly-form>
+  	</div>
+    <span flex></span>
     </md-content>
 
     <md-dialog-actions layout="row">
