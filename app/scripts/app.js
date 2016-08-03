@@ -63,26 +63,26 @@ angular
 
       dataFactory.searchString = function(string, tipo, soloTipo, callback) {
 
-        if (tipo != "" && !soloTipo) {
-          //console.log("tipo y string");
-          $http.get(urlWS + 'assets?elasticSearch=' + string + '&assetTypeName=' + tipo )
-            .then(function(response){
-              //console.log(soloTipo);
-              callback(response.data);
-            },function(err){
-              console.log(err);
-          });
-        } else {
-          if (soloTipo) {
-            //console.log("solo tipo");
-            $http.get(urlWS + 'assets?assetTypeName=' + tipo )
-              .then(function(response){
-                //console.log(soloTipo);
-                callback(response.data);
-              },function(err){
-                console.log(err);
-            });
-          } else {
+        // if (tipo != "" && !soloTipo) {
+        //   //console.log("tipo y string");
+        //   $http.get(urlWS + 'assets?elasticSearch=' + string + '&assetTypeName=' + tipo )
+        //     .then(function(response){
+        //       //console.log(soloTipo);
+        //       callback(response.data);
+        //     },function(err){
+        //       console.log(err);
+        //   });
+        // } else {
+        //   if (soloTipo) {
+        //     //console.log("solo tipo");
+        //     $http.get(urlWS + 'assets?assetTypeName=' + tipo )
+        //       .then(function(response){
+        //         //console.log(soloTipo);
+        //         callback(response.data);
+        //       },function(err){
+        //         console.log(err);
+        //     });
+        //   } else {
             //console.log("solo string");
             $http.get(urlWS + 'assets?elasticSearch=' + string )
               .then(function(response){
@@ -91,14 +91,34 @@ angular
               },function(err){
                 console.log(err);
             });
-          }
+          // }
 
-        }
+        // }
 
       };
 
       dataFactory.searchParams = function(parametros, callback) {
-        $http.get(urlWS + 'assets?patternSearch=%7B%22' + atributo + '%22%3A%22' + valor +'%22%7D' )
+        //console.log(parametros);
+        //var ruta = 'assets?patternSearch=%7B%22';
+        //var lista = false;
+        // var keys = Object.keys(parametros);
+        // for (i=0;i<keys.length;i++) {
+        //
+        //   console.log("valor " + parametros[keys[i]]);
+        //   console.log("atributo " + keys[i]);
+        //
+        //     //ruta = + keys[i] + '%22%3A%22' +  parametros[keys[i]]
+        // }
+        if (parametros.tags.$all.length==0) {
+          delete parametros.tags;
+        }
+        var string = JSON.stringify(parametros);
+        console.log(string);
+        console.log(escape(string));
+
+
+        // $http.get(urlWS + 'assets?patternSearch=%7B%22' + atributo + '%22%3A%22' + valor +'%22%7D' )
+        $http.get(urlWS + 'assets?patternSearch=' + escape(string) )
           .then(function(response){
             callback(response.data);
           },function(err){

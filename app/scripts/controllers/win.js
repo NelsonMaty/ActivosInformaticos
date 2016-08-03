@@ -615,7 +615,7 @@ angular.module('activosInformaticosApp')
           fullscreen: useFullScreen
         })
         .then(function(data) {
-          console.log(data);
+          //console.log(data);
 
           if (data) {
             $scope.busqueda(null,true,null,data);
@@ -2046,7 +2046,7 @@ angular.module('activosInformaticosApp')
         $scope.myassets = myassets;
         $scope.assettypes = assettypes;
         $scope.activoBuscado = {
-          tags: []
+          tags: { $all: [] }
         };
         $scope.names_list = [];
         $scope.listas = [];
@@ -2077,6 +2077,8 @@ angular.module('activosInformaticosApp')
             };
 
         $scope.listarAtributos = function () {
+          $scope.names_list = [];
+          $scope.listas = [];
 
           dataFactory.getAnAssetType($scope.selectedType,function (response) {
             var sel_type = response;
@@ -2212,7 +2214,15 @@ angular.module('activosInformaticosApp')
           for (i=0;i<$scope.listas.length;i++) {
             for (j=0;j<$scope.names_list.length;j++) {
               if($scope.listas[i].name == $scope.names_list[j]) {
-                $scope.activoBuscado[$scope.names_list[j]] = $scope.listas[i].elements;
+                $scope.activoBuscado[$scope.names_list[j]] = {
+                  $all: $scope.listas[i].elements
+                  //$all: []
+                };
+                // for (k=0;k<$scope.listas[i].elements.length;){
+                //   $scope.activoBuscado[$scope.names_list[j]].
+                // }
+                //delete $scope.activoBuscado[$scope.names_list[j]].$all.$$hashKey;
+
               }
             }
           }

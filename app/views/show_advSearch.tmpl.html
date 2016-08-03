@@ -2,6 +2,7 @@
   <form name="searchForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
+        <md-icon md-font-set="material-icons" style="margin-right:20px;" aria-label="nombre activo">search</md-icon>
         <h2>Busqueda Avanzada</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
@@ -24,7 +25,7 @@
 			<div class="md-block" style=" width: 510px;" >
         <!-- <label>Tags</label> -->
         <!-- <md-icon md-font-set="material-icons">label_outline</md-icon> -->
-        <md-chips ng-model="activoBuscado.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
+        <md-chips ng-model="activoBuscado.tags.$all" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
 			</div>
 
       <md-input-container class="md-block" style="width: 510px;margin-top:34px;">
