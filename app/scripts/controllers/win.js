@@ -555,7 +555,7 @@ angular.module('activosInformaticosApp')
       });
     };
 
-    $scope.busqueda = function (string,avanzada,nombreTipo,atributo,valor,tipoBusqueda) {
+    $scope.busqueda = function (string,avanzada,nombreTipo,parametros) {
 
       $scope.buscando = true;
       var soloTipo = false;
@@ -575,24 +575,24 @@ angular.module('activosInformaticosApp')
           });
         }
       } else {
-        if (nombreTipo != "" && !string ) {
-          soloTipo = true;
-        }
-        if (tipoBusqueda != 'params') {
-          dataFactory.searchString(string, nombreTipo, soloTipo, function (response) {
+        // if (nombreTipo != "" && !string ) {
+        //   soloTipo = true;
+        // }
+        //if (tipoBusqueda != 'params') {
+          // dataFactory.searchString(string, nombreTipo, soloTipo, function (response) {
+          //   //$scope.resultadoBusqueda = response;
+          //   $scope.myassets = response;
+          //   //buscarIndices();
+          //   $scope.buscando = false;
+          // });
+        //} else {
+          dataFactory.searchParams(parametros, function (response) {
             //$scope.resultadoBusqueda = response;
-            $scope.myassets = response;
             //buscarIndices();
+            $scope.myassets = response;
             $scope.buscando = false;
           });
-        } else {
-          dataFactory.searchParams(atributo, valor, function (response) {
-            //$scope.resultadoBusqueda = response;
-            //buscarIndices();
-            $scope.myassets = response;
-            $scope.buscando = false;
-          });
-        }
+        //}
       }
     }
 
@@ -615,10 +615,10 @@ angular.module('activosInformaticosApp')
           fullscreen: useFullScreen
         })
         .then(function(data) {
-          //console.log(data);
+          console.log(data);
 
           if (data) {
-            $scope.goAsset(data.evento, data.activo, data.indice);
+            $scope.busqueda(null,true,null,data);
           }
 
         });
@@ -2048,8 +2048,33 @@ angular.module('activosInformaticosApp')
         $scope.activoBuscado = {
           tags: []
         };
+        $scope.names_list = [];
         $scope.listas = [];
         $scope.selectedType = {};
+
+        $scope.addItem = function(answer,parent_index) {
+              //console.log("parent_index:" + parent_index);
+
+              if (answer == 'lista') {
+                $scope.listas[parent_index].elements.push({content:''});
+                //$scope.ultimo = false;
+              } else {
+                $scope.asset.attached.push('');
+              }
+
+            };
+
+        $scope.removeItem = function(answer,parent_index,index) {
+              if (answer == 'lista') {
+                if ($scope.listas[parent_index].elements.length>1){
+
+                  $scope.listas[parent_index].elements.splice(index,1);
+                }
+              } else {
+                $scope.asset.attached.splice(index,1);
+              }
+
+            };
 
         $scope.listarAtributos = function () {
 
@@ -2147,6 +2172,8 @@ angular.module('activosInformaticosApp')
                     } ]
                   })
 
+                  $scope.names_list.push(atributos[i].name);
+
                   aux = {
                     key: atributos[i].name,
                     type: 'input',
@@ -2159,17 +2186,7 @@ angular.module('activosInformaticosApp')
                   break;
 
                 default:
-                  if (atributos[i].required == true) {
-                    aux = {
-                      key: atributos[i].name,
-                      type: 'input',
-                      templateOptions: {
-                        label: '' + atributos[i].name,
-                        placeholder: '',
-                        required: true
-                      }
-                    };
-                  } else {
+
                     aux = {
                       key: atributos[i].name,
                       type: 'input',
@@ -2178,7 +2195,7 @@ angular.module('activosInformaticosApp')
                         placeholder: ''
                       }
                     };
-                  }
+
 
                   break;
               }
@@ -2189,9 +2206,19 @@ angular.module('activosInformaticosApp')
 
           });
         };
+
         $scope.buscar = function() {
-          $mdDialog.hide();
-          console.log($scope.activoBuscado);
+          //$scope.hide();
+          for (i=0;i<$scope.listas.length;i++) {
+            for (j=0;j<$scope.names_list.length;j++) {
+              if($scope.listas[i].name == $scope.names_list[j]) {
+                $scope.activoBuscado[$scope.names_list[j]] = $scope.listas[i].elements;
+              }
+            }
+          }
+
+          $mdDialog.hide($scope.activoBuscado);
+          //console.log($scope.activoBuscado);
         }
 
         $scope.hide = function() {

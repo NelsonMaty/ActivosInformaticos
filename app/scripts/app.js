@@ -97,7 +97,7 @@ angular
 
       };
 
-      dataFactory.searchParams = function(atributo, valor, callback) {
+      dataFactory.searchParams = function(parametros, callback) {
         $http.get(urlWS + 'assets?patternSearch=%7B%22' + atributo + '%22%3A%22' + valor +'%22%7D' )
           .then(function(response){
             callback(response.data);
