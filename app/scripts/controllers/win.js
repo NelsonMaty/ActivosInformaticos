@@ -577,28 +577,27 @@ angular.module('activosInformaticosApp')
           delete parametros.tags;
         }
         var keys = Object.keys(parametros);
-        console.log(keys);
+
         if (keys.length<=2&&parametros.typeName) {
           soloTipo = true;
-          console.log(true);
+
           for (i=0;i<keys.length;i++) {
             if (keys[i]!="name"&&keys[i]!="typeName") {
-              console.log(false);
-              console.log(keys[i]);
+
               soloTipo = false;
-              //console.log("false");
+
             }
           }
         }
 
         if (soloTipo) {
-          console.log("soloTipo");
-          dataFactory.searchByType(parametros.name, parametros.nameType, function (response) {
+          // console.log("soloTipo");
+          dataFactory.searchByType(parametros.name, parametros.typeName, function (response) {
             $scope.myassets = response;
             $scope.buscando = false;
           });
         } else {
-          console.log("avanzada");
+          // console.log("avanzada");
           dataFactory.searchParams(parametros, function (response) {
             $scope.myassets = response;
             $scope.buscando = false;
@@ -2227,13 +2226,20 @@ angular.module('activosInformaticosApp')
           for (i=0;i<$scope.listas.length;i++) {
             for (j=0;j<$scope.names_list.length;j++) {
               if($scope.listas[i].name == $scope.names_list[j]) {
-                for (k=0;k<$scope.listas[i].elements.length;k++) {
 
-                  delete $scope.listas[i].elements[k].$$hashKey
+                for (k=$scope.listas[i].elements.length-1;k>=0;k--) {
+                  if (!$scope.listas[i].elements[k].content) {
+                    $scope.listas[i].elements.splice(k,1);
+                  } else {
+                      delete $scope.listas[i].elements[k].$$hashKey
+                  }
                 }
-                $scope.activoBuscado[$scope.names_list[j]] = {
-                  $all: $scope.listas[i].elements
-                };
+                if ($scope.listas[i].elements.length!=0) {
+                  $scope.activoBuscado[$scope.names_list[j]] = {
+                    $all: $scope.listas[i].elements
+                  };
+                }
+
               }
             }
           }

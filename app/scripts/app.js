@@ -73,35 +73,36 @@ angular
 
       };
 
-      dataFactory.searchByType = function(string,type, callback) {
+      dataFactory.searchByType = function(string,type,callback) {
+        //console.log(string + " " + type);
+        if (string) {
+          $http.get(urlWS + 'assets?elasticSearch=' + escape(string) + '&assetTypeName=' + escape(type) )
+            .then(function(response){
+              //console.log("Tipo y palabra");
+              callback(response.data);
+            },function(err){
+              console.log(err);
+          });
+        } else {
+          //console.log(urlWS + 'assets?assetTypeName=' + escape(type) );
+          $http.get(urlWS + 'assets?assetTypeName=' + escape(type) )
+            .then(function(response){
+              //console.log("tipo");
+              callback(response.data);
+            },function(err){
+              console.log(err);
+          });
+        }
 
-            $http.get(urlWS + 'assets?elasticSearch=' + escape(string) + '&assetTypeName=' + escape(type) )
-              .then(function(response){
-                //console.log(soloTipo);
-                callback(response.data);
-              },function(err){
-                console.log(err);
-            });
 
       };
 
       dataFactory.searchParams = function(parametros, callback) {
-        //console.log(parametros);
-        //var ruta = 'assets?patternSearch=%7B%22';
-        //var lista = false;
-        // var keys = Object.keys(parametros);
-        // for (i=0;i<keys.length;i++) {
-        //
-        //   console.log("valor " + parametros[keys[i]]);
-        //   console.log("atributo " + keys[i]);
-        //
-        //     //ruta = + keys[i] + '%22%3A%22' +  parametros[keys[i]]
-        // }
-        
+
         delete parametros.typeName;
         var string = JSON.stringify(parametros);
-        console.log(string);
-        console.log(escape(string));
+        // console.log(string);
+        // console.log(escape(string));
 
         // $http.get(urlWS + 'assets?patternSearch=%7B%22' + atributo + '%22%3A%22' + valor +'%22%7D' )
         $http.get(urlWS + 'assets?patternSearch=' + escape(string) )
