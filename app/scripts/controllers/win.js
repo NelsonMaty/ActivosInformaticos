@@ -558,7 +558,6 @@ angular.module('activosInformaticosApp')
     $scope.busqueda = function (string,avanzada,nombreTipo,parametros) {
 
       $scope.buscando = true;
-      var soloTipo = false;
 
       if ( !avanzada ) {
         if (!string || string == " ") {
@@ -567,14 +566,24 @@ angular.module('activosInformaticosApp')
           });
           $scope.buscando = false;
         } else {
-          dataFactory.searchString(string, nombreTipo, soloTipo, function (response) {
-            //$scope.resultadoBusqueda = response;
+          dataFactory.searchString(string, function (response) {
             $scope.myassets = response;
-            //buscarIndices();
             $scope.buscando = false;
           });
         }
       } else {
+        var soloTipo = false;
+        var keys = Object.keys(parametros);
+        if (keys.length<=2) {
+          soloTipo = true;
+          for (i=0;i<keys.length;i++) {
+            if (keys[i]!="tags"&&keys[i]!="name") {
+              soloTipo = false;
+              console.log("false");
+            }
+          }
+        }
+
         // if (nombreTipo != "" && !string ) {
         //   soloTipo = true;
         // }
@@ -587,8 +596,7 @@ angular.module('activosInformaticosApp')
           // });
         //} else {
           dataFactory.searchParams(parametros, function (response) {
-            //$scope.resultadoBusqueda = response;
-            //buscarIndices();
+
             $scope.myassets = response;
             $scope.buscando = false;
           });
@@ -2214,21 +2222,19 @@ angular.module('activosInformaticosApp')
           for (i=0;i<$scope.listas.length;i++) {
             for (j=0;j<$scope.names_list.length;j++) {
               if($scope.listas[i].name == $scope.names_list[j]) {
+                for (k=0;k<$scope.listas[i].elements.length;k++) {
+
+                  delete $scope.listas[i].elements[k].$$hashKey
+                }
                 $scope.activoBuscado[$scope.names_list[j]] = {
                   $all: $scope.listas[i].elements
-                  //$all: []
                 };
-                // for (k=0;k<$scope.listas[i].elements.length;){
-                //   $scope.activoBuscado[$scope.names_list[j]].
-                // }
-                //delete $scope.activoBuscado[$scope.names_list[j]].$all.$$hashKey;
-
               }
             }
           }
 
           $mdDialog.hide($scope.activoBuscado);
-          //console.log($scope.activoBuscado);
+
         }
 
         $scope.hide = function() {

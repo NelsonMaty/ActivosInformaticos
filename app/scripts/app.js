@@ -61,29 +61,8 @@ angular
 
     //---------Busqueda------//
 
-      dataFactory.searchString = function(string, tipo, soloTipo, callback) {
+      dataFactory.searchString = function(string, callback) {
 
-        // if (tipo != "" && !soloTipo) {
-        //   //console.log("tipo y string");
-        //   $http.get(urlWS + 'assets?elasticSearch=' + string + '&assetTypeName=' + tipo )
-        //     .then(function(response){
-        //       //console.log(soloTipo);
-        //       callback(response.data);
-        //     },function(err){
-        //       console.log(err);
-        //   });
-        // } else {
-        //   if (soloTipo) {
-        //     //console.log("solo tipo");
-        //     $http.get(urlWS + 'assets?assetTypeName=' + tipo )
-        //       .then(function(response){
-        //         //console.log(soloTipo);
-        //         callback(response.data);
-        //       },function(err){
-        //         console.log(err);
-        //     });
-        //   } else {
-            //console.log("solo string");
             $http.get(urlWS + 'assets?elasticSearch=' + string )
               .then(function(response){
                 //console.log(soloTipo);
@@ -115,7 +94,6 @@ angular
         var string = JSON.stringify(parametros);
         console.log(string);
         console.log(escape(string));
-
 
         // $http.get(urlWS + 'assets?patternSearch=%7B%22' + atributo + '%22%3A%22' + valor +'%22%7D' )
         $http.get(urlWS + 'assets?patternSearch=' + escape(string) )
