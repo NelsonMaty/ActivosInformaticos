@@ -90,6 +90,33 @@
 							</div>
 
 						</md-tab>
+						<md-tab label="Mapa">
+							<md-content class="md-padding">
+								<!-- <h1 class="md-display-2">Mapa de relaciones</h1> -->
+								<div layout="row" flex>
+
+									<div class="" flex>
+
+										<div class="" layout-align="end end" layout="row" style="">
+											<md-input-container class="" style="margin-bottom:0px;height:40px;padding-right:40px;padding-bottom:0px;">
+												<input ng-model="profundidad" ng-pattern="/^[0-9]$/" type="number" placeholder="Ingrese profundidad" >
+											</md-input-container>
+											<md-button type="button" style="margin-bottom:0px;" ng-click="goToMap(asset,indice,profundidad)">Aplicar</md-button>
+
+											<md-input-container class="" ng-show="$parent.svgExist" style="margin-bottom:0px;height:40px;">
+												<input id="search" ng-model="buscado2" type="text" placeholder="Ingrese nombre de activo" >
+											</md-input-container>
+											<md-button type="button" style="margin-bottom:0px;" ng-show="svgExist" ng-click="searchNode()">Buscar</md-button>
+										</div>
+										<div id="relGraph">
+
+										</div>
+
+									</div>
+
+								</div>
+							</md-content>
+						</md-tab>
 						<md-tab label="Relaciones">
 							<h1 class="md-display-2" style="padding-left: 20px;" ng-show="!direccionRelaciones">Relaciones salientes</h1>
 							<h1 class="md-display-2" style="padding-left: 20px;" ng-show="direccionRelaciones">Relaciones entrantes</h1>

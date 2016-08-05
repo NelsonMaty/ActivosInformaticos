@@ -12,8 +12,8 @@ angular.module('activosInformaticosApp')
     $scope.clicked_relation = {};
     $scope.clicked_index = {};
     $scope.clicked = false;
-    $scope.busquedaAvanzada = false;
-    $scope.opcionBusqueda = "tipo";
+    //$scope.busquedaAvanzada = false;
+    //$scope.opcionBusqueda = "tipo";
     $scope.buscando = false;
     $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
     $scope.direccionRelaciones = 'Todas';
@@ -22,8 +22,8 @@ angular.module('activosInformaticosApp')
     $scope.buscadoAtributo = "";
     $scope.buscadoValor = "";
     //$scope.indicesBusqueda = [];
-    $scope.selectedType = "";
-    $scope.listaAtrib = [];
+    //$scope.selectedType = "";
+    //$scope.listaAtrib = [];
 
 
     var animationMenuExit = function(trigger, element){
@@ -246,7 +246,7 @@ angular.module('activosInformaticosApp')
       //console.log(indice);
       //Constants for the SVG
       $scope.svgExist = true;
-      var width = 1200,
+      var width = 800,
           height = 600;
 
       //Set up the colour scale
@@ -695,7 +695,8 @@ angular.module('activosInformaticosApp')
             indice: indice,
             indexBusqueda: indexBusqueda,
             editAsset: $scope.editAsset,
-            goRelation: $scope.goRelation
+            goRelation: $scope.goRelation,
+            goToMap: $scope.goToMap
 
           },
           controller: ShowAssetCtrl,
@@ -1107,7 +1108,7 @@ angular.module('activosInformaticosApp')
 
       };
 
-      function ShowAssetCtrl(asset, myassets, resultadoBusqueda, indice, indexBusqueda, editAsset, goRelation, $scope, $mdDialog, $mdToast){
+      function ShowAssetCtrl(asset, myassets, resultadoBusqueda, indice, indexBusqueda, editAsset, goRelation, goToMap, $scope, $mdDialog, $mdToast){
         $scope.asset = asset;
         $scope.myassets = myassets;
         $scope.resultadoBusqueda = resultadoBusqueda;
@@ -1116,6 +1117,8 @@ angular.module('activosInformaticosApp')
         $scope.indexBusqueda = indexBusqueda;
         $scope.editAsset = editAsset;
         $scope.goRelation = goRelation;
+        $scope.goToMap = goToMap;
+        $scope.profundidad = 0;
         $scope.direccionRelaciones = false;
         $scope.sel_version = {};
         $scope.relationsTree = {};
