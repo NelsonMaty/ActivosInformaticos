@@ -31,7 +31,7 @@
       <md-input-container class="md-block" style="width: 510px;margin-top:34px;">
         <label>Tipo de activo</label>
         <!-- <md-icon md-font-set="material-icons" >receipt</md-icon> -->
-        <md-select ng-model="selectedType" aria-label="tipo activo" ng-change="listarAtributos()">
+        <md-select ng-model="selectedTypeId" aria-label="tipo activo" ng-change="listarAtributos()">
           <md-option ng-repeat="tipo in assettypes" value="{{tipo._id}}" >
               Tipo de activo {{tipo.name}}
           </md-option>

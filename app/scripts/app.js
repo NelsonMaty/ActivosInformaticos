@@ -63,16 +63,25 @@ angular
 
       dataFactory.searchString = function(string, callback) {
 
-            $http.get(urlWS + 'assets?elasticSearch=' + string )
+            $http.get(urlWS + 'assets?elasticSearch=' + escape(string) )
               .then(function(response){
                 //console.log(soloTipo);
                 callback(response.data);
               },function(err){
                 console.log(err);
             });
-          // }
 
-        // }
+      };
+
+      dataFactory.searchByType = function(string,type, callback) {
+
+            $http.get(urlWS + 'assets?elasticSearch=' + escape(string) + '&assetTypeName=' + escape(type) )
+              .then(function(response){
+                //console.log(soloTipo);
+                callback(response.data);
+              },function(err){
+                console.log(err);
+            });
 
       };
 
@@ -88,9 +97,8 @@ angular
         //
         //     //ruta = + keys[i] + '%22%3A%22' +  parametros[keys[i]]
         // }
-        if (parametros.tags.$all.length==0) {
-          delete parametros.tags;
-        }
+        
+        delete parametros.typeName;
         var string = JSON.stringify(parametros);
         console.log(string);
         console.log(escape(string));

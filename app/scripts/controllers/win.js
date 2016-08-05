@@ -555,7 +555,7 @@ angular.module('activosInformaticosApp')
       });
     };
 
-    $scope.busqueda = function (string,avanzada,nombreTipo,parametros) {
+    $scope.busqueda = function (string,avanzada,parametros) {
 
       $scope.buscando = true;
 
@@ -573,34 +573,37 @@ angular.module('activosInformaticosApp')
         }
       } else {
         var soloTipo = false;
+        if (parametros.tags.$all.length==0) {
+          delete parametros.tags;
+        }
         var keys = Object.keys(parametros);
-        if (keys.length<=2) {
+        console.log(keys);
+        if (keys.length<=2&&parametros.typeName) {
           soloTipo = true;
+          console.log(true);
           for (i=0;i<keys.length;i++) {
-            if (keys[i]!="tags"&&keys[i]!="name") {
+            if (keys[i]!="name"&&keys[i]!="typeName") {
+              console.log(false);
+              console.log(keys[i]);
               soloTipo = false;
-              console.log("false");
+              //console.log("false");
             }
           }
         }
 
-        // if (nombreTipo != "" && !string ) {
-        //   soloTipo = true;
-        // }
-        //if (tipoBusqueda != 'params') {
-          // dataFactory.searchString(string, nombreTipo, soloTipo, function (response) {
-          //   //$scope.resultadoBusqueda = response;
-          //   $scope.myassets = response;
-          //   //buscarIndices();
-          //   $scope.buscando = false;
-          // });
-        //} else {
-          dataFactory.searchParams(parametros, function (response) {
-
+        if (soloTipo) {
+          console.log("soloTipo");
+          dataFactory.searchByType(parametros.name, parametros.nameType, function (response) {
             $scope.myassets = response;
             $scope.buscando = false;
           });
-        //}
+        } else {
+          console.log("avanzada");
+          dataFactory.searchParams(parametros, function (response) {
+            $scope.myassets = response;
+            $scope.buscando = false;
+          });
+        }
       }
     }
 
@@ -626,7 +629,7 @@ angular.module('activosInformaticosApp')
           //console.log(data);
 
           if (data) {
-            $scope.busqueda(null,true,null,data);
+            $scope.busqueda(null,true,data);
           }
 
         });
@@ -2058,6 +2061,7 @@ angular.module('activosInformaticosApp')
         };
         $scope.names_list = [];
         $scope.listas = [];
+        $scope.selectedTypeId = "";
         $scope.selectedType = {};
 
         $scope.addItem = function(answer,parent_index) {
@@ -2088,8 +2092,9 @@ angular.module('activosInformaticosApp')
           $scope.names_list = [];
           $scope.listas = [];
 
-          dataFactory.getAnAssetType($scope.selectedType,function (response) {
+          dataFactory.getAnAssetType($scope.selectedTypeId,function (response) {
             var sel_type = response;
+            $scope.selectedType = sel_type;
             function validateInt(value) {
 
               return /^\-?(0|[1-9]\d*)$/.test(value);
@@ -2232,6 +2237,7 @@ angular.module('activosInformaticosApp')
               }
             }
           }
+          if ($scope.selectedType) $scope.activoBuscado.typeName = $scope.selectedType.name;
 
           $mdDialog.hide($scope.activoBuscado);
 
