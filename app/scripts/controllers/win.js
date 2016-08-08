@@ -6,7 +6,7 @@ angular.module('activosInformaticosApp')
     $scope.toggleSidenav = function(menuId) {
     	//$mdSidenav(menuId).toggle();
     };
-    $scope.profundidad = null;
+    //$scope.profundidad = null;
     $scope.assettypes = {};
     $scope.clicked_asset = {};
     $scope.clicked_relation = {};
@@ -17,10 +17,10 @@ angular.module('activosInformaticosApp')
     $scope.buscando = false;
     $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
     $scope.direccionRelaciones = 'Todas';
-    $scope.buscadoString = "";
-    $scope.buscadoTipo = "";
-    $scope.buscadoAtributo = "";
-    $scope.buscadoValor = "";
+    // $scope.buscadoString = "";
+    // $scope.buscadoTipo = "";
+    // $scope.buscadoAtributo = "";
+    // $scope.buscadoValor = "";
     //$scope.indicesBusqueda = [];
     //$scope.selectedType = "";
     //$scope.listaAtrib = [];
@@ -239,8 +239,8 @@ angular.module('activosInformaticosApp')
         }
     };
 
-    var svg = null;
-    $scope.svgExist = false;
+    // var svg = null;
+    // $scope.svgExist = false;
 
     $scope.relationGraph = function ($scope,jsonMap,indice,profundidad) {
       //console.log(indice);
@@ -696,7 +696,8 @@ angular.module('activosInformaticosApp')
             indexBusqueda: indexBusqueda,
             editAsset: $scope.editAsset,
             goRelation: $scope.goRelation,
-            goToMap: $scope.goToMap
+            goToMap: $scope.goToMap,
+            searchNode: $scope.searchNode
 
           },
           controller: ShowAssetCtrl,
@@ -1108,7 +1109,7 @@ angular.module('activosInformaticosApp')
 
       };
 
-      function ShowAssetCtrl(asset, myassets, resultadoBusqueda, indice, indexBusqueda, editAsset, goRelation, goToMap, $scope, $mdDialog, $mdToast){
+      function ShowAssetCtrl(asset, myassets, resultadoBusqueda, indice, indexBusqueda, editAsset, goRelation, goToMap, searchNode, $scope, $mdDialog, $mdToast){
         $scope.asset = asset;
         $scope.myassets = myassets;
         $scope.resultadoBusqueda = resultadoBusqueda;
@@ -1118,6 +1119,7 @@ angular.module('activosInformaticosApp')
         $scope.editAsset = editAsset;
         $scope.goRelation = goRelation;
         $scope.goToMap = goToMap;
+        $scope.searchNode = searchNode;
         $scope.profundidad = 0;
         $scope.direccionRelaciones = false;
         $scope.sel_version = {};
@@ -1134,6 +1136,7 @@ angular.module('activosInformaticosApp')
         $scope.listas = [];
         $scope.versionListas = [];
         $scope.showVersion = false;
+        $scope.buscado2 = "";
         $scope.keys = Object.keys(asset);
 
         $scope.keys.splice($scope.keys.indexOf("name"),1);
@@ -1143,7 +1146,6 @@ angular.module('activosInformaticosApp')
         $scope.keys.splice($scope.keys.indexOf("comment"),1);
         $scope.keys.splice($scope.keys.indexOf("$$hashKey"),1);
         $scope.keys.splice($scope.keys.indexOf("attached"),1);
-
 
         if ($scope.keys.indexOf("__v")>=0) {
 
@@ -1157,7 +1159,6 @@ angular.module('activosInformaticosApp')
           $scope.a =$scope.keys.indexOf("deleted");
           $scope.keys.splice($scope.a,1);
         }
-
 
         dataFactory.getAnAssetType($scope.asset.typeId, function (response) {
 
@@ -1327,6 +1328,11 @@ angular.module('activosInformaticosApp')
           $scope.lifeCycleGraph = response;
 
         });
+
+        var svg = null;
+        $scope.svgExist = false;
+
+        $scope.goToMap(asset,indice);
 
       };
 
