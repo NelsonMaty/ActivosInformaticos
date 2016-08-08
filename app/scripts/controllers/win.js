@@ -15,8 +15,8 @@ angular.module('activosInformaticosApp')
     //$scope.busquedaAvanzada = false;
     //$scope.opcionBusqueda = "tipo";
     $scope.buscando = false;
-    $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
-    $scope.direccionRelaciones = 'Todas';
+    // $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
+    // $scope.direccionRelaciones = 'Todas';
     // $scope.buscadoString = "";
     // $scope.buscadoTipo = "";
     // $scope.buscadoAtributo = "";
@@ -92,94 +92,94 @@ angular.module('activosInformaticosApp')
 
     });
 
-    $scope.searchRelations = function(id,nombreActivo) {
-      $scope.sourceAssetId = id;
-      $scope.select_asset = {
-        _id: id,
-        name: nombreActivo
-      };
-
-      $scope.clicked_RelationIndex = null;
-      $scope.buscando = true;
-
-      switch ($scope.direccionRelaciones) {
-        case 'Todas':
-          dataFactory.getAssetRelations(id, function (response) {
-            $scope.assetRelations = response;
-            $scope.labels = [];
-            $scope.relatedAssets = [];
-            dataFactory.getIncomingAssetRelations(id, function (response) {
-              for (i=0;i<response.length;i++) {
-                response[i].isIncoming = true;
-                $scope.assetRelations.push(response[i]);
-              }
-              dataFactory.getRelationMap(id,null,function (response) {
-                //console.log(response.relations);
-                for (i=0;i<response.relations.length;i++) {
-                  $scope.labels.push(response.relations[i].outLabel);
-                  $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
-                }
-                //console.log(response.incomingRelations);
-                for (i=0;i<response.incomingRelations.length;i++) {
-                  $scope.labels.push(response.incomingRelations[i].inLabel);
-                  $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
-                }
-                window.setTimeout( function(){
-                  $scope.buscando = false;
-                  $scope.$apply();
-                }, 500);
-
-                //console.log($scope.labels);
-              });
-            });
-          });
-          break;
-        case 'Salientes':
-          dataFactory.getAssetRelations(id, function (response) {
-              $scope.assetRelations = response;
-              $scope.labels = [];
-              $scope.relatedAssets = [];
-
-              dataFactory.getRelationMap(id, null,function (response) {
-                for (i=0;i<response.relations.length;i++) {
-                  $scope.labels.push(response.relations[i].outLabel);
-                  $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
-                }
-                window.setTimeout( function(){
-                  $scope.buscando = false;
-                  $scope.$apply();
-                }, 500);
-              });
-          });
-          break;
-        case 'Entrantes':
-          dataFactory.getIncomingAssetRelations(id, function (response) {
-
-              $scope.assetRelations = response;
-              $scope.labels = [];
-              $scope.relatedAssets = [];
-              for(i=0;i<$scope.assetRelations.length;i++) {
-                $scope.assetRelations[i].isIncoming="true";
-              }
-
-              dataFactory.getRelationMap(id,null, function (response) {
-                for (i=0;i<response.incomingRelations.length;i++) {
-                  $scope.labels.push(response.incomingRelations[i].inLabel);
-                  $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
-                }
-                window.setTimeout( function(){
-                  $scope.buscando = false;
-                  $scope.$apply();
-                }, 500);
-            });
-          });
-          break;
-        default:
-          break;
-
-      }
-
-    }
+    // $scope.searchRelations = function(id,nombreActivo) {
+    //   $scope.sourceAssetId = id;
+    //   $scope.select_asset = {
+    //     _id: id,
+    //     name: nombreActivo
+    //   };
+    //
+    //   $scope.clicked_RelationIndex = null;
+    //   $scope.buscando = true;
+    //
+    //   switch ($scope.direccionRelaciones) {
+    //     case 'Todas':
+    //       dataFactory.getAssetRelations(id, function (response) {
+    //         $scope.assetRelations = response;
+    //         $scope.labels = [];
+    //         $scope.relatedAssets = [];
+    //         dataFactory.getIncomingAssetRelations(id, function (response) {
+    //           for (i=0;i<response.length;i++) {
+    //             response[i].isIncoming = true;
+    //             $scope.assetRelations.push(response[i]);
+    //           }
+    //           dataFactory.getRelationMap(id,null,function (response) {
+    //             //console.log(response.relations);
+    //             for (i=0;i<response.relations.length;i++) {
+    //               $scope.labels.push(response.relations[i].outLabel);
+    //               $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
+    //             }
+    //             //console.log(response.incomingRelations);
+    //             for (i=0;i<response.incomingRelations.length;i++) {
+    //               $scope.labels.push(response.incomingRelations[i].inLabel);
+    //               $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
+    //             }
+    //             window.setTimeout( function(){
+    //               $scope.buscando = false;
+    //               $scope.$apply();
+    //             }, 500);
+    //
+    //             //console.log($scope.labels);
+    //           });
+    //         });
+    //       });
+    //       break;
+    //     case 'Salientes':
+    //       dataFactory.getAssetRelations(id, function (response) {
+    //           $scope.assetRelations = response;
+    //           $scope.labels = [];
+    //           $scope.relatedAssets = [];
+    //
+    //           dataFactory.getRelationMap(id, null,function (response) {
+    //             for (i=0;i<response.relations.length;i++) {
+    //               $scope.labels.push(response.relations[i].outLabel);
+    //               $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
+    //             }
+    //             window.setTimeout( function(){
+    //               $scope.buscando = false;
+    //               $scope.$apply();
+    //             }, 500);
+    //           });
+    //       });
+    //       break;
+    //     case 'Entrantes':
+    //       dataFactory.getIncomingAssetRelations(id, function (response) {
+    //
+    //           $scope.assetRelations = response;
+    //           $scope.labels = [];
+    //           $scope.relatedAssets = [];
+    //           for(i=0;i<$scope.assetRelations.length;i++) {
+    //             $scope.assetRelations[i].isIncoming="true";
+    //           }
+    //
+    //           dataFactory.getRelationMap(id,null, function (response) {
+    //             for (i=0;i<response.incomingRelations.length;i++) {
+    //               $scope.labels.push(response.incomingRelations[i].inLabel);
+    //               $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
+    //             }
+    //             window.setTimeout( function(){
+    //               $scope.buscando = false;
+    //               $scope.$apply();
+    //             }, 500);
+    //         });
+    //       });
+    //       break;
+    //     default:
+    //       break;
+    //
+    //   }
+    //
+    // }
 
     $scope.clickAsset = function(asset,indice) {
       $scope.clicked_asset = asset;
@@ -187,19 +187,12 @@ angular.module('activosInformaticosApp')
       $scope.clicked = true;
     };
 
-    // $scope.clickRelation = function(relation,indice) {
-    //   $scope.clicked_relation = relation;
-    //   $scope.clicked_RelationIndex = indice;
-    //   $scope.clickedR = true;
-    // };
 
     $scope.clickedIcon= function(indice) {
       return($scope.clicked_index == indice);
     };
 
-    // $scope.clickedRelacionIcon= function(indice) {
-    //   return($scope.clicked_RelationIndex == indice);
-    // };
+
 
     $scope.clickClose = function () {
       if ($scope.clicked) {
@@ -209,12 +202,7 @@ angular.module('activosInformaticosApp')
 
     };
 
-    // $scope.clickRelacionClose = function() {
-    //   if ($scope.clickedR) {
-    //     $scope.clicked_RelationIndex = null;
-    //     animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
-    //   }
-    // };
+
 
     $scope.searchNode = function(svgAnterior) {
         //find the node
@@ -1121,7 +1109,9 @@ angular.module('activosInformaticosApp')
         $scope.goToMap = goToMap;
         $scope.searchNode = searchNode;
         $scope.profundidad = 0;
-        $scope.direccionRelaciones = false;
+        //$scope.direccionRelaciones = false;
+        $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
+        $scope.direccionRelaciones = 'Todas';
         $scope.sel_version = {};
         $scope.relationsTree = {};
         $scope.criticosOut = [];

@@ -113,69 +113,7 @@
                 </md-content>
               </md-tab>
 
-              <md-tab label="Relaciones">
-                <div >
-                  <div layout="column">
-                    <div layout="row" layout-align="space-between center" style="padding-top:20px;">
-                      <h1 class="md-display-2" ng-show="direccionRelaciones=='Todas'">Todas las relaciones</h1>
-                      <h1 class="md-display-2" ng-show="direccionRelaciones=='Salientes'">Relaciones salientes</h1>
-                      <h1 class="md-display-2" ng-show="direccionRelaciones=='Entrantes'">Relaciones entrantes</h1>
-                      <md-input-container style="margin-top:0px; margin-bottom:0px; top:8px; padding-right:36px; width:280px;">
-                        <!-- <md-switch ng-model="direccionRelaciones" ng-change="searchRelations(select_asset._id,select_asset.name)">Relaciones salientes/entrantes</md-switch> -->
-                        <label>Filtro de relaciones</label>
-                        <md-icon md-font-set="material-icons" >filter_list</md-icon>
-                        <!-- <md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" md-on-close="searchRelations(select_asset._id,select_asset.name)"> -->
-                        <md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" ng-change="searchRelations(select_asset._id,select_asset.name)" ng-disabled="!select_asset">
-                          <md-option ng-repeat="filtro in filtros" value="{{filtro}}" >
-                              {{filtro}}
-                          </md-option>
-                        </md-select>
-                      </md-input-container>
-                    </div>
-
-                  </div>
-
-                  <p style="margin-top:20px; margin-bottom:20px;"> Seleccione un activo de la lista para ver las relaciones en las que participa </p>
-                  <div layout="column">
-                    <div layout="row" style="min-height: 600px;">
-
-                      <md-sidenav class="md-sidenav-left " md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style="min-width: 25% !important; width: 700px; ">
-                        <md-input-container class="md-icon-float md-block" style="top: 20px;">
-                          <input type="search" ng-model="buscado" placeholder="Activos" aria-label="filter assets" />
-                        </md-input-container>
-
-                        <md-list ng-cloak>
-                          <md-list-item ng-repeat="asset in myassets | filter:buscado" ng-click="searchRelations(asset._id,asset.name)" ng-class="{'select-activo animated flash': clickedIcon($index) }">
-
-                            <p>{{ asset.name }}</p>
-
-                            <md-divider ng-if="!$last"></md-divider>
-                          </md-list-item>
-                        </md-list>
-                      </md-sidenav>
-
-                      <div layout="column" flex id="content" style="width: 1000px; " >
-                        <div layout="row" layout-sm="column" layout-align="space-around" ng-if="buscando" >
-                          <md-progress-circular md-mode="indeterminate" md-diameter="106"></md-progress-circular>
-                        </div>
-                        <div layout="row" layout-wrap layout-margin layout-align="start center" style="margin-left:20px; " >
-
-                          <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
-                          <div ng-show="!buscando" style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="relation in assetRelations" ng-click="clickRelation(relation, $index);  $event.stopPropagation();" ng-dblclick="goRelation($event, relation, sourceAssetId, $index)">
-                            <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-relacion animated pulse': clickedRelacionIcon($index) }"  md-font-set="material-icons">link</md-icon>
-                            <!-- <div style="text-align: center" ng-show="direccionRelaciones=='Todas'"> {{labels[$index] || relation.relationTypeId }} </div> -->
-                            <!-- <div style="text-align: center" ng-show="direccionRelaciones=='Salientes'"> {{labels[$index].outLabel || relation.relationTypeId }} </div> -->
-                            <div style="text-align: center" > {{labels[$index] || relation.relationTypeId }} {{relatedAssets[$index]}} </div>
-                            <!-- <div style="text-align: center" ng-show="direccionRelaciones=='Entrantes'"> {{labels[$index].inLabel || relation.relationTypeId }} </div> -->
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-
-                </div>
-              </md-tab>
+              
               <!-- <md-tab label="Mapa">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Mapa de relaciones</h1>
@@ -202,7 +140,7 @@
                         <md-input-container class="" style="margin-bottom:0px;height:40px;padding-right:40px;padding-bottom:0px;">
                           <input ng-model="profundidad" ng-pattern="/^[0-9]$/" type="number" placeholder="Ingrese profundidad" >
                         </md-input-container>
-                        
+
 
                         <md-input-container class="" ng-show="svgExist" style="margin-bottom:0px;height:40px;">
                           <input id="search" ng-model="buscado2" type="text" placeholder="Ingrese nombre de activo" >
@@ -225,7 +163,6 @@
       </md-content>
 
       <ul mfb-menu menu-state="myVar" position="br" effect="slidein" active-icon="ion-close" resting-icon="ion-plus" toggling-method="click" >
-        <!--a mfb-button mfb-button-close icon="ion-android-list" label="Nuevo tipo de activo" ng-click="showAddAssetType($event)" >  </a-->
         <a mfb-button mfb-button-close icon="ion-link" label="Nueva relacion" ng-click="addRelation($event,'1',null)" >  </a>
         <a mfb-button mfb-button-close icon="ion-ios-paper" label="Nuevo activo" ng-click="showAddAsset($event)" >  </a>
       </ul>

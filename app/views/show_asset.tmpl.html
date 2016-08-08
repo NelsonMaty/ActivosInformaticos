@@ -118,16 +118,30 @@
 							</md-content>
 						</md-tab>
 						<md-tab label="Relaciones">
-							<h1 class="md-display-2" style="padding-left: 20px;" ng-show="!direccionRelaciones">Relaciones salientes</h1>
-							<h1 class="md-display-2" style="padding-left: 20px;" ng-show="direccionRelaciones">Relaciones entrantes</h1>
-							<md-input-container style="margin-top:0px; left:20px;">
-								<md-switch ng-model="direccionRelaciones">Relaciones salientes/entrantes</md-switch>
-							</md-input-container>
+							<!-- <h1 class="md-display-2" style="padding-left: 20px;" ng-show="!direccionRelaciones">Relaciones salientes</h1>
+							<h1 class="md-display-2" style="padding-left: 20px;" ng-show="direccionRelaciones">Relaciones entrantes</h1> -->
+							<div layout="row" layout-align="space-between center" style="padding-top:0px;">
+								<h1 class="md-display-2" ng-show="direccionRelaciones=='Todas'">Todas las relaciones</h1>
+								<h1 class="md-display-2" ng-show="direccionRelaciones=='Salientes'">Relaciones salientes</h1>
+								<h1 class="md-display-2" ng-show="direccionRelaciones=='Entrantes'">Relaciones entrantes</h1>
+								<md-input-container style="margin-bottom:0px; left:20px; top:16px; padding-right:36px; ">
+								<!-- <md-switch ng-model="direccionRelaciones">Relaciones salientes/entrantes</md-switch> -->
+									<label>Filtro de relaciones</label>
+									<md-icon md-font-set="material-icons" >filter_list</md-icon>
+
+									<md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" >
+										<md-option ng-repeat="filtro in filtros" value="{{filtro}}" >
+												{{filtro}}
+										</md-option>
+									</md-select>
+								</md-input-container>
+							</div>
 							<!-- <table ng-table="tableParams" class="table" show-filter="true" style="padding-top:20px;"> -->
-							<div style="padding-top:20px; padding-bottom:20px; " ng-show="!direccionRelaciones" layout="row" flex layout-align="center center">
+
+							<div style="padding-top:20px; padding-bottom:20px; " ng-show="direccionRelaciones=='Salientes'||direccionRelaciones=='Todas'" layout="row" flex layout-align="center center">
 								<table>
 									<tr>
-										<td style="width:200px;"> <strong> Relación <strong> </td>
+										<td style="width:200px;"> <strong> Relación saliente<strong> </td>
 										<td style="width:200px;"> <strong> Activo relacionado</strong> </td>
 										<td style="width:200px;"><strong>Crítica</strong></td>
 									</tr>
@@ -143,10 +157,10 @@
 							    </tr>
 								</table>
 							</div>
-							<div style="padding-top:20px; " ng-show="direccionRelaciones" layout="row" flex layout-align="center center">
+							<div style="padding-top:20px; " ng-show="direccionRelaciones=='Entrantes'||direccionRelaciones=='Todas'" layout="row" flex layout-align="center center">
 								<table>
 									<tr>
-										<td style="width:200px;"> <strong> Relación <strong> </td>
+										<td style="width:200px;"> <strong> Relación entrante<strong> </td>
 										<td style="width:200px;"> <strong> Activo relacionado</strong> </td>
 										<td style="width:200px;"><strong>Crítica</strong></td>
 									</tr>
