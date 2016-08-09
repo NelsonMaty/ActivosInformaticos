@@ -1,4 +1,4 @@
-<md-dialog aria-label="Editar Activo" ng-cloak style="width: 1000px; ">
+<md-content flex aria-label="Editar Activo" ng-cloak style="height:100%; overflow:hidden">
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
 
@@ -16,11 +16,11 @@
 	  </md-button>
 	</md-toolbar>
 
-	<div layout="column" flex id="content">
-		<md-content layout="column" flex class="md-padding">
+	<!-- <div flex="100" layout="column" id="content" style="height:87%;"> -->
+		<div layout="column" class="md-padding" style="" >
 
-				<md-tabs md-dynamic-height="" md-border-bottom="">
-						<md-tab label="Descripción">
+				<md-tabs md-dynamic-height="false"  md-border-bottom="" >
+						<md-tab label="Descripción" style="overflow: auto;">
 
 							<!-- <div style="overflow: auto;"> -->
 							<div >
@@ -291,9 +291,13 @@
 						</md-tab>
 					</md-tabs>
 
-		</md-content>
-	</div>
-	<md-dialog-actions layout="row" >
+		</div>
+	<!-- </div> -->
+<div layout="column" flex style="background-color:red;">
+	asfsdfsd
+</div>
+
+	<div layout="row" layout-align="end end">
 		<md-button ng-click="hide()" ng-show="!showVersion">
 			Aceptar
 		</md-button>
@@ -304,5 +308,5 @@
 			Volver
 		</md-button>
 
-	</md-dialog-actions>
-</md-dialog>
+	</div>
+</md-content>

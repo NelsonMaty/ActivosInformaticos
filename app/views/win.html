@@ -103,7 +103,7 @@
                   <div layout="row" layout-wrap layout-margin layout-align="start center" ng-if="!buscando" ng-cloak>
 
                     <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
-                    <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="clickAsset(asset, $index);  $event.stopPropagation();" ng-dblclick="goAsset($event, clicked_asset, clicked_index)">
+                    <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="clickAsset(asset, $index);  $event.stopPropagation();" ng-dblclick="goAsset(clicked_asset)">
                              <!--img src="images/nota.svg"/-->
                       <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-activo animated pulse': clickedIcon($index) }"  md-font-set="material-icons">description</md-icon>
                       <div style="text-align: center"> {{asset.name}} </div>
@@ -113,7 +113,7 @@
                 </md-content>
               </md-tab>
 
-              
+
               <!-- <md-tab label="Mapa">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Mapa de relaciones</h1>

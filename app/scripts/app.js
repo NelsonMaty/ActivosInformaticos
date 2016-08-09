@@ -14,43 +14,76 @@ angular
     'ngResource',
     'ngMaterial',
     'ngRoute',
+    'ui.router',
     'ngMessages',
     'formly',
     'formlyMaterialTemplate',
     'ng-mfb',
     'ngTable'
   ])
-  .config(function ($routeProvider, $httpProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl',
-        controllerAs: 'login'
-      })
-      .when('/admin', {
-        templateUrl: 'views/admin.html',
+  // .config(function ($routeProvider, $httpProvider) {
+  .config(function ($stateProvider, $urlRouterProvider) {
+    // For any unmatched url, redirect to /state1
+    $urlRouterProvider.otherwise("/user");
+    // Now set up the states
+    $stateProvider
+      .state('admin', {
+        url: "/admin",
+        templateUrl: "views/admin.html",
         controller: 'AppCtrl',
         controllerAs: 'admin'
       })
-      .when('/win', {
-        templateUrl: 'views/win.html',
+      // .state('state1.list', {
+      //   url: "/list",
+      //   templateUrl: "partials/state1.list.html",
+      //   controller: function($scope) {
+      //     $scope.items = ["A", "List", "Of", "Items"];
+      //   }
+      // })
+      .state('usuario', {
+        url: "/user",
+        templateUrl: "views/win.html",
         controller: 'AppController',
         controllerAs: 'win'
       })
-      .when('/main', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+      .state('activo', {
+        url: "/activo",
+        templateUrl: "views/show_asset.tmpl.html",
+        controller: 'ShowAssetCtrl',
+        params: {
+          asset: {}
+        }
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
-      .otherwise({
-        redirectTo: '/win'
-      });
-
+  //   $routeProvider
+  //     .when('/', {
+  //       templateUrl: 'views/login.html',
+  //       controller: 'LoginCtrl',
+  //       controllerAs: 'login'
+  //     })
+  //     .when('/admin', {
+  //       templateUrl: 'views/admin.html',
+  //       controller: 'AppCtrl',
+  //       controllerAs: 'admin'
+  //     })
+  //     .when('/win', {
+  //       templateUrl: 'views/win.html',
+  //       controller: 'AppController',
+  //       controllerAs: 'win'
+  //     })
+  //     .when('/main', {
+  //       templateUrl: 'views/main.html',
+  //       controller: 'MainCtrl',
+  //       controllerAs: 'main'
+  //     })
+  //     .when('/about', {
+  //       templateUrl: 'views/about.html',
+  //       controller: 'AboutCtrl',
+  //       controllerAs: 'about'
+  //     })
+  //     .otherwise({
+  //       redirectTo: '/win'
+  //     });
+  //
   })
 
 
