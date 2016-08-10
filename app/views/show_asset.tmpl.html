@@ -1,13 +1,15 @@
-<md-content flex aria-label="Editar Activo" ng-cloak style="height:100%; overflow:hidden">
+<div layout="column" aria-label="Editar Activo" style="height:100%; overflow:hidden">
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
-
 	    <h1> {{asset.name}} - Tipo: {{asset_type.name}} &nbsp; </h1>
-
 	  </div>
+		<md-button class="md-icon-button" style="top: 7px;" ng-click="goHome()">
+      <md-tooltip md-direction="bottom"> Página principal </md-tooltip>
+	    <md-icon md-font-set="material-icons" aria-label="Edit asset">home</md-icon>
+	  </md-button>
 
-      <md-button class="md-icon-button" style="top: 7px;" ng-click="editAsset(ev,asset,indice,indexBusqueda)">
-      	<md-tooltip md-direction="bottom"> Editar </md-tooltip>
+    <md-button class="md-icon-button" style="top: 7px;" ng-click="editAsset(ev,asset,indice,indexBusqueda)">
+      <md-tooltip md-direction="bottom"> Editar </md-tooltip>
 	    <md-icon md-font-set="material-icons" aria-label="Edit asset">edit</md-icon>
 	  </md-button>
 
@@ -16,44 +18,39 @@
 	  </md-button>
 	</md-toolbar>
 
-	<!-- <div flex="100" layout="column" id="content" style="height:87%;"> -->
-		<div layout="column" class="md-padding" style="" >
-
-				<md-tabs md-dynamic-height="false"  md-border-bottom="" >
+	<div layout="column" flex id="content" >
+		<md-content layout="column" class="md-padding" style="" flex flex="100">
+			<md-content layout="column" flex="100">
+				<md-tabs layout="column" flex="100"  md-border-bottom="" >
 						<md-tab label="Descripción" style="overflow: auto;">
 
-							<!-- <div style="overflow: auto;"> -->
-							<div >
+							<md-content class="md-padding" >
 								<h1 class="md-display-2" style="padding-left: 20px;">Comentarios</h1>
-							    <p style="padding-left: 20px; padding-bottom: 30px;"> {{asset.comment}} </p>
-							    <md-divider ></md-divider>
-							    <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
+							  <p style="padding-left: 20px; padding-bottom: 30px;"> {{asset.comment}} </p>
+							  <md-divider ></md-divider>
+							  <h1 class="md-display-2" style="padding-left: 20px;">Atributos</h1>
 
-							    <md-list-item ng-repeat="key in keys" style="height:60px;">
-							    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
-							        <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong>
-							        <p style="padding-left: 20px; padding-bottom: 20px;">{{asset[key]}} </p>
+							  <md-list-item ng-repeat="key in keys" style="height:60px;">
+							  	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">settings_input_component</md-icon>
+							    <strong style="padding-left: 20px; padding-bottom: 20px;"> {{key}}: </strong>
+							    <p style="padding-left: 20px; padding-bottom: 20px;">{{asset[key]}} </p>
 
-							    </md-list-item>
-									<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
-							    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">panorama_fish_eye</md-icon>
-							    	<strong style="padding-left: 20px;padding-top: 2px;">Estado actual: </strong>
-							    	<p ng-class="{'estado-final': esFinal }" class="estado-actual" style="padding-left: 20px; padding-top: 2px;">{{asset.estadoActual}}</p>
-							    </div>
+							  </md-list-item>
+								<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
+						    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">panorama_fish_eye</md-icon>
+						    	<strong style="padding-left: 20px;padding-top: 2px;">Estado actual: </strong>
+						    	<p ng-class="{'estado-final': esFinal }" class="estado-actual" style="padding-left: 20px; padding-top: 2px;">{{asset.estadoActual}}</p>
+						    </div>
 
-							    <div layout="column" ng-repeat="lista in listas" style=" overflow: auto;">
-
-									    <md-divider></md-divider>
-
-									    	<h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>
-
-									    <div style="min-height: 100px;">
-											<md-list-item ng-repeat="element in lista.elements" style="height:60px;" >
-											    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">list</md-icon>
-											        <p style="padding-left: 20px; padding-bottom: 20px;">{{element.content}} </p>
-											</md-list-item>
-
-										</div>
+						    <div layout="column" ng-repeat="lista in listas" style=" overflow: auto;">
+							    <md-divider></md-divider>
+						    	<h2 class="md-display-2" style="padding-left: 20px;">Lista: {{lista.name}} </h2>
+							    <div style="min-height: 100px;">
+										<md-list-item ng-repeat="element in lista.elements" style="height:60px;" >
+								    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px;">list</md-icon>
+							        <p style="padding-left: 20px; padding-bottom: 20px;">{{element.content}} </p>
+										</md-list-item>
+									</div>
 								</div>
 
 								<md-divider></md-divider>
@@ -65,29 +62,26 @@
 								<md-divider></md-divider>
 								<h1 class="md-display-2" style="padding-left: 20px;">Contacto</h1>
 								<div layout="row" style="padding-bottom: 30px; padding-top: 14px;">
-								    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">person</md-icon>
-								    <strong style="padding-left: 20px; padding-top: 4px;">Nombre: </strong>
-								    <p style="padding-left: 20px; padding-top: 4px;"> {{asset.stakeholders.name}}</p>
-							    </div>
-							    <div layout="row" style="padding-bottom: 30px;">
-								    <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">email</md-icon>
-								    <strong style="padding-left: 20px; padding-top: 4px;">Email: </strong>
-								    <p style="padding-left: 20px; padding-top: 4px;"> {{asset.stakeholders.email}}</p>
-							    </div>
+								  <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">person</md-icon>
+								  <strong style="padding-left: 20px; padding-top: 4px;">Nombre: </strong>
+								  <p style="padding-left: 20px; padding-top: 4px;"> {{asset.stakeholders.name}}</p>
+							  </div>
+							  <div layout="row" style="padding-bottom: 30px;">
+								  <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 36px; padding-right: 20px; ">email</md-icon>
+								  <strong style="padding-left: 20px; padding-top: 4px;">Email: </strong>
+								  <p style="padding-left: 20px; padding-top: 4px;"> {{asset.stakeholders.email}}</p>
+							  </div>
 
 								<md-divider></md-divider>
 								<h1 class="md-display-2" style="padding-left: 20px;">Informacion Adjunta</h1>
 
 								<md-list-item ng-repeat="link in asset.attached" style="height:60px;" >
-								    <!--{{ d.label}}-->
-								      	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px; margin-left: 0px;">attach_file</md-icon>
-								        <a href="{{link}}" style="padding-left: 20px; padding-bottom: 20px;">{{link}} </a>
-
+								  <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px; margin-left: 0px;">attach_file</md-icon>
+						      <a href="{{link}}" style="padding-left: 20px; padding-bottom: 20px;">{{link}} </a>
 								</md-list-item>
 
 
-
-							</div>
+							</md-content>
 
 						</md-tab>
 						<md-tab label="Mapa">
@@ -118,65 +112,64 @@
 							</md-content>
 						</md-tab>
 						<md-tab label="Relaciones">
-							<!-- <h1 class="md-display-2" style="padding-left: 20px;" ng-show="!direccionRelaciones">Relaciones salientes</h1>
-							<h1 class="md-display-2" style="padding-left: 20px;" ng-show="direccionRelaciones">Relaciones entrantes</h1> -->
-							<div layout="row" layout-align="space-between center" style="padding-top:0px;">
-								<h1 class="md-display-2" ng-show="direccionRelaciones=='Todas'">Todas las relaciones</h1>
-								<h1 class="md-display-2" ng-show="direccionRelaciones=='Salientes'">Relaciones salientes</h1>
-								<h1 class="md-display-2" ng-show="direccionRelaciones=='Entrantes'">Relaciones entrantes</h1>
-								<md-input-container style="margin-bottom:0px; left:20px; top:16px; padding-right:36px; ">
-								<!-- <md-switch ng-model="direccionRelaciones">Relaciones salientes/entrantes</md-switch> -->
-									<label>Filtro de relaciones</label>
-									<md-icon md-font-set="material-icons" >filter_list</md-icon>
+							<!-- <md-content class="md-padding" flex="100" style=height:100%;> -->
+								<div layout="row" layout-align="space-between center" style="padding-top:0px;">
+									<h1 class="md-display-2" ng-show="direccionRelaciones=='Todas'">Todas las relaciones</h1>
+									<h1 class="md-display-2" ng-show="direccionRelaciones=='Salientes'">Relaciones salientes</h1>
+									<h1 class="md-display-2" ng-show="direccionRelaciones=='Entrantes'">Relaciones entrantes</h1>
+									<md-input-container style="margin-bottom:0px; top:16px; padding-right:36px; ">
+									<!-- <md-switch ng-model="direccionRelaciones">Relaciones salientes/entrantes</md-switch> -->
+										<label>Filtro de relaciones</label>
+										<md-icon md-font-set="material-icons" >filter_list</md-icon>
 
-									<md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" >
-										<md-option ng-repeat="filtro in filtros" value="{{filtro}}" >
-												{{filtro}}
-										</md-option>
-									</md-select>
-								</md-input-container>
-							</div>
+										<md-select ng-model="direccionRelaciones" aria-label="filtro relaciones" >
+											<md-option ng-repeat="filtro in filtros" value="{{filtro}}" >
+													{{filtro}}
+											</md-option>
+										</md-select>
+									</md-input-container>
+								</div>
 							<!-- <table ng-table="tableParams" class="table" show-filter="true" style="padding-top:20px;"> -->
 
-							<div style="padding-top:20px; padding-bottom:20px; " ng-show="direccionRelaciones=='Salientes'||direccionRelaciones=='Todas'" layout="row" flex layout-align="center center">
-								<table>
-									<tr>
-										<td style="width:200px;"> <strong> Relación saliente<strong> </td>
-										<td style="width:200px;"> <strong> Activo relacionado</strong> </td>
-										<td style="width:200px;"><strong>Crítica</strong></td>
-									</tr>
-							    <tr ng-repeat="relation in relationsTree.relations">
-							        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="goRelation($event,relationsOut[$index],asset._id,$index)">
-							            <a>{{relation.outLabel}}</a></td>
-							        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="callGoAsset($event,relation.relatedAsset)">
-							            <a>{{relation.relatedAsset.name}}</a></td>
-											<td  style="width:200px;" ng-class="{'critico': criticosOut[$index].valor }">
-									        {{criticosOut[$index].texto}}</td>
-											<!-- <td title="'Crítico'" filter="{ isCritical: 'bool'}" sortable="'isCritical'">
-									        {{user.age}}</td> -->
-							    </tr>
-								</table>
-							</div>
-							<div style="padding-top:20px; " ng-show="direccionRelaciones=='Entrantes'||direccionRelaciones=='Todas'" layout="row" flex layout-align="center center">
-								<table>
-									<tr>
-										<td style="width:200px;"> <strong> Relación entrante<strong> </td>
-										<td style="width:200px;"> <strong> Activo relacionado</strong> </td>
-										<td style="width:200px;"><strong>Crítica</strong></td>
-									</tr>
-							    <tr ng-repeat="relation in relationsTree.incomingRelations">
-							        <td  style="width:200px; cursor:pointer; cursor:hand" ng-click="goRelation($event,relationsIn[$index],asset._id,$index)">
-							            <a>{{relation.inLabel}}</a></td>
-							        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="callGoAsset($event,relation.relatedAsset)">
-							            <a>{{relation.relatedAsset.name}}</a></td>
-											<td  style="width:200px;"  ng-class="{'critico': criticosIn[$index].valor}">
-									        {{criticosIn[$index].texto}}</td>
-											<!-- <td title="'Crítico'" filter="{ isCritical: 'bool'}" sortable="'isCritical'">
-									        {{user.age}}</td> -->
-							    </tr>
-								</table>
-							</div>
-
+								<div style="padding-top:40px; " ng-show="direccionRelaciones=='Salientes'||direccionRelaciones=='Todas'" layout="row" flex layout-align="center center">
+									<table>
+										<tr>
+											<td style="width:200px;"> <strong> Relación saliente<strong> </td>
+											<td style="width:200px;"> <strong> Activo relacionado</strong> </td>
+											<td style="width:200px;"><strong>Crítica</strong></td>
+										</tr>
+								    <tr ng-repeat="relation in relationsTree.relations">
+								        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="goRelation($event,relationsOut[$index],asset._id,$index)">
+								            <a>{{relation.outLabel}}</a></td>
+								        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="callGoAsset($event,relation.relatedAsset)">
+								            <a>{{relation.relatedAsset.name}}</a></td>
+												<td  style="width:200px;" ng-class="{'critico': criticosOut[$index].valor }">
+										        {{criticosOut[$index].texto}}</td>
+												<!-- <td title="'Crítico'" filter="{ isCritical: 'bool'}" sortable="'isCritical'">
+										        {{user.age}}</td> -->
+								    </tr>
+									</table>
+								</div>
+								<div style="padding-top:40px; " ng-show="direccionRelaciones=='Entrantes'||direccionRelaciones=='Todas'" layout="row" flex layout-align="center center">
+									<table>
+										<tr>
+											<td style="width:200px;"> <strong> Relación entrante<strong> </td>
+											<td style="width:200px;"> <strong> Activo relacionado</strong> </td>
+											<td style="width:200px;"><strong>Crítica</strong></td>
+										</tr>
+								    <tr ng-repeat="relation in relationsTree.incomingRelations">
+								        <td  style="width:200px; cursor:pointer; cursor:hand" ng-click="goRelation($event,relationsIn[$index],asset._id,$index)">
+								            <a>{{relation.inLabel}}</a></td>
+								        <td  style="width:200px;cursor:pointer; cursor: hand" ng-click="callGoAsset($event,relation.relatedAsset)">
+								            <a>{{relation.relatedAsset.name}}</a></td>
+												<td  style="width:200px;"  ng-class="{'critico': criticosIn[$index].valor}">
+										        {{criticosIn[$index].texto}}</td>
+												<!-- <td title="'Crítico'" filter="{ isCritical: 'bool'}" sortable="'isCritical'">
+										        {{user.age}}</td> -->
+								    </tr>
+									</table>
+								</div>
+							<!-- </md-content> -->
 						</md-tab>
 						<md-tab label="Ciclo de vida">
 							<md-content class="md-padding">
@@ -290,23 +283,19 @@
 							</md-content>
 						</md-tab>
 					</md-tabs>
+			</md-content>
+			<div layout="row" layout-align="end end">
+				<md-button ng-click="goHome()" ng-show="!showVersion">
+					Aceptar
+				</md-button>
+				<md-button ng-click="confirmRestoreVersion($event, sel_version.asset)" ng-show="showVersion">
+					Restaurar
+				</md-button>
+				<md-button ng-click="closeVersion()" ng-show="showVersion">
+					Volver
+				</md-button>
 
-		</div>
-	<!-- </div> -->
-<div layout="column" flex style="background-color:red;">
-	asfsdfsd
-</div>
-
-	<div layout="row" layout-align="end end">
-		<md-button ng-click="hide()" ng-show="!showVersion">
-			Aceptar
-		</md-button>
-		<md-button ng-click="confirmRestoreVersion($event, sel_version.asset)" ng-show="showVersion">
-			Restaurar
-		</md-button>
-		<md-button ng-click="closeVersion()" ng-show="showVersion">
-			Volver
-		</md-button>
-
+			</div>
+		</md-content>
 	</div>
-</md-content>
+</div>

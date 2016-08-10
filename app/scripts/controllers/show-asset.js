@@ -48,6 +48,10 @@ angular.module('activosInformaticosApp')
       $scope.keys.splice($scope.a,1);
     }
 
+    $scope.goHome = function() {
+      $state.go('usuario');
+    };
+
     $scope.searchNode = function(svgAnterior) {
         //find the node
         if (svgAnterior) {
@@ -75,8 +79,8 @@ angular.module('activosInformaticosApp')
       //console.log(indice);
       //Constants for the SVG
       $scope.svgExist = true;
-      var width = 800,
-          height = 600;
+      var width = 1024,
+          height = 800;
 
       //Set up the colour scale
       var color = d3.scale.category20();
@@ -494,9 +498,6 @@ angular.module('activosInformaticosApp')
         }, asset, $mdDialog, $mdToast);
     };
 
-    $scope.hide = function() {
-      $mdDialog.hide();
-    };
     $scope.cancel = function() {
       $mdDialog.cancel();
     };

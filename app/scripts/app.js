@@ -54,6 +54,14 @@ angular
           asset: {}
         }
       })
+      .state('editActivo', {
+        url: "/edicionActivo",
+        templateUrl: "views/edit_asset.tmpl.html",
+        controller: 'EditAssetCtrl',
+        params: {
+          asset: {}
+        }
+      })
   //   $routeProvider
   //     .when('/', {
   //       templateUrl: 'views/login.html',
