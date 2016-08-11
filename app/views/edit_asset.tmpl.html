@@ -1,22 +1,24 @@
-<md-dialog aria-label="Editar Activo" ng-cloak style="width: 1020px; ">
+<!-- <md-dialog aria-label="Editar Activo" ng-cloak style="width: 1020px; "> -->
+<div style="height:100%; " ng-cloak aria-label="Editar Activo" layout="column">
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
 
-	    <h1> {{update_asset.name}} &nbsp; </h1>
+	    <h1> Edición: {{update_asset.name}} &nbsp; </h1>
 
 	  </div>
-
-	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
-	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+		<md-button class="md-icon-button" style="top: 7px;" ng-click="goHome()">
+      <md-tooltip md-direction="bottom"> Página principal </md-tooltip>
+	    <md-icon md-font-set="material-icons" aria-label="Edit asset">home</md-icon>
+	  </md-button>
+	  <md-button class="md-icon-button" style="top: 7px;" ng-click="goBack()">
+	    <md-icon md-font-set="material-icons" aria-label="Close dialog">reply</md-icon>
 	  </md-button>
 	</md-toolbar>
-	<form name="editar">
-
-			<div ng-show="etapa == 1">
-				<div style="overflow: auto">
+	<form name="editar" layout="column" flex>
+		<md-content layout="column" class="md-padding" flex>
+			<div ng-show="etapa == 1" layout="column" flex>
+				<div style="overflow: auto"  layout="column" flex>
 					<formly-form model="update_asset" fields="fields" form="formly_form">
-
-
 
 						<div layout="column" ng-repeat="lista in listas" style="min-height: 82px;">
 						    <!--{{ d.label}}-->
@@ -98,27 +100,29 @@
 					</formly-form>
 				</div>
 
-				<md-dialog-actions layout="row">
+				<!-- <md-dialog-actions layout="row"> -->
+				<div layout="row" layout-align="end center">
 					<!-- <md-button ng-click="updateAsset(update_asset)" ng-disabled="formly_form.$invalid">
 					  Aplicar
 					</md-button> -->
 					<md-button ng-click="nextSelect()" ng-disabled="formly_form.$invalid">
 					  Siguiente
 					</md-button>
-					<md-button ng-click="cancel()" style="margin-right:20px;">
+					<md-button ng-click="goBack()" style="margin-right:20px;">
 					  Cancelar
 					</md-button>
-					<md-button class="md-icon-button" ng-click="callDelete(indice)">
+					<md-button class="md-icon-button" ng-click="deleteAsset($event)">
 						<md-tooltip md-direction="bottom"> Borrar </md-tooltip>
 					    <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
 					</md-button>
-				</md-dialog-actions>
+				<!-- </md-dialog-actions> -->
+				</div>
 			</div>
 
 			<div flex="grow" layout="column" ng-show="etapa == 2">
 				<h1 class="md-display-2" style="padding-left:20px;">Selección de estado actual</h1>
 
-				<div layout="row">
+				<div layout="row" flex=100>
 					<div layout="column"  style="padding-top: 18px; margin-left: 20px; min-width: 350px;">
 
 
@@ -188,7 +192,7 @@
 						<div class="" flex layout="row" layout-align="center center">
 								<img data-ng-src="data:image/png;base64,{{actualStateGraph.graph}}"> </img>
 						</div>
-						<md-dialog-actions layout="row">
+						<!-- <md-dialog-actions layout="row">
 							<span flex></span>
 							<md-button ng-click="prevSelect()">
 								Atras
@@ -206,9 +210,29 @@
 							<md-tooltip md-direction="bottom"> Borrar </md-tooltip>
 								<md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
 							</md-button>
-						</md-dialog-actions>
+						</md-dialog-actions> -->
 					</div>
 				</div>
+				<div layout="row" layout-align="end center" >
+					<span flex></span>
+					<md-button ng-click="prevSelect()">
+						Atras
+					</md-button>
+					<md-button ng-click="updateAsset(update_asset)" ng-disabled="editar.$invalid && asset_type.lifeCycle.length != 1 && !asset_type.lifeCycle[indexEstadoActual].isFinal" ng-hide="siguienteEstado == estadoFinal">
+						Aplicar
+					</md-button>
+					<md-button ng-click="confirmFinalAsset($event,update_asset)" ng-disabled="editar.$invalid" ng-show="siguienteEstado == estadoFinal">
+						Aplicar
+					</md-button>
+					<md-button ng-click="cancel()" style="margin-right:20px;">
+						Cancelar
+					</md-button>
+					<md-button class="md-icon-button" ng-click="deleteAsset($event)">
+					<md-tooltip md-direction="bottom"> Borrar </md-tooltip>
+						<md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
+					</md-button>
+				</div>
 			</div>
+		</md-content>
 	</form>
-</md-dialog>
+</div>

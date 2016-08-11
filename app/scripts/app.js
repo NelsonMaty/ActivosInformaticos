@@ -24,11 +24,11 @@ angular
   // .config(function ($routeProvider, $httpProvider) {
   .config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise("/user");
+    $urlRouterProvider.otherwise("/usuario");
     // Now set up the states
     $stateProvider
       .state('admin', {
-        url: "/admin",
+        url: "/administrador",
         templateUrl: "views/admin.html",
         controller: 'AppCtrl',
         controllerAs: 'admin'
@@ -41,7 +41,7 @@ angular
       //   }
       // })
       .state('usuario', {
-        url: "/user",
+        url: "/usuario",
         templateUrl: "views/win.html",
         controller: 'AppController',
         controllerAs: 'win'
@@ -100,7 +100,7 @@ angular
     var urlWS = 'http://localhost:10010/'
     var dataFactory = {};
 
-    //---------Busqueda------//
+    //---------Busqueda--------//
 
       dataFactory.searchString = function(string, callback) {
 
@@ -533,16 +533,13 @@ angular
 
       };
 
-      dataFactory.deleteAsset = function(asset,$mdDialog,$mdToast){
+      dataFactory.deleteAsset = function(asset,callback,$mdDialog,$mdToast){
         //console.log(person);
 
         $http({
           method:"delete",
           url:urlWS + 'assets/' + asset._id,
-          /*data: {
-              "name":user.name,
-              "comment":user.comment
-          }*/
+
 
         })
           .success(function(data){
@@ -554,8 +551,8 @@ angular
                 .position('top right')
                 .hideDelay(3000)
             );
-
-            //callback();
+            //$state.go('usuario');
+            callback();
         })
           .error(function(err){
             console.log(err);

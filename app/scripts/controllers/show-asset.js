@@ -52,6 +52,10 @@ angular.module('activosInformaticosApp')
       $state.go('usuario');
     };
 
+    $scope.goEditAsset = function() {
+      $state.go('editActivo',{asset: $scope.asset});
+    }
+
     $scope.searchNode = function(svgAnterior) {
         //find the node
         if (svgAnterior) {
@@ -498,7 +502,7 @@ angular.module('activosInformaticosApp')
         }, asset, $mdDialog, $mdToast);
     };
 
-    $scope.cancel = function() {
+    $scope.goBack = function() {
       $mdDialog.cancel();
     };
 
@@ -552,6 +556,5 @@ angular.module('activosInformaticosApp')
 
     var svg = null;
     $scope.svgExist = false;
-
-     $scope.goToMap($scope.asset,null);
+    $scope.goToMap($scope.asset,null);
 });
