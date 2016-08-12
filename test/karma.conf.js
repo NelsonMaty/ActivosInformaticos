@@ -42,6 +42,7 @@ module.exports = function(config) {
       'bower_components/jquery-ui/jquery-ui.js',
       'bower_components/ng-table/dist/ng-table.min.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/ui-router-extras/release/ct-ui-router-extras.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

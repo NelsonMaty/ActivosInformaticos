@@ -1,10 +1,10 @@
 angular.module('activosInformaticosApp')
-  .controller('ShowAssetCtrl', function ($stateParams, $scope, $mdDialog, $mdMedia, $mdToast, $state, dataFactory) {
+  .controller('ShowAssetCtrl', function ($stateParams,$previousState, $scope, $mdDialog, $mdMedia, $mdToast, $state, dataFactory) {
     $scope.asset = $stateParams.asset;
     //console.log($stateParams);
     $scope.assetVersions = [];
     // $scope.editAsset = editAsset;
-    // $scope.goRelation = goRelation;
+    //$scope.goRelation = goRelation;
     // $scope.goToMap = goToMap;
     // $scope.searchNode = searchNode;
     $scope.profundidad = 0;
@@ -54,7 +54,12 @@ angular.module('activosInformaticosApp')
 
     $scope.goEditAsset = function() {
       $state.go('editActivo',{asset: $scope.asset});
+      $previousState.set('verActivo','activo',{asset: $scope.asset});
     }
+
+    $scope.goRelation = function(ev,relation,assetId,indice) {
+
+    };
 
     $scope.searchNode = function(svgAnterior) {
         //find the node
@@ -190,7 +195,10 @@ angular.module('activosInformaticosApp')
             asset = response;
             var ev = {};
 
-            angular.element(document.getElementById('win')).scope().goAsset({},asset,indice);
+            //angular.element(document.getElementById('win')).scope().goAsset({},asset,indice);
+            // $state.go()
+            $state.go('activo',{asset: asset});
+            $previousState.set('Activo','activo',{asset: $scope.asset});
           });
         } else  {
           for (i=0;i<graph.nodes.length;i++) {
@@ -198,10 +206,11 @@ angular.module('activosInformaticosApp')
               dataFactory.getAnAsset(graph.nodes[i].id, function (response) {
                 asset = response;
                 var ev = {};
-
-                for (i=0; i<$scope.myassets.length;i++) {
-                  if ($scope.myassets[i]._id == asset._id) angular.element(document.getElementById('win')).scope().goAsset({},asset,i);
-                }
+                $state.go('activo',{asset: asset});
+                $previousState.set('Activo','activo',{asset: $scope.asset});
+                // for (i=0; i<$scope.myassets.length;i++) {
+                //   if ($scope.myassets[i]._id == asset._id) angular.element(document.getElementById('win')).scope().goAsset({},asset,i);
+                // }
                 // angular.element(document.getElementById('win')).scope().goAsset({},asset,indice);
               });
             }
@@ -503,7 +512,17 @@ angular.module('activosInformaticosApp')
     };
 
     $scope.goBack = function() {
-      $mdDialog.cancel();
+      // $mdDialog.cancel();
+      //$previousState.go();
+      var previous = $previousState.get();
+      // console.log(previous);
+      if (previous && previous.state.name == 'activo') {
+        $previousState.go();
+        $previousState.forget();
+      } else {
+        $state.go('usuario');
+      }
+
     };
 
     dataFactory.getAssetVersions($scope.asset._id, function (response) {
@@ -517,13 +536,19 @@ angular.module('activosInformaticosApp')
     });
 
     $scope.callGoAsset = function (event, relatedAsset) {
-      for (i=0;i<$scope.myassets.length;i++) {
-        if ($scope.myassets[i]._id == relatedAsset._id) {
+      // console.log(relatedAsset);
+      // for (i=0;i<$scope.myassets.length;i++) {
+      //   if ($scope.myassets[i]._id == relatedAsset._id) {
+      //
+      //     var data = { evento:event, activo:$scope.myassets[i], indice: i }
+      //     $mdDialog.hide(data);
+      //   }
+      // }
+      dataFactory.getAnAsset(relatedAsset._id, function (response) {
+        $state.go('activo',{asset: response});
+        $previousState.set('Activo','activo',{asset: $scope.asset});
+      })
 
-          var data = { evento:event, activo:$scope.myassets[i], indice: i }
-          $mdDialog.hide(data);
-        }
-      }
     }
 
     dataFactory.getAssetRelations($scope.asset._id, function (response) {

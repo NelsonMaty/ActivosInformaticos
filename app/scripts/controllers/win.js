@@ -1,6 +1,6 @@
 
 angular.module('activosInformaticosApp')
-  .controller('AppController', function ($scope, $mdDialog, $mdSidenav, $timeout, $location, $mdMedia, $mdToast, $state, dataFactory, NgTableParams) {
+  .controller('AppController', function ($scope, $mdDialog, $mdSidenav, $timeout, $location, $mdMedia, $mdToast, $state, $previousState, dataFactory, NgTableParams) {
 
 
     $scope.toggleSidenav = function(menuId) {
@@ -334,7 +334,7 @@ angular.module('activosInformaticosApp')
       $scope.goAsset = function(asset) {
         //console.log(asset);
         $state.go('activo', {asset: asset});
-
+        $previousState.set('home','usuario');
         //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         //console.log(asset);
         // $mdDialog.show({
@@ -370,6 +370,7 @@ angular.module('activosInformaticosApp')
       // $scope.editAsset = function(ev,asset,indice,indexBusqueda) {
       $scope.editAsset = function(asset) {
         $state.go('editActivo', {asset: asset});
+        $previousState.set('home','usuario');
         // var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
         //console.log(asset);
         // $mdDialog.show({
@@ -417,29 +418,29 @@ angular.module('activosInformaticosApp')
 
     //-----------Relations-----------//
 
-      $scope.goRelation = function(ev,relation,assetId,indice) {
-        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-
-        $mdDialog.show({
-          locals: {
-            relation: relation,
-            sourceAssetId: assetId,
-            indice: indice,
-            editRelation: $scope.editRelation
-
-          },
-          controller: ShowRelationCtrl,
-          templateUrl: '../../views/show_relation.tmpl.html',
-          parent: angular.element(document.body),
-          targetEvent: ev,
-          clickOutsideToClose:false,
-          fullscreen: useFullScreen
-        })
-        .then(function() {
-
-
-        });
-      };
+      // $scope.goRelation = function(ev,relation,assetId,indice) {
+      //   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      //
+      //   $mdDialog.show({
+      //     locals: {
+      //       relation: relation,
+      //       sourceAssetId: assetId,
+      //       indice: indice,
+      //       editRelation: $scope.editRelation
+      //
+      //     },
+      //     controller: ShowRelationCtrl,
+      //     templateUrl: '../../views/show_relation.tmpl.html',
+      //     parent: angular.element(document.body),
+      //     targetEvent: ev,
+      //     clickOutsideToClose:false,
+      //     fullscreen: useFullScreen
+      //   })
+      //   .then(function() {
+      //
+      //
+      //   });
+      // };
 
       $scope.addRelation = function(ev,etapa,asset) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;

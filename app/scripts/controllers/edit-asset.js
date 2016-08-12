@@ -1,5 +1,5 @@
 angular.module('activosInformaticosApp')
-  .controller('EditAssetCtrl', function ($stateParams, $scope, $mdDialog, $mdMedia, $mdToast, $state, dataFactory) {
+  .controller('EditAssetCtrl', function ($stateParams,$previousState, $scope, $mdDialog, $mdMedia, $mdToast, $state, dataFactory) {
     // $scope.asset = $stateParams.asset;
 
     $scope.update_asset = $.extend(true,{},$stateParams.asset);
@@ -294,10 +294,6 @@ angular.module('activosInformaticosApp')
         });
     };
 
-    // $scope.callDelete = function(asset) {
-    //   deleteAsset(asset);
-    // }
-
     $scope.deleteAsset = function(ev) {
       var confirm = $mdDialog.confirm()
           .title('¿Está seguro que desea borrar este activo?')
@@ -348,5 +344,9 @@ angular.module('activosInformaticosApp')
 
     $scope.goBack = function() {
       //$mdDialog.cancel();
+      //$previousState.forget();
+      //$previousState.go();
+      $state.go('activo',{asset: $stateParams.asset});
+
     };
 });
