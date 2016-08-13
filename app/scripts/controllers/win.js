@@ -7,6 +7,7 @@ angular.module('activosInformaticosApp')
     	//$mdSidenav(menuId).toggle();
     };
     //$scope.profundidad = null;
+    var isSidenavOpen = false;
     $scope.assettypes = {};
     $scope.clicked_asset = {};
     $scope.clicked_relation = {};
@@ -69,7 +70,7 @@ angular.module('activosInformaticosApp')
     }
 
     $scope.cerrarAvanzado = function () {
-      $scope.busquedaAvanzada = false;
+      isSidenavOpen = false;
       $mdSidenav('right').close()
         .then(function () {
         });
@@ -91,6 +92,8 @@ angular.module('activosInformaticosApp')
       $scope.myassets = response;
 
     });
+
+
 
     // $scope.searchRelations = function(id,nombreActivo) {
     //   $scope.sourceAssetId = id;
@@ -184,19 +187,22 @@ angular.module('activosInformaticosApp')
     $scope.clickAsset = function(asset,indice) {
       $scope.clicked_asset = asset;
       $scope.clicked_index = indice;
+      if (!$scope.clicked && !isSidenavOpen) {
+        $scope.toggleRight();
+        isSidenavOpen = true;
+      }
       $scope.clicked = true;
     };
-
 
     $scope.clickedIcon= function(indice) {
       return($scope.clicked_index == indice);
     };
 
-
-
     $scope.clickClose = function () {
       if ($scope.clicked) {
         $scope.clicked_index = null;
+        //$scope.toggleRight();
+        // if (isSidenavOpen) $scope.cerrarAvanzado();
         animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
       }
 
