@@ -71,57 +71,95 @@
           <md-content layout="column" flex="100">
             <md-tabs md-border-bottom="" layout="column" flex="100">
 
-              <md-tab label="Activos">
-                <md-sidenav layout="column" class="md-sidenav-right md-whiteframe-z2" md-component-id="right" >
-                  <md-toolbar  layout="row">
-                    <div class="md-toolbar-tools" >
-                      <h1 >Detalles</h1>
-                    </div>
-                    <md-button ng-click="cerrarAvanzado()" class="md-icon-button" style="top: 10px;">
-                      <md-icon md-font-set="material-icons" md-menu-align-target="" >close</md-icon>
-                    </md-button>
+              <md-tab label="Activos" style="overflow: auto;" flex="100">
 
-                  </md-toolbar>
-                  <md-button class="md-accent">Mis activos</md-button>
-                  <md-button class="md-accent">Compartidos</md-button>
-                </md-sidenav>
-                <md-content class="md-padding">
+                <md-content class="md-padding" flex="100" layout="column" layout-align="space-around">
 
-                  <div class="" layout="row" layout-align="center center ">
+                  <!-- <div layout="row"> -->
+                    <div class="" layout="row" layout-align="center center ">
 
-                    <div layout="row" >
-                      <md-input-container class=" md-block" style="width: 400px;">
-                        <md-icon style="bottom:28px;" md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
-                        <input ng-model="buscadoString" type="text" placeholder="Ingrese palabra a buscar" ng-disabled="busquedaAvanzada">
-                      </md-input-container>
-                      <div class="">
-                        <md-button ng-click="busqueda(buscadoString,false)">
-                          Buscar
-                        </md-button>
-                        <md-button ng-click="showAdvSearch($event)">
-                          Avanzada
-                        </md-button>
+                      <div layout="row" >
+                        <md-input-container class=" md-block" style="width: 400px;">
+                          <md-icon style="bottom:28px;" md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
+                          <input ng-model="buscadoString" type="text" placeholder="Ingrese palabra a buscar" ng-disabled="busquedaAvanzada">
+                        </md-input-container>
+                        <div class="">
+                          <md-button ng-click="busqueda(buscadoString,false)">
+                            Buscar
+                          </md-button>
+                          <md-button ng-click="showAdvSearch($event)">
+                            Avanzada
+                          </md-button>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div layout="row" layout-sm="column" layout-align="space-around" ng-if="buscando" >
-                    <md-progress-circular md-mode="indeterminate" md-diameter="106"></md-progress-circular>
-                  </div>
-
-                  <p class="md-block" ng-if="myassets.length==0" style="margin-top:20px; margin-bottom:20px; padding-left:35px; padding-top:20px;"> No se encontraron resultados </p>
-
-                  <div layout="row" layout-wrap layout-margin layout-align="start center" ng-if="!buscando" ng-cloak>
-
-                    <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
-                    <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="clickAsset(asset, $index);  $event.stopPropagation();" ng-dblclick="goAsset(clicked_asset)">
-                             <!--img src="images/nota.svg"/-->
-                      <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-activo animated pulse': clickedIcon($index) }"  md-font-set="material-icons">description</md-icon>
-                      <div style="text-align: center"> {{asset.name}} </div>
+                    <div layout="row" layout-sm="column" layout-align="space-around" ng-if="buscando" >
+                      <md-progress-circular md-mode="indeterminate" md-diameter="106"></md-progress-circular>
                     </div>
-                  </div>
+
+                    <p class="md-block" ng-if="myassets.length==0" style="margin-top:20px; margin-bottom:20px; padding-left:35px; padding-top:20px;"> No se encontraron resultados </p>
+
+                    <div layout="row" flex="100" layout-wrap layout-margin layout-align="start center" ng-if="!buscando" ng-cloak>
+
+                      <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
+                      <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="clickAsset(asset, $index);  $event.stopPropagation();" ng-dblclick="goAsset(clicked_asset)">
+                               <!--img src="images/nota.svg"/-->
+                        <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-activo animated pulse': clickedIcon($index) }"  md-font-set="material-icons">description</md-icon>
+                        <div style="text-align: center"> {{asset.name}} </div>
+                      </div>
+                    </div>
+                  <!-- </div> -->
 
                 </md-content>
+                <div class="" flex>
+                  <md-sidenav layout="column" class="md-sidenav-right md-whiteframe-z2" md-component-id="right" flex="100">
+                    <md-toolbar  layout="row">
+                      <div class="md-toolbar-tools" >
+                        <h1 >Detalles</h1>
+                      </div>
+                      <md-button ng-click="cerrarAvanzado()" class="md-icon-button" style="top: 10px;">
+                        <md-icon md-font-set="material-icons" md-menu-align-target="" >close</md-icon>
+                      </md-button>
+                    </md-toolbar>
+                    <md-card>
+                     <md-card-title style="padding-top:0px;">
+                       <md-card-title-text >
+                         <span class="md-subhead">Estado del activo</span>
+                       </md-card-title-text>
+                     </md-card-title>
+                     <md-card-content layout="row">
+                       <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">panorama_fish_eye</md-icon>
+                       <p ng-class="{'estado-final': esFinal }" class="estado-actual" style="padding-left: 20px; padding-top: 2px;">{{clicked_asset.estadoActual}}</p>
+                     </md-card-content>
+                   </md-card>
+                   <md-card >
+                    <md-card-title style="padding-top:0px;">
+                      <md-card-title-text >
+                        <span class="md-subhead">Adjuntos</span>
+                      </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content layout="row">
+                      <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">attach_file</md-icon>
+                      <p style="padding-left: 20px; padding-top: 2px;">Tiene {{clicked_asset.attached.length}} adjuntos</p>
+                    </md-card-content>
+                  </md-card>
+                   <md-card ng-if="clicked_asset.comment">
+                    <md-card-title style="padding-top:0px;">
+                      <md-card-title-text >
+                        <span class="md-subhead">Comentarios</span>
+                      </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content layout="row">
+                      <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">comment</md-icon>
+                      <p style="padding-left: 20px; padding-top: 2px;">{{clicked_asset.comment}}</p>
+                    </md-card-content>
+                  </md-card>
+
+                  </md-sidenav>
+                </div>
+
+
               </md-tab>
 
             </md-tabs>
@@ -132,7 +170,7 @@
 
       <ul mfb-menu menu-state="myVar" position="br" effect="slidein" active-icon="ion-close" resting-icon="ion-plus" toggling-method="click" >
         <!-- <a mfb-button mfb-button-close icon="ion-ios-personadd" label="Nuevo usuario" ng-click="showAddUser($event)" >  </a> -->
-        <a mfb-button mfb-button-close icon="ion-" label="Nueva relacion" ng-click="addRelation($event,'1',null)" >  </a>
+        <a mfb-button mfb-button-close icon="ion-link" label="Nueva relacion" ng-click="addRelation($event,'1',null)" >  </a>
         <a mfb-button mfb-button-close icon="ion-ios-paper" label="Nuevo activo" ng-click="showAddAsset($event)" >  </a>
       </ul>
 
