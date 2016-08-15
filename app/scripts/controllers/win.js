@@ -403,7 +403,7 @@ angular.module('activosInformaticosApp')
 
       };
 
-      $scope.deleteAsset = function(ev, asset, indice,indexBusqueda) {
+      $scope.deleteAsset = function(ev, asset, indice) {
         var confirm = $mdDialog.confirm()
             .title('¿Está seguro que desea borrar este activo?')
             .ariaLabel('Borrado de activo')
@@ -414,9 +414,9 @@ angular.module('activosInformaticosApp')
           .then(function() {
             dataFactory.deleteAsset(asset,$mdDialog,$mdToast);
             $scope.myassets.splice(indice,1);
-            if (indexBusqueda) {
-              $scope.resultadoBusqueda.splice(indexBusqueda,1);
-            }
+            // if (indexBusqueda) {
+            //   $scope.resultadoBusqueda.splice(indexBusqueda,1);
+            // }
           }, function() {
             $scope.status = 'No se realizaron cambios';
           });

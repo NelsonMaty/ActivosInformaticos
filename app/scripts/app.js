@@ -62,6 +62,14 @@ angular
           asset: {}
         }
       })
+      .state('relacion', {
+        url: "/relacion",
+        templateUrl: "views/show_relation.tmpl.html",
+        controller: 'ShowRelationCtrl',
+        params: {
+          relation: {}
+        }
+      })
   //   $routeProvider
   //     .when('/', {
   //       templateUrl: 'views/login.html',

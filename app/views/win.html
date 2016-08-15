@@ -1,6 +1,6 @@
 
 
-<div id="win" layout="column" style=" height: 100%;" ng-click="clickClose(); clickRelacionClose();">
+<div id="win" layout="column" style=" height: 100%;" ng-click="clickClose(); ">
   <md-toolbar layout="row" >
     <div class="md-toolbar-tools" >
 
@@ -23,24 +23,7 @@
               <md-tooltip md-direction="bottom"> Relacionar </md-tooltip>
               <md-icon md-font-set="material-icons">link</md-icon>
             </md-button>
-      </div>
-      <div ng-show="clickedR" class="cerrar-menu-activo" ng-class="{'mostrar-menu-activo animated bounceInLeft': clickedR }">
-
-            <md-button aria-label="Abrir" class="md-icon-button" ng-click="goRelation($event, clicked_relation, clicked_RelationIndex); $event.stopPropagation();">
-              <md-tooltip md-direction="bottom"> Ver </md-tooltip>
-              <md-icon md-font-set="material-icons">visibility</md-icon>
-            </md-button>
-            <md-button aria-label="Editar"  class="md-icon-button" ng-click="editRelation($event, clicked_relation, clicked_RelationIndex); $event.stopPropagation();">
-              <md-tooltip md-direction="bottom"> Editar </md-tooltip>
-              <md-icon md-font-set="material-icons">edit</md-icon>
-            </md-button>
-            <md-button aria-label="Borrar"  class="md-icon-button"ng-click="deleteRelation($event, clicked_relation, clicked_RelationIndex, select_asset._id); $event.stopPropagation();">
-              <md-tooltip md-direction="bottom"> Borrar </md-tooltip>
-              <md-icon md-font-set="material-icons">delete</md-icon>
-            </md-button>
-
       </div> -->
-
 
       <span flex=""></span>
 
@@ -116,7 +99,7 @@
                   <md-sidenav layout="column" class="md-sidenav-right md-whiteframe-z2" md-component-id="right" flex="100">
                     <md-toolbar  layout="row">
                       <div class="md-toolbar-tools" >
-                        <h1 >Detalles</h1>
+                        <h1 >Detalles - {{clicked_asset.name}}</h1>
                       </div>
 
                       <md-button ng-click="cerrarAvanzado()" class="md-icon-button" style="top: 10px;">
@@ -132,11 +115,11 @@
                         <md-tooltip md-direction="bottom"> Editar </md-tooltip>
                         <md-icon md-font-set="material-icons">edit</md-icon>
                       </md-button>
-                      <md-button aria-label="Borrar" style="top: 5px;" class="md-icon-button"ng-click="deleteAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
+                      <md-button aria-label="Borrar" style="top: 5px;" class="md-icon-button"ng-click="deleteAsset($event, clicked_asset, clicked_index); ">
                         <md-tooltip md-direction="bottom"> Borrar </md-tooltip>
                         <md-icon md-font-set="material-icons">delete</md-icon>
                       </md-button>
-                      <md-button aria-label="Relacionar" style="top: 5px;" class="md-icon-button" ng-click="addRelation($event,'3', clicked_asset); $event.stopPropagation();">
+                      <md-button aria-label="Relacionar" style="top: 5px;" class="md-icon-button" ng-click="addRelation($event,'3', clicked_asset); ">
                         <md-tooltip md-direction="bottom"> Relacionar </md-tooltip>
                         <md-icon  md-font-set="material-icons">link</md-icon>
                       </md-button>

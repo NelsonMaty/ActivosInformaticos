@@ -1,4 +1,4 @@
-<md-dialog aria-label="Mostrar Relacion" ng-cloak style="width: 800px; ">
+<div aria-label="Mostrar Relacion" ng-cloak style="height:100%; overflow:hidden">
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
 
@@ -15,7 +15,8 @@
 	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
 	  </md-button>
 	</md-toolbar>
-	<div style="overflow: auto;">
+
+	<md-content style="overflow: auto;">
 		<h1 class="md-display-2" style="padding-left: 20px;"> Activos involucrados </h1>
 		<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
 			<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px; ">description</md-icon>
@@ -53,12 +54,18 @@
 			</div>
 
 
-		<md-dialog-actions layout="row">
+		<!-- <md-dialog-actions layout="row">
 			<md-button ng-click="hide()">
 			  Aceptar
 			</md-button>
 
-		</md-dialog-actions>
-
-	</div>
-</md-dialog>
+		</md-dialog-actions> -->
+		<div layout="row" layout-align="end center" >
+			<span flex></span>
+			<md-button ng-click="goBack()" style="margin-right:20px;">
+				Aceptar
+			</md-button>
+			
+		</div>
+	</md-content>
+</div>
