@@ -118,10 +118,30 @@
                       <div class="md-toolbar-tools" >
                         <h1 >Detalles</h1>
                       </div>
+
                       <md-button ng-click="cerrarAvanzado()" class="md-icon-button" style="top: 10px;">
                         <md-icon md-font-set="material-icons" md-menu-align-target="" >close</md-icon>
                       </md-button>
                     </md-toolbar>
+                    <div class="" layout="row" layout-align="center center">
+                      <md-button aria-label="Abrir" style="top: 5px;"class="md-icon-button" ng-click="goAsset(clicked_asset); ">
+                        <md-tooltip md-direction="bottom"> Ver </md-tooltip>
+                        <md-icon md-font-set="material-icons">visibility</md-icon>
+                      </md-button>
+                      <md-button aria-label="Editar" style="top: 5px;" class="md-icon-button" ng-click="editAsset(clicked_asset);">
+                        <md-tooltip md-direction="bottom"> Editar </md-tooltip>
+                        <md-icon md-font-set="material-icons">edit</md-icon>
+                      </md-button>
+                      <md-button aria-label="Borrar" style="top: 5px;" class="md-icon-button"ng-click="deleteAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
+                        <md-tooltip md-direction="bottom"> Borrar </md-tooltip>
+                        <md-icon md-font-set="material-icons">delete</md-icon>
+                      </md-button>
+                      <md-button aria-label="Relacionar" style="top: 5px;" class="md-icon-button" ng-click="addRelation($event,'3', clicked_asset); $event.stopPropagation();">
+                        <md-tooltip md-direction="bottom"> Relacionar </md-tooltip>
+                        <md-icon  md-font-set="material-icons">link</md-icon>
+                      </md-button>
+                    </div>
+
                     <md-card>
                      <md-card-title style="padding-top:0px;">
                        <md-card-title-text >
@@ -129,32 +149,45 @@
                        </md-card-title-text>
                      </md-card-title>
                      <md-card-content layout="row">
-                       <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">panorama_fish_eye</md-icon>
+                       <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-right: 20px;">panorama_fish_eye</md-icon>
                        <p ng-class="{'estado-final': esFinal }" class="estado-actual" style="padding-left: 20px; padding-top: 2px;">{{clicked_asset.estadoActual}}</p>
                      </md-card-content>
                    </md-card>
-                   <md-card >
+                   <md-card ng-if="clicked_asset.tags.length>0">
+                    <md-card-title style="padding-top:0px;padding-bottom:0px;">
+                      <md-card-title-text >
+                        <span class="md-subhead">Tags</span>
+                      </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content layout="row" style="padding-top:0px; padding-bottom:0px;">
+                      <div >
+                       <md-chips ng-model="clicked_asset.tags" readonly="true" ></md-chips>
+                     </div>
+                    </md-card-content>
+                  </md-card>
+                   <md-card ng-if="clicked_asset.attached.length>=1 && clicked_asset.attached[0].length>0">
                     <md-card-title style="padding-top:0px;">
                       <md-card-title-text >
                         <span class="md-subhead">Adjuntos</span>
                       </md-card-title-text>
                     </md-card-title>
                     <md-card-content layout="row">
-                      <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">attach_file</md-icon>
-                      <p style="padding-left: 20px; padding-top: 2px;">Tiene {{clicked_asset.attached.length}} adjuntos</p>
+                      <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">attach_file</md-icon>
+                      <p ng-show="clicked_asset.attached.length==1" style="padding-left: 20px; padding-top: 2px;">Tiene {{clicked_asset.attached.length}} elemento adjunto</p>
+                      <p ng-show="clicked_asset.attached.length<1"style="padding-left: 20px; padding-top: 2px;">Tiene {{clicked_asset.attached.length}} elementos adjuntos</p>
                     </md-card-content>
-                  </md-card>
-                   <md-card ng-if="clicked_asset.comment">
-                    <md-card-title style="padding-top:0px;">
-                      <md-card-title-text >
-                        <span class="md-subhead">Comentarios</span>
-                      </md-card-title-text>
-                    </md-card-title>
-                    <md-card-content layout="row">
-                      <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">comment</md-icon>
-                      <p style="padding-left: 20px; padding-top: 2px;">{{clicked_asset.comment}}</p>
-                    </md-card-content>
-                  </md-card>
+                    </md-card>
+                    <md-card ng-if="clicked_asset.comment">
+                      <md-card-title style="padding-top:0px;">
+                        <md-card-title-text >
+                          <span class="md-subhead">Comentarios</span>
+                        </md-card-title-text>
+                      </md-card-title>
+                      <md-card-content layout="row">
+                        <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">comment</md-icon>
+                        <p style="padding-left: 20px; padding-top: 2px;">{{clicked_asset.comment}}</p>
+                      </md-card-content>
+                    </md-card>
 
                   </md-sidenav>
                 </div>
