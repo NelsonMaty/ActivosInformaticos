@@ -59,27 +59,7 @@ angular.module('activosInformaticosApp')
 
     $scope.goRelation = function(relation,assetId) {
       $state.go('relacion',{relation: relation, assetId: assetId});
-      // var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-      //
-      // $mdDialog.show({
-      //   locals: {
-      //     relation: relation,
-      //     sourceAssetId: assetId,
-      //     indice: indice,
-      //     editRelation: $scope.editRelation
-      //
-      //   },
-      //   controller: ShowRelationCtrl,
-      //   templateUrl: '../../views/show_relation.tmpl.html',
-      //   parent: angular.element(document.body),
-      //   targetEvent: ev,
-      //   clickOutsideToClose:false,
-      //   fullscreen: useFullScreen
-      // })
-      // .then(function() {
-      //
-      //
-      // });
+      
     };
 
     $scope.searchNode = function(svgAnterior) {

@@ -13,19 +13,11 @@ angular.module('activosInformaticosApp')
     $scope.clicked_relation = {};
     $scope.clicked_index = {};
     $scope.clicked = false;
-    //$scope.busquedaAvanzada = false;
-    //$scope.opcionBusqueda = "tipo";
-    $scope.buscando = false;
+    $scope.buscando = true;
+    $scope.people = {};
+
     // $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
     // $scope.direccionRelaciones = 'Todas';
-    // $scope.buscadoString = "";
-    // $scope.buscadoTipo = "";
-    // $scope.buscadoAtributo = "";
-    // $scope.buscadoValor = "";
-    //$scope.indicesBusqueda = [];
-    //$scope.selectedType = "";
-    //$scope.listaAtrib = [];
-
 
     var animationMenuExit = function(trigger, element){
         element = $(element);
@@ -90,7 +82,7 @@ angular.module('activosInformaticosApp')
     dataFactory.getAssets( function (response) {
 
       $scope.myassets = response;
-
+      $scope.buscando = false;
     });
 
 
@@ -515,9 +507,111 @@ angular.module('activosInformaticosApp')
       //     });
       // };
 
+      //----------users---------//
+
+        $scope.goToPerson = function(person, event) {
+            $mdDialog.show(
+              $mdDialog.alert()
+                .title('Navigating')
+                //.content('Inspect ' + person)
+                .content('Comentario ' + person.comment)
+                .ariaLabel('Person inspect demo')
+                .ok('Neat!')
+                .targetEvent(event)
+            );
+        };
+
+        $scope.doEditar = function(person, ev, $index) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+            console.log($index);
+            $mdDialog.show({
+              locals: {
+                person: person,
+                borrar: $scope.doBorrar,
+                indice: $index
+              },
+              controller: EditUserCtrl,
+              templateUrl: '../../views/edit_user.tmpl.html',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:false,
+              fullscreen: useFullScreen
+            })
+              .then(function(user) {
+                //$scope.status = 'Hiciste click en "' + answer + '".';
+                if (user) {
+                  $scope.people[$index] = user;
+                }
+              }, function() {
+
+              });
+
+        };
+
+        $scope.doBorrar = function(person, ev, indice) {
+          //console.log(person);
+          var confirm = $mdDialog.confirm()
+              .title('¿Está seguro que desea borrar este usuario?')
+              //.textContent('All of the banks have agreed to forgive you your debts.')
+              .ariaLabel('Borrado de usuario')
+              .targetEvent(ev)
+              .ok('Aceptar')
+              .cancel('Cancelar');
+          $mdDialog.show(confirm)
+            .then(function() {
+              dataFactory.deleteUser(person,$mdDialog,$mdToast);
+              $scope.people.splice(indice,1);
+              //$scope.status = 'El usuario fue borrado';
+            }, function() {
+              $scope.status = 'No se realizaron cambios';
+            });
+        };
+
+        $scope.showAddPerson = function(ev) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          $mdDialog.show({
+            controller: AddPersonCtrl,
+            templateUrl: '../../views/add_person.tmpl.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:false,
+            fullscreen: useFullScreen
+          })
+          .then(function(user) {
+
+            if (user) {
+                $scope.people.push(user);
+            }
+
+          });
+        };
+
 
 
     //-----------Controllers-----------//
+
+    function AddPersonCtrl($scope, $mdDialog, $mdToast) {
+      $scope.person = {};
+
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+      $scope.answer = function(answer, user) {
+
+        if ( answer == 'Aceptar') {
+          dataFactory.createUser( function (){
+            $mdDialog.hide(user);
+          }, user, $mdDialog, $mdToast);
+        }
+        else {
+          $mdDialog.hide(null);
+        }
+
+      };
+    };
 
       function AddRelationCtrl(myassets,etapa,first,$scope, $mdDialog, $mdToast){
         $scope.assets = myassets;

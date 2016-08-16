@@ -1,4 +1,4 @@
-<md-dialog aria-label="Nuevo Usuario" ng-cloak style="width: 340px; height: 300px;">
+<md-dialog aria-label="Nuevo Usuario" ng-cloak style="width: 400px; ">
   <form name="userForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -11,15 +11,24 @@
     </md-toolbar>
 
     <md-content style="padding-top: 20px; top: 10px; margin-left: 20px; width: 290px;">
-      <md-input-container class="md-icon-float md-block">
+      <md-input-container class="md-block">
+          <md-icon md-font-set="material-icons">person</md-icon>
+          <input ng-model="person.name" type="text" placeholder="Nombre" ng-required="true">
+      </md-input-container>
 
+      <md-input-container class="md-icon-float md-block">
         <md-icon md-font-set="material-icons" class="email">email</md-icon>
-        <input ng-model="user.name" type="email" placeholder="*Email (Requerido)" ng-required="true">
+        <input ng-model="person.email" type="email" placeholder="Email" ng-required="true">
+      </md-input-container>
+
+      <md-input-container class="md-icon-float md-block">
+        <md-icon md-font-set="material-icons">phone</md-icon>
+        <input ng-model="person.email" type="text" placeholder="Teléfono">
       </md-input-container>
 
       <md-input-container class="md-block">
           <md-icon md-font-set="material-icons" class="comentario">comment</md-icon>
-          <input ng-model="user.comment" type="textarea" placeholder="Comentarios">
+          <input ng-model="person.comment" type="textarea" placeholder="Comentarios">
       </md-input-container>
     </md-content>
 
@@ -28,7 +37,7 @@
       <md-button ng-click="answer('Aceptar', user)" ng-disabled="userForm.$invalid">
         Aceptar
       </md-button>
-      <md-button ng-click="answer('Cancelar', user)" style="margin-right:20px;">
+      <md-button ng-click="cancel()" style="margin-right:20px;">
         Cancelar
       </md-button>
     </md-dialog-actions>

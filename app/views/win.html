@@ -47,15 +47,11 @@
       <md-button class="md-accent">Mis activos</md-button>
       <md-button class="md-accent">Compartidos</md-button>
     </md-sidenav> -->
-
     <div layout="column" flex id="content">
       <md-content layout="column" flex class="md-padding" layout="column" flex="100">
-
           <md-content layout="column" flex="100">
             <md-tabs md-border-bottom="" layout="column" flex="100">
-
               <md-tab label="Activos" style="overflow: auto;" flex="100">
-
                 <md-content class="md-padding" flex="100" layout="column" layout-align="space-around">
 
                   <!-- <div layout="row"> -->
@@ -175,9 +171,19 @@
                   </md-sidenav>
                 </div>
 
-
               </md-tab>
-
+              <md-tab label="Miembros">
+                <md-content class="md-padding">
+                  <md-list ng-cloak>
+                    <md-list-item ng-repeat="person in people" >
+                      <md-icon md-font-set="material-icons">account_circle</md-icon>
+                      <p>{{ person.name }}</p>
+                      <md-icon md-font-set="material-icons" ng-click="doEditar(person, $event, $index)" aria-label="Open Chat" class="md-secondary md-hue-3">edit</md-icon>
+                      <md-divider ng-if="!$last"></md-divider>
+                    </md-list-item>
+                  </md-list>
+                </md-content>
+              </md-tab>
             </md-tabs>
           </md-content>
         </div>
@@ -185,7 +191,7 @@
       </md-content>
 
       <ul mfb-menu menu-state="myVar" position="br" effect="slidein" active-icon="ion-close" resting-icon="ion-plus" toggling-method="click" >
-        <!-- <a mfb-button mfb-button-close icon="ion-ios-personadd" label="Nuevo usuario" ng-click="showAddUser($event)" >  </a> -->
+        <a mfb-button mfb-button-close icon="ion-ios-personadd" label="Nuevo responsable" ng-click="showAddPerson($event)" >  </a>
         <a mfb-button mfb-button-close icon="ion-link" label="Nueva relacion" ng-click="addRelation($event,'1',null)" >  </a>
         <a mfb-button mfb-button-close icon="ion-ios-paper" label="Nuevo activo" ng-click="showAddAsset($event)" >  </a>
       </ul>
