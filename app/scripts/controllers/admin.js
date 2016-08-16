@@ -3,12 +3,12 @@
 angular.module('activosInformaticosApp')
   .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia, $mdToast, $filter, dataFactory) {
 
-    $scope.people=[];
+    // $scope.people=[];
 
-    dataFactory.getUsers( function (response) {
-      $scope.people = response;
-
-    });
+    // dataFactory.getUsers( function (response) {
+    //   $scope.people = response;
+    //
+    // });
 
     dataFactory.getAssetTypes( function (response) {
       $scope.assettypes = response;
@@ -26,84 +26,84 @@ angular.module('activosInformaticosApp')
 
     //----------users---------//
 
-      $scope.goToPerson = function(person, event) {
-          $mdDialog.show(
-            $mdDialog.alert()
-              .title('Navigating')
-              //.content('Inspect ' + person)
-              .content('Comentario ' + person.comment)
-              .ariaLabel('Person inspect demo')
-              .ok('Neat!')
-              .targetEvent(event)
-          );
-      };
+      // $scope.goToPerson = function(person, event) {
+      //     $mdDialog.show(
+      //       $mdDialog.alert()
+      //         .title('Navigating')
+      //         //.content('Inspect ' + person)
+      //         .content('Comentario ' + person.comment)
+      //         .ariaLabel('Person inspect demo')
+      //         .ok('Neat!')
+      //         .targetEvent(event)
+      //     );
+      // };
 
-      $scope.doEditar = function(person, ev, $index) {
-        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-          console.log($index);
-          $mdDialog.show({
-            locals: {
-              person: person,
-              borrar: $scope.doBorrar,
-              indice: $index
-            },
-            controller: EditUserCtrl,
-            templateUrl: '../../views/edit_user.tmpl.html',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose:false,
-            fullscreen: useFullScreen
-          })
-            .then(function(user) {
-              //$scope.status = 'Hiciste click en "' + answer + '".';
-              if (user) {
-                $scope.people[$index] = user;
-              }
-            }, function() {
+      // $scope.doEditar = function(person, ev, $index) {
+      //   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      //     console.log($index);
+      //     $mdDialog.show({
+      //       locals: {
+      //         person: person,
+      //         borrar: $scope.doBorrar,
+      //         indice: $index
+      //       },
+      //       controller: EditUserCtrl,
+      //       templateUrl: '../../views/edit_user.tmpl.html',
+      //       parent: angular.element(document.body),
+      //       targetEvent: ev,
+      //       clickOutsideToClose:false,
+      //       fullscreen: useFullScreen
+      //     })
+      //       .then(function(user) {
+      //         //$scope.status = 'Hiciste click en "' + answer + '".';
+      //         if (user) {
+      //           $scope.people[$index] = user;
+      //         }
+      //       }, function() {
+      //
+      //       });
+      //
+      // };
 
-            });
-
-      };
-
-      $scope.doBorrar = function(person, ev, indice) {
-        //console.log(person);
-        var confirm = $mdDialog.confirm()
-            .title('¿Está seguro que desea borrar este usuario?')
-            //.textContent('All of the banks have agreed to forgive you your debts.')
-            .ariaLabel('Borrado de usuario')
-            .targetEvent(ev)
-            .ok('Aceptar')
-            .cancel('Cancelar');
-        $mdDialog.show(confirm)
-          .then(function() {
-            dataFactory.deleteUser(person,$mdDialog,$mdToast);
-            $scope.people.splice(indice,1);
-            //$scope.status = 'El usuario fue borrado';
-          }, function() {
-            $scope.status = 'No se realizaron cambios';
-          });
-      };
-
-      $scope.showAddUser = function(ev) {
-        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-        $mdDialog.show({
-          controller: AddUserCtrl,
-          templateUrl: '../../views/user.tmpl.html',
-          parent: angular.element(document.body),
-          targetEvent: ev,
-          clickOutsideToClose:false,
-          fullscreen: useFullScreen
-        })
-        .then(function(user) {
-
-          if (user) {
-
-              $scope.people.push(user);
-
-          }
-
-        });
-      };
+      // $scope.doBorrar = function(person, ev, indice) {
+      //   //console.log(person);
+      //   var confirm = $mdDialog.confirm()
+      //       .title('¿Está seguro que desea borrar este usuario?')
+      //       //.textContent('All of the banks have agreed to forgive you your debts.')
+      //       .ariaLabel('Borrado de usuario')
+      //       .targetEvent(ev)
+      //       .ok('Aceptar')
+      //       .cancel('Cancelar');
+      //   $mdDialog.show(confirm)
+      //     .then(function() {
+      //       dataFactory.deleteUser(person,$mdDialog,$mdToast);
+      //       $scope.people.splice(indice,1);
+      //       //$scope.status = 'El usuario fue borrado';
+      //     }, function() {
+      //       $scope.status = 'No se realizaron cambios';
+      //     });
+      // };
+      //
+      // $scope.showAddUser = function(ev) {
+      //   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      //   $mdDialog.show({
+      //     controller: AddUserCtrl,
+      //     templateUrl: '../../views/user.tmpl.html',
+      //     parent: angular.element(document.body),
+      //     targetEvent: ev,
+      //     clickOutsideToClose:false,
+      //     fullscreen: useFullScreen
+      //   })
+      //   .then(function(user) {
+      //
+      //     if (user) {
+      //
+      //         $scope.people.push(user);
+      //
+      //     }
+      //
+      //   });
+      // };
 
 
     //----------Types---------//
@@ -611,7 +611,7 @@ angular.module('activosInformaticosApp')
           $scope.confGraph += $scope.stateGraph;
 
           dataFactory.getPreviewGraph($scope.confGraph, function(response) {
-            
+
             $scope.previewGraph = response;
 
           });

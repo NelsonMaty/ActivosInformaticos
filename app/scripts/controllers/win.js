@@ -14,7 +14,7 @@ angular.module('activosInformaticosApp')
     $scope.clicked_index = {};
     $scope.clicked = false;
     $scope.buscando = true;
-    $scope.people = {};
+    $scope.filterPerson = "";
 
     // $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
     // $scope.direccionRelaciones = 'Todas';
@@ -83,6 +83,10 @@ angular.module('activosInformaticosApp')
 
       $scope.myassets = response;
       $scope.buscando = false;
+    });
+
+    dataFactory.getPersons( function (response) {
+      $scope.people = response;
     });
 
 
@@ -507,7 +511,7 @@ angular.module('activosInformaticosApp')
       //     });
       // };
 
-      //----------users---------//
+      //----------Person---------//
 
         $scope.goToPerson = function(person, event) {
             $mdDialog.show(
@@ -521,7 +525,7 @@ angular.module('activosInformaticosApp')
             );
         };
 
-        $scope.doEditar = function(person, ev, $index) {
+        $scope.editPerson = function(person, ev, $index) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
             console.log($index);
             $mdDialog.show({
@@ -599,17 +603,12 @@ angular.module('activosInformaticosApp')
       $scope.cancel = function() {
         $mdDialog.cancel();
       };
-      $scope.answer = function(answer, user) {
 
-        if ( answer == 'Aceptar') {
-          dataFactory.createUser( function (){
-            $mdDialog.hide(user);
-          }, user, $mdDialog, $mdToast);
-        }
-        else {
-          $mdDialog.hide(null);
-        }
+      $scope.addPerson = function(person) {
 
+        dataFactory.createPerson( function (){
+            $mdDialog.hide(person);
+          }, person, $mdDialog, $mdToast);
       };
     };
 

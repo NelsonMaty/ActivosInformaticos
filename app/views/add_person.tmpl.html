@@ -2,7 +2,7 @@
   <form name="userForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Nuevo Usuario</h2>
+        <h2>Nuevo miembro</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
@@ -10,7 +10,8 @@
       </div>
     </md-toolbar>
 
-    <md-content style="padding-top: 20px; top: 10px; margin-left: 20px; width: 290px;">
+    <!-- <md-content style="padding-top: 20px; top: 10px; margin-left: 20px; width: 290px;"> -->
+    <md-content class="md-padding">
       <md-input-container class="md-block">
           <md-icon md-font-set="material-icons">person</md-icon>
           <input ng-model="person.name" type="text" placeholder="Nombre" ng-required="true">
@@ -23,7 +24,8 @@
 
       <md-input-container class="md-icon-float md-block">
         <md-icon md-font-set="material-icons">phone</md-icon>
-        <input ng-model="person.email" type="text" placeholder="Teléfono">
+        <input ng-model="person.phone" type="text" placeholder="Teléfono" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/">
+        <div class="hint" style="color: grey; bottom: 7px; opacity: 1; font-size: 12px;">(###) ###-####</div>
       </md-input-container>
 
       <md-input-container class="md-block">
@@ -34,8 +36,8 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer('Aceptar', user)" ng-disabled="userForm.$invalid">
-        Aceptar
+      <md-button ng-click="addPerson(person)" ng-disabled="userForm.$invalid">
+        Crear
       </md-button>
       <md-button ng-click="cancel()" style="margin-right:20px;">
         Cancelar

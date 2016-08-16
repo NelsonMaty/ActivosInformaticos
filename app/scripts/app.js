@@ -368,104 +368,203 @@ angular
       };
 
 
-    //----------Users---------//
+    // //----------Users---------//
+    //
+    //   dataFactory.getUsers = function(callback){
+    //
+    //     $http.get(urlWS + 'users')
+    //       .then(function(response){
+    //         //console.log(response);
+    //         callback(response.data);
+    //       },function(err){
+    //         console.log(err);
+    //     });
+    //
+    //   };
+    //
+    //   dataFactory.createUser = function(callback,user,$mdDialog,$mdToast){
+    //     console.log(user);
+    //
+    //     $http({
+    //       method:"post",
+    //       url:urlWS + 'users',
+    //       data: {
+    //           "name":user.name,
+    //           "comment":user.comment
+    //       }
+    //
+    //     })
+    //       .success(function(data){
+    //         //alert("El usuario fue creado con éxito");
+    //         $mdToast.show(
+    //           $mdToast.simple()
+    //             .content('Se ha agregado el usuario ' + user.name + ' a la base de datos')
+    //             .position('top right')
+    //             .hideDelay(3000)
+    //         );
+    //
+    //         callback();
+    //     })
+    //       .error(function(err){
+    //         console.log(err);
+    //
+    //         $mdToast.show(
+    //           $mdToast.simple()
+    //             .content('No se pudo agregar el usuario a la base de datos')
+    //             .position('top right')
+    //             .hideDelay(3000)
+    //         );
+    //     });
+    //
+    //   };
+    //
+    //   dataFactory.editUser = function(callback,user,$mdDialog,$mdToast){
+    //     console.log(user);
+    //
+    //     $http({
+    //       method:"put",
+    //       url:urlWS + 'users/' + user._id,
+    //       data: {
+    //           //"name":user.name,
+    //           "comment":user.comment
+    //       }
+    //
+    //     })
+    //       .success(function(data){
+    //         //alert("El usuario fue creado con éxito");
+    //         $mdToast.show(
+    //           $mdToast.simple()
+    //             .content('Se ha modificado el usuario ' + user.name + ' en la base de datos')
+    //             .position('top right')
+    //             .hideDelay(3000)
+    //         );
+    //
+    //         callback();
+    //     })
+    //       .error(function(err){
+    //         console.log(err);
+    //
+    //         $mdToast.show(
+    //           $mdToast.simple()
+    //             .content('No se pudo modificar el usuario en la base de datos')
+    //             .position('top right')
+    //             .hideDelay(3000)
+    //         );
+    //     });
+    //
+    //   };
+    //
+    //   dataFactory.deleteUser = function(person,$mdDialog,$mdToast){
+    //     //console.log(person);
+    //
+    //     $http({
+    //       method:"delete",
+    //       url:urlWS + 'users/' + person._id,
+    //       /*data: {
+    //           "name":user.name,
+    //           "comment":user.comment
+    //       }*/
+    //
+    //     })
+    //       .success(function(data){
+    //         //alert("El usuario fue creado con éxito");
+    //         $mdToast.show(
+    //           $mdToast.simple()
+    //             //.content('Se ha eliminado el usuario ' + data.name + ' de la base de datos')
+    //             .content(data.message)
+    //             .position('top right')
+    //             .hideDelay(3000)
+    //         );
+    //
+    //         //callback();
+    //     })
+    //       .error(function(err){
+    //         console.log(err);
+    //
+    //         $mdToast.show(
+    //           $mdToast.simple()
+    //             .content('No se pudo borrar el usuario de la base de datos')
+    //             .position('top right')
+    //             .hideDelay(3000)
+    //         );
+    //     });
+    //
+    //   };
 
-      dataFactory.getUsers = function(callback){
+    //----------Persons---------//
 
-        $http.get(urlWS + 'users')
+      dataFactory.getPersons = function(callback){
+        $http.get(urlWS + 'persons')
           .then(function(response){
             //console.log(response);
             callback(response.data);
           },function(err){
             console.log(err);
         });
-
       };
 
-      dataFactory.createUser = function(callback,user,$mdDialog,$mdToast){
-        console.log(user);
-
+      dataFactory.createPerson = function(callback,person,$mdDialog,$mdToast){
+        // console.log(user);
         $http({
           method:"post",
-          url:urlWS + 'users',
-          data: {
-              "name":user.name,
-              "comment":user.comment
-          }
-
+          url:urlWS + 'persons',
+          data: person
         })
           .success(function(data){
             //alert("El usuario fue creado con éxito");
             $mdToast.show(
               $mdToast.simple()
-                .content('Se ha agregado el usuario ' + user.name + ' a la base de datos')
+                .content('Se ha creado el miebro ' + person.name + '')
                 .position('top right')
                 .hideDelay(3000)
             );
-
             callback();
         })
-          .error(function(err){
-            console.log(err);
-
-            $mdToast.show(
-              $mdToast.simple()
-                .content('No se pudo agregar el usuario a la base de datos')
-                .position('top right')
-                .hideDelay(3000)
-            );
+            .error(function(err){
+              console.log(err);
+              $mdToast.show(
+                $mdToast.simple()
+                  .content('No se pudo crear el miembro')
+                  .position('top right')
+                  .hideDelay(3000)
+              );
         });
-
       };
 
-      dataFactory.editUser = function(callback,user,$mdDialog,$mdToast){
-        console.log(user);
-
+      dataFactory.editUser = function(callback,person,$mdDialog,$mdToast){
+          // console.log(user);
         $http({
           method:"put",
-          url:urlWS + 'users/' + user._id,
-          data: {
-              //"name":user.name,
-              "comment":user.comment
-          }
-
+          url:urlWS + 'persons/' + person._id,
+          data: person
         })
-          .success(function(data){
-            //alert("El usuario fue creado con éxito");
-            $mdToast.show(
-              $mdToast.simple()
-                .content('Se ha modificado el usuario ' + user.name + ' en la base de datos')
-                .position('top right')
-                .hideDelay(3000)
-            );
-
-            callback();
+        .success(function(data){
+          //alert("El usuario fue creado con éxito");
+          $mdToast.show(
+            $mdToast.simple()
+              .content('Se ha modificado el miembro ' + person.name + ' exitosamente')
+              .position('top right')
+              .hideDelay(3000)
+          );
+          callback();
         })
-          .error(function(err){
-            console.log(err);
-
-            $mdToast.show(
-              $mdToast.simple()
-                .content('No se pudo modificar el usuario en la base de datos')
-                .position('top right')
-                .hideDelay(3000)
-            );
+        .error(function(err){
+          console.log(err);
+          $mdToast.show(
+            $mdToast.simple()
+              .content('No se pudo modificar el miembro')
+              .position('top right')
+              .hideDelay(3000)
+          );
         });
-
       };
 
       dataFactory.deleteUser = function(person,$mdDialog,$mdToast){
-        //console.log(person);
+          $http({
+            method:"delete",
+            url:urlWS + 'persons/' + person._id,
 
-        $http({
-          method:"delete",
-          url:urlWS + 'users/' + person._id,
-          /*data: {
-              "name":user.name,
-              "comment":user.comment
-          }*/
-
-        })
+          })
           .success(function(data){
             //alert("El usuario fue creado con éxito");
             $mdToast.show(
@@ -475,21 +574,19 @@ angular
                 .position('top right')
                 .hideDelay(3000)
             );
-
             //callback();
-        })
+          })
           .error(function(err){
             console.log(err);
-
             $mdToast.show(
               $mdToast.simple()
-                .content('No se pudo borrar el usuario de la base de datos')
+                .content('No se pudo borrar el miembro')
                 .position('top right')
                 .hideDelay(3000)
             );
         });
-
       };
+
 
 
     //----------Assets---------//

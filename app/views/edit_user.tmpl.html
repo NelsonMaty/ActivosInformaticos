@@ -1,9 +1,8 @@
-<md-dialog aria-label="Editar Usuario" ng-cloak style="width: 340px; height: 300px;">
+<md-dialog aria-label="Editar Usuario" ng-cloak style="width: 400px; ">
   <form name="userForm">
-  <!--form-->
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Edición de usuario</h2>
+        <h2>Edición de miembro</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
@@ -11,30 +10,38 @@
       </div>
     </md-toolbar>
 
-    <md-content  style="padding-top: 20px; top: 10px; margin-left: 20px; width: 290px;">
-
-      <md-input-container class="md-icon-float md-block">
-        <md-icon md-font-set="material-icons">account_circle</md-icon>
-        <input ng-model="update_person.name" type="text" placeholder="Nombre" ng-disabled="true"/>
+    <md-content class="md-padding">
+      <md-input-container class="md-block">
+          <md-icon md-font-set="material-icons">person</md-icon>
+          <input ng-model="update_person.name" type="text" placeholder="Nombre" ng-required="true">
       </md-input-container>
 
+      <md-input-container class="md-icon-float md-block">
+        <md-icon md-font-set="material-icons" class="email">email</md-icon>
+        <input ng-model="update_person.email" type="email" placeholder="Email" ng-required="true">
+      </md-input-container>
+
+      <md-input-container class="md-icon-float md-block">
+        <md-icon md-font-set="material-icons">phone</md-icon>
+        <input ng-model="update_person.phone" type="text" placeholder="Teléfono" ng-pattern="/^[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}$/">
+        <div class="hint" style="color: grey; bottom: 7px; opacity: 1; font-size: 12px;">(###) ###-####</div>
+      </md-input-container>
 
       <md-input-container class="md-block">
-          <!-- Use floating placeholder instead of label -->
-          <md-icon md-font-set="material-icons" class="email">comment</md-icon>
-          <input ng-model="update_person.comment" type="textarea" placeholder="Comentarios" >
+          <md-icon md-font-set="material-icons" class="comentario">comment</md-icon>
+          <input ng-model="update_person.comment" type="textarea" placeholder="Comentarios">
       </md-input-container>
     </md-content>
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="answer('Editar', update_person)" ng-disabled="userForm.$invalid">
+      <md-button ng-click="editPerson(update_person)" ng-disabled="userForm.$invalid">
         Aceptar
       </md-button>
-      <md-button ng-click="answer('Cancelar')" style="margin-right:20px;">
+      <md-button ng-click="cancel()" style="margin-right:20px;">
         Cancelar
       </md-button>
-      <md-button class="md-icon-button" ng-click="callDel(indice)">
+      <md-button class="md-icon-button" ng-click="deletePerson(indice)">
           <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
       </md-button>
     </md-dialog-actions>
