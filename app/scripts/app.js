@@ -67,7 +67,8 @@ angular
         templateUrl: "views/show_relation.tmpl.html",
         controller: 'ShowRelationCtrl',
         params: {
-          relation: {}
+          relation: {},
+          assetId: ""
         }
       })
   //   $routeProvider
