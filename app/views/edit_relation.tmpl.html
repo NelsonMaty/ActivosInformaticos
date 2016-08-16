@@ -1,4 +1,4 @@
-<md-dialog aria-label="Mostrar Relacion" ng-cloak style="width: 800px; ">
+<div style="height:100%; " aria-label="Editar Relacion" ng-cloak layout="column">
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
 
@@ -6,12 +6,17 @@
 
 	  </div>
 
-	  <md-button class="md-icon-button" style="top: 7px;" ng-click="cancel()">
-	    <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
+		<md-button class="md-icon-button" style="top: 7px;" ng-click="goHome()">
+      <md-tooltip md-direction="bottom"> Página principal </md-tooltip>
+	    <md-icon md-font-set="material-icons" aria-label="Edit asset">home</md-icon>
+	  </md-button>
+	  <md-button class="md-icon-button" style="top: 7px;" ng-click="goBack()">
+			<md-tooltip md-direction="bottom"> Volver </md-tooltip>
+	    <md-icon md-font-set="material-icons" aria-label="Close dialog">reply</md-icon>
 	  </md-button>
 	</md-toolbar>
-	<form name="editRelations">
-	<div style="overflow: auto;">
+	<form name="editRelations" flex layout="column">
+	<md-content style="overflow: auto;" layout="column" class="md-padding" flex="grow">
 		<h1 class="md-display-2" style="padding-left: 20px;"> Activos involucrados </h1>
 		<div layout="row" style="padding-bottom: 30px;  padding-top: 16px;">
 			<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px; ">description</md-icon>
@@ -21,7 +26,7 @@
 			<p style="padding-left: 20px; padding-top: 5px;" ng-click=""> {{relatedAsset.name}}</p>
 		</div>
 
-		<md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
+		<md-content layout="column" style="padding-top: 18px; margin-left: 20px; " flex>
 
 		  <div>
 		    <md-input-container class=" md-block" style="padding-top:0px;">
@@ -31,7 +36,7 @@
 
 		  </div>
 			<div class="">
-				<md-input-container class="md-block" style="padding-right: 28px;">
+				<md-input-container class="md-block" >
 					<label>Tipo</label>
 					<md-icon md-font-set="material-icons" aria-label="tipo de relacion">settings_input_component</md-icon>
 					<md-select ng-model="update_relation.relationTypeId" ng-required="true"  aria-label="nombre tipos" ng-change="selectRelationType()">
@@ -61,20 +66,21 @@
 		  </div>
 		</md-content>
 
-		<md-dialog-actions layout="row">
+		<div layout="row" layout-align="end center">
+			<span flex></span>
 			<md-button ng-click="updateRelation(update_relation)" ng-disabled="editRelations.$invalid">
-			  Editar
+			  Aplicar
 			</md-button>
-			<md-button ng-click="cancel()" style="margin-right:20px;">
+			<md-button ng-click="goBack()" style="margin-right:20px;">
 			  Cancelar
 			</md-button>
-			<md-button class="md-icon-button" ng-click="callDelete(indice)">
+			<md-button class="md-icon-button" ng-click="deleteRelation($event)">
 				<md-tooltip md-direction="bottom"> Borrar </md-tooltip>
 			    <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
 			</md-button>
 
-		</md-dialog-actions>
+		</div>
 
-	</div>
+	</md-content>
 	</form>
 </md-dialog>

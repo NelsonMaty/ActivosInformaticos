@@ -474,46 +474,46 @@ angular.module('activosInformaticosApp')
         });
       };
 
-      $scope.editRelation = function(ev,relation,sourceAssetId,indice) {
-        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-        //console.log($scope.sourceAssetId);
-        $mdDialog.show({
-          locals: {
-            relation: relation,
-            assetRelations: $scope.assetRelations,
-            indice: indice,
-            deleteRelation: $scope.deleteRelation,
-            sourceAssetId: sourceAssetId
+      // $scope.editRelation = function(ev,relation,sourceAssetId,indice) {
+      //   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+      //   //console.log($scope.sourceAssetId);
+      //   $mdDialog.show({
+      //     locals: {
+      //       relation: relation,
+      //       assetRelations: $scope.assetRelations,
+      //       indice: indice,
+      //       deleteRelation: $scope.deleteRelation,
+      //       sourceAssetId: sourceAssetId
+      //
+      //     },
+      //     controller: EditRelationCtrl,
+      //     templateUrl: '../../views/edit_relation.tmpl.html',
+      //     parent: angular.element(document.body),
+      //     targetEvent: ev,
+      //     clickOutsideToClose:false,
+      //     fullscreen: useFullScreen
+      //   })
+      //   .then(function() {
+      //
+      //   });
+      // };
 
-          },
-          controller: EditRelationCtrl,
-          templateUrl: '../../views/edit_relation.tmpl.html',
-          parent: angular.element(document.body),
-          targetEvent: ev,
-          clickOutsideToClose:false,
-          fullscreen: useFullScreen
-        })
-        .then(function() {
-
-        });
-      };
-
-      $scope.deleteRelation = function(ev, relation, indice, sourceAssetId) {
-        //console.log(sourceAssetId);
-        var confirm = $mdDialog.confirm()
-            .title('¿Está seguro que desea borrar esta relacion?')
-            .ariaLabel('Borrado de relacion')
-            .targetEvent(ev)
-            .ok('Aceptar')
-            .cancel('Cancelar');
-        $mdDialog.show(confirm)
-          .then(function() {
-            dataFactory.deleteRelation(relation, sourceAssetId, $mdDialog,$mdToast);
-            $scope.assetRelations.splice(indice,1);
-          }, function() {
-            //$scope.status = 'No se realizaron cambios';
-          });
-      };
+      // $scope.deleteRelation = function(ev, relation, indice, sourceAssetId) {
+      //   //console.log(sourceAssetId);
+      //   var confirm = $mdDialog.confirm()
+      //       .title('¿Está seguro que desea borrar esta relacion?')
+      //       .ariaLabel('Borrado de relacion')
+      //       .targetEvent(ev)
+      //       .ok('Aceptar')
+      //       .cancel('Cancelar');
+      //   $mdDialog.show(confirm)
+      //     .then(function() {
+      //       dataFactory.deleteRelation(relation, sourceAssetId, $mdDialog,$mdToast);
+      //       $scope.assetRelations.splice(indice,1);
+      //     }, function() {
+      //       //$scope.status = 'No se realizaron cambios';
+      //     });
+      // };
 
 
 
@@ -671,102 +671,102 @@ angular.module('activosInformaticosApp')
 
       };
 
-      function EditRelationCtrl(relation, assetRelations,sourceAssetId, indice, deleteRelation, sourceAssetId, $scope, $mdDialog, $mdToast) {
+      // function EditRelationCtrl(relation, assetRelations,sourceAssetId, indice, deleteRelation, sourceAssetId, $scope, $mdDialog, $mdToast) {
+      //
+      //   $scope.update_relation = $.extend({},relation);
+      //   $scope.assetRelations = assetRelations;
+      //   $scope.deleteRelation = deleteRelation;
+      //   $scope.indice = indice;
+      //   $scope.sourceAssetId = sourceAssetId;
+      //   $scope.relationTypeSelected = {};
+      //
+      //
+      //   dataFactory.getARelationType($scope.update_relation.relationTypeId, function (response) {
+      //     $scope.relationTypeSelected = response;
+      //   });
+      //
+      //   dataFactory.getRelationTypes( function (response) {
+      //     $scope.relationTypes = response;
+      //   });
+      //
+      //   $scope.selectRelationType = function () {
+      //     for (i=0;i<$scope.relationTypes.length;i++) {
+      //       if ($scope.relationTypes[i]._id == $scope.update_relation.relationTypeId) {
+      //         $scope.relationTypeSelected = $scope.relationTypes[i];
+      //       }
+      //     }
+      //   }
+      //
+      //   dataFactory.getAnAsset($scope.sourceAssetId, function (response) {
+      //
+      //     $scope.sourceAsset = response;
+      //
+      //   });
+      //
+      //   dataFactory.getAnAsset($scope.update_relation.relatedAssetId, function (response) {
+      //
+      //     $scope.relatedAsset = response;
+      //
+      //   });
+      //
+      //   $scope.callDelete = function(indice) {
+      //     ev = {};
+      //     deleteRelation(ev,relation,indice,$scope.sourceAssetId);
+      //   }
+      //
+      //   $scope.updateRelation = function (relation) {
+      //
+      //     dataFactory.editRelation (function (){
+      //         $mdDialog.hide(relation);
+      //         $scope.assetRelations.splice(indice,1,relation);
+      //
+      //       }, relation, $scope.sourceAssetId, $mdDialog, $mdToast);
+      //
+      //   };
+      //
+      //   $scope.hide = function() {
+      //     $mdDialog.hide();
+      //   };
+      //   $scope.cancel = function() {
+      //     $mdDialog.cancel();
+      //   };
+      //
+      // };
 
-        $scope.update_relation = $.extend({},relation);
-        $scope.assetRelations = assetRelations;
-        $scope.deleteRelation = deleteRelation;
-        $scope.indice = indice;
-        $scope.sourceAssetId = sourceAssetId;
-        $scope.relationTypeSelected = {};
-
-
-        dataFactory.getARelationType($scope.update_relation.relationTypeId, function (response) {
-          $scope.relationTypeSelected = response;
-        });
-
-        dataFactory.getRelationTypes( function (response) {
-          $scope.relationTypes = response;
-        });
-
-        $scope.selectRelationType = function () {
-          for (i=0;i<$scope.relationTypes.length;i++) {
-            if ($scope.relationTypes[i]._id == $scope.update_relation.relationTypeId) {
-              $scope.relationTypeSelected = $scope.relationTypes[i];
-            }
-          }
-        }
-
-        dataFactory.getAnAsset($scope.sourceAssetId, function (response) {
-
-          $scope.sourceAsset = response;
-
-        });
-
-        dataFactory.getAnAsset($scope.update_relation.relatedAssetId, function (response) {
-
-          $scope.relatedAsset = response;
-
-        });
-
-        $scope.callDelete = function(indice) {
-          ev = {};
-          deleteRelation(ev,relation,indice,$scope.sourceAssetId);
-        }
-
-        $scope.updateRelation = function (relation) {
-
-          dataFactory.editRelation (function (){
-              $mdDialog.hide(relation);
-              $scope.assetRelations.splice(indice,1,relation);
-
-            }, relation, $scope.sourceAssetId, $mdDialog, $mdToast);
-
-        };
-
-        $scope.hide = function() {
-          $mdDialog.hide();
-        };
-        $scope.cancel = function() {
-          $mdDialog.cancel();
-        };
-
-      };
-
-      function ShowRelationCtrl(relation, sourceAssetId, indice, editRelation, $scope, $mdDialog, $mdToast){
-
-        $scope.relation = relation;
-        $scope.sourceAssetId = sourceAssetId;
-        $scope.indice = indice;
-        $scope.editRelation = editRelation;
-        $scope.ev = {};
-
-        if ($scope.relation.isCritical) {
-          $scope.critico = "Sí";
-        } else {
-          $scope.critico = "No";
-        }
-
-        dataFactory.getAnAsset($scope.sourceAssetId, function (response) {
-
-          $scope.sourceAsset = response;
-
-        });
-
-        dataFactory.getAnAsset($scope.relation.relatedAssetId, function (response) {
-
-          $scope.relatedAsset = response;
-
-        });
-
-        $scope.hide = function() {
-          $mdDialog.hide();
-        };
-        $scope.cancel = function() {
-          $mdDialog.cancel();
-        };
-
-      };
+      // function ShowRelationCtrl(relation, sourceAssetId, indice, editRelation, $scope, $mdDialog, $mdToast){
+      //
+      //   $scope.relation = relation;
+      //   $scope.sourceAssetId = sourceAssetId;
+      //   $scope.indice = indice;
+      //   $scope.editRelation = editRelation;
+      //   $scope.ev = {};
+      //
+      //   if ($scope.relation.isCritical) {
+      //     $scope.critico = "Sí";
+      //   } else {
+      //     $scope.critico = "No";
+      //   }
+      //
+      //   dataFactory.getAnAsset($scope.sourceAssetId, function (response) {
+      //
+      //     $scope.sourceAsset = response;
+      //
+      //   });
+      //
+      //   dataFactory.getAnAsset($scope.relation.relatedAssetId, function (response) {
+      //
+      //     $scope.relatedAsset = response;
+      //
+      //   });
+      //
+      //   $scope.hide = function() {
+      //     $mdDialog.hide();
+      //   };
+      //   $scope.cancel = function() {
+      //     $mdDialog.cancel();
+      //   };
+      //
+      // };
 
       // function ShowAssetCtrl(asset, myassets, resultadoBusqueda, indice, indexBusqueda, editAsset, goRelation, goToMap, searchNode, $scope, $mdDialog, $mdToast){
       //   $scope.asset = asset;

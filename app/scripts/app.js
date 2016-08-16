@@ -71,6 +71,15 @@ angular
           assetId: ""
         }
       })
+      .state('editRelacion', {
+        url: "/edicionRelacion",
+        templateUrl: "views/edit_relation.tmpl.html",
+        controller: 'EditRelationCtrl',
+        params: {
+          relation: {},
+          assetId: ""
+        }
+      })
   //   $routeProvider
   //     .when('/', {
   //       templateUrl: 'views/login.html',
@@ -718,7 +727,7 @@ angular
 
       };
 
-      dataFactory.deleteRelation = function(relation, sourceId, $mdDialog,$mdToast){
+      dataFactory.deleteRelation = function(relation, sourceId, callback, $mdDialog,$mdToast){
         //console.log(person);
 
         $http({
@@ -740,7 +749,7 @@ angular
                 .hideDelay(3000)
             );
 
-            //callback();
+            callback();
         })
           .error(function(err){
             console.log(err);
