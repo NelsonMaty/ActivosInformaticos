@@ -1,16 +1,22 @@
-<md-dialog aria-label="Editar Usuario" ng-cloak style="width: 400px; ">
-  <form name="userForm">
+<!-- <md-dialog aria-label="Editar Usuario" ng-cloak style="width: 400px; "> -->
+<div style="height:100%; " ng-cloak aria-label="Editar Activo" layout="column">
+  <form name="userForm" flex layout="column">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Edición: {{update_person.name}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
-          <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
-        </md-button>
+        <md-button class="md-icon-button"  ng-click="goHome()">
+          <md-tooltip md-direction="bottom"> Página principal </md-tooltip>
+    	    <md-icon md-font-set="material-icons" aria-label="Edit asset">home</md-icon>
+    	  </md-button>
+    	  <md-button class="md-icon-button"  ng-click="goBack()">
+    			<md-tooltip md-direction="bottom"> Volver </md-tooltip>
+    	    <md-icon md-font-set="material-icons" aria-label="Close dialog">reply</md-icon>
+    	  </md-button>
       </div>
     </md-toolbar>
-
-    <md-content class="md-padding">
+    <md-content class="md-padding" flex layout="column">
+    <md-content class="md-padding" flex layout="column">
       <md-input-container class="md-block">
           <md-icon md-font-set="material-icons">person</md-icon>
           <input ng-model="update_person.name" type="text" placeholder="Nombre" ng-required="true">
@@ -33,17 +39,18 @@
       </md-input-container>
     </md-content>
 
-    <md-dialog-actions layout="row">
+    <div layout="row" layout-align="end center">
       <span flex></span>
-      <md-button ng-click="editPerson(update_person)" ng-disabled="userForm.$invalid">
-        Aceptar
+      <md-button ng-click="updatePerson(update_person)" ng-disabled="userForm.$invalid">
+        Aplicar
       </md-button>
       <md-button ng-click="goBack()" style="margin-right:20px;">
         Cancelar
       </md-button>
-      <md-button class="md-icon-button" ng-click="deletePerson()">
+      <md-button class="md-icon-button" ng-click="deletePerson($event)">
           <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
       </md-button>
-    </md-dialog-actions>
+    </div>
+  </md-content>
   </form>
 </md-dialog>

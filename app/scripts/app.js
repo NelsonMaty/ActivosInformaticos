@@ -555,7 +555,7 @@ angular
         });
       };
 
-      dataFactory.deleteUser = function(person,$mdDialog,$mdToast){
+      dataFactory.deletePerson = function(callback,person,$mdDialog,$mdToast){
           $http({
             method:"delete",
             url:urlWS + 'persons/' + person._id,
@@ -570,7 +570,7 @@ angular
                 .position('top right')
                 .hideDelay(3000)
             );
-            //callback();
+            callback();
           })
           .error(function(err){
             console.log(err);

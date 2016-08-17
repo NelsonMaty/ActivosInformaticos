@@ -528,7 +528,7 @@ angular.module('activosInformaticosApp')
         };
 
         $scope.goEditPerson = function(person) {
-          $state.go('editMiembro',{person: $scope.person});
+          $state.go('editMiembro',{person: person});
           $previousState.set('home','usuario');
         };
 
@@ -559,24 +559,24 @@ angular.module('activosInformaticosApp')
         //
         // };
 
-        $scope.doBorrar = function(person, ev, indice) {
-          //console.log(person);
-          var confirm = $mdDialog.confirm()
-              .title('¿Está seguro que desea borrar este usuario?')
-              //.textContent('All of the banks have agreed to forgive you your debts.')
-              .ariaLabel('Borrado de usuario')
-              .targetEvent(ev)
-              .ok('Aceptar')
-              .cancel('Cancelar');
-          $mdDialog.show(confirm)
-            .then(function() {
-              dataFactory.deleteUser(person,$mdDialog,$mdToast);
-              $scope.people.splice(indice,1);
-              //$scope.status = 'El usuario fue borrado';
-            }, function() {
-              $scope.status = 'No se realizaron cambios';
-            });
-        };
+        // $scope.doBorrar = function(person, ev, indice) {
+        //   //console.log(person);
+        //   var confirm = $mdDialog.confirm()
+        //       .title('¿Está seguro que desea borrar este usuario?')
+        //       //.textContent('All of the banks have agreed to forgive you your debts.')
+        //       .ariaLabel('Borrado de usuario')
+        //       .targetEvent(ev)
+        //       .ok('Aceptar')
+        //       .cancel('Cancelar');
+        //   $mdDialog.show(confirm)
+        //     .then(function() {
+        //       dataFactory.deleteUser(person,$mdDialog,$mdToast);
+        //       $scope.people.splice(indice,1);
+        //       //$scope.status = 'El usuario fue borrado';
+        //     }, function() {
+        //       $scope.status = 'No se realizaron cambios';
+        //     });
+        // };
 
         $scope.showAddPerson = function(ev) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
