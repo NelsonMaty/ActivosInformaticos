@@ -499,6 +499,16 @@ angular
         });
       };
 
+      dataFactory.getRoles = function(callback){
+        $http.get(urlWS + 'roles')
+          .then(function(response){
+            //console.log(response);
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
+      };
+
       dataFactory.createPerson = function(callback,person,$mdDialog,$mdToast){
         // console.log(user);
         $http({

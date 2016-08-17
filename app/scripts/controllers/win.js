@@ -92,95 +92,6 @@ angular.module('activosInformaticosApp')
 
 
 
-    // $scope.searchRelations = function(id,nombreActivo) {
-    //   $scope.sourceAssetId = id;
-    //   $scope.select_asset = {
-    //     _id: id,
-    //     name: nombreActivo
-    //   };
-    //
-    //   $scope.clicked_RelationIndex = null;
-    //   $scope.buscando = true;
-    //
-    //   switch ($scope.direccionRelaciones) {
-    //     case 'Todas':
-    //       dataFactory.getAssetRelations(id, function (response) {
-    //         $scope.assetRelations = response;
-    //         $scope.labels = [];
-    //         $scope.relatedAssets = [];
-    //         dataFactory.getIncomingAssetRelations(id, function (response) {
-    //           for (i=0;i<response.length;i++) {
-    //             response[i].isIncoming = true;
-    //             $scope.assetRelations.push(response[i]);
-    //           }
-    //           dataFactory.getRelationMap(id,null,function (response) {
-    //             //console.log(response.relations);
-    //             for (i=0;i<response.relations.length;i++) {
-    //               $scope.labels.push(response.relations[i].outLabel);
-    //               $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
-    //             }
-    //             //console.log(response.incomingRelations);
-    //             for (i=0;i<response.incomingRelations.length;i++) {
-    //               $scope.labels.push(response.incomingRelations[i].inLabel);
-    //               $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
-    //             }
-    //             window.setTimeout( function(){
-    //               $scope.buscando = false;
-    //               $scope.$apply();
-    //             }, 500);
-    //
-    //             //console.log($scope.labels);
-    //           });
-    //         });
-    //       });
-    //       break;
-    //     case 'Salientes':
-    //       dataFactory.getAssetRelations(id, function (response) {
-    //           $scope.assetRelations = response;
-    //           $scope.labels = [];
-    //           $scope.relatedAssets = [];
-    //
-    //           dataFactory.getRelationMap(id, null,function (response) {
-    //             for (i=0;i<response.relations.length;i++) {
-    //               $scope.labels.push(response.relations[i].outLabel);
-    //               $scope.relatedAssets.push(response.relations[i].relatedAsset.name);
-    //             }
-    //             window.setTimeout( function(){
-    //               $scope.buscando = false;
-    //               $scope.$apply();
-    //             }, 500);
-    //           });
-    //       });
-    //       break;
-    //     case 'Entrantes':
-    //       dataFactory.getIncomingAssetRelations(id, function (response) {
-    //
-    //           $scope.assetRelations = response;
-    //           $scope.labels = [];
-    //           $scope.relatedAssets = [];
-    //           for(i=0;i<$scope.assetRelations.length;i++) {
-    //             $scope.assetRelations[i].isIncoming="true";
-    //           }
-    //
-    //           dataFactory.getRelationMap(id,null, function (response) {
-    //             for (i=0;i<response.incomingRelations.length;i++) {
-    //               $scope.labels.push(response.incomingRelations[i].inLabel);
-    //               $scope.relatedAssets.push(response.incomingRelations[i].relatedAsset.name);
-    //             }
-    //             window.setTimeout( function(){
-    //               $scope.buscando = false;
-    //               $scope.$apply();
-    //             }, 500);
-    //         });
-    //       });
-    //       break;
-    //     default:
-    //       break;
-    //
-    //   }
-    //
-    // }
-
     $scope.clickAsset = function(asset,indice) {
       $scope.clicked_asset = asset;
       $scope.clicked_index = indice;
@@ -312,7 +223,8 @@ angular.module('activosInformaticosApp')
           locals: {
             fields: formly_fields,
             typeid: typeid,
-            listas: listas
+            listas: listas,
+            people: $scope.people
           },
           controller: AddAssetCtrl,
           templateUrl: '../../views/formly.tmpl.html',
@@ -338,65 +250,14 @@ angular.module('activosInformaticosApp')
         //console.log(asset);
         $state.go('activo', {asset: asset});
         $previousState.set('home','usuario');
-        //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-        //console.log(asset);
-        // $mdDialog.show({
-        //   locals: {
-        //     asset: asset,
-        //     myassets: $scope.myassets,
-        //     resultadoBusqueda : $scope.resultadoBusqueda,
-        //     indice: indice,
-        //     indexBusqueda: indexBusqueda,
-        //     editAsset: $scope.editAsset,
-        //     goRelation: $scope.goRelation,
-        //     goToMap: $scope.goToMap,
-        //     searchNode: $scope.searchNode
-        //
-        //   },
-        //   controller: ShowAssetCtrl,
-        //   templateUrl: '../../views/show_asset.tmpl.html',
-        //   parent: angular.element(document.body),
-        //   targetEvent: ev,
-        //   clickOutsideToClose:false,
-        //   fullscreen: useFullScreen
-        // })
-        // .then(function(data) {
-        //   //console.log(data);
-        //
-        //   if (data) {
-        //     $scope.goAsset(data.evento, data.activo, data.indice);
-        //   }
-        //
-        // });
+
       };
 
       // $scope.editAsset = function(ev,asset,indice,indexBusqueda) {
       $scope.editAsset = function(asset) {
         $state.go('editActivo', {asset: asset});
         $previousState.set('home','usuario');
-        // var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-        //console.log(asset);
-        // $mdDialog.show({
-        //   locals: {
-        //     asset: asset,
-        //     myassets: $scope.myassets,
-        //     resultadoBusqueda: $scope.resultadoBusqueda,
-        //     indice: indice,
-        //     indexBusqueda: indexBusqueda,
-        //     deleteAsset: $scope.deleteAsset
-        //
-        //   },
-        //   controller: EditAssetCtrl,
-        //   templateUrl: '../../views/edit_asset.tmpl.html',
-        //   parent: angular.element(document.body),
-        //   targetEvent: ev,
-        //   clickOutsideToClose:false,
-        //   fullscreen: useFullScreen
-        // })
-        // .then(function() {
-        //
-        //
-        // });
+
 
       };
 
@@ -420,30 +281,6 @@ angular.module('activosInformaticosApp')
       };
 
     //-----------Relations-----------//
-
-      // $scope.goRelation = function(ev,relation,assetId,indice) {
-      //   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-      //
-      //   $mdDialog.show({
-      //     locals: {
-      //       relation: relation,
-      //       sourceAssetId: assetId,
-      //       indice: indice,
-      //       editRelation: $scope.editRelation
-      //
-      //     },
-      //     controller: ShowRelationCtrl,
-      //     templateUrl: '../../views/show_relation.tmpl.html',
-      //     parent: angular.element(document.body),
-      //     targetEvent: ev,
-      //     clickOutsideToClose:false,
-      //     fullscreen: useFullScreen
-      //   })
-      //   .then(function() {
-      //
-      //
-      //   });
-      // };
 
       $scope.addRelation = function(ev,etapa,asset) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -471,59 +308,10 @@ angular.module('activosInformaticosApp')
         });
       };
 
-      // $scope.editRelation = function(ev,relation,sourceAssetId,indice) {
-      //   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-      //   //console.log($scope.sourceAssetId);
-      //   $mdDialog.show({
-      //     locals: {
-      //       relation: relation,
-      //       assetRelations: $scope.assetRelations,
-      //       indice: indice,
-      //       deleteRelation: $scope.deleteRelation,
-      //       sourceAssetId: sourceAssetId
-      //
-      //     },
-      //     controller: EditRelationCtrl,
-      //     templateUrl: '../../views/edit_relation.tmpl.html',
-      //     parent: angular.element(document.body),
-      //     targetEvent: ev,
-      //     clickOutsideToClose:false,
-      //     fullscreen: useFullScreen
-      //   })
-      //   .then(function() {
-      //
-      //   });
-      // };
-
-      // $scope.deleteRelation = function(ev, relation, indice, sourceAssetId) {
-      //   //console.log(sourceAssetId);
-      //   var confirm = $mdDialog.confirm()
-      //       .title('¿Está seguro que desea borrar esta relacion?')
-      //       .ariaLabel('Borrado de relacion')
-      //       .targetEvent(ev)
-      //       .ok('Aceptar')
-      //       .cancel('Cancelar');
-      //   $mdDialog.show(confirm)
-      //     .then(function() {
-      //       dataFactory.deleteRelation(relation, sourceAssetId, $mdDialog,$mdToast);
-      //       $scope.assetRelations.splice(indice,1);
-      //     }, function() {
-      //       //$scope.status = 'No se realizaron cambios';
-      //     });
-      // };
-
       //----------Person---------//
 
         $scope.goPerson = function(person) {
-            // $mdDialog.show(
-            //   $mdDialog.alert()
-            //     .title('Navigating')
-            //     //.content('Inspect ' + person)
-            //     .content('Comentario ' + person.comment)
-            //     .ariaLabel('Person inspect demo')
-            //     .ok('Neat!')
-            //     .targetEvent(event)
-            // );
+
             $state.go('miembro', {person: person});
             $previousState.set('home','usuario');
         };
@@ -723,332 +511,6 @@ angular.module('activosInformaticosApp')
         };
 
       };
-
-      // function EditRelationCtrl(relation, assetRelations,sourceAssetId, indice, deleteRelation, sourceAssetId, $scope, $mdDialog, $mdToast) {
-      //
-      //   $scope.update_relation = $.extend({},relation);
-      //   $scope.assetRelations = assetRelations;
-      //   $scope.deleteRelation = deleteRelation;
-      //   $scope.indice = indice;
-      //   $scope.sourceAssetId = sourceAssetId;
-      //   $scope.relationTypeSelected = {};
-      //
-      //
-      //   dataFactory.getARelationType($scope.update_relation.relationTypeId, function (response) {
-      //     $scope.relationTypeSelected = response;
-      //   });
-      //
-      //   dataFactory.getRelationTypes( function (response) {
-      //     $scope.relationTypes = response;
-      //   });
-      //
-      //   $scope.selectRelationType = function () {
-      //     for (i=0;i<$scope.relationTypes.length;i++) {
-      //       if ($scope.relationTypes[i]._id == $scope.update_relation.relationTypeId) {
-      //         $scope.relationTypeSelected = $scope.relationTypes[i];
-      //       }
-      //     }
-      //   }
-      //
-      //   dataFactory.getAnAsset($scope.sourceAssetId, function (response) {
-      //
-      //     $scope.sourceAsset = response;
-      //
-      //   });
-      //
-      //   dataFactory.getAnAsset($scope.update_relation.relatedAssetId, function (response) {
-      //
-      //     $scope.relatedAsset = response;
-      //
-      //   });
-      //
-      //   $scope.callDelete = function(indice) {
-      //     ev = {};
-      //     deleteRelation(ev,relation,indice,$scope.sourceAssetId);
-      //   }
-      //
-      //   $scope.updateRelation = function (relation) {
-      //
-      //     dataFactory.editRelation (function (){
-      //         $mdDialog.hide(relation);
-      //         $scope.assetRelations.splice(indice,1,relation);
-      //
-      //       }, relation, $scope.sourceAssetId, $mdDialog, $mdToast);
-      //
-      //   };
-      //
-      //   $scope.hide = function() {
-      //     $mdDialog.hide();
-      //   };
-      //   $scope.cancel = function() {
-      //     $mdDialog.cancel();
-      //   };
-      //
-      // };
-
-      // function ShowRelationCtrl(relation, sourceAssetId, indice, editRelation, $scope, $mdDialog, $mdToast){
-      //
-      //   $scope.relation = relation;
-      //   $scope.sourceAssetId = sourceAssetId;
-      //   $scope.indice = indice;
-      //   $scope.editRelation = editRelation;
-      //   $scope.ev = {};
-      //
-      //   if ($scope.relation.isCritical) {
-      //     $scope.critico = "Sí";
-      //   } else {
-      //     $scope.critico = "No";
-      //   }
-      //
-      //   dataFactory.getAnAsset($scope.sourceAssetId, function (response) {
-      //
-      //     $scope.sourceAsset = response;
-      //
-      //   });
-      //
-      //   dataFactory.getAnAsset($scope.relation.relatedAssetId, function (response) {
-      //
-      //     $scope.relatedAsset = response;
-      //
-      //   });
-      //
-      //   $scope.hide = function() {
-      //     $mdDialog.hide();
-      //   };
-      //   $scope.cancel = function() {
-      //     $mdDialog.cancel();
-      //   };
-      //
-      // };
-
-      // function ShowAssetCtrl(asset, myassets, resultadoBusqueda, indice, indexBusqueda, editAsset, goRelation, goToMap, searchNode, $scope, $mdDialog, $mdToast){
-      //   $scope.asset = asset;
-      //   $scope.myassets = myassets;
-      //   $scope.resultadoBusqueda = resultadoBusqueda;
-      //   $scope.assetVersions = [];
-      //   $scope.indice = indice;
-      //   $scope.indexBusqueda = indexBusqueda;
-      //   $scope.editAsset = editAsset;
-      //   $scope.goRelation = goRelation;
-      //   $scope.goToMap = goToMap;
-      //   $scope.searchNode = searchNode;
-      //   $scope.profundidad = 0;
-      //   //$scope.direccionRelaciones = false;
-      //   $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
-      //   $scope.direccionRelaciones = 'Todas';
-      //   $scope.sel_version = {};
-      //   $scope.relationsTree = {};
-      //   $scope.criticosOut = [];
-      //   $scope.relationsOut = [];
-      //   $scope.criticosIn = [];
-      //   $scope.relationsIn = [];
-      //   $scope.ev = {};
-      //   $scope.esFinal = false;
-      //   $scope.estadoVersionFinal = false;
-      //   $scope.asset_type = {};
-      //   $scope.names_list = [];
-      //   $scope.listas = [];
-      //   $scope.versionListas = [];
-      //   $scope.showVersion = false;
-      //   $scope.buscado2 = "";
-      //   $scope.keys = Object.keys(asset);
-      //
-      //   $scope.keys.splice($scope.keys.indexOf("name"),1);
-      //   $scope.keys.splice($scope.keys.indexOf("tags"),1);
-      //   $scope.keys.splice($scope.keys.indexOf("estadoActual"),1);
-      //   $scope.keys.splice($scope.keys.indexOf("stakeholders"),1);
-      //   $scope.keys.splice($scope.keys.indexOf("comment"),1);
-      //   $scope.keys.splice($scope.keys.indexOf("$$hashKey"),1);
-      //   $scope.keys.splice($scope.keys.indexOf("attached"),1);
-      //
-      //   if ($scope.keys.indexOf("__v")>=0) {
-      //
-      //     $scope.b =$scope.keys.indexOf("__v");
-      //     $scope.keys.splice($scope.b,1);
-      //
-      //   }
-      //
-      //   if ($scope.keys.indexOf("deleted")>=0) {
-      //
-      //     $scope.a =$scope.keys.indexOf("deleted");
-      //     $scope.keys.splice($scope.a,1);
-      //   }
-      //
-      //   dataFactory.getAnAssetType($scope.asset.typeId, function (response) {
-      //
-      //     $scope.asset_type = response;
-      //
-      //     for (i=0;i<response.properties.length;i++) {
-      //       if (response.properties[i].type=="List") {
-      //         $scope.names_list.push(response.properties[i].name);
-      //
-      //       }
-      //     }
-      //
-      //     for (i=0;i<$scope.names_list.length;i++) {
-      //       for (j=0;j<$scope.keys.length;j++) {
-      //
-      //         if($scope.names_list[i] == $scope.keys[j]) {
-      //
-      //           $scope.listas.push({
-      //             name: $scope.names_list[i],
-      //             elements: $scope.asset[$scope.keys[j]]
-      //           });
-      //           $scope.keys.splice(j,1);
-      //
-      //         }
-      //       }
-      //     }
-      //
-      //     for (i=0;i<response.lifeCycle.length;i++) {
-      //       if (response.lifeCycle[i].name == $scope.asset.estadoActual) {
-      //         $scope.esFinal = response.lifeCycle[i].isFinal;
-      //       }
-      //     }
-      //
-      //   });
-      //
-      //   //console.log($scope.keys);
-      //
-      //
-      //   $scope.goToVersion = function(idVersion, indiceVersion) {
-      //     $scope.showVersion = true;
-      //     $scope.sel_version = $scope.assetVersions[indiceVersion];
-      //
-      //     $scope.versionKeys = Object.keys($scope.sel_version.asset);
-      //
-      //     $scope.versionKeys.splice($scope.versionKeys.indexOf("name"),1);
-      //     $scope.versionKeys.splice($scope.versionKeys.indexOf("tags"),1);
-      //     $scope.versionKeys.splice($scope.versionKeys.indexOf("estadoActual"),1);
-      //     $scope.versionKeys.splice($scope.versionKeys.indexOf("stakeholders"),1);
-      //     $scope.versionKeys.splice($scope.versionKeys.indexOf("comment"),1);
-      //     $scope.versionKeys.splice($scope.versionKeys.indexOf("$$hashKey"),1);
-      //     $scope.versionKeys.splice($scope.versionKeys.indexOf("attached"),1);
-      //
-      //     if ($scope.versionKeys.indexOf("__v")>=0) {
-      //       $scope.b =$scope.versionKeys.indexOf("__v");
-      //       $scope.versionKeys.splice($scope.b,1);
-      //     }
-      //
-      //     if ($scope.versionKeys.indexOf("deleted")>=0) {
-      //       $scope.a =$scope.versionKeys.indexOf("deleted");
-      //       $scope.versionKeys.splice($scope.a,1);
-      //     }
-      //
-      //     for (i=0;i<$scope.names_list.length;i++) {
-      //       for (j=0;j<$scope.versionKeys.length;j++) {
-      //           if($scope.names_list[i] == $scope.versionKeys[j]) {
-      //
-      //             $scope.versionListas.push({
-      //               name: $scope.names_list[i],
-      //               elements: $scope.sel_version.asset[$scope.versionKeys[j]]
-      //             });
-      //             $scope.versionKeys.splice(j,1);
-      //
-      //           }
-      //       }
-      //     }
-      //
-      //     for (i=0;i<$scope.asset_type.lifeCycle.length;i++) {
-      //       if ($scope.asset_type.lifeCycle[i].name == $scope.sel_version.asset.estadoActual) {
-      //         $scope.estadoVersionFinal = $scope.asset_type.lifeCycle[i].isFinal;
-      //       }
-      //     }
-      //
-      //   }
-      //
-      //   $scope.closeVersion = function() {
-      //     $scope.showVersion = false;
-      //     $scope.sel_version = {};
-      //   }
-      //
-      //   $scope.confirmRestoreVersion = function(ev, asset) {
-      //     var confirm = $mdDialog.confirm()
-      //         .title('¿Está seguro que desea restaurar el activo a la versión seleccionada?')
-      //         .ariaLabel('Restaurar activo')
-      //         .targetEvent(ev)
-      //         .ok('Aceptar')
-      //         .cancel('Cancelar');
-      //     $mdDialog.show(confirm)
-      //       .then(function() {
-      //         //console.log(asset);
-      //         $scope.restoreVersion(asset);
-      //
-      //       }, function() {
-      //         $scope.status = 'No se realizaron cambios';
-      //       });
-      //   };
-      //
-      //   $scope.restoreVersion = function (asset) {
-      //     dataFactory.editAsset (function (){
-      //         $mdDialog.hide(asset);
-      //         $scope.myassets.splice($scope.indice,1,asset);
-      //         $scope.resultadoBusqueda.splice($scope.indexBusqueda,1,asset);
-      //
-      //       }, asset, $mdDialog, $mdToast);
-      //   };
-      //
-      //   $scope.hide = function() {
-      //     $mdDialog.hide();
-      //   };
-      //   $scope.cancel = function() {
-      //     $mdDialog.cancel();
-      //   };
-      //
-      //   dataFactory.getAssetVersions($scope.asset._id, function (response) {
-      //     $scope.assetVersions = response;
-      //
-      //   });
-      //
-      //   dataFactory.getRelationMap($scope.asset._id,null, function (response) {
-      //     $scope.relationsTree = response;
-      //     //console.log(response);
-      //   });
-      //
-      //   $scope.callGoAsset = function (event, relatedAsset) {
-      //     for (i=0;i<$scope.myassets.length;i++) {
-      //       if ($scope.myassets[i]._id == relatedAsset._id) {
-      //
-      //         var data = { evento:event, activo:$scope.myassets[i], indice: i }
-      //         $mdDialog.hide(data);
-      //       }
-      //     }
-      //   }
-      //
-      //   dataFactory.getAssetRelations($scope.asset._id, function (response) {
-      //     for (i=0;i<response.length;i++) {
-      //       $scope.relationsOut.push(response[i]);
-      //       if (response[i].isCritical) {
-      //         $scope.criticosOut.push({texto: "Sí", valor:true});
-      //       } else {
-      //         $scope.criticosOut.push({texto: "No", valor:false});
-      //       }
-      //     }
-      //   });
-      //
-      //   dataFactory.getIncomingAssetRelations($scope.asset._id, function (response) {
-      //     for (i=0;i<response.length;i++) {
-      //       response[i].isIncoming="true";
-      //       $scope.relationsIn.push(response[i]);
-      //       if (response[i].isCritical) {
-      //         $scope.criticosIn.push({texto: "Sí", valor:true});
-      //       } else {
-      //         $scope.criticosIn.push({texto: "No", valor:false});
-      //       }
-      //     }
-      //   });
-      //
-      //   dataFactory.getActualStateGraph( $scope.asset._id, function (response) {
-      //     $scope.lifeCycleGraph = response;
-      //
-      //   });
-      //
-      //   var svg = null;
-      //   $scope.svgExist = false;
-      //
-      //   $scope.goToMap(asset,indice);
-      //
-      // };
 
       function SelectTypeCtrl(assettypes, showformly, $scope, $mdDialog, $mdToast) {
         $scope.assettypes = assettypes;
@@ -1316,43 +778,71 @@ angular.module('activosInformaticosApp')
 
       };
 
-      function AddAssetCtrl(fields, typeid, listas, $scope, $mdDialog, $mdToast) {
+      function AddAssetCtrl(fields, typeid, listas, people, $scope, $mdDialog, $mdToast) {
 
         $scope.formly_fields = fields;
         $scope.asset = {};
         $scope.asset.tags = [];
-        $scope.asset.stakeholders = { name: '', email: ''};
+        $scope.asset.stakeholders = [
+          { personId: '',
+            role: ''
+          }
+        ];
         $scope.typeid = typeid;
         $scope.listas = listas;
         $scope.estadoActual = null;
         $scope.type_prop = [];
         $scope.names_list = [];
         $scope.asset.attached = [''];
+        $scope.people = people;
 
+        dataFactory.getRoles(function (response) {
+          $scope.roles = response;
+        });
 
         $scope.addItem = function(answer,parent_index) {
               //console.log("parent_index:" + parent_index);
+          switch (answer) {
+            case 'lista':
+              $scope.listas[parent_index].elements.push({content:''});
+              break;
+            case 'miembro':
+              $scope.asset.stakeholders.push({personId:'',role:''});
+              break;
+            default:
+              $scope.asset.attached.push('');
+              break;
+          }
+              // if (answer == 'lista') {
+              //   $scope.listas[parent_index].elements.push({content:''});
+              //   //$scope.ultimo = false;
+              // } else {
+              //   $scope.asset.attached.push('');
+              // }
 
-              if (answer == 'lista') {
-                $scope.listas[parent_index].elements.push({content:''});
-                //$scope.ultimo = false;
-              } else {
-                $scope.asset.attached.push('');
-              }
-
-            };
+        };
 
         $scope.removeItem = function(answer,parent_index,index) {
-              if (answer == 'lista') {
-                if ($scope.listas[parent_index].elements.length>1){
-
-                  $scope.listas[parent_index].elements.splice(index,1);
-                }
-              } else {
-                $scope.asset.attached.splice(index,1);
+              // if (answer == 'lista') {
+              //   if ($scope.listas[parent_index].elements.length>1){
+              //
+              //     $scope.listas[parent_index].elements.splice(index,1);
+              //   }
+              // } else {
+              //   $scope.asset.attached.splice(index,1);
+              // }
+              switch (answer) {
+                case 'lista':
+                  if ($scope.listas[parent_index].elements.length>1) $scope.listas[parent_index].elements.splice(index,1);
+                  break;
+                case 'miembro':
+                  $scope.asset.stakeholders.splice(index,1);
+                  break;
+                default:
+                  $scope.asset.attached.splice(index,1);
+                  break;
               }
-
-            };
+        };
 
         dataFactory.getAnAssetType($scope.typeid, function (response) {
           //$scope.type_attributes = response.properties;
@@ -1382,7 +872,6 @@ angular.module('activosInformaticosApp')
             }
           }
 
-
           dataFactory.createAsset(function (response){
 
             asset._id=response.id;
@@ -1400,380 +889,6 @@ angular.module('activosInformaticosApp')
         };
 
       };
-
-    // function EditAssetCtrl(asset, myassets, resultadoBusqueda, indice, indexBusqueda, deleteAsset, $scope, $mdDialog, $mdToast) {
-        // $scope.update_asset = $.extend(true,{},asset);
-        // $scope.indexEstadoActual = null;
-        // $scope.estadoFinal = null;
-        // $scope.estadoInicial = null;
-        // $scope.myassets = myassets;
-        // $scope.resultadoBusqueda = resultadoBusqueda;
-        // $scope.deleteAsset = deleteAsset;
-        // $scope.etapa = 1;
-        // $scope.siguienteEstado = null;
-        // $scope.estadoInexistente = true;
-        // $scope.indice = indice;
-        // $scope.indexBusqueda = indexBusqueda;
-        // $scope.asset_type = {};
-        // $scope.listas = [];
-        // $scope.volverInicial = false;
-        // $scope.actualStateGraph = {};
-        //
-        //
-        //
-        // $scope.addItem = function(answer,parent_index) {
-        //       //var n = $scope.s.length;
-        //       if (answer == 'lista') {
-        //         $scope.listas[parent_index].elements.push({content:''});
-        //         //$scope.ultimo = false;
-        //       } else {
-        //         $scope.update_asset.attached.push('');
-        //       }
-        // };
-        //
-        // $scope.removeItem = function(answer,parent_index,index) {
-        //
-        //   if (answer == 'lista') {
-        //     if ($scope.listas[parent_index].elements.length>1){
-        //       $scope.listas[parent_index].elements.splice(index,1);
-        //     }
-        //   } else {
-        //     //console.log(index);
-        //     //console.log($scope.update_asset.attached);
-        //     $scope.update_asset.attached.splice(index,1);
-        //   }
-        //       //$scope.adjuntos.splice(index,1);
-        // };
-        //
-        //
-        // dataFactory.getAnAssetType ($scope.update_asset.typeId, function (response) {
-        //
-        //   $scope.asset_type = response;
-        //
-        //   $scope.fields = [
-        //     {
-        //             key: 'name',
-        //             type: 'input',
-        //             templateOptions: {
-        //               label: '* Nombre',
-        //               placeholder: $scope.update_asset.name,
-        //               required: true
-        //             }
-        //
-        //     },
-        //     {
-        //             key: 'typeId',
-        //             type: 'input',
-        //             hide: true,
-        //             templateOptions: {
-        //               label: 'Tipo',
-        //               placeholder: $scope.asset_type._id
-        //             }
-        //     },
-        //     {
-        //             key: 'attached',
-        //             type: 'textarea',
-        //             hide: true,
-        //             templateOptions: {
-        //               type:'url',
-        //               label: 'Url de información adjunta',
-        //               placeholder: 'http://'
-        //             }
-        //
-        //     },
-        //     {
-        //             key: 'comment',
-        //             type: 'textarea',
-        //             templateOptions: {
-        //               label: 'Descripcion',
-        //               placeholder: $scope.update_asset.comment
-        //             }
-        //
-        //     }
-        //   ];
-        //   atributos = $scope.asset_type.properties;
-        //   for (var i=0; i<$scope.asset_type.properties.length;i++) {
-        //
-        //     switch(atributos[i].type) {
-        //       case 'Date':
-        //         var fecha = new Date($scope.update_asset[atributos[i].name]);
-        //         console.log(fecha);
-        //         $scope.update_asset[atributos[i].name] = fecha;
-        //         //$scope.update_asset[atributos[i].name] = '';
-        //         if (atributos[i].required == true) {
-        //           aux = {
-        //             key: atributos[i].name,
-        //             type: 'input',
-        //             templateOptions: {
-        //               type: 'date',
-        //               label: '* ' + atributos[i].name,
-        //               placeholder: $scope.update_asset[atributos[i].name],
-        //               required: true
-        //               //datepickerPopup: 'dd-MMMM-yyyy'
-        //             }
-        //
-        //           };
-        //         } else {
-        //           aux = {
-        //             key: atributos[i].name,
-        //             type: 'input',
-        //             templateOptions: {
-        //               type: 'date',
-        //               label: atributos[i].name,
-        //               placeholder: $scope.update_asset[atributos[i].name]
-        //               //datepickerPopup: 'dd-MMMM-yyyy'
-        //             }
-        //
-        //           };
-        //         }
-        //         break;
-        //       case 'Boolean':
-        //         if (atributos[i].required == true) {
-        //           aux = {
-        //             key: atributos[i].name,
-        //             type: 'select',
-        //             templateOptions: {
-        //               label: '* ' + atributos[i].name,
-        //               options: ["True","False"],
-        //               placeholder: $scope.update_asset[atributos[i].name],
-        //               required: true
-        //
-        //             }
-        //
-        //           };
-        //         } else {
-        //           aux = {
-        //             key: atributos[i].name,
-        //             type: 'select',
-        //             templateOptions: {
-        //               label: atributos[i].name,
-        //               options: ["True","False"],
-        //               placeholder: $scope.update_asset[atributos[i].name]
-        //
-        //             }
-        //
-        //           };
-        //         }
-        //
-        //         break;
-        //       case 'Integer':
-        //         if (atributos[i].required == true) {
-        //           aux = {
-        //             key: atributos[i].name,
-        //             type: 'input',
-        //             templateOptions: {
-        //               type: 'number',
-        //               label: '* ' + atributos[i].name,
-        //               placeholder: $scope.update_asset[atributos[i].name],
-        //               required: true
-        //             },
-        //             validators: {
-        //               int: function($viewValue, $modelValue, scope) {
-        //                 var value = $modelValue || $viewValue;
-        //                 if (value) {
-        //                   return validateInt(value);
-        //                 }
-        //               }
-        //             }
-        //
-        //           };
-        //         } else {
-        //           aux = {
-        //             key: atributos[i].name,
-        //             type: 'input',
-        //             templateOptions: {
-        //               type: 'number',
-        //               label: atributos[i].name,
-        //               placeholder: $scope.update_asset[atributos[i].name]
-        //
-        //             },
-        //             validators: {
-        //               int: function($viewValue, $modelValue, scope) {
-        //                 var value = $modelValue || $viewValue;
-        //                 if (value) {
-        //                   return validateInt(value);
-        //                 }
-        //               }
-        //             }
-        //
-        //           };
-        //         }
-        //
-        //         break;
-        //       case 'Float':
-        //         if (atributos[i].required == true) {
-        //           aux = {
-        //             key: atributos[i].name,
-        //             type: 'input',
-        //             templateOptions: {
-        //               type: 'number',
-        //               label: '* ' + atributos[i].name,
-        //               placeholder: $scope.update_asset[atributos[i].name],
-        //               required: true
-        //
-        //             }
-        //
-        //           };
-        //         } else {
-        //           aux = {
-        //             key: atributos[i].name,
-        //             type: 'input',
-        //             templateOptions: {
-        //               type: 'number',
-        //               label: atributos[i].name,
-        //               placeholder: $scope.update_asset[atributos[i].name]
-        //
-        //             }
-        //
-        //           };
-        //         }
-        //
-        //         break;
-        //       case 'List':
-        //
-        //         $scope.listas.push({
-        //           name: atributos[i].name,
-        //           required: atributos[i].required,
-        //           elements: $scope.update_asset[atributos[i].name]
-        //
-        //         })
-        //
-        //         aux = {
-        //           key: atributos[i].name,
-        //           type: 'input',
-        //           hide: true,
-        //           templateOptions: {
-        //             label: atributos[i].name,
-        //             placeholder: ''
-        //
-        //         }
-        //
-        //       };
-        //       break;
-        //       default:
-        //         if (atributos[i].required == true) {
-        //           aux = {
-        //             key: atributos[i].name,
-        //             type: 'input',
-        //             templateOptions: {
-        //               label: '* ' + atributos[i].name,
-        //               placeholder: $scope.update_asset[atributos[i].name],
-        //               required: true
-        //             }
-        //
-        //           };
-        //         } else {
-        //           aux = {
-        //             key: atributos[i].name,
-        //             type: 'input',
-        //             templateOptions: {
-        //               label: atributos[i].name,
-        //               placeholder: $scope.update_asset[atributos[i].name]
-        //             }
-        //
-        //           };
-        //         }
-        //
-        //         break;
-        //     }
-        //     $scope.fields.push(aux);
-        //
-        //   }
-        //
-        //
-        //   for (i=0; i<$scope.asset_type.lifeCycle.length;i++) {
-        //     if ($scope.asset_type.lifeCycle[i].name == $scope.update_asset.estadoActual) {
-        //       $scope.indexEstadoActual = i;
-        //       $scope.estadoInexistente = false;
-        //     }
-        //     if ($scope.asset_type.lifeCycle[i].isFinal) {
-        //       $scope.estadoFinal = $scope.asset_type.lifeCycle[i].name;
-        //     }
-        //     if ($scope.asset_type.lifeCycle[i].isInitial) {
-        //       $scope.estadoInicial = $scope.asset_type.lifeCycle[i].name;
-        //     }
-        //   }
-        // });
-        //
-        // dataFactory.getActualStateGraph( $scope.update_asset._id, function (response) {
-        //   $scope.actualStateGraph = response;
-        //
-        // });
-        //
-        // $scope.nextSelect = function () {
-        //   ++$scope.etapa;
-        //   if ($scope.etapa == 5) {
-        //     $scope.rel_atributtes = Object.keys($scope.relation);
-        //   }
-        // }
-        //
-        // $scope.prevSelect = function () {
-        //   --$scope.etapa;
-        // }
-        //
-        // function validateInt(value) {
-        //
-        //   return /^\-?(0|[1-9]\d*)$/.test(value);
-        // }
-        //
-        // $scope.confirmFinalAsset = function(ev, asset) {
-        //   var confirm = $mdDialog.confirm()
-        //       .title('¿Está seguro que desea avanzar al estado final de este activo? Esta acción es irreversible')
-        //       .ariaLabel('Actualizar estado de activo')
-        //       .targetEvent(ev)
-        //       .ok('Aceptar')
-        //       .cancel('Cancelar');
-        //   $mdDialog.show(confirm)
-        //     .then(function() {
-        //       //console.log(asset);
-        //       $scope.updateAsset(asset);
-        //
-        //     }, function() {
-        //       $scope.status = 'No se realizaron cambios';
-        //     });
-        // };
-        //
-        // $scope.callDelete = function(indice) {
-        //   ev = {};
-        //   deleteAsset(ev,asset,indice,$scope.indexBusqueda);
-        // }
-        //
-        // $scope.updateAsset = function (asset) {
-        //
-        //   if ($scope.siguienteEstado) {
-        //     if ($scope.asset_type.lifeCycle[$scope.indexEstadoActual].isFinal)
-        //     {
-        //       asset.estadoActual = $scope.asset_type.lifeCycle[$scope.indexEstadoActual].name;
-        //     } else {
-        //         asset.estadoActual = $scope.siguienteEstado;
-        //     }
-        //   }
-        //
-        //   if ($scope.volverInicial) {
-        //     asset.estadoActual = $scope.estadoInicial;
-        //   }
-        //
-        //   dataFactory.editAsset (function (){
-        //       $mdDialog.hide(asset);
-        //       $scope.myassets.splice(indice,1,asset);
-        //       //console.log($scope.indexBusqueda);
-        //       //if ($scope.indexBusqueda) {
-        //         $scope.resultadoBusqueda.splice($scope.indexBusqueda,1,asset);
-        //       //}
-        //
-        //     }, asset, $mdDialog, $mdToast);
-        //
-        // };
-        //
-        // $scope.hide = function() {
-        //   $mdDialog.hide();
-        // };
-        // $scope.cancel = function() {
-        //   $mdDialog.cancel();
-        // };
-
-
-        // };
 
       function AdvSearchCtrl(myassets, assettypes, $scope, $mdDialog, $mdToast) {
         $scope.myassets = myassets;

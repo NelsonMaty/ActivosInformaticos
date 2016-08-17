@@ -54,14 +54,36 @@
 			<div style="padding-left: 16px; padding-top: 10px;">
 				<h2> Miembros </h2>
 			</div>
-			<div style="padding-left: 16px; padding-top: 10px;">
+			<div layout="row" ng-repeat="member in asset.stakeholders track by $index" style="padding-left: 16px; padding-top: 10px;">
 				<md-input-container class=" md-block" style="margin-bottom: 0px;">
-					<input ng-model="asset.stakeholders.name" type="text" placeholder="Nombre de contacto" >
+					<!-- <input ng-model="asset.stakeholders.name" type="text" placeholder="Nombre de contacto" > -->
+					<label>Persona</label>
+	        <md-select ng-model="member.personId" aria-label="tipo activo">
+	          <md-option ng-repeat="person in people" value="{{person._id}}" >
+	              {{person.name}}
+	          </md-option>
+	        </md-select>
 				</md-input-container>
+				<md-input-container class=" md-block" style="margin-bottom: 0px;">
+					<!-- <input ng-model="asset.stakeholders.email" type="email" placeholder="Email de contacto" > -->
+					<label>Rol</label>
+	        <md-select ng-model="member.role" aria-label="tipo activo">
+	          <md-option ng-repeat="rol in roles" value="{{rol.name}}" >
+	              {{rol.name}}
+	          </md-option>
+	        </md-select>
+				</md-input-container>
+				<div layout-gt-sm="row" ng-if="asset.stakeholders.length>1" >
+					<md-button  aria-label="Quitar columna" ng-click="removeItem('miembro',$index)" style=" bottom: 14px;">
+						<md-icon md-font-set="material-icons">remove_circle</md-icon>
+					</md-button>
+				</div>
 
-				<md-input-container class=" md-block" style="margin-bottom: 0px;">
-					<input ng-model="asset.stakeholders.email" type="email" placeholder="Email de contacto" >
-				</md-input-container>
+				<div layout-gt-sm="row" ng-if="$last">
+					<md-button  aria-label="Añadir columna" ng-click="addItem('miembro')" style=" bottom: 14px;">
+						<md-icon md-font-set="material-icons">add_circle</md-icon>
+					</md-button>
+				</div>
 			</div>
 
 
