@@ -90,8 +90,6 @@ angular.module('activosInformaticosApp')
       $scope.people = response;
     });
 
-
-
     $scope.clickAsset = function(asset,indice) {
       $scope.clicked_asset = asset;
       $scope.clicked_index = indice;
@@ -113,7 +111,6 @@ angular.module('activosInformaticosApp')
         // if (isSidenavOpen) $scope.cerrarAvanzado();
         animationMenuExit(null,$(".cerrar-menu-activo"),'bounceOutLeft');
       }
-
     };
 
     $scope.busqueda = function (string,avanzada,parametros) {
@@ -212,9 +209,7 @@ angular.module('activosInformaticosApp')
         })
         .then(function() {
 
-
         });
-
       };
 
       $scope.showFormly = function(formly_fields,typeid, listas) {
@@ -234,16 +229,10 @@ angular.module('activosInformaticosApp')
           fullscreen: useFullScreen
         })
         .then(function(asset) {
-
           if (asset) {
-
             $scope.myassets.push(asset);
-
           }
-
-
         });
-
       };
 
       $scope.goAsset = function(asset) {
@@ -257,8 +246,6 @@ angular.module('activosInformaticosApp')
       $scope.editAsset = function(asset) {
         $state.go('editActivo', {asset: asset});
         $previousState.set('home','usuario');
-
-
       };
 
       $scope.deleteAsset = function(ev, asset, indice) {
@@ -793,7 +780,12 @@ angular.module('activosInformaticosApp')
         $scope.estadoActual = null;
         $scope.type_prop = [];
         $scope.names_list = [];
-        $scope.asset.attached = [''];
+        $scope.asset.attached = [
+          {
+            name: '',
+            url: ''
+          }
+        ];
         $scope.people = people;
 
         dataFactory.getRoles(function (response) {
@@ -810,7 +802,7 @@ angular.module('activosInformaticosApp')
               $scope.asset.stakeholders.push({personId:'',role:''});
               break;
             default:
-              $scope.asset.attached.push('');
+              $scope.asset.attached.push({name:'',url:''});
               break;
           }
               // if (answer == 'lista') {
