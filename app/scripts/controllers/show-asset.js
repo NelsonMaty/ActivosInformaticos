@@ -34,6 +34,8 @@ angular.module('activosInformaticosApp')
     $scope.keys.splice($scope.keys.indexOf("comment"),1);
     $scope.keys.splice($scope.keys.indexOf("$$hashKey"),1);
     $scope.keys.splice($scope.keys.indexOf("attached"),1);
+    $scope.keys.splice($scope.keys.indexOf("_id"),1);
+    $scope.keys.splice($scope.keys.indexOf("typeId"),1);
 
     if ($scope.keys.indexOf("__v")>=0) {
 
@@ -59,7 +61,7 @@ angular.module('activosInformaticosApp')
 
     $scope.goRelation = function(relation,assetId) {
       $state.go('relacion',{relation: relation, assetId: assetId});
-      
+
     };
 
     $scope.searchNode = function(svgAnterior) {
@@ -437,8 +439,9 @@ angular.module('activosInformaticosApp')
 
     $scope.goToVersion = function(idVersion, indiceVersion) {
       $scope.showVersion = true;
+      $scope.isActualVersion = false;
       $scope.sel_version = $scope.assetVersions[indiceVersion];
-
+      if (indiceVersion==0) $scope.isActualVersion = true;
       $scope.versionKeys = Object.keys($scope.sel_version.asset);
 
       $scope.versionKeys.splice($scope.versionKeys.indexOf("name"),1);
@@ -448,6 +451,7 @@ angular.module('activosInformaticosApp')
       $scope.versionKeys.splice($scope.versionKeys.indexOf("comment"),1);
       $scope.versionKeys.splice($scope.versionKeys.indexOf("$$hashKey"),1);
       $scope.versionKeys.splice($scope.versionKeys.indexOf("attached"),1);
+      $scope.versionKeys.splice($scope.versionKeys.indexOf("_id"),1);
 
       if ($scope.versionKeys.indexOf("__v")>=0) {
         $scope.b =$scope.versionKeys.indexOf("__v");
