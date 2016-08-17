@@ -80,6 +80,22 @@ angular
           assetId: ""
         }
       })
+      .state('miembro', {
+        url: "/miembro",
+        templateUrl: "views/show_person.tmpl.html",
+        controller: 'ShowPersonCtrl',
+        params: {
+          person: {}
+        }
+      })
+      .state('editMiembro', {
+        url: "/edicionMiembro",
+        templateUrl: "views/edit_person.tmpl.html",
+        controller: 'EditPersonCtrl',
+        params: {
+          person: {}
+        }
+      })
   //   $routeProvider
   //     .when('/', {
   //       templateUrl: 'views/login.html',
@@ -115,26 +131,6 @@ angular
   .run(function ($rootScope, $state, $window, $timeout, $previousState) {
     $rootScope.$state = $state;
 
-    // $rootScope.$watch(function() {
-    //   return $previousState.get('caller');
-    // }, function(newval, oldval) {
-    //   if (!newval || newval.state.abstract) {
-    //     $rootScope.previous = null;
-    //     $rootScope.previousLink = "No previous state";
-    //   } else {
-    //     $rootScope.previous = newval;
-    //     $rootScope.previousLink = "Return to " + newval.state.name;
-    //   }
-    // });
-    // $rootScope.goPrevious = function() {
-    //   $previousState.go('caller');
-    // };
-
-    // $rootScope.$on("$stateChangeSuccess", function() {
-    //   $timeout(function() {
-    //     $window.ga('send', 'pageview', $window.location.pathname+$window.location.hash);
-    //   } );
-    // });
   })
 
   .factory('dataFactory', ['$http',function($http){
@@ -531,7 +527,7 @@ angular
         });
       };
 
-      dataFactory.editUser = function(callback,person,$mdDialog,$mdToast){
+      dataFactory.editPerson = function(callback,person,$mdDialog,$mdToast){
           // console.log(user);
         $http({
           method:"put",

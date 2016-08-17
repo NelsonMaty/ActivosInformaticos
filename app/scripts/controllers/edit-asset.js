@@ -343,10 +343,14 @@ angular.module('activosInformaticosApp')
     };
 
     $scope.goBack = function() {
-      //$mdDialog.cancel();
-      //$previousState.forget();
-      //$previousState.go();
-      $state.go('activo',{asset: $stateParams.asset});
-
+      // $state.go('activo',{asset: $stateParams.asset});
+      var previous = $previousState.get();
+      if (previous && previous.state.name == 'usuario') {
+        $previousState.go();
+        $previousState.forget();
+      } else {
+        $state.go('activo',{asset: $stateParams.asset});
+      }
     };
+
 });

@@ -513,44 +513,51 @@ angular.module('activosInformaticosApp')
 
       //----------Person---------//
 
-        $scope.goToPerson = function(person, event) {
-            $mdDialog.show(
-              $mdDialog.alert()
-                .title('Navigating')
-                //.content('Inspect ' + person)
-                .content('Comentario ' + person.comment)
-                .ariaLabel('Person inspect demo')
-                .ok('Neat!')
-                .targetEvent(event)
-            );
+        $scope.goPerson = function(person) {
+            // $mdDialog.show(
+            //   $mdDialog.alert()
+            //     .title('Navigating')
+            //     //.content('Inspect ' + person)
+            //     .content('Comentario ' + person.comment)
+            //     .ariaLabel('Person inspect demo')
+            //     .ok('Neat!')
+            //     .targetEvent(event)
+            // );
+            $state.go('miembro', {person: person});
+            $previousState.set('home','usuario');
         };
 
-        $scope.editPerson = function(person, ev, $index) {
-          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-            console.log($index);
-            $mdDialog.show({
-              locals: {
-                person: person,
-                borrar: $scope.doBorrar,
-                indice: $index
-              },
-              controller: EditUserCtrl,
-              templateUrl: '../../views/edit_user.tmpl.html',
-              parent: angular.element(document.body),
-              targetEvent: ev,
-              clickOutsideToClose:false,
-              fullscreen: useFullScreen
-            })
-              .then(function(user) {
-                //$scope.status = 'Hiciste click en "' + answer + '".';
-                if (user) {
-                  $scope.people[$index] = user;
-                }
-              }, function() {
-
-              });
-
+        $scope.goEditPerson = function(person) {
+          $state.go('editMiembro',{person: $scope.person});
+          $previousState.set('home','usuario');
         };
+
+        // $scope.editPerson = function(person, ev, $index) {
+        //   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+        //     console.log($index);
+        //     $mdDialog.show({
+        //       locals: {
+        //         person: person,
+        //         borrar: $scope.doBorrar,
+        //         indice: $index
+        //       },
+        //       controller: EditUserCtrl,
+        //       templateUrl: '../../views/edit_user.tmpl.html',
+        //       parent: angular.element(document.body),
+        //       targetEvent: ev,
+        //       clickOutsideToClose:false,
+        //       fullscreen: useFullScreen
+        //     })
+        //       .then(function(user) {
+        //         //$scope.status = 'Hiciste click en "' + answer + '".';
+        //         if (user) {
+        //           $scope.people[$index] = user;
+        //         }
+        //       }, function() {
+        //
+        //       });
+        //
+        // };
 
         $scope.doBorrar = function(person, ev, indice) {
           //console.log(person);
@@ -594,23 +601,23 @@ angular.module('activosInformaticosApp')
 
     //-----------Controllers-----------//
 
-    function AddPersonCtrl($scope, $mdDialog, $mdToast) {
-      $scope.person = {};
+      function AddPersonCtrl($scope, $mdDialog, $mdToast) {
+        $scope.person = {};
 
-      $scope.hide = function() {
-        $mdDialog.hide();
-      };
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
 
-      $scope.addPerson = function(person) {
+        $scope.addPerson = function(person) {
 
-        dataFactory.createPerson( function (){
-            $mdDialog.hide(person);
-          }, person, $mdDialog, $mdToast);
+          dataFactory.createPerson( function (){
+              $mdDialog.hide(person);
+            }, person, $mdDialog, $mdToast);
+        };
       };
-    };
 
       function AddRelationCtrl(myassets,etapa,first,$scope, $mdDialog, $mdToast){
         $scope.assets = myassets;

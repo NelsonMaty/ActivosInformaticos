@@ -1,0 +1,71 @@
+<div layout="column" aria-label="Editar Activo" style="height:100%; overflow:hidden">
+	<md-toolbar layout="row">
+	  <div class="md-toolbar-tools">
+	    <h1> {{person.name}} &nbsp; </h1>
+	  </div>
+		<md-button class="md-icon-button" style="top: 7px;" ng-click="goHome()">
+      <md-tooltip md-direction="bottom"> Página principal </md-tooltip>
+	    <md-icon md-font-set="material-icons" aria-label="Edit asset">home</md-icon>
+	  </md-button>
+
+    <md-button class="md-icon-button" style="top: 7px;" ng-click="goEditPerson()">
+      <md-tooltip md-direction="bottom"> Editar </md-tooltip>
+	    <md-icon md-font-set="material-icons" aria-label="Edit asset">edit</md-icon>
+	  </md-button>
+
+	  <md-button class="md-icon-button" style="top: 7px;" ng-click="goBack()">
+	    <md-icon md-font-set="material-icons" aria-label="Close dialog">reply</md-icon>
+	  </md-button>
+	</md-toolbar>
+
+	<div layout="column" flex id="content" >
+		<md-content layout="column" class="md-padding" style="" flex flex="100">
+			<md-content layout="column" flex="100">
+				<md-tabs layout="column" flex="100"  md-border-bottom="" >
+          <md-tab label="Descripción" style="overflow: auto;">
+            <md-content class="md-padding">
+              <h1 class="md-display-1" style="padding-left: 20px; padding-bottom: 16px;">Datos de contacto</h1>
+              <div layout="row" style="padding-bottom: 20px; padding-left: 16px; padding-top: 16px;">
+                <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">person</md-icon>
+                <strong style="padding-left: 20px;padding-top: 2px;">Nombre: </strong>
+                <p style="padding-left: 20px; padding-top: 2px;">{{person.name}}</p>
+              </div>
+              <div layout="row" style="padding-bottom: 20px; padding-left: 16px; padding-top: 16px;">
+                <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">email</md-icon>
+                <strong style="padding-left: 20px;padding-top: 2px;">Email: </strong>
+                <p style="padding-left: 20px; padding-top: 2px;">{{person.email}}</p>
+              </div>
+              <div layout="row" style="padding-bottom: 20px; padding-left: 16px; padding-top: 16px;">
+                <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">phone</md-icon>
+                <strong style="padding-left: 20px;padding-top: 2px;">Teléfono: </strong>
+                <p style="padding-left: 20px; padding-top: 2px;">{{person.phone}}</p>
+              </div>
+              <div layout="row" style="padding-bottom: 20px; padding-left: 16px; padding-top: 16px;">
+                <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">comment</md-icon>
+                <strong style="padding-left: 20px;padding-top: 2px;">Comentarios: </strong>
+                <p style="padding-left: 20px; padding-top: 2px;">{{person.comment}}</p>
+              </div>
+              <!-- <div style="padding-left: 16px; padding-top: 10px; " layout="row">
+                <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px; margin-left:0px; margin-right:0px;">local_offer</md-icon>
+                <md-chips ng-model="asset.tags" readonly="true" style="padding-left: 60px;"></md-chips>
+              </div> -->
+            </md-content>
+          </md-tab>
+          <md-tab label="Activos">
+            <md-content class="md-padding">
+              <h1 class="md-display-1">Participación en activos</h1>
+              <div class="" layout="row" flex layout-align="center center">
+                <img data-ng-src="data:image/png;base64,{{lifeCycleGraph.graph}}"> </img>
+              </div>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+      </md-content>
+      <div layout="row" layout-align="end end">
+        <md-button ng-click="goBack()">
+          Aceptar
+        </md-button>
+      </div>
+    </md-content>
+  </div>
+</div>

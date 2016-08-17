@@ -2,7 +2,7 @@
   <form name="userForm">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Edición de miembro</h2>
+        <h2>Edición: {{update_person.name}}</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-font-set="material-icons" aria-label="Close dialog">close</md-icon>
@@ -38,10 +38,10 @@
       <md-button ng-click="editPerson(update_person)" ng-disabled="userForm.$invalid">
         Aceptar
       </md-button>
-      <md-button ng-click="cancel()" style="margin-right:20px;">
+      <md-button ng-click="goBack()" style="margin-right:20px;">
         Cancelar
       </md-button>
-      <md-button class="md-icon-button" ng-click="deletePerson(indice)">
+      <md-button class="md-icon-button" ng-click="deletePerson()">
           <md-icon md-font-set="material-icons" aria-label="Borrar dialog">delete</md-icon>
       </md-button>
     </md-dialog-actions>
