@@ -8,26 +8,29 @@
       </md-button> -->
 
       <span flex=""></span>
-      <!-- <md-button class="md-icon-button" aria-label="Busqueda">
-        <md-icon md-font-set="material-icons">search</md-icon>
-      </md-button> -->
+
+      <md-menu md-position-mode="target-right target">
+        <md-button class="md-icon-button" aria-label="Opciones" ng-click="openMenu($mdOpenMenu, $event)">
+          <md-icon md-menu-origin="" md-font-set="material-icons">settings</md-icon>
+        </md-button>
+        <md-menu-content width="1">
+          <md-menu-item>
+            <md-button ng-click="goUsuario()">
+              <md-icon md-font-set="material-icons" md-menu-align-target="">home</md-icon>
+              Pantalla principal
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
 
     </div>
   </md-toolbar>
   <div layout="row" flex>
-    <!-- <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
-      <md-button class="md-accent">Usuarios</md-button>
-      <md-button class="md-accent">Grupos</md-button>
-      <md-button class="md-accent">Activos</md-button>
-
-    </md-sidenav> -->
 
     <div layout="column" flex id="content">
-      <md-content layout="column" flex class="md-padding">
-
-
-          <md-content>
-            <md-tabs md-dynamic-height="" md-border-bottom="">
+      <md-content layout="column" flex class="md-padding" flex="100">
+          <md-content layout="column" flex="100">
+            <md-tabs md-border-bottom="" layout="column" flex="100">
               <!-- <md-tab label="Usuarios">
                 <md-content class="md-padding">
                   <h1 class="md-display-2">Usuarios</h1>
@@ -48,11 +51,16 @@
 
               <md-tab label="Tipos de activo">
                 <md-content class="md-padding">
-                  <h1 class="md-display-2">Tipos de activo</h1>
-
+                  <!-- <h1 class="md-display-2">Tipos de activo</h1> -->
+                  <div class="" layout="row" layout-align="center center ">
+                    <md-input-container class=" md-block" style="width: 400px;">
+                      <md-icon style="bottom:28px;" md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
+                      <input ng-model="filterAssetType" type="text" placeholder="Filtrar por nombre">
+                    </md-input-container>
+                  </div>
                   <md-list ng-cloak>
                     <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
-                    <md-list-item ng-repeat="type in assettypes" ng-click="goToType(type, $event,$index)">
+                    <md-list-item ng-repeat="type in assettypes | filter:filterAssetType" ng-click="goToType(type, $event,$index)">
                       <md-icon md-font-set="material-icons">receipt</md-icon>
                       <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
                       <p>{{ type.name }}</p>
@@ -65,10 +73,16 @@
               </md-tab>
               <md-tab label="Tipos de relacion">
                 <md-content class="md-padding">
-                  <h1 class="md-display-2">Tipos de relacion</h1>
+                  <!-- <h1 class="md-display-2">Tipos de relacion</h1> -->
+                  <div class="" layout="row" layout-align="center center ">
+                    <md-input-container class=" md-block" style="width: 400px;">
+                      <md-icon style="bottom:28px;" md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
+                      <input ng-model="filterRelationType" type="text" placeholder="Filtrar por nombre">
+                    </md-input-container>
+                  </div>
                   <md-list ng-cloak>
 
-                    <md-list-item ng-repeat="relType in relationtypes" ng-click="goToRelationType(relType, $event,$index)">
+                    <md-list-item ng-repeat="relType in relationtypes | filter:filterRelationType" ng-click="goToRelationType(relType, $event,$index)">
                       <md-icon md-font-set="material-icons">link</md-icon>
 
                       <p>{{ relType._id }}</p>
@@ -84,7 +98,7 @@
           <ul mfb-menu menu-state="myVar" position="br" effect="slidein" active-icon="ion-close" resting-icon="ion-plus" toggling-method="click" >
             <a mfb-button mfb-button-close icon="ion-android-list" label="Nuevo tipo de activo" ng-click="showAddAssetType($event)" >  </a>
             <a mfb-button mfb-button-close icon="ion-link" label="Nuevo tipo de relación" ng-click="showAddRelationType($event)" >  </a>
-            <a mfb-button mfb-button-close icon="ion-ios-personadd" label="Nuevo usuario" ng-click="showAddUser($event)" >  </a>
+            <!-- <a mfb-button mfb-button-close icon="ion-ios-personadd" label="Nuevo usuario" ng-click="showAddUser($event)" >  </a> -->
           </ul>
 
           {{status}}

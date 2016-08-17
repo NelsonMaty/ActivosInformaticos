@@ -70,9 +70,10 @@ angular.module('activosInformaticosApp')
 
     $scope.toggleRight = buildToggler('right');
 
-    $scope.go = function(path) {
+    $scope.go = function() {
       //location.href = "0.0.0.0:9000/#/admin";
-      $location.path( path );
+      // $location.path( path );
+      $state.go('admin');
     }
 
     dataFactory.getAssetTypes( function (response) {
@@ -532,52 +533,6 @@ angular.module('activosInformaticosApp')
           $previousState.set('home','usuario');
         };
 
-        // $scope.editPerson = function(person, ev, $index) {
-        //   var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-        //     console.log($index);
-        //     $mdDialog.show({
-        //       locals: {
-        //         person: person,
-        //         borrar: $scope.doBorrar,
-        //         indice: $index
-        //       },
-        //       controller: EditUserCtrl,
-        //       templateUrl: '../../views/edit_user.tmpl.html',
-        //       parent: angular.element(document.body),
-        //       targetEvent: ev,
-        //       clickOutsideToClose:false,
-        //       fullscreen: useFullScreen
-        //     })
-        //       .then(function(user) {
-        //         //$scope.status = 'Hiciste click en "' + answer + '".';
-        //         if (user) {
-        //           $scope.people[$index] = user;
-        //         }
-        //       }, function() {
-        //
-        //       });
-        //
-        // };
-
-        // $scope.doBorrar = function(person, ev, indice) {
-        //   //console.log(person);
-        //   var confirm = $mdDialog.confirm()
-        //       .title('¿Está seguro que desea borrar este usuario?')
-        //       //.textContent('All of the banks have agreed to forgive you your debts.')
-        //       .ariaLabel('Borrado de usuario')
-        //       .targetEvent(ev)
-        //       .ok('Aceptar')
-        //       .cancel('Cancelar');
-        //   $mdDialog.show(confirm)
-        //     .then(function() {
-        //       dataFactory.deleteUser(person,$mdDialog,$mdToast);
-        //       $scope.people.splice(indice,1);
-        //       //$scope.status = 'El usuario fue borrado';
-        //     }, function() {
-        //       $scope.status = 'No se realizaron cambios';
-        //     });
-        // };
-
         $scope.showAddPerson = function(ev) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
           $mdDialog.show({
@@ -596,8 +551,6 @@ angular.module('activosInformaticosApp')
 
           });
         };
-
-
 
     //-----------Controllers-----------//
 

@@ -1,5 +1,4 @@
 
-
 <div id="win" layout="column" style=" height: 100%;" ng-click="clickClose(); ">
   <md-toolbar layout="row" >
     <div class="md-toolbar-tools" >
@@ -33,7 +32,7 @@
         </md-button>
         <md-menu-content width="1">
           <md-menu-item>
-            <md-button ng-click="go('/admin')">
+            <md-button ng-click="go()">
               <md-icon md-font-set="material-icons" md-menu-align-target="" >build</md-icon>
               Administración
             </md-button>
@@ -48,7 +47,7 @@
       <md-button class="md-accent">Compartidos</md-button>
     </md-sidenav> -->
     <div layout="column" flex id="content">
-      <md-content layout="column" flex class="md-padding" layout="column" flex="100">
+      <md-content layout="column" flex class="md-padding" flex="100">
           <md-content layout="column" flex="100">
             <md-tabs md-border-bottom="" layout="column" flex="100">
               <md-tab label="Activos" style="overflow: auto;" flex="100">
@@ -175,7 +174,7 @@
                 <md-content class="md-padding">
                   <div class="" layout="row" layout-align="center center ">
                     <md-input-container class=" md-block" style="width: 400px;">
-                      <md-icon style="bottom:28px;" md-font-set="material-icons" aria-label="nombre tipo activo">search</md-icon>
+                      <md-icon style="bottom:28px;" md-font-set="material-icons" aria-label="nombre persona">search</md-icon>
                       <input ng-model="filterPerson" type="text" placeholder="Filtrar por nombre">
                     </md-input-container>
                   </div>

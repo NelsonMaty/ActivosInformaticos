@@ -1,7 +1,7 @@
 
 
 angular.module('activosInformaticosApp')
-  .controller('AppCtrl', function ($scope, $mdDialog, $mdMedia, $mdToast, $filter, dataFactory) {
+  .controller('AppCtrl', function ($scope,$state, $mdDialog, $mdMedia, $mdToast, $filter, dataFactory) {
 
     // $scope.people=[];
 
@@ -9,6 +9,11 @@ angular.module('activosInformaticosApp')
     //   $scope.people = response;
     //
     // });
+
+    $scope.openMenu = function($mdOpenMenu, ev) {
+      originatorEv = ev;
+      $mdOpenMenu(ev);
+    };
 
     dataFactory.getAssetTypes( function (response) {
       $scope.assettypes = response;
@@ -23,6 +28,10 @@ angular.module('activosInformaticosApp')
     $scope.toggleSidenav = function(menuId) {
       //$mdSidenav(menuId).toggle();
     };
+
+    $scope.goUsuario = function () {
+      $state.go('usuario');
+    }
 
     //----------users---------//
 
