@@ -1,4 +1,4 @@
-<md-dialog aria-label="Nuevo Activo" ng-cloak style="width: 800px; ">
+<md-dialog aria-label="Nuevo Activo" ng-cloak style="width: 1000px; ">
 	<!-- <div style="overflow: auto"> -->
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
@@ -74,7 +74,7 @@
 	        </md-select>
 				</md-input-container>
 				<div layout-gt-sm="row" ng-if="asset.stakeholders.length>1" >
-					<md-button  aria-label="Quitar columna" ng-click="removeItem('miembro',$index)" style=" bottom: 14px;">
+					<md-button  aria-label="Quitar columna" ng-click="removeItem('miembro','',$index)" style=" bottom: 14px;">
 						<md-icon md-font-set="material-icons">remove_circle</md-icon>
 					</md-button>
 				</div>
