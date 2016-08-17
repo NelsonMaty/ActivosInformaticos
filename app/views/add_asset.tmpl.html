@@ -18,12 +18,8 @@
           <input type="search" ng-model="buscado" placeholder="Tipos" aria-label="filter types" />
         </md-input-container>
         <md-list ng-cloak>
-          <!-- md-subheader class="md-no-sticky">Lista de usuarios</md-subheader-->
           <md-list-item ng-repeat="type in assettypes | filter:buscado" ng-click="goToType(type, $event, $index)" ng-class="{'select-activo animated flash': clickedIcon($index) }">
-
-            <!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
             <p>{{ type.name }}</p>
-
             <md-divider ng-if="!$last"></md-divider>
           </md-list-item>
         </md-list>

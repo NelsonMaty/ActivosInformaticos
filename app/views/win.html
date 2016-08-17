@@ -129,7 +129,7 @@
                        <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-right: 20px;">panorama_fish_eye</md-icon>
                        <p ng-class="{'estado-final': esFinal }" class="estado-actual" style=" padding-top: 2px;">{{clicked_asset.estadoActual}}</p>
                      </md-card-content>
-                   </md-card>
+                    </md-card>
                    <md-card ng-if="clicked_asset.tags.length>0">
                     <md-card-title style="padding-top:0px;padding-bottom:0px;">
                       <md-card-title-text >
@@ -141,7 +141,7 @@
                        <md-chips ng-model="clicked_asset.tags" readonly="true" ></md-chips>
                      </div>
                     </md-card-content>
-                  </md-card>
+                    </md-card>
                    <md-card ng-if="clicked_asset.attached.length>=1 && clicked_asset.attached[0].length>0">
                     <md-card-title style="padding-top:0px;">
                       <md-card-title-text >
@@ -165,12 +165,11 @@
                         <p style=" padding-top: 2px;">{{clicked_asset.comment}}</p>
                       </md-card-content>
                     </md-card>
-
                   </md-sidenav>
                 </div>
 
               </md-tab>
-              <md-tab label="Miembros">
+              <md-tab label="Personas">
                 <md-content class="md-padding">
                   <div class="" layout="row" layout-align="center center ">
                     <md-input-container class=" md-block" style="width: 400px;">
@@ -195,7 +194,7 @@
       </md-content>
 
       <ul mfb-menu menu-state="myVar" position="br" effect="slidein" active-icon="ion-close" resting-icon="ion-plus" toggling-method="click" >
-        <a mfb-button mfb-button-close icon="ion-ios-personadd" label="Nuevo miembro" ng-click="showAddPerson($event)" >  </a>
+        <a mfb-button mfb-button-close icon="ion-ios-personadd" label="Nueva persona" ng-click="showAddPerson($event)" >  </a>
         <a mfb-button mfb-button-close icon="ion-link" label="Nueva relacion" ng-click="addRelation($event,'1',null)" >  </a>
         <a mfb-button mfb-button-close icon="ion-ios-paper" label="Nuevo activo" ng-click="showAddAsset($event)" >  </a>
       </ul>
