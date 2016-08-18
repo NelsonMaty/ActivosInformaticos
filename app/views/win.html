@@ -142,7 +142,7 @@
                      </div>
                     </md-card-content>
                     </md-card>
-                   <md-card ng-hide="clicked_asset.attached.length==1 && clicked_asset.attached[0].length>0">
+                   <md-card ng-hide="clicked_asset.attached.length==1 && clicked_asset.attached[0].name.length==0 && clicked_asset.attached[0].url.length==0 ">
                     <md-card-title style="padding-top:0px;">
                       <md-card-title-text >
                         <span class="md-subhead">Adjuntos</span>
@@ -154,7 +154,7 @@
                       <p ng-show="clicked_asset.attached.length<1"style="padding-top: 2px;">Tiene {{clicked_asset.attached.length}} elementos adjuntos</p>
                     </md-card-content>
                     </md-card>
-                    <md-card ng-if="clicked_asset.comment">
+                    <!-- <md-card ng-if="clicked_asset.comment">
                       <md-card-title style="padding-top:0px;">
                         <md-card-title-text >
                           <span class="md-subhead">Comentarios</span>
@@ -164,7 +164,7 @@
                         <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">comment</md-icon>
                         <p style=" padding-top: 2px;">{{clicked_asset.comment}}</p>
                       </md-card-content>
-                    </md-card>
+                    </md-card> -->
                   </md-sidenav>
                 </div>
 

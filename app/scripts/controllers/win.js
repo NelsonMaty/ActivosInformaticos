@@ -445,6 +445,8 @@ angular.module('activosInformaticosApp')
           $scope.keys.splice($scope.keys.indexOf("tags"),1);
           $scope.keys.splice($scope.keys.indexOf("estadoActual"),1);
           $scope.keys.splice($scope.keys.indexOf("stakeholders"),1);
+          $scope.keys.splice($scope.keys.indexOf("_id"),1);
+          $scope.keys.splice($scope.keys.indexOf("typeId"),1);
 
 
           if ($scope.keys.indexOf("__v")>=0) {
