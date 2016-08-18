@@ -142,7 +142,7 @@
                      </div>
                     </md-card-content>
                     </md-card>
-                   <md-card ng-if="clicked_asset.attached.length>=1 && clicked_asset.attached[0].length>0">
+                   <md-card ng-hide="clicked_asset.attached.length==1 && clicked_asset.attached[0].length>0">
                     <md-card-title style="padding-top:0px;">
                       <md-card-title-text >
                         <span class="md-subhead">Adjuntos</span>

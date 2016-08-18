@@ -19,22 +19,52 @@ angular.module('activosInformaticosApp')
     $scope.volverInicial = false;
     $scope.actualStateGraph = {};
 
+    dataFactory.getRoles(function (response) {
+      $scope.roles = response;
+    });
+
+    dataFactory.getPersons( function (response) {
+      $scope.people = response;
+    });
+
     $scope.addItem = function(answer,parent_index) {
-          if (answer == 'lista') {
-            $scope.listas[parent_index].elements.push({content:''});
-          } else {
-            $scope.update_asset.attached.push('');
+          // if (answer == 'lista') {
+          //   $scope.listas[parent_index].elements.push({content:''});
+          // } else {
+          //   $scope.update_asset.attached.push('');
+          // }
+          switch (answer) {
+            case 'lista':
+              $scope.listas[parent_index].elements.push({content:''});
+              break;
+            case 'miembro':
+              $scope.update_asset.stakeholders.push({personId:'',role:''});
+              break;
+            default:
+              $scope.update_asset.attached.push({name:'',url:''});
+              break;
           }
     };
 
     $scope.removeItem = function(answer,parent_index,index) {
 
-      if (answer == 'lista') {
-        if ($scope.listas[parent_index].elements.length>1){
-          $scope.listas[parent_index].elements.splice(index,1);
-        }
-      } else {
-        $scope.update_asset.attached.splice(index,1);
+      // if (answer == 'lista') {
+      //   if ($scope.listas[parent_index].elements.length>1){
+      //     $scope.listas[parent_index].elements.splice(index,1);
+      //   }
+      // } else {
+      //   $scope.update_asset.attached.splice(index,1);
+      // }
+      switch (answer) {
+        case 'lista':
+          if ($scope.listas[parent_index].elements.length>1) $scope.listas[parent_index].elements.splice(index,1);
+          break;
+        case 'miembro':
+          $scope.update_asset.stakeholders.splice(index,1);
+          break;
+        default:
+          $scope.update_asset.attached.splice(index,1);
+          break;
       }
     };
 
