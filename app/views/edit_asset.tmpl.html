@@ -81,10 +81,13 @@
 
 						    <md-input-container  class=" md-block" style="padding-right: 6px;">
 						        <!-- <input ng-model="update_asset.attached[$index]" type="url" placeholder="https://" aria-label="lista"> -->
-										<input ng-model="link.name" type="text" placeholder="Nombre de adjunto" aria-label="adjunto" style="width:260px;">
+										<input ng-model="link.name" type="text" placeholder="Nombre de adjunto" aria-label="adjunto" style="width:260px;"ng-blur="verifUrl()">
+										<div ng-messages="{'vacio': urlVacio}" >
+											<div ng-message="vacio" style="opacity: 1 !important; margin-top: 0px;"> Ingrese un link para el elemnto adjunto </div>
+										</div>
 						    </md-input-container>
 								<md-input-container  class=" md-block" style=" left:20px;">
-									<input ng-model="link.url" type="url" placeholder="https://" aria-label="adjuntos" style="width:260px;">
+									<input ng-model="link.url" type="url" placeholder="https://" aria-label="adjuntos" style="width:260px;"ng-blur="verifUrl()">
 								</md-input-container>
 
 						    <!-- <div layout-gt-sm="row" ng-if="update_asset.attached.length>1" > -->
@@ -108,7 +111,7 @@
 					<!-- <md-button ng-click="updateAsset(update_asset)" ng-disabled="formly_form.$invalid">
 					  Aplicar
 					</md-button> -->
-					<md-button ng-click="nextSelect()" ng-disabled="formly_form.$invalid">
+					<md-button ng-click="nextSelect()" ng-disabled="formly_form.$invalid || urlVacio">
 					  Siguiente
 					</md-button>
 					<md-button ng-click="goBack()" style="margin-right:20px;">

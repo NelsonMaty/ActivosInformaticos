@@ -13,6 +13,9 @@ angular.module('activosInformaticosApp')
     $scope.volverInicial = false;
     $scope.actualStateGraph = {};
 
+    // console.log($scope.update_asset);
+    if($scope.update_asset.attached.length==0) $scope.update_asset.attached.push({name:'',url:''});
+
     dataFactory.getRoles(function (response) {
       $scope.roles = response;
     });
@@ -20,6 +23,18 @@ angular.module('activosInformaticosApp')
     dataFactory.getPersons( function (response) {
       $scope.people = response;
     });
+
+    $scope.verifUrl = function () {
+      //console.log($scope.properties);
+      for (i=0;i<$scope.update_asset.attached.length;i++) {
+        if ($scope.update_asset.attached[i].name.length>0 && $scope.update_asset.attached[i].url.length==0 ) {
+          $scope.urlVacio = true;
+          return true;
+        }
+      }
+      $scope.urlVacio = false;
+      return false;
+    };
 
     $scope.addItem = function(answer,parent_index) {
           // if (answer == 'lista') {
