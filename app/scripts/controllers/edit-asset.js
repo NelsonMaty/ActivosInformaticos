@@ -73,6 +73,7 @@ angular.module('activosInformaticosApp')
           break;
         default:
           $scope.update_asset.attached.splice(index,1);
+          $scope.verifUrl();
           break;
       }
     };

@@ -838,6 +838,7 @@ angular.module('activosInformaticosApp')
                   break;
                 default:
                   $scope.asset.attached.splice(index,1);
+                  $scope.verifUrl();
                   break;
               }
         };
