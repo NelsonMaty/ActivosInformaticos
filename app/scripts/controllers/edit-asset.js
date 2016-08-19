@@ -1,19 +1,13 @@
 angular.module('activosInformaticosApp')
   .controller('EditAssetCtrl', function ($stateParams,$previousState, $scope, $mdDialog, $mdMedia, $mdToast, $state, dataFactory) {
-    // $scope.asset = $stateParams.asset;
 
     $scope.update_asset = $.extend(true,{},$stateParams.asset);
     $scope.indexEstadoActual = null;
     $scope.estadoFinal = null;
     $scope.estadoInicial = null;
-    //$scope.myassets = myassets;
-    //$scope.resultadoBusqueda = resultadoBusqueda;
-    //$scope.deleteAsset = deleteAsset;
     $scope.etapa = 1;
     $scope.siguienteEstado = null;
     $scope.estadoInexistente = true;
-    //$scope.indice = indice;
-    //$scope.indexBusqueda = indexBusqueda;
     $scope.asset_type = {};
     $scope.listas = [];
     $scope.volverInicial = false;
@@ -150,7 +144,7 @@ angular.module('activosInformaticosApp')
                 type: 'select',
                 templateOptions: {
                   label: '* ' + atributos[i].name,
-                  options: ["True","False"],
+                  options: [true,false],
                   placeholder: $scope.update_asset[atributos[i].name],
                   required: true
                 }
@@ -161,7 +155,7 @@ angular.module('activosInformaticosApp')
                 type: 'select',
                 templateOptions: {
                   label: atributos[i].name,
-                  options: ["True","False"],
+                  options: [true,false],
                   placeholder: $scope.update_asset[atributos[i].name]
                 }
               };
@@ -347,7 +341,7 @@ angular.module('activosInformaticosApp')
     };
 
     $scope.updateAsset = function (asset) {
-
+      // console.log(asset);
       if ($scope.siguienteEstado) {
         if ($scope.asset_type.lifeCycle[$scope.indexEstadoActual].isFinal)
         {
@@ -359,6 +353,10 @@ angular.module('activosInformaticosApp')
 
       if ($scope.volverInicial) {
         asset.estadoActual = $scope.estadoInicial;
+      }
+
+      for (i=asset.attached.length-1;i>=0;i--) {
+        if (asset.attached[i].name.length==0 && asset.attached[i].url.length==0) asset.attached.splice(i,1);
       }
 
       dataFactory.editAsset (function (){

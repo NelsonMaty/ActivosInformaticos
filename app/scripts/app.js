@@ -487,7 +487,7 @@ angular
       };
 
       dataFactory.createAsset = function(callback,asset,$mdDialog,$mdToast){
-        //console.log(asset);
+        // console.log(asset);
 
         $http({
           method:"post",
@@ -520,7 +520,7 @@ angular
       };
 
       dataFactory.editAsset = function(callback,asset,$mdDialog,$mdToast){
-        //console.log(asset);
+        // console.log(asset);
         $http({
           method:"put",
           url:urlWS + 'assets/' + asset._id,

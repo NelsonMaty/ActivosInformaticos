@@ -15,9 +15,7 @@ angular.module('activosInformaticosApp')
     $scope.clicked = false;
     $scope.buscando = true;
     $scope.filterPerson = "";
-
-    // $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
-    // $scope.direccionRelaciones = 'Todas';
+    $scope.esFinal = false;
 
     var animationMenuExit = function(trigger, element){
         element = $(element);
@@ -81,7 +79,6 @@ angular.module('activosInformaticosApp')
     });
 
     dataFactory.getAssets( function (response) {
-
       $scope.myassets = response;
       $scope.buscando = false;
     });
@@ -98,6 +95,13 @@ angular.module('activosInformaticosApp')
         isSidenavOpen = true;
       }
       $scope.clicked = true;
+      dataFactory.getAnAssetType($scope.clicked_asset.typeId, function (response) {
+        for (i=0;i<response.lifeCycle.length;i++) {
+          if (response.lifeCycle[i].name == $scope.clicked_asset.estadoActual) {
+            $scope.esFinal = response.lifeCycle[i].isFinal;
+          }
+        }
+      });
     };
 
     $scope.clickedIcon= function(indice) {
@@ -619,7 +623,7 @@ angular.module('activosInformaticosApp')
                     type: 'select',
                     templateOptions: {
                       label: '' + atributos[i].name,
-                      options: ["True","False"],
+                      options: [true,false],
                       required: true
                     }
                   };
@@ -629,7 +633,7 @@ angular.module('activosInformaticosApp')
                     type: 'select',
                     templateOptions: {
                       label: atributos[i].name,
-                      options: ["True","False"]
+                      options: [true,false]
 
                     }
                   };
@@ -852,18 +856,19 @@ angular.module('activosInformaticosApp')
 
         $scope.newAsset = function(asset) {
 
-          //asset.attached = $scope.adjuntos;
           asset.typeId = $scope.typeid;
           asset.estadoActual = $scope.estadoActual;
 
           for (i=0;i<$scope.listas.length;i++) {
-
             for (j=0;j<$scope.names_list.length;j++) {
-
               if(listas[i].name == $scope.names_list[j]) {
                 asset[$scope.names_list[j]] = listas[i].elements;
               }
             }
+          }
+
+          for (i=asset.attached.length-1;i>=0;i--) {
+            if (asset.attached[i].name.length==0 && asset.attached[i].url.length==0) asset.attached.splice(i,1);
           }
 
           dataFactory.createAsset(function (response){
@@ -873,6 +878,18 @@ angular.module('activosInformaticosApp')
 
           }, asset, $mdDialog, $mdToast);
         }
+
+        $scope.verifUrl = function () {
+          //console.log($scope.properties);
+          for (i=0;i<$scope.asset.attached.length;i++) {
+            if ($scope.asset.attached[i].name.length>0 && $scope.asset.attached[i].url.length==0 ) {
+              $scope.urlVacio = true;
+              return true;
+            }
+          }
+          $scope.urlVacio = false;
+          return false;
+        };
 
         $scope.hide = function() {
           $mdDialog.hide();

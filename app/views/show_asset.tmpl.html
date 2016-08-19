@@ -78,10 +78,13 @@
 							  </div>
 
 								<md-divider></md-divider> -->
-								<h1 class="md-display-1" style="padding-left: 20px;" ng-hide="asset.attached.length==1 && asset.attached[0].url.length==0 && asset.attached[0].name.length==0">Información Adjunta</h1>
+								<!-- <h1 class="md-display-1" style="padding-left: 20px;" ng-hide="asset.attached.length==1 && asset.attached[0].url.length==0 && asset.attached[0].name.length==0">Información Adjunta</h1> -->
+								<h1 class="md-display-1" style="padding-left: 20px;" ng-hide="asset.attached.length==0">Información Adjunta</h1>
 
-								<md-list-item ng-repeat="link in asset.attached" style="height:50px;" ng-hide="asset.attached.length==1 && asset.attached[0].url.length==0 && asset.attached[0].name.length==0">
-								  <md-icon md-font-set="material-icons" style="padding-left: 20px; padding-bottom: 0px; margin-left: 0px;" ng-hide="link.name.length==0 && link.url.length==0">attach_file</md-icon>
+								<!-- <md-list-item ng-repeat="link in asset.attached" style="height:50px;" ng-hide="asset.attached.length==1 && asset.attached[0].url.length==0 && asset.attached[0].name.length==0"> -->
+								<md-list-item ng-repeat="link in asset.attached" style="height:50px;" ng-hide="asset.attached.length==0">
+								  <!-- <md-icon md-font-set="material-icons" style="padding-left: 20px; padding-bottom: 0px; margin-left: 0px;" ng-hide="link.name.length==0 && link.url.length==0">attach_file</md-icon> -->
+									<md-icon md-font-set="material-icons" style="padding-left: 20px; padding-bottom: 0px; margin-left: 0px;" >attach_file</md-icon>
 						      <a href="{{link.url}}" style="padding-left: 20px; padding-bottom: 0px;" ng-hide="link.name.length==0">{{link.name}} </a>
 									<a href="{{link.url}}" style="padding-left: 20px; padding-bottom: 0px;" ng-show="link.name.length==0 && link.url.length!=0">{{link.url}} </a>
 								</md-list-item>
@@ -290,10 +293,13 @@
 										  <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 0px; margin-left: 0px;">attach_file</md-icon>
 										  <a href="{{link}}" style="padding-left: 20px; padding-bottom: 0px;">{{link}} </a>
 										</md-list-item> -->
-										<h1 class="md-display-1" style="padding-left: 20px;" ng-hide="sel_version.attached.length==1 && sel_version.attached[0].url.length==0 && sel_version.attached[0].name.length==0">Información Adjunta</h1>
+										<!-- <h1 class="md-display-1" style="padding-left: 20px;" ng-hide="sel_version.attached.length==1 && sel_version.attached[0].url.length==0 && sel_version.attached[0].name.length==0">Información Adjunta</h1> -->
+										<h1 class="md-display-1" style="padding-left: 20px;" ng-hide="sel_version.attached.length==0">Información Adjunta</h1>
 
-										<md-list-item ng-repeat="link in sel_version.asset.attached" style="height:50px;" ng-hide="sel_version.attached.length==1 && sel_version.attached[0].url.length==0 && sel_version.attached[0].name.length==0">
-										  <md-icon md-font-set="material-icons" style="padding-left: 20px; padding-bottom: 0px; margin-left: 0px;" ng-hide="link.name.length==0 && link.url.length==0">attach_file</md-icon>
+										<!-- <md-list-item ng-repeat="link in sel_version.asset.attached" style="height:50px;" ng-hide="sel_version.attached.length==1 && sel_version.attached[0].url.length==0 && sel_version.attached[0].name.length==0"> -->
+										<md-list-item ng-repeat="link in sel_version.asset.attached" style="height:50px;" ng-hide="sel_version.attached.length==0">
+										  <!-- <md-icon md-font-set="material-icons" style="padding-left: 20px; padding-bottom: 0px; margin-left: 0px;" ng-hide="link.name.length==0 && link.url.length==0">attach_file</md-icon> -->
+											<md-icon md-font-set="material-icons" style="padding-left: 20px; padding-bottom: 0px; margin-left: 0px;">attach_file</md-icon>
 								      <a href="{{link.url}}" style="padding-left: 20px; padding-bottom: 0px;" ng-hide="link.name.length==0">{{link.name}} </a>
 											<a href="{{link.url}}" style="padding-left: 20px; padding-bottom: 0px;" ng-show="link.name.length==0 && link.url.length!=0">{{link.url}} </a>
 										</md-list-item>

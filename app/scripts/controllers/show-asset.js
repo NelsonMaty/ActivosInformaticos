@@ -1,14 +1,8 @@
 angular.module('activosInformaticosApp')
   .controller('ShowAssetCtrl', function ($stateParams,$previousState, $scope, $mdDialog, $mdMedia, $mdToast, $state, dataFactory) {
     $scope.asset = $stateParams.asset;
-    //console.log($stateParams);
     $scope.assetVersions = [];
-    // $scope.editAsset = editAsset;
-    //$scope.goRelation = goRelation;
-    // $scope.goToMap = goToMap;
-    // $scope.searchNode = searchNode;
     $scope.profundidad = 0;
-    //$scope.direccionRelaciones = false;
     $scope.filtros = ['Todas', 'Salientes', 'Entrantes'];
     $scope.direccionRelaciones = 'Todas';
     $scope.sel_version = {};

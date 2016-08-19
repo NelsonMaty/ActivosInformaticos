@@ -97,10 +97,13 @@
 			<div layout="row" ng-repeat="link in asset.attached track by $index" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
 
 					<md-input-container  class=" md-block" >
-						<input ng-model="link.name" type="text" placeholder="Nombre de adjunto" aria-label="lista" style="width:260px;">
+						<input ng-model="link.name" type="text" placeholder="Nombre de adjunto" aria-label="lista" style="width:260px;" ng-blur="verifUrl()">
+						<div ng-messages="{'vacio': urlVacio}" >
+							<div ng-message="vacio" style="opacity: 1 !important; margin-top: 0px;"> Ingrese un link para el elemnto adjunto </div>
+						</div>
 					</md-input-container>
 					<md-input-container  class=" md-block" style=" left:20px;">
-						<input ng-model="link.url" type="url" placeholder="https://" aria-label="lista" style="width:260px;">
+						<input ng-model="link.url" type="url" placeholder="https://" aria-label="lista" style="width:260px;" ng-blur="verifUrl()">
 					</md-input-container>
 
 					<!-- <div layout-gt-sm="row" ng-if="asset.attached.length>1" > -->
@@ -122,7 +125,7 @@
 
 
 	<md-dialog-actions layout="row">
-		<md-button ng-click="newAsset(asset)" ng-disabled="create_form.$invalid" >Crear</md-button>
+		<md-button ng-click="newAsset(asset)" ng-disabled="create_form.$invalid || urlVacio" >Crear</md-button>
 		<md-button ng-click="cancel()" >Cancelar</md-button>
 	</md-dialog-actions>
 	<!-- </div> -->
