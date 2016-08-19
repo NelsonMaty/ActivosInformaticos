@@ -45,21 +45,18 @@
 			<div style="padding-left: 16px; padding-top: 10px;">
 				<h2> Tags </h2>
 			</div>
-
 			<div style="padding-left: 16px; padding-top: 10px;">
 				<md-chips ng-model="asset.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
 			</div>
-
 			<md-divider></md-divider>
 			<div style="padding-left: 16px; padding-top: 10px;">
 				<h2> Miembros </h2>
 			</div>
 			<div layout="row" ng-repeat="member in asset.stakeholders track by $index" style="padding-left: 16px; padding-bottom: 20px;">
-
 				<md-input-container class=" md-block" style="margin-bottom: 0px; ">
 					<!-- <input ng-model="asset.stakeholders.name" type="text" placeholder="Nombre de contacto" > -->
 					<label>Persona</label>
-	        <md-select ng-model="member.personId" aria-label="tipo activo" style="width:260px;">
+	        <md-select ng-model="member.personId" aria-label="tipo activo" style="width:260px;" ng-change="verifPerson()">
 	          <md-option ng-repeat="person in people" value="{{person._id}}" >
 	              {{person.name}}
 	          </md-option>
@@ -68,11 +65,14 @@
 				<md-input-container class=" md-block" style="margin-bottom: 0px; left:20px;">
 					<!-- <input ng-model="asset.stakeholders.email" type="email" placeholder="Email de contacto" > -->
 					<label>Rol</label>
-	        <md-select ng-model="member.role" aria-label="tipo activo" style="width:260px;">
+	        <md-select ng-model="member.role" aria-label="tipo activo" style="width:260px;" ng-change="verifPerson()">
 	          <md-option ng-repeat="rol in roles" value="{{rol.name}}" >
 	              {{rol.name}}
 	          </md-option>
 	        </md-select>
+					<div ng-messages="{'vacioPerson': personVacio}" >
+						<div ng-message="vacioPerson" style="opacity: 1 !important; margin-top: 0px;"> Elija una persona para asumir este rol </div>
+					</div>
 				</md-input-container>
 
 				<!-- <div layout-gt-sm="row" ng-if="asset.stakeholders.length>1" > -->
@@ -99,7 +99,7 @@
 					<md-input-container  class=" md-block" >
 						<input ng-model="link.name" type="text" placeholder="Nombre de adjunto" aria-label="lista" style="width:260px;" ng-blur="verifUrl()">
 						<div ng-messages="{'vacio': urlVacio}" >
-							<div ng-message="vacio" style="opacity: 1 !important; margin-top: 0px;"> Ingrese un link para el elemnto adjunto </div>
+							<div ng-message="vacio" style="opacity: 1 !important; margin-top: 0px;"> Ingrese un link para el elemento adjunto </div>
 						</div>
 					</md-input-container>
 					<md-input-container  class=" md-block" style=" left:20px;">
@@ -125,7 +125,7 @@
 
 
 	<md-dialog-actions layout="row">
-		<md-button ng-click="newAsset(asset)" ng-disabled="create_form.$invalid || urlVacio" >Crear</md-button>
+		<md-button ng-click="newAsset(asset)" ng-disabled="create_form.$invalid || urlVacio || personVacio" >Crear</md-button>
 		<md-button ng-click="cancel()" >Cancelar</md-button>
 	</md-dialog-actions>
 	<!-- </div> -->

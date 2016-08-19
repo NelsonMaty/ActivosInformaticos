@@ -189,7 +189,19 @@
 								</div>
 							</md-content>
 						</md-tab>
-
+						<md-tab label="Miembros">
+							<md-content class="md-padding">
+								<h1 class="md-display-1">Miembros</h1>
+								<div style="padding-top:20px; ">
+									<md-list-item ng-repeat="person in assetMembers" ng-click="goPerson(person)">
+										<md-icon md-font-set="material-icons" style="margin-bottom:16px;">account_circle</md-icon>
+										<p>Persona: <a>{{ person.name }}</a> </p>
+										<p>Rol: <a>{{ asset.stakeholders[$index].role }}</a> </p>
+										<md-divider ng-if="!$last"></md-divider>
+									</md-list-item>
+								</div>
+							</md-content>
+						</md-tab>
 						<md-tab label="Historial">
 							<md-content class="md-padding">
 								<h1 class="md-display-1" ng-show="!showVersion">Historial de versiones</h1>
@@ -306,6 +318,7 @@
 								</div>
 							</md-content>
 						</md-tab>
+
 					</md-tabs>
 			</md-content>
 			<div layout="row" layout-align="end end">

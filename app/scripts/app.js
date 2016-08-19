@@ -81,7 +81,7 @@ angular
         }
       })
       .state('miembro', {
-        url: "/miembro",
+        url: "/persona",
         templateUrl: "views/show_person.tmpl.html",
         controller: 'ShowPersonCtrl',
         params: {
@@ -374,6 +374,18 @@ angular
           },function(err){
             console.log(err);
         });
+      };
+
+      dataFactory.getAPerson = function(id,callback){
+
+        $http.get(urlWS + 'persons/' + id)
+          .then(function(response){
+            //console.log(response);
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
+
       };
 
       dataFactory.getRoles = function(callback){

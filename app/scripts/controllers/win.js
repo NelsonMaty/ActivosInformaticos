@@ -835,6 +835,7 @@ angular.module('activosInformaticosApp')
                   break;
                 case 'miembro':
                   $scope.asset.stakeholders.splice(index,1);
+                  $scope.verifPerson();
                   break;
                 default:
                   $scope.asset.attached.splice(index,1);
@@ -871,6 +872,9 @@ angular.module('activosInformaticosApp')
           for (i=asset.attached.length-1;i>=0;i--) {
             if (asset.attached[i].name.length==0 && asset.attached[i].url.length==0) asset.attached.splice(i,1);
           }
+          for (i=asset.stakeholders.length-1;i>=0;i--) {
+            if (asset.stakeholders[i].personId.length==0 && asset.stakeholders[i].role.length==0) asset.stakeholders.splice(i,1);
+          }
 
           dataFactory.createAsset(function (response){
 
@@ -889,6 +893,18 @@ angular.module('activosInformaticosApp')
             }
           }
           $scope.urlVacio = false;
+          return false;
+        };
+
+        $scope.verifPerson = function () {
+          //console.log($scope.properties);
+          for (i=0;i<$scope.asset.stakeholders.length;i++) {
+            if ($scope.asset.stakeholders[i].role.length>0 && $scope.asset.stakeholders[i].personId.length==0 ) {
+              $scope.personVacio = true;
+              return true;
+            }
+          }
+          $scope.personVacio = false;
           return false;
         };
 

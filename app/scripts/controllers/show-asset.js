@@ -19,6 +19,7 @@ angular.module('activosInformaticosApp')
     $scope.versionListas = [];
     $scope.showVersion = false;
     $scope.buscado2 = "";
+    $scope.assetMembers= [];
     $scope.keys = Object.keys($scope.asset);
 
     $scope.keys.splice($scope.keys.indexOf("name"),1);
@@ -55,8 +56,12 @@ angular.module('activosInformaticosApp')
 
     $scope.goRelation = function(relation,assetId) {
       $state.go('relacion',{relation: relation, assetId: assetId});
-
     };
+
+    $scope.goPerson = function(person) {
+      $state.go('miembro',{person: person});
+      $previousState.set('verActivo','activo',{asset: $scope.asset});
+    }
 
     $scope.searchNode = function(svgAnterior) {
         //find the node
@@ -526,12 +531,10 @@ angular.module('activosInformaticosApp')
 
     dataFactory.getAssetVersions($scope.asset._id, function (response) {
       $scope.assetVersions = response;
-
     });
 
     dataFactory.getRelationMap($scope.asset._id,null, function (response) {
       $scope.relationsTree = response;
-      //console.log(response);
     });
 
     $scope.callGoAsset = function (event, relatedAsset) {
@@ -575,8 +578,13 @@ angular.module('activosInformaticosApp')
 
     dataFactory.getActualStateGraph( $scope.asset._id, function (response) {
       $scope.lifeCycleGraph = response;
-
     });
+
+    for (i=0;i<$scope.asset.stakeholders.length;i++) {
+      dataFactory.getAPerson($scope.asset.stakeholders[i].personId, function(response){
+        $scope.assetMembers.push(response);
+      });
+    }
 
     var svg = null;
     $scope.svgExist = false;
