@@ -58,19 +58,45 @@
 							<md-chips ng-model="update_asset.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
 						</div>
 
-						<!-- <md-divider></md-divider>
+						<md-divider></md-divider>
 						<div style="padding-left: 16px; padding-top: 10px;">
-							<h2> Contacto </h2>
+							<h2> Miembros </h2>
 						</div>
-						<div style="padding-left: 16px; padding-top: 10px;">
-							<md-input-container class=" md-block" style="margin-bottom: 0px;">
-								<input ng-model="update_asset.stakeholders.name" type="text" placeholder="Nombre de contacto" >
+						<div layout="row" ng-repeat="member in update_asset.stakeholders track by $index" style="padding-left: 16px; padding-bottom: 20px;">
+							<md-input-container class=" md-block" style="margin-bottom: 0px; ">
+								<!-- <input ng-model="asset.stakeholders.name" type="text" placeholder="Nombre de contacto" > -->
+								<label>Persona</label>
+				        <md-select ng-model="member.personId" aria-label="tipo activo" style="width:260px;" ng-change="verifPerson()">
+				          <md-option ng-repeat="person in people" value="{{person._id}}" >
+				              {{person.name}}
+				          </md-option>
+				        </md-select>
+							</md-input-container>
+							<md-input-container class=" md-block" style="margin-bottom: 0px; left:20px;">
+								<!-- <input ng-model="asset.stakeholders.email" type="email" placeholder="Email de contacto" > -->
+								<label>Rol</label>
+				        <md-select ng-model="member.role" aria-label="tipo activo" style="width:260px;" ng-change="verifPerson()">
+				          <md-option ng-repeat="rol in roles" value="{{rol.name}}" >
+				              {{rol.name}}
+				          </md-option>
+				        </md-select>
+								<div ng-messages="{'vacioPerson': personVacio}" >
+									<div ng-message="vacioPerson" style="opacity: 1 !important; margin-top: 0px;"> Elija una persona para asumir este rol </div>
+								</div>
 							</md-input-container>
 
-							<md-input-container class=" md-block" style="margin-bottom: 0px;">
-								<input ng-model="update_asset.stakeholders.email" type="email" placeholder="Email de contacto" >
-							</md-input-container>
-						</div> -->
+							<!-- <div layout-gt-sm="row" ng-if="asset.stakeholders.length>1" > -->
+								<md-button  aria-label="Quitar columna" ng-click="removeItem('miembro','',$index)" style=" left:60px; top:10px;" ng-if="update_asset.stakeholders.length>1">
+									<md-icon md-font-set="material-icons">remove_circle</md-icon>
+								</md-button>
+							<!-- </div> -->
+
+							<!-- <div layout-gt-sm="row" ng-if="$last"> -->
+								<md-button  aria-label="Añadir columna" ng-click="addItem('miembro')" style="left:60px; top:10px; "ng-if="$last">
+									<md-icon md-font-set="material-icons">add_circle</md-icon>
+								</md-button>
+							<!-- </div> -->
+						</div>
 
 						<md-divider></md-divider>
 						<div style="padding-left: 16px; padding-top: 10px;">
@@ -111,7 +137,7 @@
 					<!-- <md-button ng-click="updateAsset(update_asset)" ng-disabled="formly_form.$invalid">
 					  Aplicar
 					</md-button> -->
-					<md-button ng-click="nextSelect()" ng-disabled="formly_form.$invalid || urlVacio">
+					<md-button ng-click="nextSelect()" ng-disabled="formly_form.$invalid || urlVacio || personVacio">
 					  Siguiente
 					</md-button>
 					<md-button ng-click="goBack()" style="margin-right:20px;">

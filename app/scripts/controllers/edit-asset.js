@@ -15,6 +15,7 @@ angular.module('activosInformaticosApp')
 
     // console.log($scope.update_asset);
     if($scope.update_asset.attached.length==0) $scope.update_asset.attached.push({name:'',url:''});
+    if($scope.update_asset.stakeholders.length==0) $scope.update_asset.stakeholders.push({personId:'',role:''});
 
     dataFactory.getRoles(function (response) {
       $scope.roles = response;
@@ -33,6 +34,18 @@ angular.module('activosInformaticosApp')
         }
       }
       $scope.urlVacio = false;
+      return false;
+    };
+
+    $scope.verifPerson = function () {
+      //console.log($scope.properties);
+      for (i=0;i<$scope.update_asset.stakeholders.length;i++) {
+        if ($scope.update_asset.stakeholders[i].role.length>0 && $scope.update_asset.stakeholders[i].personId.length==0 ) {
+          $scope.personVacio = true;
+          return true;
+        }
+      }
+      $scope.personVacio = false;
       return false;
     };
 
@@ -70,6 +83,7 @@ angular.module('activosInformaticosApp')
           break;
         case 'miembro':
           $scope.update_asset.stakeholders.splice(index,1);
+          $scope.verifPerson();
           break;
         default:
           $scope.update_asset.attached.splice(index,1);
@@ -373,6 +387,9 @@ angular.module('activosInformaticosApp')
 
       for (i=asset.attached.length-1;i>=0;i--) {
         if (asset.attached[i].name.length==0 && asset.attached[i].url.length==0) asset.attached.splice(i,1);
+      }
+      for (i=asset.stakeholders.length-1;i>=0;i--) {
+        if (asset.stakeholders[i].personId.length==0 && asset.stakeholders[i].role.length==0) asset.stakeholders.splice(i,1);
       }
 
       dataFactory.editAsset (function (){

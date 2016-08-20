@@ -441,6 +441,7 @@ angular.module('activosInformaticosApp')
       $scope.isActualVersion = false;
       $scope.sel_version = $scope.assetVersions[indiceVersion];
       if (indiceVersion==0) $scope.isActualVersion = true;
+      $scope.versionMembers=[];
       $scope.versionKeys = Object.keys($scope.sel_version.asset);
 
       $scope.versionKeys.splice($scope.versionKeys.indexOf("name"),1);
@@ -451,6 +452,8 @@ angular.module('activosInformaticosApp')
       $scope.versionKeys.splice($scope.versionKeys.indexOf("$$hashKey"),1);
       $scope.versionKeys.splice($scope.versionKeys.indexOf("attached"),1);
       $scope.versionKeys.splice($scope.versionKeys.indexOf("_id"),1);
+      $scope.versionKeys.splice($scope.versionKeys.indexOf("typeId"),1);
+      // console.log($scope.sel_version.asset);
 
       if ($scope.versionKeys.indexOf("__v")>=0) {
         $scope.b =$scope.versionKeys.indexOf("__v");
@@ -481,6 +484,14 @@ angular.module('activosInformaticosApp')
           $scope.estadoVersionFinal = $scope.asset_type.lifeCycle[i].isFinal;
         }
       }
+      //console.log($scope.sel_version);
+      dataFactory.getPersons(function(response) {
+        for(i=0;i<$scope.sel_version.asset.stakeholders.length;i++) {
+          for(j=0;j<response.length;j++){
+            if ($scope.sel_version.asset.stakeholders[i].personId == response[j]._id) $scope.versionMembers.push(response[j]);
+          }
+        }
+      });
 
     }
 
@@ -508,9 +519,10 @@ angular.module('activosInformaticosApp')
 
     $scope.restoreVersion = function (asset) {
       dataFactory.editAsset (function (){
-          $mdDialog.hide(asset);
-          $scope.myassets.splice($scope.indice,1,asset);
-          $scope.resultadoBusqueda.splice($scope.indexBusqueda,1,asset);
+          // $mdDialog.hide(asset);
+          // $scope.myassets.splice($scope.indice,1,asset);
+          // $scope.resultadoBusqueda.splice($scope.indexBusqueda,1,asset);
+          $scope.goHome();
 
         }, asset, $mdDialog, $mdToast);
     };
@@ -580,11 +592,19 @@ angular.module('activosInformaticosApp')
       $scope.lifeCycleGraph = response;
     });
 
-    for (i=0;i<$scope.asset.stakeholders.length;i++) {
-      dataFactory.getAPerson($scope.asset.stakeholders[i].personId, function(response){
-        $scope.assetMembers.push(response);
-      });
-    }
+    // for (i=0;i<$scope.asset.stakeholders.length;i++) {
+    //   dataFactory.getAPerson($scope.asset.stakeholders[i].personId, function(response){
+    //     $scope.assetMembers.push(response);
+    //   });
+    // }
+
+    dataFactory.getPersons(function(response) {
+      for(i=0;i<$scope.asset.stakeholders.length;i++) {
+        for(j=0;j<response.length;j++){
+          if ($scope.asset.stakeholders[i].personId == response[j]._id) $scope.assetMembers.push(response[j]);
+        }
+      }
+    });
 
     var svg = null;
     $scope.svgExist = false;
