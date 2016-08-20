@@ -159,7 +159,7 @@ angular.module('activosInformaticosApp')
             $scope.buscando = false;
           });
         } else {
-          // console.log("avanzada");
+          console.log(parametros);
           dataFactory.searchParams(parametros, function (response) {
             $scope.myassets = response;
             $scope.buscando = false;
@@ -996,7 +996,7 @@ angular.module('activosInformaticosApp')
                       type: 'select',
                       templateOptions: {
                         label: atributos[i].name,
-                        options: ["True","False"]
+                        options: [true,false]
 
                       }
                     };

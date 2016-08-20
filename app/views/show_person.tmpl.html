@@ -54,9 +54,14 @@
           <md-tab label="Activos">
             <md-content class="md-padding">
               <h1 class="md-display-1">Participación en activos</h1>
-              <div class="" layout="row" flex layout-align="center center">
-                <img data-ng-src="data:image/png;base64,{{lifeCycleGraph.graph}}"> </img>
-              </div>
+							<div style="padding-top:20px; ">
+								<md-list-item ng-repeat="asset in myassets track by $index" ng-click="goAsset(asset)">
+									<md-icon md-font-set="material-icons" style="margin-bottom:16px;">description</md-icon>
+									<p>Activo: <a>{{ asset.name }}</a> </p>
+									<p>Rol: <a>{{ asset.stakeholders[$index].role }}</a> </p>
+									<md-divider ng-if="!$last"></md-divider>
+								</md-list-item>
+							</div>
             </md-content>
           </md-tab>
         </md-tabs>

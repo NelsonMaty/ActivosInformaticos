@@ -179,7 +179,7 @@ angular
 
         delete parametros.typeName;
         var string = JSON.stringify(parametros);
-        // console.log(string);
+        console.log(string);
         // console.log(escape(string));
 
         // $http.get(urlWS + 'assets?patternSearch=%7B%22' + atributo + '%22%3A%22' + valor +'%22%7D' )

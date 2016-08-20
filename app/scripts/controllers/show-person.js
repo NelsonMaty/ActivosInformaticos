@@ -21,4 +21,10 @@ angular.module('activosInformaticosApp')
       }
     };
 
+    dataFactory.searchParams({stakeholders: [{personId: $scope.person._id,role:''}]}, function (response) {
+      $scope.myassets = response;
+      console.log(response);
+      // $scope.buscando = false;
+    });
+
 });
