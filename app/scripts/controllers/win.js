@@ -159,7 +159,7 @@ angular.module('activosInformaticosApp')
             $scope.buscando = false;
           });
         } else {
-          console.log(parametros);
+          // console.log(parametros);
           dataFactory.searchParams(parametros, function (response) {
             $scope.myassets = response;
             $scope.buscando = false;
@@ -262,7 +262,9 @@ angular.module('activosInformaticosApp')
         $mdDialog.show(confirm)
           .then(function() {
             dataFactory.deleteAsset(asset,$mdDialog,$mdToast);
+            $scope.cerrarAvanzado();
             $scope.myassets.splice(indice,1);
+
             // if (indexBusqueda) {
             //   $scope.resultadoBusqueda.splice(indexBusqueda,1);
             // }

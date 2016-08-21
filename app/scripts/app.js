@@ -179,7 +179,7 @@ angular
 
         delete parametros.typeName;
         var string = JSON.stringify(parametros);
-        console.log(string);
+        // console.log(string);
         // console.log(escape(string));
 
         // $http.get(urlWS + 'assets?patternSearch=%7B%22' + atributo + '%22%3A%22' + valor +'%22%7D' )
@@ -388,6 +388,18 @@ angular
 
       };
 
+      dataFactory.getAPersonAssets = function(id,callback){
+
+        $http.get(urlWS + 'persons/' + id + '/assets')
+          .then(function(response){
+            console.log(response);
+            callback(response.data);
+          },function(err){
+            console.log(err);
+        });
+
+      };
+
       dataFactory.getRoles = function(callback){
         $http.get(urlWS + 'roles')
           .then(function(response){
@@ -515,7 +527,7 @@ angular
                 .position('top right')
                 .hideDelay(3000)
             );
-            console.log(data);
+            // console.log(data);
             callback(data);
         })
           .error(function(err){
@@ -786,9 +798,6 @@ angular
         method:"post",
         url:urlWS + 'relationTypes',
         data: type
-
-
-
 
       })
         .success(function(data){

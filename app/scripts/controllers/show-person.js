@@ -21,9 +21,9 @@ angular.module('activosInformaticosApp')
       }
     };
 
-    dataFactory.searchParams({stakeholders: [{personId: $scope.person._id,role:''}]}, function (response) {
+    dataFactory.getAPersonAssets($scope.person._id, function (response) {
       $scope.myassets = response;
-      console.log(response);
+      // console.log(response);
       // $scope.buscando = false;
     });
 
