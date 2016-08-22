@@ -1,9 +1,9 @@
 <div aria-label="Mostrar Relacion" ng-cloak style="height:100%; overflow:hidden" layout="column">
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
-
-	    <h1> Relación  &nbsp; </h1>
-
+			<md-icon md-font-set="material-icons" style="margin-right:20px; margin-left: 0px;color:red" ng-if="relation.isCritical">warning</md-icon>
+	    <h1 ng-show="relation.isIncoming"> {{sourceAsset.name}} {{relationType.inLabel}} {{relatedAsset.name}}  &nbsp; </h1>
+			<h1 ng-show="!relation.isIncoming"> {{sourceAsset.name}} {{relationType.outLabel}} {{relatedAsset.name}}  &nbsp; </h1>
 	  </div>
 
 		<md-button class="md-icon-button" style="top: 7px;" ng-click="goHome()">
@@ -23,7 +23,7 @@
 
 	<md-content style="overflow: auto;" class="md-padding" flex="grow" layout="column">
 		<div flex=100 >
-			<h1 class="md-display-2" style="padding-left: 20px;"> Activos involucrados </h1>
+			<h1 class="md-display-1" style="padding-left: 20px;"> Activos involucrados </h1>
 			<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
 				<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px; ">description</md-icon>
 				<a style="padding-left: 20px; padding-top: 4px; cursor:pointer; cursor: hand;" ng-click="goAsset(sourceAsset)"> {{sourceAsset.name}}</a>
@@ -32,32 +32,39 @@
 				<a style="padding-left: 20px; padding-top: 5px; cursor:pointer; cursor: hand;" ng-click="goAsset(relatedAsset)"> {{relatedAsset.name}}</a>
 			</div>
 
-			<md-divider ></md-divider>
-			<h2 class="md-display-2" style="padding-left: 20px;">Comentarios</h2>
-		  <p style="padding-left: 20px; padding-bottom: 30px; padding-top: 20px;"> {{relation.comment}} </p>
+			<!-- <md-divider ></md-divider>
+			<h2 class="md-display-1" style="padding-left: 20px;">Comentarios</h2>
+		  <p style="padding-left: 20px; padding-bottom: 30px; padding-top: 20px;"> {{relation.comment}} </p> -->
 		  <md-divider ></md-divider>
-		  <h2 class="md-display-2" style="padding-left: 20px; padding-bottom: 20px;">Atributos</h2>
-		  <div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
+		  <!-- <h2 class="md-display-1" style="padding-left: 20px; padding-bottom: 10px;">Atributos</h2> -->
+			<div layout="row" style="padding-bottom: 10px; padding-left: 16px; padding-top: 16px;" ng-if="relation.isCritical">
+		  	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px; color:red">warning</md-icon>
+		  	<strong style="padding-left: 20px; padding-top: 4px;">Relación crítica </strong>
+		  	<!-- <p style="padding-left: 20px; padding-top: 4px;">{{critico}}</p> -->
+		  </div>
+			<div layout="row" style="padding-bottom: 10px; padding-left: 16px; padding-top: 16px;">
+				<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">link</md-icon>
+				<strong style="padding-left: 20px; padding-top: 4px;">Tipo de relacion: </strong>
+				<p style="padding-left: 20px; padding-top: 4px;">{{relation.relationTypeId}}</p>
+			</div>
+			<!-- <div layout="row" style="padding-bottom: 10px; padding-left: 16px; padding-top: 16px;">
 			  <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px; ">settings_input_component</md-icon>
 			  <strong style="padding-left: 20px; padding-top: 4px;">Id de relación: </strong>
 			  <p style="padding-left: 20px; padding-top: 4px;"> {{relation.id}}</p>
-		  </div>
-		  <div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
-		  	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">warning</md-icon>
-		  	<strong style="padding-left: 20px; padding-top: 4px;">Relación crítica: </strong>
-		  	<p style="padding-left: 20px; padding-top: 4px;">{{critico}}</p>
-		  </div>
+		  </div> -->
 
-		  <div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
+
+		  <!-- <div layout="row" style="padding-bottom: 10px; padding-left: 16px; padding-top: 16px;">
 		  	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">settings_input_component</md-icon>
 		  	<strong style="padding-left: 20px; padding-top: 4px;">Id de activo destino: </strong>
 		  	<p style="padding-left: 20px; padding-top: 4px;">{{relation.relatedAssetId}}</p>
+		  </div> -->
+
+			<div layout="row" style="padding-bottom: 10px; padding-left: 16px; padding-top: 16px;">
+			  <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px; ">comment</md-icon>
+			  <strong style="padding-left: 20px; padding-top: 4px;">Comentarios: </strong>
+			  <p style="padding-left: 20px; padding-top: 4px;"> {{relation.comment}}</p>
 		  </div>
-			<div layout="row" style="padding-bottom: 30px; padding-left: 16px; padding-top: 16px;">
-				<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">settings_input_component</md-icon>
-				<strong style="padding-left: 20px; padding-top: 4px;">ID de tipo de relacion: </strong>
-				<p style="padding-left: 20px; padding-top: 4px;">{{relation.relationTypeId}}</p>
-			</div>
 		</div>
 
 		<div layout="row" layout-align="end center" >

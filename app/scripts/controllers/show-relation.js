@@ -2,6 +2,7 @@ angular.module('activosInformaticosApp')
   .controller('ShowRelationCtrl', function ($stateParams,$previousState, $scope, $mdDialog, $mdMedia, $mdToast, $state, dataFactory) {
     $scope.relation = $stateParams.relation;
     $scope.sourceAssetId = $stateParams.assetId;
+    // console.log($scope.relation);
     //$scope.indice = indice;
     //$scope.editRelation = editRelation;
     //$scope.ev = {};
@@ -22,6 +23,10 @@ angular.module('activosInformaticosApp')
 
       $scope.relatedAsset = response;
 
+    });
+
+    dataFactory.getARelationType($scope.relation.relationTypeId, function(response){
+      $scope.relationType = response;
     });
 
     $scope.goHome = function() {
