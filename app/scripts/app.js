@@ -52,6 +52,12 @@ angular
         controller: 'ShowAssetCtrl',
         params: {
           asset: {}
+        },
+        data: {
+          rule: function(params) {
+            for(var i in params.asset) { return false; }
+            return true;
+          }
         }
       })
       .state('editActivo', {
@@ -60,6 +66,12 @@ angular
         controller: 'EditAssetCtrl',
         params: {
           asset: {}
+        },
+        data: {
+          rule: function(params) {
+            for(var i in params.asset) { return false; }
+            return true;
+          }
         }
       })
       .state('relacion', {
@@ -69,6 +81,12 @@ angular
         params: {
           relation: {},
           assetId: ""
+        },
+        data: {
+          rule: function(params) {
+            for(var i in params.relation) { return false; }
+            return true;
+          }
         }
       })
       .state('editRelacion', {
@@ -78,6 +96,12 @@ angular
         params: {
           relation: {},
           assetId: ""
+        },
+        data: {
+          rule: function(params) {
+            for(var i in params.relation) { return false; }
+            return true;
+          }
         }
       })
       .state('miembro', {
@@ -86,6 +110,12 @@ angular
         controller: 'ShowPersonCtrl',
         params: {
           person: {}
+        },
+        data: {
+          rule: function(params) {
+            for(var i in params.person) { return false; }
+            return true;
+          }
         }
       })
       .state('editMiembro', {
@@ -94,6 +124,12 @@ angular
         controller: 'EditPersonCtrl',
         params: {
           person: {}
+        },
+        data: {
+          rule: function(params) {
+            for(var i in params.person) { return false; }
+            return true;
+          }
         }
       })
   //   $routeProvider
@@ -128,9 +164,22 @@ angular
   //
   })
 
-  .run(function ($rootScope, $state, $window, $timeout, $previousState) {
+  .run(function ($rootScope,$stateParams, $state, $window, $timeout, $previousState) {
     $rootScope.$state = $state;
-
+    $rootScope.$on('$stateChangeStart', function(e, to, toParams) {
+    // $rootScope.$on('$stateChangeSuccess', function(e, to) {
+      if (!to.data || !angular.isFunction(to.data.rule)) return;
+      var result = to.data.rule(toParams);
+      // console.log(to.params);
+      // console.log(result);
+      // console.log(result.to);
+      if (result) {
+        e.preventDefault();
+        // Optionally set option.notify to false if you don't want
+        // to retrigger another $stateChangeStart event
+        $state.go('usuario');
+      }
+    });
   })
 
   .factory('dataFactory', ['$http',function($http){
