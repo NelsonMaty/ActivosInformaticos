@@ -11,6 +11,11 @@ angular.module('activosInformaticosApp')
       $previousState.set('verPersona','person',{person: $scope.person});
     };
 
+    $scope.goAsset = function(asset) {
+      $state.go('activo',{asset: asset});
+      $previousState.set('verPersona','person',{person: $scope.person});
+    };
+
     $scope.goBack = function() {
       var previous = $previousState.get();
       if (previous && previous.state.name == 'activo') {
@@ -23,7 +28,7 @@ angular.module('activosInformaticosApp')
 
     dataFactory.getAPersonAssets($scope.person._id, function (response) {
       $scope.myassets = response;
-      // console.log(response);
+      console.log(response);
       // $scope.buscando = false;
     });
 

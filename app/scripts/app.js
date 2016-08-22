@@ -392,7 +392,7 @@ angular
 
         $http.get(urlWS + 'persons/' + id + '/assets')
           .then(function(response){
-            console.log(response);
+            // console.log(response);
             callback(response.data);
           },function(err){
             console.log(err);
