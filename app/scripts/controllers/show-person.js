@@ -1,7 +1,7 @@
 angular.module('activosInformaticosApp')
   .controller('ShowPersonCtrl', function ($stateParams,$previousState, $scope, $mdDialog, $mdMedia, $mdToast, $state, dataFactory) {
     $scope.person = $stateParams.person;
-
+    $scope.prev = $previousState.get();
     $scope.goHome = function() {
       $state.go('usuario');
     };
@@ -28,7 +28,7 @@ angular.module('activosInformaticosApp')
 
     dataFactory.getAPersonAssets($scope.person._id, function (response) {
       $scope.myassets = response;
-      console.log(response);
+      // console.log(response);
       // $scope.buscando = false;
     });
 

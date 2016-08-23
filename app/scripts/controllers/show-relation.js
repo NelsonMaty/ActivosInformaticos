@@ -43,6 +43,18 @@ angular.module('activosInformaticosApp')
       $previousState.set('verRelacion','relacion',{relation: $scope.relation, assetId: $scope.sourceAssetId});
     }
 
+    $scope.goBack = function() {
+
+      // var previous = $previousState.get();
+      // if (previous && previous.state.name == 'activo') {
+      //   $previousState.go();
+      //   $previousState.forget();
+      // } else {
+      //   $state.go('usuario');
+      // }
+      $state.go('activo',{asset: $scope.sourceAsset});
+    };
+
     // $scope.hide = function() {
     //   $mdDialog.hide();
     // };

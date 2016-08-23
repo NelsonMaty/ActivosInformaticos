@@ -21,6 +21,7 @@ angular.module('activosInformaticosApp')
     $scope.buscado2 = "";
     $scope.assetMembers= [];
     $scope.keys = Object.keys($scope.asset);
+    $scope.prev = $previousState.get();
 
     $scope.keys.splice($scope.keys.indexOf("name"),1);
     $scope.keys.splice($scope.keys.indexOf("tags"),1);

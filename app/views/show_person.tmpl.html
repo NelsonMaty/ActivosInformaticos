@@ -14,6 +14,8 @@
 	  </md-button>
 
 	  <md-button class="md-icon-button" style="top: 7px;" ng-click="goBack()">
+			<md-tooltip ng-show="prev.state.name == 'activo'" md-direction="bottom"> Volver a activo </md-tooltip>
+			<md-tooltip ng-show="prev.state.name != 'activo'" md-direction="bottom"> Volver a página principal </md-tooltip>
 	    <md-icon md-font-set="material-icons" aria-label="Close dialog">reply</md-icon>
 	  </md-button>
 	</md-toolbar>
