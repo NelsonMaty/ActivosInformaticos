@@ -11,7 +11,7 @@
 	</md-toolbar>
 
 	<div style="overflow: auto">
-		<formly-form model="asset" fields="formly_fields" form="create_form">
+		<formly-form model="asset" fields="formly_fields" form="create_form" class="formly-field">
 
 			<div layout="column" ng-repeat="lista in listas" style="min-height: 82px;">
 					<!--{{ d.label}}-->
@@ -20,7 +20,7 @@
 						<h2>Lista: {{lista.name}} </h2>
 					</div>
 
-					<div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
+					<div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; ">
 
 						<md-input-container  class=" md-block" style="padding-right: 6px; ">
 								<input ng-model="element.content" type="text" placeholder="" aria-label="lista" ng-required="lista.required">

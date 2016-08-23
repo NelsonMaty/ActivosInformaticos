@@ -170,9 +170,7 @@ angular
     // $rootScope.$on('$stateChangeSuccess', function(e, to) {
       if (!to.data || !angular.isFunction(to.data.rule)) return;
       var result = to.data.rule(toParams);
-      // console.log(to.params);
-      // console.log(result);
-      // console.log(result.to);
+
       if (result) {
         e.preventDefault();
         // Optionally set option.notify to false if you don't want
@@ -470,7 +468,7 @@ angular
             //alert("El usuario fue creado con éxito");
             $mdToast.show(
               $mdToast.simple()
-                .content('Se ha creado el miebro ' + person.name + '')
+                .content('Se ha creado la persona ' + person.name + '')
                 .position('top right')
                 .hideDelay(3000)
             );
@@ -480,7 +478,7 @@ angular
               console.log(err);
               $mdToast.show(
                 $mdToast.simple()
-                  .content('No se pudo crear el miembro')
+                  .content('No se pudo crear la persona')
                   .position('top right')
                   .hideDelay(3000)
               );
@@ -498,7 +496,7 @@ angular
           //alert("El usuario fue creado con éxito");
           $mdToast.show(
             $mdToast.simple()
-              .content('Se ha modificado el miembro ' + person.name + ' exitosamente')
+              .content('Se ha modificado la persona ' + person.name + ' exitosamente')
               .position('top right')
               .hideDelay(3000)
           );
@@ -508,7 +506,7 @@ angular
           console.log(err);
           $mdToast.show(
             $mdToast.simple()
-              .content('No se pudo modificar el miembro')
+              .content('No se pudo modificar la persona')
               .position('top right')
               .hideDelay(3000)
           );
@@ -536,7 +534,7 @@ angular
             console.log(err);
             $mdToast.show(
               $mdToast.simple()
-                .content('No se pudo borrar el miembro')
+                .content('No se pudo borrar la persona')
                 .position('top right')
                 .hideDelay(3000)
             );

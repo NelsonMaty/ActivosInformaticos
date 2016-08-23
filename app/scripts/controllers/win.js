@@ -549,6 +549,7 @@ angular.module('activosInformaticosApp')
                 {
                   key: 'name',
                   type: 'input',
+                  className: 'formly-field',
                   templateOptions: {
                     label: 'Nombre',
                     placeholder: sel_type.name,

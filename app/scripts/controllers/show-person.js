@@ -28,7 +28,7 @@ angular.module('activosInformaticosApp')
 
     dataFactory.getAPersonAssets($scope.person._id, function (response) {
       $scope.myassets = response;
-      // console.log(response);
+      console.log(response);
       // $scope.buscando = false;
     });
 

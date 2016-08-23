@@ -2,6 +2,24 @@
   display: none;
 }
 
+.formly-field {
+  /*margin-bottom:16px;*/
+
+  width: inherit;
+  height: 60px;
+  /*color:green;*/
+
+}
+
+.formly-field input {
+  width: 800px;
+}
+
+.formly-field textarea {
+  width: 800px;
+}
+
+
 .mostrar-menu-activo {
   display: block;
 }
