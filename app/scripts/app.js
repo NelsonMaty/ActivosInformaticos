@@ -33,13 +33,7 @@ angular
         controller: 'AppCtrl',
         controllerAs: 'admin'
       })
-      // .state('state1.list', {
-      //   url: "/list",
-      //   templateUrl: "partials/state1.list.html",
-      //   controller: function($scope) {
-      //     $scope.items = ["A", "List", "Of", "Items"];
-      //   }
-      // })
+
       .state('usuario', {
         url: "/usuario",
         templateUrl: "views/win.html",
@@ -132,36 +126,7 @@ angular
           }
         }
       })
-  //   $routeProvider
-  //     .when('/', {
-  //       templateUrl: 'views/login.html',
-  //       controller: 'LoginCtrl',
-  //       controllerAs: 'login'
-  //     })
-  //     .when('/admin', {
-  //       templateUrl: 'views/admin.html',
-  //       controller: 'AppCtrl',
-  //       controllerAs: 'admin'
-  //     })
-  //     .when('/win', {
-  //       templateUrl: 'views/win.html',
-  //       controller: 'AppController',
-  //       controllerAs: 'win'
-  //     })
-  //     .when('/main', {
-  //       templateUrl: 'views/main.html',
-  //       controller: 'MainCtrl',
-  //       controllerAs: 'main'
-  //     })
-  //     .when('/about', {
-  //       templateUrl: 'views/about.html',
-  //       controller: 'AboutCtrl',
-  //       controllerAs: 'about'
-  //     })
-  //     .otherwise({
-  //       redirectTo: '/win'
-  //     });
-  //
+
   })
 
   .run(function ($rootScope,$stateParams, $state, $window, $timeout, $previousState) {
@@ -190,7 +155,7 @@ angular
 
             $http.get(urlWS + 'assets?elasticSearch=' + escape(string) )
               .then(function(response){
-                //console.log(soloTipo);
+
                 callback(response.data);
               },function(err){
                 console.log(err);
@@ -199,20 +164,20 @@ angular
       };
 
       dataFactory.searchByType = function(string,type,callback) {
-        //console.log(string + " " + type);
+
         if (string) {
           $http.get(urlWS + 'assets?elasticSearch=' + escape(string) + '&assetTypeName=' + escape(type) )
             .then(function(response){
-              //console.log("Tipo y palabra");
+
               callback(response.data);
             },function(err){
               console.log(err);
           });
         } else {
-          //console.log(urlWS + 'assets?assetTypeName=' + escape(type) );
+
           $http.get(urlWS + 'assets?assetTypeName=' + escape(type) )
             .then(function(response){
-              //console.log("tipo");
+
               callback(response.data);
             },function(err){
               console.log(err);
@@ -226,10 +191,7 @@ angular
 
         delete parametros.typeName;
         var string = JSON.stringify(parametros);
-        // console.log(string);
-        // console.log(escape(string));
 
-        // $http.get(urlWS + 'assets?patternSearch=%7B%22' + atributo + '%22%3A%22' + valor +'%22%7D' )
         $http.get(urlWS + 'assets?patternSearch=' + escape(string) )
           .then(function(response){
             callback(response.data);
@@ -244,7 +206,7 @@ angular
 
         $http.get(urlWS + 'assetTypes/' + typeid + '/LifeCycle/Graph')
           .then(function(response){
-            //console.log(response);
+
             callback(response.data);
           },function(err){
             console.log(err);
@@ -255,7 +217,7 @@ angular
 
         $http.get(urlWS + 'assets/' + assetId + '/LifeCycle/Graph')
           .then(function(response){
-            //console.log(response);
+
             callback(response.data);
           },function(err){
             console.log(err);
@@ -263,12 +225,12 @@ angular
       };
 
       dataFactory.getRelationMap = function(assetId,profundidad,callback){
-        //console.log(profundidad);
+
         if (profundidad && profundidad>0) {
 
           $http.get(urlWS + 'assets/' + assetId + '/relationsTree?depth=' + profundidad )
             .then(function(response){
-              //console.log(response);
+
               callback(response.data);
             },function(err){
               console.log(err);
@@ -298,7 +260,6 @@ angular
         })
           .success(function(data){
 
-            //console.log(data);
             callback(data);
         })
           .error(function(err){
@@ -313,7 +274,7 @@ angular
 
         $http.get(urlWS + 'assetTypes')
           .then(function(response){
-            //console.log(response);
+
             callback(response.data);
           },function(err){
             console.log(err);
@@ -324,7 +285,7 @@ angular
 
         $http.get(urlWS + 'assetTypes/' + typeid)
           .then(function(response){
-            //console.log(response);
+
             callback(response.data);
           },function(err){
             console.log(err);
@@ -332,8 +293,6 @@ angular
       };
 
       dataFactory.createAssetType = function(callback,type,$mdDialog,$mdToast){
-        //console.log(type);
-        //console.log(atributos);
 
         $http({
           method:"post",
@@ -341,7 +300,6 @@ angular
           data: {
               "name":type.name,
               "comment":type.comment,
-              //"properties": atributos
               "properties": type.properties,
               "lifeCycle": type.lifeCycle
           }
@@ -372,7 +330,6 @@ angular
       };
 
       dataFactory.editAssetType = function(callback,update_type,$mdDialog,$mdToast){
-        console.log(update_type);
 
         $http({
           method:"put",
@@ -383,10 +340,9 @@ angular
               "properties": update_type.properties,
               "lifeCycle": update_type.lifeCycle
           }
-
         })
           .success(function(data){
-            //alert("El usuario fue creado con éxito");
+
             $mdToast.show(
               $mdToast.simple()
                 .content('Se ha modificado el tipo de activo ' + update_type.name )
@@ -416,7 +372,6 @@ angular
       dataFactory.getPersons = function(callback){
         $http.get(urlWS + 'persons')
           .then(function(response){
-            //console.log(response);
             callback(response.data);
           },function(err){
             console.log(err);
@@ -427,7 +382,7 @@ angular
 
         $http.get(urlWS + 'persons/' + id)
           .then(function(response){
-            //console.log(response);
+
             callback(response.data);
           },function(err){
             console.log(err);
@@ -439,7 +394,7 @@ angular
 
         $http.get(urlWS + 'persons/' + id + '/assets')
           .then(function(response){
-            // console.log(response);
+
             callback(response.data);
           },function(err){
             console.log(err);
@@ -450,7 +405,7 @@ angular
       dataFactory.getRoles = function(callback){
         $http.get(urlWS + 'roles')
           .then(function(response){
-            //console.log(response);
+
             callback(response.data);
           },function(err){
             console.log(err);
@@ -458,14 +413,14 @@ angular
       };
 
       dataFactory.createPerson = function(callback,person,$mdDialog,$mdToast){
-        // console.log(user);
+
         $http({
           method:"post",
           url:urlWS + 'persons',
           data: person
         })
           .success(function(data){
-            //alert("El usuario fue creado con éxito");
+
             $mdToast.show(
               $mdToast.simple()
                 .content('Se ha creado la persona ' + person.name + '')
@@ -486,14 +441,14 @@ angular
       };
 
       dataFactory.editPerson = function(callback,person,$mdDialog,$mdToast){
-          // console.log(user);
+
         $http({
           method:"put",
           url:urlWS + 'persons/' + person._id,
           data: person
         })
         .success(function(data){
-          //alert("El usuario fue creado con éxito");
+
           $mdToast.show(
             $mdToast.simple()
               .content('Se ha modificado la persona ' + person.name + ' exitosamente')
@@ -520,10 +475,10 @@ angular
 
           })
           .success(function(data){
-            //alert("El usuario fue creado con éxito");
+
             $mdToast.show(
               $mdToast.simple()
-                //.content('Se ha eliminado el usuario ' + data.name + ' de la base de datos')
+
                 .content(data.message)
                 .position('top right')
                 .hideDelay(3000)
@@ -549,7 +504,7 @@ angular
 
         $http.get(urlWS + 'assets')
           .then(function(response){
-            //console.log(response);
+
             callback(response.data);
           },function(err){
             console.log(err);
@@ -558,7 +513,6 @@ angular
       };
 
       dataFactory.createAsset = function(callback,asset,$mdDialog,$mdToast){
-        // console.log(asset);
 
         $http({
           method:"post",
@@ -590,16 +544,17 @@ angular
 
       };
 
-      dataFactory.editAsset = function(callback,asset,$mdDialog,$mdToast){
-        // console.log(asset);
+      dataFactory.editAsset = function(callback,asset,$mdDialog,$mdToast,isRestore){
+        if (!isRestore) isRestore = false;
+         
         $http({
           method:"put",
-          url:urlWS + 'assets/' + asset._id,
+          url:urlWS + 'assets/' + asset._id + '?isRestore=' + isRestore,
           data: asset
 
         })
           .success(function(data){
-            //alert("El usuario fue creado con éxito");
+
             $mdToast.show(
               $mdToast.simple()
                 .content('Se ha modificado el activo ' + asset.name + ' exitosamente')

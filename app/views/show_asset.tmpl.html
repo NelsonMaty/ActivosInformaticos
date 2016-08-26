@@ -26,9 +26,7 @@
 				<md-tabs layout="column" flex="100"  md-border-bottom="" >
 						<md-tab label="Descripción" style="overflow: auto;">
 							<md-content class="md-padding" >
-								<!-- <h1 class="md-display-1" style="padding-left: 20px;">Comentarios</h1>
-							  <p style="padding-left: 20px; padding-bottom: 30px;"> {{asset.comment}} </p>
-							  <md-divider ></md-divider> -->
+
 							  <h1 class="md-display-1" style="padding-left: 20px;">Atributos</h1>
 								<div layout="row" style="padding-bottom: 10px; padding-left: 16px; padding-top: 16px;">
 						    	<md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px; padding-left: 20px; padding-right: 20px;">panorama_fish_eye</md-icon>
@@ -206,16 +204,14 @@
 									</div>
 								</div>
 
-								<!-- <h3 class="md-display-1" style="padding-top:20px; " ng-show="showVersion">Fecha {{sel_version.date}}</h3>
-								<md-divider></md-divider> -->
 								<div style="padding-top:20px; " ng-show="!showVersion">
 
 									<md-list-item ng-repeat="version in assetVersions" ng-click="goToVersion(version.idVersion,$index)">
 										<md-icon md-font-set="material-icons" style="margin-bottom:16px;">receipt</md-icon>
-										<!--img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" /-->
+										
 										<p ng-show="$index != 0">Versión: {{ version.idVersion }} - Fecha: {{ version.date }}</p>
 										<p ng-show="$index == 0">Versión actual - Fecha: {{ version.date }}</p>
-										<!-- <md-icon md-font-set="material-icons" aria-label="Open Chat" class="md-secondary md-hue-3" style="top:10px;" ng-click="confirmRestoreVersion($event,sel_version.asset)">restore_page</md-icon> -->
+
 										<md-divider ng-if="!$last"></md-divider>
 									</md-list-item>
 
@@ -252,9 +248,9 @@
 											<strong style="padding-left: 24px; padding-top: 2px;">Comentarios: </strong>
 											<p style="padding-left: 20px; padding-top: 2px;">{{sel_version.asset.comment}}</p>
 										</div>
-										<div style="padding-left: 16px; padding-top: 10px;" layout="row">
+										<div style="padding-left: 16px; padding-top: 10px;" layout="row" ng-if="sel_version.asset.tags.length!=0">
 											<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 20px; margin-left:0px; margin-right:0px;">local_offer</md-icon>
-											<md-chips ng-model="asset.tags" readonly="true" style="padding-left: 60px;"></md-chips>
+											<md-chips ng-model="sel_version.asset.tags" readonly="true" style="padding-left: 60px;"></md-chips>
 										</div>
 								    <div layout="column" ng-repeat="lista in versionListas" style=" overflow: auto;">
 
@@ -282,17 +278,12 @@
 										</div>
 
 										<md-divider></md-divider>
-										<!-- <h1 class="md-display-1" style="padding-left: 20px;" ng-hide="sel_version.asset.attached.length==1 && sel_version.asset.attached[0].length==0">Informacion Adjunta</h1>
-										<md-list-item ng-repeat="link in sel_version.asset.attached" style="height:50px;" ng-hide="sel_version.asset.attached.length==1 && sel_version.asset.attached[0].length==0">
-										  <md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 0px; margin-left: 0px;">attach_file</md-icon>
-										  <a href="{{link}}" style="padding-left: 20px; padding-bottom: 0px;">{{link}} </a>
-										</md-list-item> -->
-										<!-- <h1 class="md-display-1" style="padding-left: 20px;" ng-hide="sel_version.attached.length==1 && sel_version.attached[0].url.length==0 && sel_version.attached[0].name.length==0">Información Adjunta</h1> -->
+
 										<h1 class="md-display-1" style="padding-left: 20px;" ng-hide="sel_version.asset.attached.length==0">Información Adjunta</h1>
 
-										<!-- <md-list-item ng-repeat="link in sel_version.asset.attached" style="height:50px;" ng-hide="sel_version.attached.length==1 && sel_version.attached[0].url.length==0 && sel_version.attached[0].name.length==0"> -->
+
 										<md-list-item ng-repeat="link in sel_version.asset.attached" style="height:50px;" ng-hide="sel_version.attached.length==0">
-										  <!-- <md-icon md-font-set="material-icons" style="padding-left: 20px; padding-bottom: 0px; margin-left: 0px;" ng-hide="link.name.length==0 && link.url.length==0">attach_file</md-icon> -->
+
 											<md-icon md-font-set="material-icons" style="padding-left: 20px; padding-bottom: 0px; margin-left: 0px;">attach_file</md-icon>
 								      <a href="{{link.url}}" style="padding-left: 20px; padding-bottom: 0px;" ng-hide="link.name.length==0">{{link.name}} </a>
 											<a href="{{link.url}}" style="padding-left: 20px; padding-bottom: 0px;" ng-show="link.name.length==0 && link.url.length!=0">{{link.url}} </a>
@@ -305,7 +296,7 @@
 			</md-content>
 			<div layout="row" layout-align="end end">
 				<md-button ng-click="goBack()" ng-show="!showVersion">
-					Aceptar
+					Cerrar
 				</md-button>
 				<md-button ng-click="confirmRestoreVersion($event, sel_version.asset)" ng-show="showVersion && !isActualVersion">
 					Restaurar

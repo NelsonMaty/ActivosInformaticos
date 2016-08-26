@@ -4,25 +4,6 @@
     <div class="md-toolbar-tools" >
 
       <h1>Activos Informaticos &nbsp; </h1>
-      <!-- <div ng-show="clicked" class="cerrar-menu-activo" ng-class="{'mostrar-menu-activo animated bounceInLeft': clicked }">
-
-            <md-button aria-label="Abrir" class="md-icon-button" ng-click="goAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
-              <md-tooltip md-direction="bottom"> Ver </md-tooltip>
-              <md-icon md-font-set="material-icons">visibility</md-icon>
-            </md-button>
-            <md-button aria-label="Editar"  class="md-icon-button" ng-click="editAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
-              <md-tooltip md-direction="bottom"> Editar </md-tooltip>
-              <md-icon md-font-set="material-icons">edit</md-icon>
-            </md-button>
-            <md-button aria-label="Borrar"  class="md-icon-button"ng-click="deleteAsset($event, clicked_asset, clicked_index); $event.stopPropagation();">
-              <md-tooltip md-direction="bottom"> Borrar </md-tooltip>
-              <md-icon md-font-set="material-icons">delete</md-icon>
-            </md-button>
-            <md-button aria-label="Relacionar" class="md-icon-button" ng-click="addRelation($event,'3', clicked_asset); $event.stopPropagation();">
-              <md-tooltip md-direction="bottom"> Relacionar </md-tooltip>
-              <md-icon md-font-set="material-icons">link</md-icon>
-            </md-button>
-      </div> -->
 
       <span flex=""></span>
 
@@ -131,24 +112,16 @@
                      </md-card-content>
                     </md-card>
                    <md-card ng-if="clicked_asset.tags.length>0">
-                    <md-card-title style="padding-top:0px;padding-bottom:0px;">
-                      <md-card-title-text >
-                        <span class="md-subhead">Tags</span>
-                      </md-card-title-text>
-                    </md-card-title>
+
                     <md-card-content layout="row" style="padding-top:0px; padding-bottom:0px;">
                       <div >
                        <md-chips ng-model="clicked_asset.tags" readonly="true" ></md-chips>
                      </div>
                     </md-card-content>
                     </md-card>
-                   <!-- <md-card ng-hide="clicked_asset.attached.length==1 && clicked_asset.attached[0].name.length==0 && clicked_asset.attached[0].url.length==0 "> -->
+
                    <md-card ng-if="clicked_asset.attached.length!=0">
-                    <md-card-title style="padding-top:0px;">
-                      <md-card-title-text >
-                        <span class="md-subhead">Adjuntos</span>
-                      </md-card-title-text>
-                    </md-card-title>
+
                     <md-card-content layout="row">
                       <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">attach_file</md-icon>
                       <p ng-show="clicked_asset.attached.length==1" style=" padding-top: 2px;">Tiene {{clicked_asset.attached.length}} elemento adjunto</p>
@@ -156,11 +129,7 @@
                     </md-card-content>
                     </md-card>
                     <md-card ng-if="clicked_asset.stakeholders.length!=0">
-                      <md-card-title style="padding-top:0px;">
-                        <md-card-title-text >
-                          <span class="md-subhead">Miembros</span>
-                        </md-card-title-text>
-                      </md-card-title>
+                      
                       <md-card-content layout="row">
                         <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">person</md-icon>
                         <p style=" padding-top: 2px;" ng-show="clicked_asset.stakeholders.length==1">Tiene {{clicked_asset.stakeholders.length}} miembro</p>

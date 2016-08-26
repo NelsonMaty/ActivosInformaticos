@@ -520,19 +520,16 @@ angular.module('activosInformaticosApp')
 
     $scope.restoreVersion = function (asset) {
       dataFactory.editAsset (function (){
-          // $mdDialog.hide(asset);
-          // $scope.myassets.splice($scope.indice,1,asset);
-          // $scope.resultadoBusqueda.splice($scope.indexBusqueda,1,asset);
+
           $scope.goHome();
 
-        }, asset, $mdDialog, $mdToast);
+        }, asset, $mdDialog, $mdToast,true);
     };
 
     $scope.goBack = function() {
-      // $mdDialog.cancel();
-      //$previousState.go();
+
       var previous = $previousState.get();
-      // console.log(previous);
+
       if (previous && previous.state.name == 'activo') {
         $previousState.go();
         $previousState.forget();
@@ -551,14 +548,7 @@ angular.module('activosInformaticosApp')
     });
 
     $scope.callGoAsset = function (event, relatedAsset) {
-      // console.log(relatedAsset);
-      // for (i=0;i<$scope.myassets.length;i++) {
-      //   if ($scope.myassets[i]._id == relatedAsset._id) {
-      //
-      //     var data = { evento:event, activo:$scope.myassets[i], indice: i }
-      //     $mdDialog.hide(data);
-      //   }
-      // }
+
       dataFactory.getAnAsset(relatedAsset._id, function (response) {
         $state.go('activo',{asset: response});
         $previousState.set('Activo','activo',{asset: $scope.asset});
@@ -593,11 +583,7 @@ angular.module('activosInformaticosApp')
       $scope.lifeCycleGraph = response;
     });
 
-    // for (i=0;i<$scope.asset.stakeholders.length;i++) {
-    //   dataFactory.getAPerson($scope.asset.stakeholders[i].personId, function(response){
-    //     $scope.assetMembers.push(response);
-    //   });
-    // }
+
 
     dataFactory.getPersons(function(response) {
       for(i=0;i<$scope.asset.stakeholders.length;i++) {
