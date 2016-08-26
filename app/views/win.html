@@ -23,10 +23,7 @@
     </div>
   </md-toolbar>
   <div layout="row" flex>
-    <!-- <md-sidenav layout="column" class="md-sidenav-right md-whiteframe-z2" md-component-id="right" >
-      <md-button class="md-accent">Mis activos</md-button>
-      <md-button class="md-accent">Compartidos</md-button>
-    </md-sidenav> -->
+
     <div layout="column" flex id="content">
       <md-content layout="column" flex class="md-padding" flex="100">
           <md-content layout="column" flex="100">
@@ -34,7 +31,7 @@
               <md-tab label="Activos" style="overflow: auto;" flex="100">
                 <md-content class="md-padding" flex="100" layout="column" layout-align="space-around">
 
-                  <!-- <div layout="row"> -->
+
                     <div class="" layout="row" layout-align="center center ">
                       <div layout="row" >
                         <md-input-container class=" md-block" style="width: 400px;">
@@ -60,14 +57,13 @@
 
                     <div layout="row" flex="100" layout-wrap layout-margin layout-align="start center" ng-if="!buscando" ng-cloak>
 
-                      <!--div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="goAsset($event, asset, $index)"-->
                       <div style="min-width: 15%; cursor:pointer; cursor: hand" layout="column" layout-align="center" ng-repeat="asset in myassets" ng-click="clickAsset(asset, $index);  $event.stopPropagation();" ng-dblclick="goAsset(clicked_asset)">
-                               <!--img src="images/nota.svg"/-->
+
                         <md-icon style="font-size: 48px; width: 50px;height: 50px;" ng-class="{'select-activo animated pulse': clickedIcon($index) }"  md-font-set="material-icons">description</md-icon>
                         <div style="text-align: center"> {{asset.name}} </div>
                       </div>
                     </div>
-                  <!-- </div> -->
+                  
 
                 </md-content>
                 <div class="" flex>
@@ -129,7 +125,7 @@
                     </md-card-content>
                     </md-card>
                     <md-card ng-if="clicked_asset.stakeholders.length!=0">
-                      
+
                       <md-card-content layout="row">
                         <md-icon md-font-set="material-icons" style="margin-right: 32px; margin-left: 0px;  padding-right: 20px;">person</md-icon>
                         <p style=" padding-top: 2px;" ng-show="clicked_asset.stakeholders.length==1">Tiene {{clicked_asset.stakeholders.length}} miembro</p>
