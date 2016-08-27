@@ -23,14 +23,23 @@ angular.module('activosInformaticosApp')
     $scope.keys = Object.keys($scope.asset);
     $scope.prev = $previousState.get();
 
+
+
     $scope.keys.splice($scope.keys.indexOf("name"),1);
+
     $scope.keys.splice($scope.keys.indexOf("tags"),1);
+
     $scope.keys.splice($scope.keys.indexOf("estadoActual"),1);
+
     $scope.keys.splice($scope.keys.indexOf("stakeholders"),1);
-    $scope.keys.splice($scope.keys.indexOf("comment"),1);
+    // $scope.keys.splice($scope.keys.indexOf("comment"),1);
+    // console.log($scope.keys);
     $scope.keys.splice($scope.keys.indexOf("$$hashKey"),1);
+
     $scope.keys.splice($scope.keys.indexOf("attached"),1);
+
     $scope.keys.splice($scope.keys.indexOf("_id"),1);
+
     $scope.keys.splice($scope.keys.indexOf("typeId"),1);
 
     if ($scope.keys.indexOf("__v")>=0) {
@@ -45,6 +54,13 @@ angular.module('activosInformaticosApp')
       $scope.a =$scope.keys.indexOf("deleted");
       $scope.keys.splice($scope.a,1);
     }
+
+    if ($scope.keys.indexOf("comment")>=0) {
+      $scope.a =$scope.keys.indexOf("deleted");
+      $scope.keys.splice($scope.a,1);
+    }
+
+    console.log($scope.keys);
 
     $scope.goHome = function() {
       $state.go('usuario');
@@ -427,7 +443,7 @@ angular.module('activosInformaticosApp')
 
           }
         }
-      }
+      } 
 
       for (i=0;i<response.lifeCycle.length;i++) {
         if (response.lifeCycle[i].name == $scope.asset.estadoActual) {

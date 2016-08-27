@@ -55,8 +55,8 @@
 								</div>
 						    <div layout="column" ng-repeat="lista in listas" style=" overflow: auto;">
 							    <md-divider></md-divider>
-						    	<h2 class="md-display-1" style="padding-left: 20px;">Lista: {{lista.name}} </h2>
-							    <div style="min-height: 100px;">
+						    	<h1 class="md-display-1" style="padding-left: 20px;">Lista: {{lista.name}} </h2>
+							    <div style="min-height: 110px;">
 										<md-list-item ng-repeat="element in lista.elements" style="height:50px;" >
 								    	<md-icon md-font-set="material-icons" class="attributes" style="padding-left: 20px; padding-bottom: 0px;">list</md-icon>
 							        <p style="padding-left: 20px; padding-bottom: 0px;">{{element.content}} </p>
@@ -208,7 +208,7 @@
 
 									<md-list-item ng-repeat="version in assetVersions" ng-click="goToVersion(version.idVersion,$index)">
 										<md-icon md-font-set="material-icons" style="margin-bottom:16px;">receipt</md-icon>
-										
+
 										<p ng-show="$index != 0">Versión: {{ version.idVersion }} - Fecha: {{ version.date }}</p>
 										<p ng-show="$index == 0">Versión actual - Fecha: {{ version.date }}</p>
 
