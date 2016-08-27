@@ -13,18 +13,12 @@
 
     <md-content style="padding-top: 20px; padding-bottom: 20px; top: 10px; margin-left: 20px; ">
       <md-input-container class=" md-block" style="width: 510px; margin-bottom:0px;">
-        <!-- <md-icon md-font-set="material-icons" aria-label="nombre activo">receipt</md-icon> -->
-        <!-- <input ng-model="buscadoString" type="text" placeholder="Ingrese valor a buscar" ng-disabled="busquedaAvanzada" ng-pattern="/^[a-zA-Z0-9]*$/"> -->
+
         <input ng-model="activoBuscado.name" type="text" placeholder="Ingrese nombre de activo">
       </md-input-container>
-      <!-- <md-input-container class="md-block" style="width: 510px;">
-        <md-icon md-font-set="material-icons">label_outline</md-icon>
-  			<md-chips ng-model="activoBuscado.tags" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
-      </md-input-container> -->
 
 			<div class="md-block" style=" width: 510px;" >
-        <!-- <label>Tags</label> -->
-        <!-- <md-icon md-font-set="material-icons">label_outline</md-icon> -->
+
         <md-chips ng-model="activoBuscado.tags.$all" placeholder="Agregue un tag a su activo" secondary-placeholder="+Tag" delete-button-label="Borrar"></md-chips>
 			</div>
 
@@ -39,19 +33,19 @@
       </md-input-container>
 
     <div ng-show="formly_fields">
-  		<formly-form model="activoBuscado" fields="formly_fields" form="create_form">
+  		<formly-form model="activoBuscado" fields="formly_fields" form="create_form" class="formly-search">
 
-  			<div layout="column" ng-repeat="lista in listas" style="min-height: 82px;">
+  			<div layout="column" ng-repeat="lista in listas" style="min-height: 82px;" class="formly-search">
 
-  				<md-divider></md-divider>
+  				<md-divider style="width:550px;"></md-divider>
   				<div style="padding-left: 16px; padding-top: 10px;">
   					<h2>Lista: {{lista.name}} </h2>
   				</div>
 
   				<div layout="row" ng-repeat="element in lista.elements" style="min-height: 82px; padding-left: 16px; padding-top: 14px;">
 
-  					<md-input-container  class=" md-block" style="padding-right: 6px; ">
-  							<input ng-model="element.content" type="text" placeholder="" aria-label="lista" ng-required="lista.required">
+  					<md-input-container  class=" md-block" style="padding-right: 6px; width: 310px;">
+  							<input ng-model="element.content" type="text" placeholder="" aria-label="lista" ng-required="lista.required" style="width: 310px;">
   					</md-input-container>
 
   					<div layout-gt-sm="row" >

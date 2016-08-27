@@ -19,6 +19,23 @@
   width: 800px;
 }
 
+.formly-search {
+  /*margin-bottom:16px;*/
+
+  width: inherit;
+  height: 60px;
+  /*color:green;*/
+
+}
+
+.formly-search input {
+  width: 510px;
+}
+
+.formly-search textarea {
+  width: 510px;
+}
+
 
 .mostrar-menu-activo {
   display: block;
