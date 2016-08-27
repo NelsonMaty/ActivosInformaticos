@@ -56,11 +56,9 @@ angular.module('activosInformaticosApp')
     }
 
     if ($scope.keys.indexOf("comment")>=0) {
-      $scope.a =$scope.keys.indexOf("deleted");
+      $scope.a =$scope.keys.indexOf("comment");
       $scope.keys.splice($scope.a,1);
     }
-
-    console.log($scope.keys);
 
     $scope.goHome = function() {
       $state.go('usuario');
@@ -443,7 +441,7 @@ angular.module('activosInformaticosApp')
 
           }
         }
-      } 
+      }
 
       for (i=0;i<response.lifeCycle.length;i++) {
         if (response.lifeCycle[i].name == $scope.asset.estadoActual) {
@@ -456,6 +454,7 @@ angular.module('activosInformaticosApp')
     $scope.goToVersion = function(idVersion, indiceVersion) {
       $scope.showVersion = true;
       $scope.isActualVersion = false;
+      $scope.versionListas = [];
       $scope.sel_version = $scope.assetVersions[indiceVersion];
       if (indiceVersion==0) $scope.isActualVersion = true;
       $scope.versionMembers=[];
@@ -465,12 +464,13 @@ angular.module('activosInformaticosApp')
       $scope.versionKeys.splice($scope.versionKeys.indexOf("tags"),1);
       $scope.versionKeys.splice($scope.versionKeys.indexOf("estadoActual"),1);
       $scope.versionKeys.splice($scope.versionKeys.indexOf("stakeholders"),1);
-      $scope.versionKeys.splice($scope.versionKeys.indexOf("comment"),1);
+      // $scope.versionKeys.splice($scope.versionKeys.indexOf("comment"),1);
       $scope.versionKeys.splice($scope.versionKeys.indexOf("$$hashKey"),1);
       $scope.versionKeys.splice($scope.versionKeys.indexOf("attached"),1);
       $scope.versionKeys.splice($scope.versionKeys.indexOf("_id"),1);
       $scope.versionKeys.splice($scope.versionKeys.indexOf("typeId"),1);
       // console.log($scope.sel_version.asset);
+      // console.log($scope.versionKeys);
 
       if ($scope.versionKeys.indexOf("__v")>=0) {
         $scope.b =$scope.versionKeys.indexOf("__v");
@@ -482,10 +482,15 @@ angular.module('activosInformaticosApp')
         $scope.versionKeys.splice($scope.a,1);
       }
 
+      if ($scope.versionKeys.indexOf("comment")>=0) {
+        $scope.a =$scope.versionKeys.indexOf("comment");
+        $scope.versionKeys.splice($scope.a,1);
+      }
+      
       for (i=0;i<$scope.names_list.length;i++) {
         for (j=0;j<$scope.versionKeys.length;j++) {
             if($scope.names_list[i] == $scope.versionKeys[j]) {
-
+              console.log("if");
               $scope.versionListas.push({
                 name: $scope.names_list[i],
                 elements: $scope.sel_version.asset[$scope.versionKeys[j]]
@@ -495,6 +500,7 @@ angular.module('activosInformaticosApp')
             }
         }
       }
+
 
       for (i=0;i<$scope.asset_type.lifeCycle.length;i++) {
         if ($scope.asset_type.lifeCycle[i].name == $scope.sel_version.asset.estadoActual) {
