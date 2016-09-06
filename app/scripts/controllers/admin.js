@@ -223,12 +223,18 @@ angular.module('activosInformaticosApp')
 
       function AddTypeCtrl($scope, $mdDialog, $mdToast) {
         $scope.asset_type = {};
-        $scope.etapa = 1;
+        $scope.etapa = 0;
         $scope.listaNombreNodos = [];
         $scope.hayFinal = false;
         $scope.previewGraph = {};
         $scope.nombreDuplicado = false;
         $scope.nombreAtributoDuplicado = false;
+        $scope.opcionCrear = "";
+        $scope.selectedTypeId = "";
+
+        dataFactory.getAssetTypes(function (response) {
+          $scope.assettypes = response;
+        });
 
         $scope.nodes = [{
           name: '',
@@ -336,16 +342,27 @@ angular.module('activosInformaticosApp')
               $scope.nodes[parent].adjacents.splice(index,1);
         };
 
-        $scope.nextSelect = function () {
+        $scope.nextSelect = function (opcion,idtype) {
           ++$scope.etapa;
+          
+          if ($scope.etapa == 1 && opcion=="plantilla") {
+            dataFactory.getAnAssetType(idtype,function(response){
+              $scope.asset_type = $.extend(true,{},response);
+              $scope.asset_type.name = "";
+              delete $scope.asset_type._id;
+              $scope.properties = $scope.asset_type.properties;
+              $scope.nodes = $scope.asset_type.lifeCycle;
+            });
+          }
+          
           if ($scope.etapa == 3) {
-            //$scope.estados = $.extend(true,[],$scope.nodes);
-            //console.log($scope.estados);
             for (i=0;i<$scope.nodes.length;i++) {
               $scope.listaNombreNodos[i] = $scope.nodes[i].name;
             }
+            $scope.pedirGraphviz();
           }
-        }
+          
+        };
 
         $scope.prevSelect = function () {
           --$scope.etapa;

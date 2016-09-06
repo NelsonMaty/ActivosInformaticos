@@ -11,20 +11,46 @@
     </md-toolbar>
 
     <div ng-switch="etapa" style="overflow:auto;">
+      <div ng-switch-when="0">
+        <md-content class="md-padding">
 
+          <md-radio-group class="md-block" ng-model="opcionCrear">
+            <md-radio-button value="nuevo">Nueva plantilla</md-radio-button>
+            <md-radio-button value="plantilla">Utilizar plantilla de otro tipo</md-radio-button>
+          </md-radio-group>
+
+          <md-input-container ng-show="opcionCrear=='plantilla'" class="md-block" style="width: 510px;margin-top:34px;">
+            <label>Tipo de activo</label>
+            <md-select ng-model="selectedTypeId" aria-label="tipo activo" >
+              <md-option ng-repeat="tipo in assettypes" value="{{tipo._id}}" >
+                  Tipo de activo {{tipo.name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </md-content>
+        <md-dialog-actions layout="row">
+          <span flex></span>
+          <md-button ng-click="nextSelect(opcionCrear,selectedTypeId)">
+            Siguiente
+          </md-button>
+          <md-button ng-click="cancel()" style="margin-right:20px;">
+            Cancelar
+          </md-button>
+        </md-dialog-actions>
+      </div>
       <div ng-switch-when="1">
         <md-content layout="column" style="padding-top: 18px; margin-left: 20px; ">
           <div style="width: 500px;">
             <md-input-container class=" md-block" >
               <md-icon md-font-set="material-icons" class="name" aria-label="nombre tipo activo">receipt</md-icon>
-              <input ng-model="asset_type.name" type="text" placeholder="Nombre de tipo" ng-required="true">
+              <input ng-model="asset_type.name" type="text" placeholder="Nombre de tipo" ng-required="true" style="width:725px;">
             </md-input-container>
           </div>
           <div style="width: 500px;">
             <md-input-container class=" md-block" >
 
               <md-icon md-font-set="material-icons" class="comments" aria-label="Comentarios">comment</md-icon>
-              <input ng-model="asset_type.comment" type="text" placeholder="Comentarios">
+              <input ng-model="asset_type.comment" type="text" placeholder="Comentarios" style="width:725px;">
             </md-input-container>
 
           </div>
@@ -32,7 +58,7 @@
 
               <md-input-container  class=" md-block" style="padding-right: 6px;">
                   <md-icon md-font-set="material-icons"  >settings_input_component</md-icon>
-                  <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos" ng-required="true" ng-blur="compararAtributo()">
+                  <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos" ng-required="true" ng-blur="compararAtributo()" style="width:325px;">
 
                   <div ng-messages="{'duplicado': nombreAtributoDuplicado}" >
                     <div ng-message="duplicado" style="opacity: 1 !important; margin-top: 0px;"> No pueden existir dos o más atributos con el mismo nombre </div>
@@ -41,7 +67,7 @@
 
               <md-input-container class="md-select " style="bottom: 4px;">
                 <label>Tipo</label>
-                <md-select ng-model="attribute.type" ng-required="true">
+                <md-select ng-model="attribute.type" ng-required="true" style="width:200px;">
                   <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
                     {{tipo}}
                   </md-option>
