@@ -366,6 +366,24 @@ angular.module('activosInformaticosApp')
 
         $scope.prevSelect = function () {
           --$scope.etapa;
+          if ($scope.etapa==0) {
+            $scope.asset_type = {};
+            
+            $scope.nodes = [{
+              name: '',
+              isInitial: true,
+              isFinal: false,
+              adjacents: [''],
+              comment: ''
+            }];
+
+            $scope.properties = [
+            { label: '1',
+              name:'',
+              type:'',
+              required: false
+            }];
+          }
         }
 
         $scope.pedirGraphviz = function () {
