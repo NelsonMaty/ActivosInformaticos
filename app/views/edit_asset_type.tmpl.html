@@ -37,8 +37,8 @@
               <!--{{ d.label}}-->
 
               <md-input-container  class=" md-block" style="padding-right: 6px;">
-                  <md-icon md-font-set="material-icons"  >settings_input_component</md-icon>
-                  <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos" ng-required="true" ng-blur="compararAtributo()">
+                  <md-icon md-font-set="material-icons"  >adjust</md-icon>
+                  <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos" ng-required="true" ng-blur="compararAtributo()" style="width:325px;">
 
                   <div ng-messages="{'duplicado': nombreAtributoDuplicado}" >
                     <div ng-message="duplicado" style="opacity: 1 !important; margin-top: 0px;"> No pueden existir dos o más atributos con el mismo nombre </div>
@@ -47,7 +47,7 @@
 
               <md-input-container class="md-select " style="bottom: 4px;">
                 <label>Tipo</label>
-                <md-select ng-model="attribute.type" ng-required="true">
+                <md-select ng-model="attribute.type" ng-required="true" style="width:200px;">
                   <md-option ng-repeat="tipo in tipos" value="{{tipo}}">
                     {{tipo}}
                   </md-option>

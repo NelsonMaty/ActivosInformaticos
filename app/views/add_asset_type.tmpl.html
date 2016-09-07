@@ -57,7 +57,7 @@
           <div layout="row" ng-repeat="attribute in properties" style="min-height: 82px;">
 
               <md-input-container  class=" md-block" style="padding-right: 6px;">
-                  <md-icon md-font-set="material-icons"  >settings_input_component</md-icon>
+                  <md-icon md-font-set="material-icons"  >adjust</md-icon>
                   <input ng-model="attribute.name" type="text" placeholder="Atributos" aria-label="lista atributos" ng-required="true" ng-blur="compararAtributo()" style="width:325px;">
 
                   <div ng-messages="{'duplicado': nombreAtributoDuplicado}" >
