@@ -354,6 +354,14 @@ angular.module('activosInformaticosApp')
               $scope.nodes = $scope.asset_type.lifeCycle;
             });
           }
+          if ($scope.etapa==2) {
+           
+            for (i=0;i<$scope.nodes.length;i++){
+              
+              if($scope.nodes[i].isFinal==true) $scope.changeFinal($scope.nodes[i].isFinal);
+              
+            }
+          }
           
           if ($scope.etapa == 3) {
             for (i=0;i<$scope.nodes.length;i++) {
@@ -367,6 +375,7 @@ angular.module('activosInformaticosApp')
         $scope.prevSelect = function () {
           --$scope.etapa;
           if ($scope.etapa==0) {
+            $scope.hayFinal=false;
             $scope.asset_type = {};
             
             $scope.nodes = [{
