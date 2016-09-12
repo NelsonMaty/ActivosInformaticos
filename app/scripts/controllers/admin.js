@@ -239,6 +239,7 @@ angular.module('activosInformaticosApp')
         $scope.nodes = [{
           name: '',
           isInitial: true,
+          isCritical: false,
           isFinal: false,
           adjacents: [''],
           comment: ''

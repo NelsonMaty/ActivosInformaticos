@@ -141,6 +141,11 @@
                   <md-checkbox ng-model="nodo.isInitial"  aria-label="Checkbox 2"  ng-disabled="true"></md-checkbox>
                 </div>
 
+                <div style="padding-top: 18px; padding-left: 6px; min-width: 130px;" >
+                  <label>Estado Critico</label>
+                  <md-checkbox ng-model="nodo.isCritical"  aria-label="Checkbox 3"></md-checkbox>
+                </div>
+
                 <div style="padding-top: 18px; padding-left: 6px; min-width: 130px;" ng-hide="nodo.isInitial && nodes.length>1">
                   <label>Estado final</label>
                   <md-checkbox ng-model="nodo.isFinal"  aria-label="Checkbox 1" ng-change="changeFinal(nodo.isFinal)" ng-disabled="!nodo.isFinal && hayFinal"></md-checkbox>
